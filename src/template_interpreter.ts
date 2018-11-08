@@ -4,6 +4,7 @@ import { RobotMapTemplate } from './templates/frc-kotlin/command-based/RobotMap'
 import { SubsystemTemplate } from './templates/frc-kotlin/command-based/subsystems/SubsystemTemplate';
 import { CommandGroupTemplate } from './templates/frc-kotlin/command-based/commands/CommandGroupTemplate';
 import { CommandTemplate } from './templates/frc-kotlin/command-based/commands/CommandTemplate';
+import { BuildGradleTemplate } from './templates/frc-kotlin/command-based/BuildGradle';
 
 export enum templateType {
     subsystem,
@@ -11,7 +12,8 @@ export enum templateType {
     command_group,
     robot,
     oi,
-    robot_map
+    robot_map,
+    build_gradle
 }
 
 export function parseTemplate(className: string, templatetype: templateType) {
@@ -32,14 +34,16 @@ export function getTemplateObject(targetTemplateType: templateType) {
         case templateType.robot:
             return new RobotTemplate();
         case templateType.oi:
-            return new OITemplate;
+            return new OITemplate();
         case templateType.robot_map:
-            return new RobotMapTemplate;
+            return new RobotMapTemplate();
         case templateType.subsystem:
-            return new SubsystemTemplate;
+            return new SubsystemTemplate();
         case templateType.command:
-            return new CommandTemplate;
+            return new CommandTemplate();
         case templateType.command_group:
-            return new CommandGroupTemplate;
+            return new CommandGroupTemplate();
+        case templateType.build_gradle:
+            return new BuildGradleTemplate();
     }
 }

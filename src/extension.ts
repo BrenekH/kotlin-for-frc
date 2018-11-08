@@ -99,6 +99,7 @@ export function activate(context: vscode.ExtensionContext) {
             filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/Robot.kt", templateinterpreter.getTemplateObject(templateinterpreter.templateType.robot).getText());
             filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/RobotMap.kt", templateinterpreter.getTemplateObject(templateinterpreter.templateType.robot_map).getText());
             filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/OI.kt", templateinterpreter.getTemplateObject(templateinterpreter.templateType.oi).getText());
+            filegenerator.createFileWithContent("build.gradle", templateinterpreter.getTemplateObject(templateinterpreter.templateType.build_gradle).getText());
 
             //Dynamic files(need name changes)
             filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/commands/ExampleCommand.kt", templateinterpreter.parseTemplate("ExampleCommand", templateinterpreter.templateType.command));
