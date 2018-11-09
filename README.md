@@ -17,6 +17,9 @@ Kotlin for FRC is an unofficial companion extension to the official WPILib exten
 
 ## Release Notes
 
+### 0.2.0
+* Added Icon
+
 ### 0.1.1
 * Housekeeping changes
 
