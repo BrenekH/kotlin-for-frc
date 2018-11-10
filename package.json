@@ -2,7 +2,7 @@
     "name": "kotlin-for-frc",
     "displayName": "Kotlin For FRC",
     "description": "Kotlin for FRC is an unofficial companion extension to the official WPILib extension which adds support for Kotlin",
-    "version": "0.2.0",
+    "version": "0.2.1",
     "publisher": "Brenek",
     "engines": {
         "vscode": "^1.28.0"
@@ -88,6 +88,9 @@
         "tslint": "^5.8.0",
         "@types/node": "^8.10.25",
         "@types/mocha": "^2.2.42",
+        "rimraf": "^2.6.0"
+    },
+    "dependencies": {
         "rimraf": "^2.6.0"
     },
     "repository": {

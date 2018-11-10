@@ -65,7 +65,7 @@ export function activate(context: vscode.ExtensionContext) {
     context.subscriptions.push(disposable);
 
     disposable = vscode.commands.registerCommand('extension.convertJavaProject', () => {
-        vscode.window.showInformationMessage("This feature is not yet fully implemented.");
+        // vscode.window.showInformationMessage("This feature is not yet fully implemented.");
         console.log("Deleting java project");
         if (typeof vscode.workspace.workspaceFolders === 'undefined') {
             return;
