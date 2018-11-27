@@ -1,6 +1,9 @@
 # Change Log
 
-## 0.2.1 = 2018-11-09
+## 0.3.0 - 2018-11-26
+- Added dialog box to clear confusion about when the conversion from Java to Kotlin was complete
+
+## 0.2.1 - 2018-11-09
 - Fixed bug where the extension would immediately crash
 
 ## 0.2.0 - 2018-11-08
