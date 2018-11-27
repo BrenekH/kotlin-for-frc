@@ -17,6 +17,9 @@ Kotlin for FRC is an unofficial companion extension to the official WPILib exten
 
 ## Release Notes
 
+### 0.3.0
+* Added a dialog box to clear confusion about when the conversion from Java to Kotlin was complete
+
 ### 0.2.1
 * Fixed bug where the extension would immediately crash
 

@@ -65,7 +65,6 @@ export function activate(context: vscode.ExtensionContext) {
     context.subscriptions.push(disposable);
 
     disposable = vscode.commands.registerCommand('extension.convertJavaProject', () => {
-        // vscode.window.showInformationMessage("This feature is not yet fully implemented.");
         console.log("Deleting java project");
         if (typeof vscode.workspace.workspaceFolders === 'undefined') {
             return;
@@ -77,6 +76,7 @@ export function activate(context: vscode.ExtensionContext) {
             console.log("Recreating structure");
             if (typeof vscode.workspace.workspaceFolders === 'undefined') {
                 console.log("Not a valid workspace");
+                vscode.window.showErrorMessage("Kotlin for FRC: Not a valid workspace!");
                 return;
             }
             if (!fs.existsSync(vscode.workspace.workspaceFolders[0].uri.fsPath + "/src/main/kotlin")) {
@@ -100,13 +100,15 @@ export function activate(context: vscode.ExtensionContext) {
             filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/RobotMap.kt", templateinterpreter.getTemplateObject(templateinterpreter.templateType.robot_map).getText());
             filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/OI.kt", templateinterpreter.getTemplateObject(templateinterpreter.templateType.oi).getText());
             filegenerator.createFileWithContent("build.gradle", templateinterpreter.getTemplateObject(templateinterpreter.templateType.build_gradle).getText());
-
+            
             //Dynamic files(need name changes)
             filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/commands/ExampleCommand.kt", templateinterpreter.parseTemplate("ExampleCommand", templateinterpreter.templateType.command));
             filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/subsystems/ExampleSubsystem.kt", templateinterpreter.parseTemplate("ExampleSubsystem", templateinterpreter.templateType.subsystem));
+            
+            vscode.window.showInformationMessage("Kotlin for FRC: Conversion complete!");
         });
     });
-
+    
     context.subscriptions.push(disposable);
 }
 
