@@ -1,6 +1,9 @@
 # Change Log
 
-### 0.3.1 - 2018-11-26
+## 0.4.0 - 2018-12-18
+* Addressed Issue #2 and added support for Iterative, Sample, and Timed Robot types
+
+## 0.3.1 - 2018-11-26
 * Fixed security hole by removing flatmap-stream dependency
 
 ## 0.3.0 - 2018-11-26
