@@ -12,6 +12,7 @@
     ],
     "icon": "images/wpilib-with-kotlin_K-128x128.png",
     "activationEvents": [
+        "workspaceContains:.wpilib/wpilib_preferences.json",
         "onCommand:extension.createCommand",
         "onCommand:extension.createCommandGroup",
         "onCommand:extension.createSubsystem",

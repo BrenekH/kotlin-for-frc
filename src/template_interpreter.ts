@@ -1,10 +1,20 @@
-import { RobotTemplate } from './templates/frc-kotlin/command-based/Robot';
+// Command based
+import { CommandRobotTemplate } from './templates/frc-kotlin/command-based/Robot';
 import { OITemplate } from './templates/frc-kotlin/command-based/OI';
 import { RobotMapTemplate } from './templates/frc-kotlin/command-based/RobotMap';
 import { SubsystemTemplate } from './templates/frc-kotlin/command-based/subsystems/SubsystemTemplate';
 import { CommandGroupTemplate } from './templates/frc-kotlin/command-based/commands/CommandGroupTemplate';
 import { CommandTemplate } from './templates/frc-kotlin/command-based/commands/CommandTemplate';
 import { BuildGradleTemplate } from './templates/frc-kotlin/command-based/BuildGradle';
+
+// Iterative
+import { IterativeRobotTemplate } from './templates/frc-kotlin/iterative/Robot';
+
+// Sample
+import { SampleRobotTemplate } from './templates/frc-kotlin/sample/Robot';
+
+// Timed
+import { TimedRobotTemplate } from './templates/frc-kotlin/timed/Robot';
 
 export enum templateType {
     subsystem,
@@ -16,11 +26,18 @@ export enum templateType {
     build_gradle
 }
 
+export enum robotType {
+    command,
+    sample,
+    timed,
+    iterative
+}
+
 export function parseTemplate(className: string, templatetype: templateType) {
     var className = className;
     var rawTemplateData: string;    
     var transformedData: string;
-    rawTemplateData = getTemplateObject(templatetype).getText();
+    rawTemplateData = getTemplateObjectFromTemplateType(templatetype).getText();
     transformedData = rawTemplateData;
 
     //Class name test
@@ -29,10 +46,10 @@ export function parseTemplate(className: string, templatetype: templateType) {
     return transformedData;
 }
 
-export function getTemplateObject(targetTemplateType: templateType) {
+export function getTemplateObjectFromTemplateType(targetTemplateType: templateType) {
     switch(targetTemplateType) {
         case templateType.robot:
-            return new RobotTemplate();
+            return new CommandRobotTemplate();
         case templateType.oi:
             return new OITemplate();
         case templateType.robot_map:
@@ -45,5 +62,18 @@ export function getTemplateObject(targetTemplateType: templateType) {
             return new CommandGroupTemplate();
         case templateType.build_gradle:
             return new BuildGradleTemplate();
+    }
+}
+
+export function getTemplateObjectFromRobotType(targetRobotType: robotType) {
+    switch(targetRobotType) {
+        case robotType.iterative:
+            return new IterativeRobotTemplate();
+        case robotType.sample:
+            return new SampleRobotTemplate();
+        case robotType.timed:
+            return new TimedRobotTemplate();
+        case robotType.command:
+            return new CommandRobotTemplate();
     }
 }
