@@ -1,4 +1,4 @@
-export class RobotTemplate {
+export class IterativeRobotTemplate {
   private useAtProjectConversion: boolean;
   private text: string;
   constructor() {

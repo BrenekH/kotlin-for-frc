@@ -1,4 +1,4 @@
-export class RobotTemplate {
+export class TimedRobotTemplate {
   private useAtProjectConversion: boolean;
   private text: string;
   constructor() {
