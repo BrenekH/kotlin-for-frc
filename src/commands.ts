@@ -57,7 +57,7 @@ export function createSubsystem(file_path: any) {
 	});
 }
 
-export function convertJavaProject() {
+export function convertJavaProject(current_robot_type: templateinterpreter.robotType) {
 	console.log("Deleting java project");
 	if (typeof vscode.workspace.workspaceFolders === 'undefined') {
 		return;
