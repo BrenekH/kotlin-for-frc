@@ -16,6 +16,13 @@ export enum templateType {
     build_gradle
 }
 
+export enum robotType {
+    command,
+    sample,
+    timed,
+    iterative
+}
+
 export function parseTemplate(className: string, templatetype: templateType) {
     var className = className;
     var rawTemplateData: string;    

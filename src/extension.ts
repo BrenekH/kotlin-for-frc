@@ -26,6 +26,7 @@ export function activate(context: vscode.ExtensionContext) {
     context.subscriptions.push(disposable);
 
     disposable = vscode.commands.registerCommand('extension.convertJavaProject', () => {
+        
         commands.convertJavaProject();
     });
     
