@@ -1,9 +1,6 @@
 'use strict';
 import * as vscode from 'vscode';
-import * as filegenerator from './file_generator';
-import * as templateinterpreter from './template_interpreter';
-import * as rimraf from 'rimraf';
-import * as fs from 'fs';
+import * as commands from "./commands";
 
 
 export function activate(context: vscode.ExtensionContext) {
@@ -11,19 +8,7 @@ export function activate(context: vscode.ExtensionContext) {
     console.log('Congratulations, your extension "kotlin-for-frc" is now active!');
 
     let disposable = vscode.commands.registerCommand('extension.createCommand', (file_path: any) => {
-        console.log(file_path);
-        vscode.window.showInputBox({
-            placeHolder: "Name your command"
-        }).then(value => {
-            if (!value) { return; }
-            var user_data = value;
-            if (typeof vscode.workspace.workspaceFolders === 'undefined') {
-                return;
-            }
-            var workspace_folder_path = vscode.workspace.workspaceFolders[0].uri.fsPath;
-            var path_to_pass = file_path.fsPath.replace(workspace_folder_path, "");
-            filegenerator.showDocumentInViewer(filegenerator.createFileWithContent(path_to_pass + "/" + user_data + ".kt", templateinterpreter.parseTemplate(user_data, templateinterpreter.templateType.command)));
-        });
+        commands.createCommand(file_path);
     });
 
     context.subscriptions.push(disposable);
@@ -105,7 +90,7 @@ export function activate(context: vscode.ExtensionContext) {
             filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/commands/ExampleCommand.kt", templateinterpreter.parseTemplate("ExampleCommand", templateinterpreter.templateType.command));
             filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/subsystems/ExampleSubsystem.kt", templateinterpreter.parseTemplate("ExampleSubsystem", templateinterpreter.templateType.subsystem));
             
-            vscode.window.showInformationMessage("Kotlin for FRC: Conversion complete!");
+            vscode.window.showInformationMessage("Kotlin fzor FRC: Conversion complete!");
         });
     });
     
