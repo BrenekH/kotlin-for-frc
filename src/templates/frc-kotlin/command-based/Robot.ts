@@ -1,4 +1,4 @@
-export class RobotTemplate {
+export class CommandRobotTemplate {
   private useAtProjectConversion: boolean;
   private text: string;
   constructor() {
