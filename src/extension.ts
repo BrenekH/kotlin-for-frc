@@ -6,7 +6,6 @@ import { robotType } from './template_interpreter';
 
 export function activate(context: vscode.ExtensionContext) {
 
-    // console.log(robotType.)
     console.log('Congratulations, your extension "kotlin-for-frc" is now active!');
 
     let disposable = vscode.commands.registerCommand('extension.createCommand', (file_path: any) => {
