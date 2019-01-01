@@ -1,3 +1,6 @@
+//All Robot types
+import { MainTemplate } from './templates/frc-kotlin/Main';
+
 // Command based
 import { CommandRobotTemplate } from './templates/frc-kotlin/command-based/Robot';
 import { OITemplate } from './templates/frc-kotlin/command-based/OI';
@@ -76,4 +79,8 @@ export function getTemplateObjectFromRobotType(targetRobotType: robotType) {
         case robotType.command:
             return new CommandRobotTemplate();
     }
+}
+
+export function getMainTemplateObject() {
+    return new MainTemplate();
 }

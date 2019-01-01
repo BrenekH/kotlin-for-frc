@@ -65,7 +65,7 @@ export function convertJavaProject(current_robot_type: templateinterpreter.robot
 	var pathToDelete = vscode.workspace.workspaceFolders[0].uri.fsPath + "/src/main/java";
 	console.log(pathToDelete);
 	rimraf(pathToDelete, function () {
-		console.log("Done deleteing");
+		console.log("Done deleting");
 		console.log("Recreating structure");
 		if (typeof vscode.workspace.workspaceFolders === 'undefined') {
 			console.log("Not a valid workspace");
@@ -97,7 +97,7 @@ export function convertJavaProject(current_robot_type: templateinterpreter.robot
 				convertTimed();
 				break;
 			default:
-				vscode.window.showInformationMessage("Kotlin For FRC: Something has gone wrong, and I don't know how to describe it.");
+				vscode.window.showErrorMessage("Kotlin For FRC: ERROR 'Invalid Template Type'. Please report in the issues section on github with a detailed description of what steps were taken.");
 				return;
 		}
 
@@ -107,10 +107,12 @@ export function convertJavaProject(current_robot_type: templateinterpreter.robot
 
 function convertIterative() {
 	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/Robot.kt", templateinterpreter.getTemplateObjectFromRobotType(templateinterpreter.robotType.iterative).getText());
+	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/Main.kt", templateinterpreter.getMainTemplateObject().getText());
 }
 
 function convertTimed() {
 	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/Robot.kt", templateinterpreter.getTemplateObjectFromRobotType(templateinterpreter.robotType.timed).getText());
+	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/Main.kt", templateinterpreter.getMainTemplateObject().getText());
 }
 
 function convertCommand() {
@@ -132,6 +134,7 @@ function convertCommand() {
 	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/RobotMap.kt", templateinterpreter.getTemplateObjectFromTemplateType(templateinterpreter.templateType.robot_map).getText());
 	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/OI.kt", templateinterpreter.getTemplateObjectFromTemplateType(templateinterpreter.templateType.oi).getText());
 	filegenerator.createFileWithContent("build.gradle", templateinterpreter.getTemplateObjectFromTemplateType(templateinterpreter.templateType.build_gradle).getText());
+	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/Main.kt", templateinterpreter.getMainTemplateObject().getText());
 	
 	//Dynamic files(need name changes)
 	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/commands/ExampleCommand.kt", templateinterpreter.parseTemplate("ExampleCommand", templateinterpreter.templateType.command));
@@ -140,4 +143,5 @@ function convertCommand() {
 
 function convertSample() {
 	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/Robot.kt", templateinterpreter.getTemplateObjectFromRobotType(templateinterpreter.robotType.sample).getText());
+	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/Main.kt", templateinterpreter.getMainTemplateObject().getText());
 }
