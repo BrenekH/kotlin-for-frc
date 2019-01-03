@@ -1,0 +1,11 @@
+2019:
+    ☐ Auto detect package
+    ☐ Add all command, subsystem, and trigger types
+    Robot Types:
+        ☐ Iterative (Deprecated so need to look into that)
+        ☐ Timed
+        ☐ Command
+        ☐ Sample
+        ☐ Timed skeleton
+Bugs:
+    ☐ When trying to convert without Java folder, things go horribly wrong
