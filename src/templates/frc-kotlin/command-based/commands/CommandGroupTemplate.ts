@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup
 
 class #{NAME}: CommandGroup() {
   init {
-    //Add commands here using: AddParallel or AddSequential
+    //Add commands here using: addParallel or addSequential
   }
 }`;
   }
