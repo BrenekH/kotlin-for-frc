@@ -1,5 +1,9 @@
 language: node_js
 
+cache:
+  directories:
+    - "$HOME/.npm"
+
 sudo: true
 
 node_js:
