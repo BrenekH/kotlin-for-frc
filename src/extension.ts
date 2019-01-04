@@ -27,9 +27,13 @@ export function activate(context: vscode.ExtensionContext) {
     context.subscriptions.push(disposable);
 
     disposable = vscode.commands.registerCommand('extension.createTimedCommand', (file_path: any) => {
-        vscode.window.showQuickPick(["Thing", "Other thing", "Yet another thing"]).then((string_thing: any) => {
-            console.log(string_thing);
-        });
+        commands.createTimedCommand(file_path);
+    });
+
+    context.subscriptions.push(disposable);
+
+    disposable = vscode.commands.registerCommand('extension.createNew', (file_path: any) => {
+        commands.createNew();
     });
 
     context.subscriptions.push(disposable);

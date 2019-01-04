@@ -50,17 +50,7 @@
             "explorer/context": [
                 {
                     "when": "explorerResourceIsFolder && isWPILibProject",
-                    "command": "extension.createSubsystem",
-                    "group": "frc-kotlin"
-                },
-                {
-                    "when": "explorerResourceIsFolder && isWPILibProject",
-                    "command": "extension.createCommand",
-                    "group": "frc-kotlin"
-                },
-                {
-                    "when": "explorerResourceIsFolder && isWPILibProject",
-                    "command": "extension.createCommandGroup",
+                    "command": "extension.createNew",
                     "group": "frc-kotlin"
                 }
             ],
