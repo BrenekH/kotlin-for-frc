@@ -9,6 +9,7 @@ node_js:
 
 install:
   - npm install -g vsce
+  - npm install -g typescript
 
 script:
   - vsce package
