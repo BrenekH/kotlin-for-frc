@@ -8,11 +8,6 @@ export class BuildGradleTemplate {
     id "edu.wpi.first.GradleRIO" version "2019.1.1-rc-1"
     id "org.jetbrains.kotlin.jvm" version "1.3.0"
 }
-plugins {
-    id "java"
-    id "edu.wpi.first.GradleRIO" version "2019.1.1-rc-1"
-    id "org.jetbrains.kotlin.jvm" version "1.3.0"
-}
 
 def ROBOT_MAIN_CLASS = "frc.robot.Main"
 
