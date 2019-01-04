@@ -33,7 +33,15 @@ export function activate(context: vscode.ExtensionContext) {
 			return;
         }
         console.log("Reading Robot.java");
-        var robot_java: string = fs.readFileSync(vscode.workspace.workspaceFolders[0].uri.fsPath + "/src/main/java/frc/robot/Robot.java", 'utf8');
+        // Check to make sure filepaths are even there
+        try {
+            var robot_java: string = fs.readFileSync(vscode.workspace.workspaceFolders[0].uri.fsPath + "/src/main/java/frc/robot/Robot.java", 'utf8');
+        }
+        catch (e) {
+            console.log(e);
+            vscode.window.showErrorMessage("Kotlin for FRC: Could not find Robot.java. You may have already converted this project or the correct directories are missing.");
+            return;
+        }
         var current_robot_type: robotType = robotType.sample;
 
         if (robot_java.includes("edu.wpi.first.wpilibj.command.Command")) {
