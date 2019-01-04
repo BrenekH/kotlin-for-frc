@@ -45,7 +45,7 @@
                     "command": "extension.createNew",
                     "when": "isWPILibProject && !isWPILibProject"
                 }
-            ]   
+            ]
         }
     },
     "scripts": {
