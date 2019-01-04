@@ -26,18 +26,18 @@ import { TimedRobotTemplate } from './templates/frc-kotlin/timed/Robot';
 import { TimedRobotSkeletonTemplate } from './templates/frc-kotlin/timed-skeleton/Robot';
 
 export enum templateType {
-    subsystem,
-    command,
-    command_group,
-    empty_class,
-    instant_command,
-    timed_command,
-    pid_subsystem,
-    trigger,
-    robot,
-    oi,
-    robot_map,
-    build_gradle
+    subsystem = "Subsystem",
+    command = "Command",
+    command_group = "Command Group",
+    empty_class = "Empty Class",
+    instant_command = "Instant Command",
+    timed_command = "Timed Command",
+    pid_subsystem = "PID Subsystem",
+    trigger = "Trigger",
+    robot = "Robot",
+    oi = "OI",
+    robot_map = "Robot Map",
+    build_gradle = "build.gradle"
 }
 
 export enum robotType {

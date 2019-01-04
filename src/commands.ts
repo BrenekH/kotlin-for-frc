@@ -5,9 +5,60 @@ import * as templateinterpreter from "./template_interpreter";
 import * as rimraf from "rimraf";
 import * as fs from "fs";
 
-export function createNew() {
-	vscode.window.showQuickPick(["Thing", "Other thing", "Yet another thing"]).then((string_thing: any) => {
-		console.log(string_thing);
+export function createNew(file_path: any) {
+	vscode.window.showQuickPick(["Command", "Subsystem", "Trigger", "Empty Class"]).then((option: any) => {
+		switch(option) {
+			case "Command":
+				createNewCommand(file_path);
+				break;
+			case "Subsystem":
+				createNewSubsystem(file_path);
+				break;
+			case "Trigger":
+				createTrigger(file_path);
+				break;
+			case "Empty Class":
+				createEmptyClass(file_path);
+				break;
+			default:
+				return;
+		}
+	});
+}
+
+function createNewSubsystem(file_path: any) {
+	vscode.window.showQuickPick(["Subsystem", "PID Subsystem"]).then((option: any) => {
+		switch(option) {
+			case "Subsystem":
+				createSubsystem(file_path);
+				break;
+			case "PID Subsystem":
+				createPIDSubsystem(file_path);
+				break;
+			default:
+				return;
+		}
+	});
+}
+
+function createNewCommand(file_path: any) {
+	vscode.window.showQuickPick(["Command", "Command Group", "Instant Command", "Timed Command"]).then((option: any) => {
+		switch(option) {
+			case "Command":
+				createCommand(file_path);
+				break;
+			case "Command Group":
+				createCommandGroup(file_path);
+				break;
+			case "Instant Command":
+				createInstantCommand(file_path);
+				break;
+			case "Timed Command":
+				createTimedCommand(file_path);
+				break;
+			default:
+				return;
+		}
 	});
 }
 
@@ -27,10 +78,26 @@ export function createTimedCommand(file_path: any) {
 	parseAndSaveTemplateToDocument(file_path, "frc.robot", templateinterpreter.templateType.timed_command);
 }
 
+export function createInstantCommand(file_path: any) {
+	parseAndSaveTemplateToDocument(file_path, "frc.robot", templateinterpreter.templateType.instant_command);
+}
+
+export function createPIDSubsystem(file_path: any) {
+	parseAndSaveTemplateToDocument(file_path, "frc.robot", templateinterpreter.templateType.pid_subsystem);
+}
+
+export function createEmptyClass(file_path: any) {
+	parseAndSaveTemplateToDocument(file_path, "frc.robot", templateinterpreter.templateType.empty_class);
+}
+
+export function createTrigger(file_path: any) {
+	parseAndSaveTemplateToDocument(file_path, "frc.robot", templateinterpreter.templateType.trigger);
+}
+
 function parseAndSaveTemplateToDocument(file_path: any, package_name: string, templateType: templateinterpreter.templateType) {
 	console.log(file_path);
 	vscode.window.showInputBox({
-		placeHolder: "Name your command group"
+		placeHolder: "Name your " + templateType.toString()
 	}).then(value => {
 		if (!value) { return; }
 		var user_data = value;
