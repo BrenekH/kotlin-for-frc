@@ -2,7 +2,7 @@
     "name": "kotlin-for-frc",
     "displayName": "Kotlin For FRC",
     "description": "Kotlin for FRC is an unofficial companion extension to the official WPILib extension which adds support for Kotlin",
-    "version": "0.4.0",
+    "version": "1.0.0",
     "publisher": "Brenek",
     "engines": {
         "vscode": "^1.28.0"
@@ -13,46 +13,26 @@
     "icon": "images/wpilib-with-kotlin_K-128x128.png",
     "activationEvents": [
         "workspaceContains:.wpilib/wpilib_preferences.json",
-        "onCommand:extension.createCommand",
-        "onCommand:extension.createCommandGroup",
-        "onCommand:extension.createSubsystem",
+        "onCommand:extension.createNew",
         "onCommand:extension.convertJavaProject"
     ],
     "main": "./out/extension",
     "contributes": {
         "commands": [
             {
-                "command": "extension.createCommand",
-                "title": "Kotlin-FRC: Create new command"
-            },
-            {
-                "command": "extension.createCommandGroup",
-                "title": "Kotlin-FRC: Create new command group"
-            },
-            {
-                "command": "extension.createSubsystem",
-                "title": "Kotlin-FRC: Create new subsystem"
-            },
-            {
                 "command": "extension.convertJavaProject",
                 "title": "Kotlin-FRC: Convert Java Project to Kotlin"
+            },
+            {
+                "command": "extension.createNew",
+                "title": "Kotlin-FRC: Create new class/command here"
             }
         ],
         "menus": {
             "explorer/context": [
                 {
                     "when": "explorerResourceIsFolder && isWPILibProject",
-                    "command": "extension.createSubsystem",
-                    "group": "frc-kotlin"
-                },
-                {
-                    "when": "explorerResourceIsFolder && isWPILibProject",
-                    "command": "extension.createCommand",
-                    "group": "frc-kotlin"
-                },
-                {
-                    "when": "explorerResourceIsFolder && isWPILibProject",
-                    "command": "extension.createCommandGroup",
+                    "command": "extension.createNew",
                     "group": "frc-kotlin"
                 }
             ],
@@ -62,15 +42,7 @@
                     "when": "isWPILibProject"
                 },
                 {
-                    "command": "extension.createSubsystem",
-                    "when": "isWPILibProject && !isWPILibProject"
-                },
-                {
-                    "command": "extension.createCommand",
-                    "when": "isWPILibProject && !isWPILibProject"
-                },
-                {
-                    "command": "extension.createCommandGroup",
+                    "command": "extension.createNew",
                     "when": "isWPILibProject && !isWPILibProject"
                 }
             ]   
