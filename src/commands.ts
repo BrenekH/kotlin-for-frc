@@ -63,35 +63,35 @@ function createNewCommand(file_path: any) {
 }
 
 export function createCommand(file_path: any) {
-	parseAndSaveTemplateToDocument(file_path, "frc.robot", templateinterpreter.templateType.command);
+	parseAndSaveTemplateToDocument(file_path, filegenerator.generatePackage(file_path), templateinterpreter.templateType.command);
 }
 
 export function createCommandGroup(file_path: any) {
-	parseAndSaveTemplateToDocument(file_path, "frc.robot", templateinterpreter.templateType.command_group);
+	parseAndSaveTemplateToDocument(file_path, filegenerator.generatePackage(file_path), templateinterpreter.templateType.command_group);
 }
 
 export function createSubsystem(file_path: any) {
-	parseAndSaveTemplateToDocument(file_path, "frc.robot", templateinterpreter.templateType.subsystem);
+	parseAndSaveTemplateToDocument(file_path, filegenerator.generatePackage(file_path), templateinterpreter.templateType.subsystem);
 }
 
 export function createTimedCommand(file_path: any) {
-	parseAndSaveTemplateToDocument(file_path, "frc.robot", templateinterpreter.templateType.timed_command);
+	parseAndSaveTemplateToDocument(file_path, filegenerator.generatePackage(file_path), templateinterpreter.templateType.timed_command);
 }
 
 export function createInstantCommand(file_path: any) {
-	parseAndSaveTemplateToDocument(file_path, "frc.robot", templateinterpreter.templateType.instant_command);
+	parseAndSaveTemplateToDocument(file_path, filegenerator.generatePackage(file_path), templateinterpreter.templateType.instant_command);
 }
 
 export function createPIDSubsystem(file_path: any) {
-	parseAndSaveTemplateToDocument(file_path, "frc.robot", templateinterpreter.templateType.pid_subsystem);
+	parseAndSaveTemplateToDocument(file_path, filegenerator.generatePackage(file_path), templateinterpreter.templateType.pid_subsystem);
 }
 
 export function createEmptyClass(file_path: any) {
-	parseAndSaveTemplateToDocument(file_path, "frc.robot", templateinterpreter.templateType.empty_class);
+	parseAndSaveTemplateToDocument(file_path, filegenerator.generatePackage(file_path), templateinterpreter.templateType.empty_class);
 }
 
 export function createTrigger(file_path: any) {
-	parseAndSaveTemplateToDocument(file_path, "frc.robot", templateinterpreter.templateType.trigger);
+	parseAndSaveTemplateToDocument(file_path, filegenerator.generatePackage(file_path), templateinterpreter.templateType.trigger);
 }
 
 function parseAndSaveTemplateToDocument(file_path: any, package_name: string, templateType: templateinterpreter.templateType) {
