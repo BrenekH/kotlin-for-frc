@@ -26,6 +26,15 @@ export function showDocumentInViewer(filePath: string | undefined) {
   });
 }
 
-export function generatePackage(filePath: string) {
-  return "frc.robot";
+export function generatePackage(filePath: any) {
+  if (typeof vscode.workspace.workspaceFolders === "undefined") {
+    vscode.window.showErrorMessage("Kotlin for FRC: Could not auto detect package");
+    return "frc.robot";
+  }
+  var workspace_path = vscode.workspace.workspaceFolders[0].uri.path;
+  var path_to_main_folder = workspace_path + "/src/main/kotlin/";
+  console.log(path_to_main_folder);
+  var package_string = filePath.path.replace(path_to_main_folder, "").replace(/\//g, ".");
+  console.log(package_string);
+  return package_string;
 }
