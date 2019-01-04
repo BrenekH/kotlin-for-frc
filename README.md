@@ -22,7 +22,6 @@ Kotlin for FRC is an unofficial companion extension to the official WPILib exten
 * Converted all templates to match WPILib templates for the 2019 FRC Season
 * Implemented auto detection of package when creating new classes
 * New scheme for creating new classes
-* Added TODO for easier collection of ideas for extension development
 
 ### 0.4.0
 * Addressed Issue #2 and added support for Iterative, Sample, and Timed Robot types
