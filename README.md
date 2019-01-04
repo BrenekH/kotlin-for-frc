@@ -9,13 +9,19 @@ Kotlin for FRC is an unofficial companion extension to the official WPILib exten
 
 ## Requirements
 
-* [WPILib](https://github.com/wpilibsuite/vscode-wpilib/releases) (Only Alpha Build 4 is currently supported)
+* [WPILib](https://github.com/wpilibsuite/vscode-wpilib/releases) (2019 Version required)
 
 ## Known Issues
 
 * None.....Yet
 
 ## Release Notes
+
+### 1.0.0
+* FULL RELEASE!
+* Converted all templates to match WPILib templates for the 2019 FRC Season
+* Implemented auto detection of package when creating new classes
+* New scheme for creating new classes
 
 ### 0.4.0
 * Addressed Issue #2 and added support for Iterative, Sample, and Timed Robot types
@@ -28,6 +34,3 @@ Kotlin for FRC is an unofficial companion extension to the official WPILib exten
 
 ### 0.2.1
 * Fixed bug where the extension would immediately crash
-
-### 0.2.0
-* Added Icon

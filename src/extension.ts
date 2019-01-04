@@ -6,23 +6,10 @@ import { robotType } from './template_interpreter';
 
 export function activate(context: vscode.ExtensionContext) {
 
-    // console.log(robotType.)
     console.log('Congratulations, your extension "kotlin-for-frc" is now active!');
 
-    let disposable = vscode.commands.registerCommand('extension.createCommand', (file_path: any) => {
-        commands.createCommand(file_path);
-    });
-
-    context.subscriptions.push(disposable);
-
-    disposable = vscode.commands.registerCommand('extension.createCommandGroup', (file_path: any) => {
-        commands.createCommandGroup(file_path);
-    });
-
-    context.subscriptions.push(disposable);
-
-    disposable = vscode.commands.registerCommand('extension.createSubsystem', (file_path: any) => {
-        commands.createSubsystem(file_path);
+    let disposable = vscode.commands.registerCommand('extension.createNew', (file_path: any) => {
+        commands.createNew(file_path);
     });
 
     context.subscriptions.push(disposable);
@@ -34,7 +21,15 @@ export function activate(context: vscode.ExtensionContext) {
 			return;
         }
         console.log("Reading Robot.java");
-        var robot_java: string = fs.readFileSync(vscode.workspace.workspaceFolders[0].uri.fsPath + "/src/main/java/frc/robot/Robot.java", 'utf8');
+        // Check to make sure file paths are even there
+        try {
+            var robot_java: string = fs.readFileSync(vscode.workspace.workspaceFolders[0].uri.fsPath + "/src/main/java/frc/robot/Robot.java", 'utf8');
+        }
+        catch (e) {
+            console.log(e);
+            vscode.window.showErrorMessage("Kotlin for FRC: Could not find Robot.java. You may have already converted this project or the correct directories are missing.");
+            return;
+        }
         var current_robot_type: robotType = robotType.sample;
 
         if (robot_java.includes("edu.wpi.first.wpilibj.command.Command")) {
@@ -50,8 +45,14 @@ export function activate(context: vscode.ExtensionContext) {
             console.log("Sample");
         }
         else if (robot_java.includes("edu.wpi.first.wpilibj.TimedRobot")) {
-            current_robot_type = robotType.timed;
-            console.log("Timed");
+            if (robot_java.includes("edu.wpi.first.wpilibj.smartdashboard.SendableChooser")) {
+                current_robot_type = robotType.timed;
+                console.log("Timed");
+            }
+            else {
+                current_robot_type = robotType.timed_skeleton;
+                console.log("Timed skeleton");
+            }
         }
 
         commands.convertJavaProject(current_robot_type);
