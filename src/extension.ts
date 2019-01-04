@@ -33,7 +33,7 @@ export function activate(context: vscode.ExtensionContext) {
 			return;
         }
         console.log("Reading Robot.java");
-        // Check to make sure filepaths are even there
+        // Check to make sure file paths are even there
         try {
             var robot_java: string = fs.readFileSync(vscode.workspace.workspaceFolders[0].uri.fsPath + "/src/main/java/frc/robot/Robot.java", 'utf8');
         }

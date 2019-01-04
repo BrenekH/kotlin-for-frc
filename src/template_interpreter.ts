@@ -36,7 +36,7 @@ export enum robotType {
     iterative
 }
 
-export function parseTemplate(className: string, templatetype: templateType) {
+export function parseTemplate(className: string, packageName: string, templatetype: templateType) {
     var className = className;
     var rawTemplateData: string;    
     var transformedData: string;
@@ -46,6 +46,11 @@ export function parseTemplate(className: string, templatetype: templateType) {
     //Class name test
     var re = /#{NAME}/gi;
     transformedData = transformedData.replace(re, className);
+
+    // Package generation
+    re = /#{PACKAGE}/gi;
+    transformedData = transformedData.replace(re, packageName);
+    
     return transformedData;
 }
 
