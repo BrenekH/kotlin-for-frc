@@ -45,8 +45,14 @@ export function activate(context: vscode.ExtensionContext) {
             console.log("Sample");
         }
         else if (robot_java.includes("edu.wpi.first.wpilibj.TimedRobot")) {
-            current_robot_type = robotType.timed;
-            console.log("Timed");
+            if (robot_java.includes("edu.wpi.first.wpilibj.smartdashboard.SendableChooser")) {
+                current_robot_type = robotType.timed;
+                console.log("Timed");
+            }
+            else {
+                current_robot_type = robotType.timed_skeleton;
+                console.log("Timed skeleton");
+            }
         }
 
         commands.convertJavaProject(current_robot_type);
