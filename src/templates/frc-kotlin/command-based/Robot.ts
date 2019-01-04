@@ -3,9 +3,16 @@ export class CommandRobotTemplate {
   private text: string;
   constructor() {
   this.useAtProjectConversion = true;
-  this.text = `package frc.robot
+  this.text = `/*----------------------------------------------------------------------------*/
+/* Copyright (c) 2017-2018 FIRST. All Rights Reserved.                        */
+/* Open Source Software - may be modified and shared by FRC teams. The code   */
+/* must be accompanied by the FIRST BSD license file in the root directory of */
+/* the project.                                                               */
+/*----------------------------------------------------------------------------*/
 
-import edu.wpi.first.wpilibj.IterativeRobot
+package frc.robot
+
+import edu.wpi.first.wpilibj.TimedRobot
 import edu.wpi.first.wpilibj.command.Command
 import edu.wpi.first.wpilibj.command.Scheduler
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser
@@ -14,28 +21,36 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard
 import frc.robot.commands.ExampleCommand
 import frc.robot.subsystems.ExampleSubsystem
 
-class Robot: IterativeRobot() {
-  /**
-   * "Static" class members
-   */
+class Robot: TimedRobot() {
+
   companion object {
-    val exampleSubsystem: ExampleSubsystem = ExampleSubsystem()
-    var oi: OI? = null
+    val m_exampleSubsystem: ExampleSubsystem = ExampleSubsystem()
+    var m_oi: OI? = null
   }
 
-  var autonomousCommand: Command? = null
-  var chooser: SendableChooser<Command> = SendableChooser()
+  var m_autonomousCommand: Command? = null
+  var m_chooser: SendableChooser<Command> = SendableChooser()
 
   /**
    * This function is run when the robot is first started up and should be
    * used for any initialization code.
    */
   override fun robotInit() {
-    oi = OI()
-    chooser.addDefault("Default Auto", ExampleCommand())
-    // chooser.addObject("My Auto", MyAutoCommand())
-    SmartDashboard.putData("Auto mode", chooser)
+    m_oi = OI()
+    m_chooser.setDefaultOption("Default Auto", ExampleCommand())
+    // m_chooser.addOption("My Auto", MyAutoCommand())
+    SmartDashboard.putData("Auto mode", m_chooser)
   }
+
+  /**
+   * This function is called every robot packet, no matter the mode. Use
+   * this for items like diagnostics that you want ran during disabled,
+   * autonomous, teleoperated and test.
+   *
+   * <p>This runs after the mode specific periodic functions, but before
+   * LiveWindow and SmartDashboard integrated updating.
+   */
+  override fun robotPeriodic() {}
 
   /**
    * This function is called once each time the robot enters Disabled mode.
@@ -62,7 +77,7 @@ class Robot: IterativeRobot() {
   override fun autonomousInit() {
     /*
      * val autoSelected: String = SmartDashboard.getString("Auto Selector", "Default")
-     * autonomousCommand = when (autoSelected) {
+     * m_autonomousCommand = when (autoSelected) {
      *   "My Auto" -> MyAutoCommand()
      *   "Default Auto" -> ExampleCommand()
      *   else -> ExampleCommand()
@@ -70,7 +85,7 @@ class Robot: IterativeRobot() {
      */
 
     // schedule the autonomous command (example)
-    chooser.selected?.start()
+    m_chooser.selected?.start()
   }
 
   /**
@@ -85,7 +100,7 @@ class Robot: IterativeRobot() {
     // teleop starts running. If you want the autonomous to
     // continue until interrupted by another command, remove
     // this line or comment it out.
-    autonomousCommand?.start()
+    m_autonomousCommand?.cancel()
   }
 
   /**
@@ -99,7 +114,8 @@ class Robot: IterativeRobot() {
    * This function is called periodically during test mode
    */
   override fun testPeriodic() {}
-}`;
+}
+`;
 }
 public getText(): string {
   return this.text;

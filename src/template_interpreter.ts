@@ -8,7 +8,7 @@ import { RobotMapTemplate } from './templates/frc-kotlin/command-based/RobotMap'
 import { SubsystemTemplate } from './templates/frc-kotlin/command-based/subsystems/SubsystemTemplate';
 import { CommandGroupTemplate } from './templates/frc-kotlin/command-based/commands/CommandGroupTemplate';
 import { CommandTemplate } from './templates/frc-kotlin/command-based/commands/CommandTemplate';
-import { BuildGradleTemplate } from './templates/frc-kotlin/command-based/BuildGradle';
+import { BuildGradleTemplate } from './templates/frc-kotlin/BuildGradle';
 
 // Iterative
 import { IterativeRobotTemplate } from './templates/frc-kotlin/iterative/Robot';

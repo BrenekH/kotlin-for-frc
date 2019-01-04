@@ -8,4 +8,4 @@
         ☐ Sample
         ☐ Timed skeleton
 Bugs:
-    ☐ When trying to convert without Java folder, things go horribly wrong
+    ✔ When trying to convert without Java folder, things go horribly wrong @done(19-01-03 12:26)
