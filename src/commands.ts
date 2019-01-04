@@ -6,7 +6,9 @@ import * as rimraf from "rimraf";
 import * as fs from "fs";
 
 export function createNew() {
-	
+	vscode.window.showQuickPick(["Thing", "Other thing", "Yet another thing"]).then((string_thing: any) => {
+		console.log(string_thing);
+	});
 }
 
 export function createCommand(file_path: any) {
@@ -19,6 +21,10 @@ export function createCommandGroup(file_path: any) {
 
 export function createSubsystem(file_path: any) {
 	parseAndSaveTemplateToDocument(file_path, "frc.robot", templateinterpreter.templateType.subsystem);
+}
+
+export function createTimedCommand(file_path: any) {
+	parseAndSaveTemplateToDocument(file_path, "frc.robot", templateinterpreter.templateType.timed_command);
 }
 
 function parseAndSaveTemplateToDocument(file_path: any, package_name: string, templateType: templateinterpreter.templateType) {
