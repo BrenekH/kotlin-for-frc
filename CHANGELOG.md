@@ -1,5 +1,12 @@
 # Change Log
 
+## 1.0.0 - 2019-01-04
+* FULL RELEASE!
+* Converted all templates to match WPILib templates for the 2019 FRC Season
+* Implemented auto detection of package when creating new classes
+* New scheme for creating new classes
+* Added TODO for easier collection of ideas for extension development
+
 ## 0.4.0 - 2018-12-18
 * Addressed Issue #2 and added support for Iterative, Sample, and Timed Robot types
 
