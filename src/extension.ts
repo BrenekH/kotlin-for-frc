@@ -8,31 +8,7 @@ export function activate(context: vscode.ExtensionContext) {
 
     console.log('Congratulations, your extension "kotlin-for-frc" is now active!');
 
-    let disposable = vscode.commands.registerCommand('extension.createCommand', (file_path: any) => {
-        commands.createCommand(file_path);
-    });
-
-    context.subscriptions.push(disposable);
-
-    disposable = vscode.commands.registerCommand('extension.createCommandGroup', (file_path: any) => {
-        commands.createCommandGroup(file_path);
-    });
-
-    context.subscriptions.push(disposable);
-
-    disposable = vscode.commands.registerCommand('extension.createSubsystem', (file_path: any) => {
-        commands.createSubsystem(file_path);
-    });
-
-    context.subscriptions.push(disposable);
-
-    disposable = vscode.commands.registerCommand('extension.createTimedCommand', (file_path: any) => {
-        commands.createTimedCommand(file_path);
-    });
-
-    context.subscriptions.push(disposable);
-
-    disposable = vscode.commands.registerCommand('extension.createNew', (file_path: any) => {
+    let disposable = vscode.commands.registerCommand('extension.createNew', (file_path: any) => {
         commands.createNew(file_path);
     });
 

@@ -2,7 +2,7 @@
     "name": "kotlin-for-frc",
     "displayName": "Kotlin For FRC",
     "description": "Kotlin for FRC is an unofficial companion extension to the official WPILib extension which adds support for Kotlin",
-    "version": "0.4.0",
+    "version": "1.0.0",
     "publisher": "Brenek",
     "engines": {
         "vscode": "^1.28.0"
@@ -13,33 +13,15 @@
     "icon": "images/wpilib-with-kotlin_K-128x128.png",
     "activationEvents": [
         "workspaceContains:.wpilib/wpilib_preferences.json",
-        "onCommand:extension.createCommand",
-        "onCommand:extension.createCommandGroup",
-        "onCommand:extension.createSubsystem",
+        "onCommand:extension.createNew",
         "onCommand:extension.convertJavaProject"
     ],
     "main": "./out/extension",
     "contributes": {
         "commands": [
             {
-                "command": "extension.createCommand",
-                "title": "Kotlin-FRC: Create new command"
-            },
-            {
-                "command": "extension.createCommandGroup",
-                "title": "Kotlin-FRC: Create new command group"
-            },
-            {
-                "command": "extension.createSubsystem",
-                "title": "Kotlin-FRC: Create new subsystem"
-            },
-            {
                 "command": "extension.convertJavaProject",
                 "title": "Kotlin-FRC: Convert Java Project to Kotlin"
-            },
-            {
-                "command": "extension.createTimedCommand",
-                "title": "Kotlin-FRC: Create new Timed Command"
             },
             {
                 "command": "extension.createNew",
@@ -60,19 +42,8 @@
                     "when": "isWPILibProject"
                 },
                 {
-                    "command": "extension.createSubsystem",
+                    "command": "extension.createNew",
                     "when": "isWPILibProject && !isWPILibProject"
-                },
-                {
-                    "command": "extension.createCommand",
-                    "when": "isWPILibProject && !isWPILibProject"
-                },
-                {
-                    "command": "extension.createCommandGroup",
-                    "when": "isWPILibProject && !isWPILibProject"
-                },
-                {
-                    "command": "extension.createTimedCommand"
                 }
             ]   
         }
