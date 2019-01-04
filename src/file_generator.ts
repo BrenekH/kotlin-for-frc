@@ -27,5 +27,5 @@ export function showDocumentInViewer(filePath: string | undefined) {
 }
 
 export function generatePackage(filePath: string) {
-  
+  return "frc.robot";
 }
