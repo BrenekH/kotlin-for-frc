@@ -26,6 +26,14 @@ export function activate(context: vscode.ExtensionContext) {
 
     context.subscriptions.push(disposable);
 
+    disposable = vscode.commands.registerCommand('extension.createTimedCommand', (file_path: any) => {
+        vscode.window.showQuickPick(["Thing", "Other thing", "Yet another thing"]).then((string_thing: any) => {
+            console.log(string_thing);
+        });
+    });
+
+    context.subscriptions.push(disposable);
+
     disposable = vscode.commands.registerCommand('extension.convertJavaProject', () => {
         if (typeof vscode.workspace.workspaceFolders === 'undefined') {
 			console.log("Not a valid workspace");

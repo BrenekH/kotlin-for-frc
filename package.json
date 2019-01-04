@@ -36,6 +36,14 @@
             {
                 "command": "extension.convertJavaProject",
                 "title": "Kotlin-FRC: Convert Java Project to Kotlin"
+            },
+            {
+                "command": "extension.createTimedCommand",
+                "title": "Kotlin-FRC: Create new Timed Command"
+            },
+            {
+                "command": "extension.createNew",
+                "title": "Kotlin-FRC: Create new class/command here"
             }
         ],
         "menus": {
@@ -72,6 +80,9 @@
                 {
                     "command": "extension.createCommandGroup",
                     "when": "isWPILibProject && !isWPILibProject"
+                },
+                {
+                    "command": "extension.createTimedCommand"
                 }
             ]   
         }
