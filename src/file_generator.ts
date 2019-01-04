@@ -25,3 +25,7 @@ export function showDocumentInViewer(filePath: string | undefined) {
     vscode.window.showTextDocument(doc);
   });
 }
+
+export function generatePackage(filePath: string) {
+  
+}

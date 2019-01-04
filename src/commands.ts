@@ -6,26 +6,18 @@ import * as rimraf from "rimraf";
 import * as fs from "fs";
 
 export function createCommand(file_path: any) {
-  console.log(file_path);
-  vscode.window
-	.showInputBox({
-	  placeHolder: "Name your command"
-	})
-	.then(value => {
-	  if (!value) {
-		return;
-	  }
-	  var user_data = value;
-	  if (typeof vscode.workspace.workspaceFolders === "undefined") {
-		return;
-	  }
-	  var workspace_folder_path = vscode.workspace.workspaceFolders[0].uri.fsPath;
-	  var path_to_pass = file_path.fsPath.replace(workspace_folder_path, "");
-	  filegenerator.showDocumentInViewer(filegenerator.createFileWithContent(path_to_pass + "/" + user_data + ".kt", templateinterpreter.parseTemplate(user_data, templateinterpreter.templateType.command)));
-	});
+  parseAndSaveTemplateToDocument(file_path, "frc.robot", templateinterpreter.templateType.command);
 }
 
 export function createCommandGroup(file_path: any) {
+	parseAndSaveTemplateToDocument(file_path, "frc.robot", templateinterpreter.templateType.command_group);
+}
+
+export function createSubsystem(file_path: any) {
+	parseAndSaveTemplateToDocument(file_path, "frc.robot", templateinterpreter.templateType.subsystem);
+}
+
+function parseAndSaveTemplateToDocument(file_path: any, package_name: string, templateType: templateinterpreter.templateType) {
 	console.log(file_path);
 	vscode.window.showInputBox({
 		placeHolder: "Name your command group"
@@ -37,23 +29,7 @@ export function createCommandGroup(file_path: any) {
 		}
 		var workspace_folder_path = vscode.workspace.workspaceFolders[0].uri.fsPath;
 		var path_to_pass = file_path.fsPath.replace(workspace_folder_path, "");
-		filegenerator.showDocumentInViewer(filegenerator.createFileWithContent(path_to_pass + "/" + user_data + ".kt", templateinterpreter.parseTemplate(user_data, templateinterpreter.templateType.command_group)));
-	});
-}
-
-export function createSubsystem(file_path: any) {
-	console.log(file_path);
-	vscode.window.showInputBox({
-		placeHolder: "Name your subsystem"
-	}).then(value => {
-		if (!value) { return; }
-		var user_data = value;
-		if (typeof vscode.workspace.workspaceFolders === 'undefined') {
-			return;
-		}
-		var workspace_folder_path = vscode.workspace.workspaceFolders[0].uri.fsPath;
-		var path_to_pass = file_path.fsPath.replace(workspace_folder_path, "");
-		filegenerator.showDocumentInViewer(filegenerator.createFileWithContent(path_to_pass + "/" + user_data + ".kt", templateinterpreter.parseTemplate(user_data, templateinterpreter.templateType.subsystem)));
+		filegenerator.showDocumentInViewer(filegenerator.createFileWithContent(path_to_pass + "/" + user_data + ".kt", templateinterpreter.parseTemplate(user_data, package_name, templateType)));
 	});
 }
 
@@ -137,8 +113,8 @@ function convertCommand() {
 	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/Main.kt", templateinterpreter.getMainTemplateObject().getText());
 	
 	//Dynamic files(need name changes)
-	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/commands/ExampleCommand.kt", templateinterpreter.parseTemplate("ExampleCommand", templateinterpreter.templateType.command));
-	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/subsystems/ExampleSubsystem.kt", templateinterpreter.parseTemplate("ExampleSubsystem", templateinterpreter.templateType.subsystem));
+	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/commands/ExampleCommand.kt", templateinterpreter.parseTemplate("ExampleCommand", "frc.robot.commands", templateinterpreter.templateType.command));
+	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/subsystems/ExampleSubsystem.kt", templateinterpreter.parseTemplate("ExampleSubsystem", "frc.robot.subsystems", templateinterpreter.templateType.subsystem));
 }
 
 function convertSample() {
