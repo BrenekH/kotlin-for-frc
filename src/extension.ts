@@ -33,7 +33,7 @@ export function activate(context: vscode.ExtensionContext) {
     context.subscriptions.push(disposable);
 
     disposable = vscode.commands.registerCommand('extension.createNew', (file_path: any) => {
-        commands.createNew();
+        commands.createNew(file_path);
     });
 
     context.subscriptions.push(disposable);
