@@ -6,6 +6,7 @@ node_js:
   - "node"
 
 install:
+  - npm rebuild
   - npm install
   - npm run vscode:prepublish
 
