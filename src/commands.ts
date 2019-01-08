@@ -125,14 +125,14 @@ export function convertJavaProject(current_robot_type: templateinterpreter.robot
 			vscode.window.showErrorMessage("Kotlin for FRC: Not a valid workspace!");
 			return;
 		}
-		if (!fs.existsSync(vscode.workspace.workspaceFolders[0].uri.fsPath + "/src/main/kotlin")) {
-			fs.mkdirSync(vscode.workspace.workspaceFolders[0].uri.fsPath + "/src/main/kotlin");
+		if (!fs.existsSync(vscode.workspace.workspaceFolders[0].uri.fsPath + "/src/main/java")) {
+			fs.mkdirSync(vscode.workspace.workspaceFolders[0].uri.fsPath + "/src/main/java");
 		}
-		if (!fs.existsSync(vscode.workspace.workspaceFolders[0].uri.fsPath + "/src/main/kotlin/frc")) {
-			fs.mkdirSync(vscode.workspace.workspaceFolders[0].uri.fsPath + "/src/main/kotlin/frc");
+		if (!fs.existsSync(vscode.workspace.workspaceFolders[0].uri.fsPath + "/src/main/java/frc")) {
+			fs.mkdirSync(vscode.workspace.workspaceFolders[0].uri.fsPath + "/src/main/java/frc");
 		}
-		if (!fs.existsSync(vscode.workspace.workspaceFolders[0].uri.fsPath + "/src/main/kotlin/frc/robot")) {
-			fs.mkdirSync(vscode.workspace.workspaceFolders[0].uri.fsPath + "/src/main/kotlin/frc/robot");
+		if (!fs.existsSync(vscode.workspace.workspaceFolders[0].uri.fsPath + "/src/main/java/frc/robot")) {
+			fs.mkdirSync(vscode.workspace.workspaceFolders[0].uri.fsPath + "/src/main/java/frc/robot");
 		}
 		console.log("Done recreating basic file structure");
 		
@@ -162,20 +162,20 @@ export function convertJavaProject(current_robot_type: templateinterpreter.robot
 }
 
 function convertIterative() {
-	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/Robot.kt", templateinterpreter.getTemplateObjectFromRobotType(templateinterpreter.robotType.iterative).getText());
-	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/Main.kt", templateinterpreter.getMainTemplateObject().getText());
+	filegenerator.createFileWithContent("/src/main/java/frc/robot/Robot.kt", templateinterpreter.getTemplateObjectFromRobotType(templateinterpreter.robotType.iterative).getText());
+	filegenerator.createFileWithContent("/src/main/java/frc/robot/Main.java", templateinterpreter.getMainTemplateObject().getText());
 	filegenerator.createFileWithContent("build.gradle", templateinterpreter.getTemplateObjectFromTemplateType(templateinterpreter.templateType.build_gradle).getText());
 }
 
 function convertTimed() {
-	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/Robot.kt", templateinterpreter.getTemplateObjectFromRobotType(templateinterpreter.robotType.timed).getText());
-	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/Main.kt", templateinterpreter.getMainTemplateObject().getText());
+	filegenerator.createFileWithContent("/src/main/java/frc/robot/Robot.kt", templateinterpreter.getTemplateObjectFromRobotType(templateinterpreter.robotType.timed).getText());
+	filegenerator.createFileWithContent("/src/main/java/frc/robot/Main.java", templateinterpreter.getMainTemplateObject().getText());
 	filegenerator.createFileWithContent("build.gradle", templateinterpreter.getTemplateObjectFromTemplateType(templateinterpreter.templateType.build_gradle).getText());
 }
 
 function convertTimedSkeleton() {
-	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/Robot.kt", templateinterpreter.getTemplateObjectFromRobotType(templateinterpreter.robotType.timed_skeleton).getText());
-	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/Main.kt", templateinterpreter.getMainTemplateObject().getText());
+	filegenerator.createFileWithContent("/src/main/java/frc/robot/Robot.kt", templateinterpreter.getTemplateObjectFromRobotType(templateinterpreter.robotType.timed_skeleton).getText());
+	filegenerator.createFileWithContent("/src/main/java/frc/robot/Main.java", templateinterpreter.getMainTemplateObject().getText());
 	filegenerator.createFileWithContent("build.gradle", templateinterpreter.getTemplateObjectFromTemplateType(templateinterpreter.templateType.build_gradle).getText());
 }
 
@@ -186,27 +186,27 @@ function convertCommand() {
 		return;
 	}
 
-	if (!fs.existsSync(vscode.workspace.workspaceFolders[0].uri.fsPath + "/src/main/kotlin/frc/robot/commands")) {
-		fs.mkdirSync(vscode.workspace.workspaceFolders[0].uri.fsPath + "/src/main/kotlin/frc/robot/commands");
+	if (!fs.existsSync(vscode.workspace.workspaceFolders[0].uri.fsPath + "/src/main/java/frc/robot/commands")) {
+		fs.mkdirSync(vscode.workspace.workspaceFolders[0].uri.fsPath + "/src/main/java/frc/robot/commands");
 	}
-	if (!fs.existsSync(vscode.workspace.workspaceFolders[0].uri.fsPath + "/src/main/kotlin/frc/robot/subsystems")) {
-		fs.mkdirSync(vscode.workspace.workspaceFolders[0].uri.fsPath + "/src/main/kotlin/frc/robot/subsystems");
+	if (!fs.existsSync(vscode.workspace.workspaceFolders[0].uri.fsPath + "/src/main/java/frc/robot/subsystems")) {
+		fs.mkdirSync(vscode.workspace.workspaceFolders[0].uri.fsPath + "/src/main/java/frc/robot/subsystems");
 	}
 
 	//Static files(don't need any name changes)
-	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/Robot.kt", templateinterpreter.getTemplateObjectFromTemplateType(templateinterpreter.templateType.robot).getText());
-	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/RobotMap.kt", templateinterpreter.getTemplateObjectFromTemplateType(templateinterpreter.templateType.robot_map).getText());
-	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/OI.kt", templateinterpreter.getTemplateObjectFromTemplateType(templateinterpreter.templateType.oi).getText());
+	filegenerator.createFileWithContent("/src/main/java/frc/robot/Robot.kt", templateinterpreter.getTemplateObjectFromTemplateType(templateinterpreter.templateType.robot).getText());
+	filegenerator.createFileWithContent("/src/main/java/frc/robot/RobotMap.kt", templateinterpreter.getTemplateObjectFromTemplateType(templateinterpreter.templateType.robot_map).getText());
+	filegenerator.createFileWithContent("/src/main/java/frc/robot/OI.kt", templateinterpreter.getTemplateObjectFromTemplateType(templateinterpreter.templateType.oi).getText());
 	filegenerator.createFileWithContent("build.gradle", templateinterpreter.getTemplateObjectFromTemplateType(templateinterpreter.templateType.build_gradle).getText());
-	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/Main.kt", templateinterpreter.getMainTemplateObject().getText());
+	filegenerator.createFileWithContent("/src/main/java/frc/robot/Main.java", templateinterpreter.getMainTemplateObject().getText());
 	
 	//Dynamic files(need name changes)
-	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/commands/ExampleCommand.kt", templateinterpreter.parseTemplate("ExampleCommand", "frc.robot.commands", templateinterpreter.templateType.command));
-	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/subsystems/ExampleSubsystem.kt", templateinterpreter.parseTemplate("ExampleSubsystem", "frc.robot.subsystems", templateinterpreter.templateType.subsystem));
+	filegenerator.createFileWithContent("/src/main/java/frc/robot/commands/ExampleCommand.kt", templateinterpreter.parseTemplate("ExampleCommand", "frc.robot.commands", templateinterpreter.templateType.command));
+	filegenerator.createFileWithContent("/src/main/java/frc/robot/subsystems/ExampleSubsystem.kt", templateinterpreter.parseTemplate("ExampleSubsystem", "frc.robot.subsystems", templateinterpreter.templateType.subsystem));
 }
 
 function convertSample() {
-	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/Robot.kt", templateinterpreter.getTemplateObjectFromRobotType(templateinterpreter.robotType.sample).getText());
-	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/Main.kt", templateinterpreter.getMainTemplateObject().getText());
+	filegenerator.createFileWithContent("/src/main/java/frc/robot/Robot.kt", templateinterpreter.getTemplateObjectFromRobotType(templateinterpreter.robotType.sample).getText());
+	filegenerator.createFileWithContent("/src/main/java/frc/robot/Main.java", templateinterpreter.getMainTemplateObject().getText());
 	filegenerator.createFileWithContent("build.gradle", templateinterpreter.getTemplateObjectFromTemplateType(templateinterpreter.templateType.build_gradle).getText());
 }
