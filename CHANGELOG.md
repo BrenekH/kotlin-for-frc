@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.1.0 - 2019-01-07
+* Changed Main.kt to Main.java to comply with static requirement of WPILib
+* Changed main folder from kotlin to java to allow Main.java to interface with Gradle properly
+
 ## 1.0.0 - 2019-01-04
 * FULL RELEASE!
 * Converted all templates to match WPILib templates for the 2019 FRC Season

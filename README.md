@@ -17,6 +17,13 @@ Kotlin for FRC is an unofficial companion extension to the official WPILib exten
 
 ## Release Notes
 
+### 1.1.0
+#### Important!
+* This version has been tested and approved on a robot. Use this to generate all projects going forward.
+#### Changes:
+* Changed Main.kt to Main.java to comply with static requirement of WPILib
+* Changed main folder from kotlin to java to allow Main.java to interface with Gradle properly
+
 ### 1.0.0
 * FULL RELEASE!
 * Converted all templates to match WPILib templates for the 2019 FRC Season
@@ -31,6 +38,3 @@ Kotlin for FRC is an unofficial companion extension to the official WPILib exten
 
 ### 0.3.0
 * Added a dialog box to clear confusion about when the conversion from Java to Kotlin was complete
-
-### 0.2.1
-* Fixed bug where the extension would immediately crash
