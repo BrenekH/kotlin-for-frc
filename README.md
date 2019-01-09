@@ -17,6 +17,10 @@ Kotlin for FRC is an unofficial companion extension to the official WPILib exten
 
 ## Release Notes
 
+### 1.1.1
+* Fixed dependency issue that caused create new class/command here to stop working
+* Fixed package auto-detection
+
 ### 1.1.0
 #### Important!
 * This version has been tested and approved on a robot. Use this to generate all projects going forward.
@@ -35,6 +39,3 @@ Kotlin for FRC is an unofficial companion extension to the official WPILib exten
 
 ### 0.3.1
 * Fixed security hole by removing flatmap-stream dependency
-
-### 0.3.0
-* Added a dialog box to clear confusion about when the conversion from Java to Kotlin was complete

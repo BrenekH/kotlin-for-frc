@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.1.1 - 2019-01-08
+* Fixed dependency issue that caused create new class/command here to stop working
+* Fixed package auto-detection
+
 ## 1.1.0 - 2019-01-07
 * Changed Main.kt to Main.java to comply with static requirement of WPILib
 * Changed main folder from kotlin to java to allow Main.java to interface with Gradle properly
