@@ -8,6 +8,7 @@ export function activate(context: vscode.ExtensionContext) {
 
     console.log('Congratulations, your extension "kotlin-for-frc" is now active!');
 
+    // * Registering commands
     let disposable = vscode.commands.registerCommand('extension.createNew', (file_path: any) => {
         commands.createNew(file_path);
     });
@@ -60,6 +61,7 @@ export function activate(context: vscode.ExtensionContext) {
     });
     
     context.subscriptions.push(disposable);
+    // * End registering commands
 }
 
 // this method is called when your extension is deactivated
