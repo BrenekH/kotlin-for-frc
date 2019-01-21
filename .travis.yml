@@ -12,5 +12,6 @@ install:
   - npm install -g typescript
 
 script:
+  - npm run compile
   - vsce package
   - npm test --silent
