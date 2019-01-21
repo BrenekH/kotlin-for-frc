@@ -10,3 +10,7 @@
         ✔ Detect timed vs timed skeleton @done(19-01-04 13:32)
 Bugs:
     ✔ When trying to convert without Java folder, things go horribly wrong @done(19-01-03 12:26)
+
+Improvements:
+    Switch back to Main.kt:
+        
