@@ -28,3 +28,6 @@ script:
   - npm run compile
   - vsce package
   - npm run test --silent
+
+notifications:
+  webhooks: https://api.opsgenie.com/v1/json/travisci?apiKey=f04518a7-c66b-44f9-975d-b8e4ef163a91
