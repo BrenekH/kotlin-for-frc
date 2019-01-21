@@ -163,19 +163,19 @@ export function convertJavaProject(current_robot_type: templateinterpreter.robot
 
 function convertIterative() {
 	filegenerator.createFileWithContent("/src/main/java/frc/robot/Robot.kt", templateinterpreter.getTemplateObjectFromRobotType(templateinterpreter.robotType.iterative).getText());
-	filegenerator.createFileWithContent("/src/main/java/frc/robot/Main.java", templateinterpreter.getMainTemplateObject().getText());
+	filegenerator.createFileWithContent("/src/main/java/frc/robot/Main.kt", templateinterpreter.getMainTemplateObject().getText());
 	filegenerator.createFileWithContent("build.gradle", templateinterpreter.getTemplateObjectFromTemplateType(templateinterpreter.templateType.build_gradle).getText());
 }
 
 function convertTimed() {
 	filegenerator.createFileWithContent("/src/main/java/frc/robot/Robot.kt", templateinterpreter.getTemplateObjectFromRobotType(templateinterpreter.robotType.timed).getText());
-	filegenerator.createFileWithContent("/src/main/java/frc/robot/Main.java", templateinterpreter.getMainTemplateObject().getText());
+	filegenerator.createFileWithContent("/src/main/java/frc/robot/Main.kt", templateinterpreter.getMainTemplateObject().getText());
 	filegenerator.createFileWithContent("build.gradle", templateinterpreter.getTemplateObjectFromTemplateType(templateinterpreter.templateType.build_gradle).getText());
 }
 
 function convertTimedSkeleton() {
 	filegenerator.createFileWithContent("/src/main/java/frc/robot/Robot.kt", templateinterpreter.getTemplateObjectFromRobotType(templateinterpreter.robotType.timed_skeleton).getText());
-	filegenerator.createFileWithContent("/src/main/java/frc/robot/Main.java", templateinterpreter.getMainTemplateObject().getText());
+	filegenerator.createFileWithContent("/src/main/java/frc/robot/Main.kt", templateinterpreter.getMainTemplateObject().getText());
 	filegenerator.createFileWithContent("build.gradle", templateinterpreter.getTemplateObjectFromTemplateType(templateinterpreter.templateType.build_gradle).getText());
 }
 
@@ -198,7 +198,7 @@ function convertCommand() {
 	filegenerator.createFileWithContent("/src/main/java/frc/robot/RobotMap.kt", templateinterpreter.getTemplateObjectFromTemplateType(templateinterpreter.templateType.robot_map).getText());
 	filegenerator.createFileWithContent("/src/main/java/frc/robot/OI.kt", templateinterpreter.getTemplateObjectFromTemplateType(templateinterpreter.templateType.oi).getText());
 	filegenerator.createFileWithContent("build.gradle", templateinterpreter.getTemplateObjectFromTemplateType(templateinterpreter.templateType.build_gradle).getText());
-	filegenerator.createFileWithContent("/src/main/java/frc/robot/Main.java", templateinterpreter.getMainTemplateObject().getText());
+	filegenerator.createFileWithContent("/src/main/java/frc/robot/Main.kt", templateinterpreter.getMainTemplateObject().getText());
 	
 	//Dynamic files(need name changes)
 	filegenerator.createFileWithContent("/src/main/java/frc/robot/commands/ExampleCommand.kt", templateinterpreter.parseTemplate("ExampleCommand", "frc.robot.commands", templateinterpreter.templateType.command));
@@ -207,6 +207,6 @@ function convertCommand() {
 
 function convertSample() {
 	filegenerator.createFileWithContent("/src/main/java/frc/robot/Robot.kt", templateinterpreter.getTemplateObjectFromRobotType(templateinterpreter.robotType.sample).getText());
-	filegenerator.createFileWithContent("/src/main/java/frc/robot/Main.java", templateinterpreter.getMainTemplateObject().getText());
+	filegenerator.createFileWithContent("/src/main/java/frc/robot/Main.kt", templateinterpreter.getMainTemplateObject().getText());
 	filegenerator.createFileWithContent("build.gradle", templateinterpreter.getTemplateObjectFromTemplateType(templateinterpreter.templateType.build_gradle).getText());
 }
