@@ -27,10 +27,6 @@
             {
                 "command": "extension.createNew",
                 "title": "Kotlin-FRC: Create new class/command here"
-            },
-            {
-                "command": "extension.jsonData",
-                "title": "Kotlin-FRC: JSON Data"
             }
         ],
         "menus": {
@@ -49,10 +45,6 @@
                 {
                     "command": "extension.createNew",
                     "when": "isWPILibProject && !isWPILibProject"
-                },
-                {
-                    "command": "extension.jsonData",
-                    "when": "isWPILibProject"
                 }
             ]
         }

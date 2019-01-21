@@ -15,14 +15,6 @@ export function activate(context: vscode.ExtensionContext) {
 
     context.subscriptions.push(disposable);
 
-    disposable = vscode.commands.registerCommand('extension.jsonData', () => {
-        // vscode.window.showInformationMessage(preferences.getWPILibVersion());
-        // vscode.window.showInformationMessage(preferences.getMainKt().toString());
-        console.log(preferences.getWPILibVersion);
-        console.log(preferences.getMainKt);
-    });
-
-    context.subscriptions.push(disposable);
 
     disposable = vscode.commands.registerCommand('extension.convertJavaProject', () => {
         if (typeof vscode.workspace.workspaceFolders === 'undefined') {
