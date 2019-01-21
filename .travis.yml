@@ -1,3 +1,5 @@
+# Travis CI now working and approved for Kotlin For FRC
+
 language: nodejs
 
 cache: npm
