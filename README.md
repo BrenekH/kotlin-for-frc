@@ -1,4 +1,5 @@
 # Kotlin For FIRST Robotics Competition
+[![Build Status](https://travis-ci.com/zPaw/kotlin-for-frc.svg?branch=master)](https://travis-ci.com/zPaw/kotlin-for-frc)
 
 Kotlin for FRC is an unofficial companion extension to the official WPILib extension. It adds support for Kotlin so that FRC teams can program efficiently in their preferred JVM language.
 
