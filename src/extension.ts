@@ -2,7 +2,6 @@
 import * as vscode from 'vscode';
 import * as commands from "./commands";
 import * as fs from "fs";
-import * as preferences from "./preferences";
 import { robotType } from './template_interpreter';
 
 export function activate(context: vscode.ExtensionContext) {
