@@ -5,11 +5,11 @@ export class BuildGradleTemplate {
     this.useAtProjectConversion = true;
     this.text = `plugins {
     id "java"
-    id "edu.wpi.first.GradleRIO" version "2019.1.1-rc-1"
+    id "edu.wpi.first.GradleRIO" version "2019.2.1"
     id "org.jetbrains.kotlin.jvm" version "1.3.0"
 }
 
-def ROBOT_MAIN_CLASS = "frc.robot.Main"
+def ROBOT_MAIN_CLASS = "frc.robot.MainKt"
 
 // Define my targets (RoboRIO) and artifacts (deployable files)
 // This is added by GradleRIO's backing project EmbeddedTools.

@@ -2,6 +2,7 @@
 import * as vscode from 'vscode';
 import * as commands from "./commands";
 import * as fs from "fs";
+import * as preferences from "./preferences";
 import { robotType } from './template_interpreter';
 
 export function activate(context: vscode.ExtensionContext) {
@@ -10,6 +11,15 @@ export function activate(context: vscode.ExtensionContext) {
 
     let disposable = vscode.commands.registerCommand('extension.createNew', (file_path: any) => {
         commands.createNew(file_path);
+    });
+
+    context.subscriptions.push(disposable);
+
+    disposable = vscode.commands.registerCommand('extension.jsonData', () => {
+        // vscode.window.showInformationMessage(preferences.getWPILibVersion());
+        // vscode.window.showInformationMessage(preferences.getMainKt().toString());
+        console.log(preferences.getWPILibVersion);
+        console.log(preferences.getMainKt);
     });
 
     context.subscriptions.push(disposable);
