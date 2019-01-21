@@ -13,12 +13,12 @@ export function getWPILibVersion(): string {
     }
     let parsedJson: PreferencesJson;
     try {
-        parsedJson = JSON.parse(fs.readFileSync(vscode.workspace.workspaceFolders[0].uri.fsPath + ".kotlin-for-frc/kotlin-frc-preferences.json", 'utf8'));
+        parsedJson = JSON.parse(fs.readFileSync(vscode.workspace.workspaceFolders[0].uri.fsPath + "/.kotlin-for-frc/kotlin-frc-preferences.json", 'utf8'));
     }
     catch(e) {
-        console.log(e);
+        console.log("Caught Error: " + e);
         createPreferencesJson();
-        parsedJson = JSON.parse(fs.readFileSync(vscode.workspace.workspaceFolders[0].uri.fsPath + ".kotlin-for-frc/kotlin-frc-preferences.json", 'utf8'));
+        parsedJson = JSON.parse(fs.readFileSync(vscode.workspace.workspaceFolders[0].uri.fsPath + "/.kotlin-for-frc/kotlin-frc-preferences.json", 'utf8'));
     }
     return parsedJson.wpilib_version;
 }
@@ -29,12 +29,12 @@ export function getMainKt(): boolean {
     }
     let parsedJson: PreferencesJson;
     try {
-        parsedJson = JSON.parse(fs.readFileSync(vscode.workspace.workspaceFolders[0].uri.fsPath + ".kotlin-for-frc/kotlin-frc-preferences.json", 'utf8'));
+        parsedJson = JSON.parse(fs.readFileSync(vscode.workspace.workspaceFolders[0].uri.fsPath + "/.kotlin-for-frc/kotlin-frc-preferences.json", 'utf8'));
     }
     catch(e) {
         console.log(e);
         createPreferencesJson();
-        parsedJson = JSON.parse(fs.readFileSync(vscode.workspace.workspaceFolders[0].uri.fsPath + ".kotlin-for-frc/kotlin-frc-preferences.json", 'utf8'));
+        parsedJson = JSON.parse(fs.readFileSync(vscode.workspace.workspaceFolders[0].uri.fsPath + "/.kotlin-for-frc/kotlin-frc-preferences.json", 'utf8'));
     }
     return parsedJson.main_kt;
 }
@@ -45,15 +45,15 @@ export function setWPILibVersion(version: string) {
     }
     let parsedJson: PreferencesJson;
     try {
-        parsedJson = JSON.parse(fs.readFileSync(vscode.workspace.workspaceFolders[0].uri.fsPath + ".kotlin-for-frc/kotlin-frc-preferences.json", 'utf8'));
+        parsedJson = JSON.parse(fs.readFileSync(vscode.workspace.workspaceFolders[0].uri.fsPath + "/.kotlin-for-frc/kotlin-frc-preferences.json", 'utf8'));
     }
     catch(e) {
         console.log(e);
         createPreferencesJson();
-        parsedJson = JSON.parse(fs.readFileSync(vscode.workspace.workspaceFolders[0].uri.fsPath + ".kotlin-for-frc/kotlin-frc-preferences.json", 'utf8'));
+        parsedJson = JSON.parse(fs.readFileSync(vscode.workspace.workspaceFolders[0].uri.fsPath + "/.kotlin-for-frc/kotlin-frc-preferences.json", 'utf8'));
     }
     parsedJson.wpilib_version = version;
-    fs.writeFileSync(vscode.workspace.workspaceFolders[0].uri.fsPath + ".kotlin-for-frc/kotlin-frc-preferences.json", JSON.stringify(parsedJson));
+    fs.writeFileSync(vscode.workspace.workspaceFolders[0].uri.fsPath + "/.kotlin-for-frc/kotlin-frc-preferences.json", JSON.stringify(parsedJson));
 }
 
 export function setMainKt(value: boolean) {
@@ -62,23 +62,23 @@ export function setMainKt(value: boolean) {
     }
     let parsedJson: PreferencesJson;
     try {
-        parsedJson = JSON.parse(fs.readFileSync(vscode.workspace.workspaceFolders[0].uri.fsPath + ".kotlin-for-frc/kotlin-frc-preferences.json", 'utf8'));
+        parsedJson = JSON.parse(fs.readFileSync(vscode.workspace.workspaceFolders[0].uri.fsPath + "/.kotlin-for-frc/kotlin-frc-preferences.json", 'utf8'));
     }
     catch(e) {
         console.log(e);
         createPreferencesJson();
-        parsedJson = JSON.parse(fs.readFileSync(vscode.workspace.workspaceFolders[0].uri.fsPath + ".kotlin-for-frc/kotlin-frc-preferences.json", 'utf8'));
+        parsedJson = JSON.parse(fs.readFileSync(vscode.workspace.workspaceFolders[0].uri.fsPath + "/.kotlin-for-frc/kotlin-frc-preferences.json", 'utf8'));
     }
     parsedJson.main_kt = value;
-    fs.writeFileSync(vscode.workspace.workspaceFolders[0].uri.fsPath + ".kotlin-for-frc/kotlin-frc-preferences.json", JSON.stringify(parsedJson));
+    fs.writeFileSync(vscode.workspace.workspaceFolders[0].uri.fsPath + "/.kotlin-for-frc/kotlin-frc-preferences.json", JSON.stringify(parsedJson));
 }
 
 export function createPreferencesJson() {
     if (typeof vscode.workspace.workspaceFolders === 'undefined') {
         return;
     }
-    if (!fs.existsSync(vscode.workspace.workspaceFolders[0].uri.fsPath + ".kotlin-for-frc")) {
-        fs.mkdirSync(vscode.workspace.workspaceFolders[0].uri.fsPath + ".kotlin-for-frc");
+    if (!fs.existsSync(vscode.workspace.workspaceFolders[0].uri.fsPath + "/.kotlin-for-frc")) {
+        fs.mkdirSync(vscode.workspace.workspaceFolders[0].uri.fsPath + "/.kotlin-for-frc");
     }
-    fs.writeFileSync(vscode.workspace.workspaceFolders[0].uri.fsPath + ".kotlin-for-frc/kotlin-frc-preferences.json", `{"wpilib_version": "2019.1.1", "main_kt": false}`);
+    fs.writeFileSync(vscode.workspace.workspaceFolders[0].uri.fsPath + "/.kotlin-for-frc/kotlin-frc-preferences.json", `{"wpilib_version": "2019.1.1", "main_kt": false}`);
 }
