@@ -11,7 +11,7 @@ install:
   - npm install -g vsce
   - npm install -g typescript
   - npm install
-  - npm install @types/rimraf
+#  - npm install @types/rimraf
 
 script:
   - npm run compile
