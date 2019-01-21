@@ -14,8 +14,7 @@
     "activationEvents": [
         "workspaceContains:.wpilib/wpilib_preferences.json",
         "onCommand:extension.createNew",
-        "onCommand:extension.convertJavaProject",
-        "onCommand:extension.jsonData"
+        "onCommand:extension.convertJavaProject"
     ],
     "main": "./out/extension",
     "contributes": {
