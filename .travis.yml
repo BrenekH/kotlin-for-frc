@@ -12,12 +12,16 @@ node_js:
 os:
   - linux
 
-notifications:
-  webhooks: 
-    urls: 
-      - https://api.opsgenie.com/v1/json/travisci?apiKey=f04518a7-c66b-44f9-975d-b8e4ef163a91
-    on_success: always
-    on_failure: always
+# notifications:
+#   webhooks: 
+#     urls: 
+#       - https://api.opsgenie.com/v1/json/travisci?apiKey=f04518a7-c66b-44f9-975d-b8e4ef163a91
+#     on_success: always
+#     on_failure: always
+#   slack: 
+#     - secure: 
+#     on_success: always
+#     on_failure: always
 
 before_install:
   - if [ $TRAVIS_OS_NAME == "linux" ]; then
