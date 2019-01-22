@@ -206,7 +206,7 @@ function convertSample() {
 	createMainKtAndBuildGradle();
 }
 
-export function createMainKtAndBuildGradle() {
+function createMainKtAndBuildGradle() {
 	createMainKt();
 	createBuildGradle();
 }
