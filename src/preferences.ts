@@ -2,7 +2,7 @@
 import * as vscode from 'vscode';
 import * as fs from "fs";
 
-var defaultJson = `{"wpilib_version": "2019.1.1", "main_kt": false, "run_compliance_tests": true}`;
+var defaultJson = `{"wpilib_version": "2019.0.1", "main_kt": false, "run_compliance_tests": true}`;
 
 interface PreferencesJson {
     wpilib_version: string;
