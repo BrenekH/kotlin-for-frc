@@ -5,7 +5,7 @@ export class BuildGradleTemplate {
     this.useAtProjectConversion = true;
     this.text = `plugins {
     id "java"
-    id "edu.wpi.first.GradleRIO" version "2019.2.1"
+    id "edu.wpi.first.GradleRIO" version "#{GRADLE_RIO_VERSION}"
     id "org.jetbrains.kotlin.jvm" version "1.3.0"
 }
 

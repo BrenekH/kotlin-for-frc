@@ -22,7 +22,7 @@ Improvements:
         ✔ Check on activation for Main.kt compliance @done(19-01-21 18:11)
             ✔ Update preferences.json to reflect compliance @done(19-01-21 18:13)
         ✔ Compliance field in preferences.json to turn off compliance testing @done(19-01-21 17:42)
-        ☐ Switch build.gradle to grabbing versions from constants.ts
+        ✔ Switch build.gradle to grabbing versions from constants.ts @done(19-01-21 18:47)
     Travis Integration:
         Slack:
             ✔ Encrypt slack key @done(19-01-21 17:42)
