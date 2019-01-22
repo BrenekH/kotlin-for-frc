@@ -24,7 +24,7 @@ Improvements:
         ✔ Compliance field in preferences.json to turn off compliance testing @done(19-01-21 17:42)
         ✔ Switch build.gradle to grabbing versions from constants.ts @done(19-01-21 18:47)
         ☐ Add command to check compliance
-        ☐ Notify user of change
+        ✔ Notify user of change @done(19-01-21 21:40)
         ✔ Don't run on java project @done(19-01-21 21:37)
     Travis Integration:
         Slack:
