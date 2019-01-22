@@ -2,6 +2,7 @@
 import * as vscode from "vscode";
 import * as filegenerator from "./file_generator";
 import * as templateinterpreter from "./template_interpreter";
+import * as compliance from "./compliance";
 import * as rimraf from "rimraf";
 import * as fs from "fs";
 
@@ -24,6 +25,17 @@ export function createNew(file_path: any) {
 				return;
 		}
 	});
+}
+
+export function forceCompliance() {
+	// * Check build.gradle
+	if (!compliance.isBuildGradleCompliant()) {
+		compliance.makeBuildGradleCompliant();
+	}
+	// * Check Main.kt
+	if (!compliance.isMainKtCompliant()) {
+		compliance.makeMainKtCompliant();
+	}
 }
 
 function createNewSubsystem(file_path: any) {

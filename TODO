@@ -23,9 +23,10 @@ Improvements:
             ✔ Update preferences.json to reflect compliance @done(19-01-21 18:13)
         ✔ Compliance field in preferences.json to turn off compliance testing @done(19-01-21 17:42)
         ✔ Switch build.gradle to grabbing versions from constants.ts @done(19-01-21 18:47)
-        ☐ Add command to check compliance
+        ✔ Add command to check compliance @done(19-01-21 21:45)
         ✔ Notify user of change @done(19-01-21 21:40)
         ✔ Don't run on java project @done(19-01-21 21:37)
+        ☐ Add commands to update preferences from command palette
     Travis Integration:
         Slack:
             ✔ Encrypt slack key @done(19-01-21 17:42)

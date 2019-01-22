@@ -14,7 +14,8 @@
     "activationEvents": [
         "workspaceContains:.wpilib/wpilib_preferences.json",
         "onCommand:extension.createNew",
-        "onCommand:extension.convertJavaProject"
+        "onCommand:extension.convertJavaProject",
+        "onCommand:extension.forceCompliance"
     ],
     "main": "./out/extension",
     "contributes": {
@@ -26,6 +27,10 @@
             {
                 "command": "extension.createNew",
                 "title": "Kotlin-FRC: Create new class/command here"
+            },
+            {
+                "command": "extension.forceCompliance",
+                "title": "Kotlin-FRC: Update GradleRio and check for Main.kt"
             }
         ],
         "menus": {
@@ -44,6 +49,10 @@
                 {
                     "command": "extension.createNew",
                     "when": "isWPILibProject && !isWPILibProject"
+                },
+                {
+                    "command": "extension.forceCompliance",
+                    "when": "isWPILibProject"
                 }
             ]
         }
