@@ -11,6 +11,7 @@ export function activate(context: vscode.ExtensionContext) {
     console.log('Congratulations, your extension "kotlin-for-frc" is now active!');
 
     // * Registering commands
+    console.log("Registering commands");
     let disposable = vscode.commands.registerCommand('extension.createNew', (file_path: any) => {
         commands.createNew(file_path);
     });
@@ -66,7 +67,8 @@ export function activate(context: vscode.ExtensionContext) {
     // * End registering commands
 
     // * Compliance testing
-    if (preferences.getRunComplianceTests()) {
+    console.log("Compliance testing");
+    if (preferences.getRunComplianceTests() && compliance.isKotlinProject()) {
         // * Check build.gradle
         if (!compliance.isBuildGradleCompliant()) {
             compliance.makeBuildGradleCompliant();
