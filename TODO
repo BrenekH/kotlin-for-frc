@@ -13,4 +13,9 @@ Bugs:
 
 Improvements:
     Switch back to Main.kt:
-        
+        ✔ Change templates @done(19-01-21 17:08)
+        ✔ Create preferences system @done(19-01-21 17:08)
+        ☐ Check on activation for build.gradle compliance
+            ☐ Update preferences.json to reflect compliance
+        ☐ Check on activation for Main.kt compliance
+            ☐ Update preferences.json to reflect compliance
