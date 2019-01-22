@@ -1,6 +1,10 @@
-export function isBuildGradleCompliant() {}
+export function isBuildGradleCompliant(): boolean {
+    return false;
+}
 
-export function isMainKtCompliant() {}
+export function isMainKtCompliant(): boolean {
+    return false;
+}
 
 export function makeBuildGradleCompliant() {}
 
