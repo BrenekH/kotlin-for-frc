@@ -7,6 +7,7 @@ var defaultJson = `{"wpilib_version": "2019.1.1", "main_kt": false}`;
 interface PreferencesJson {
     wpilib_version: string;
     main_kt: boolean;
+    run_compliance_tests: boolean;
 }
 
 export function getWPILibVersion(): string {
@@ -20,21 +21,15 @@ export function getMainKt(): boolean {
 }
 
 export function setWPILibVersion(version: string) {
-    if (typeof vscode.workspace.workspaceFolders === 'undefined') {
-        return;
-    }
     let parsedJson = loadPreferencesJson();
     parsedJson.wpilib_version = version;
-    fs.writeFileSync(vscode.workspace.workspaceFolders[0].uri.fsPath + "/.kotlin-for-frc/kotlin-frc-preferences.json", JSON.stringify(parsedJson));
+    savePreferencesJson(parsedJson);
 }
 
 export function setMainKt(value: boolean) {
-    if (typeof vscode.workspace.workspaceFolders === 'undefined') {
-        return;
-    }
     let parsedJson = loadPreferencesJson();
     parsedJson.main_kt = value;
-    fs.writeFileSync(vscode.workspace.workspaceFolders[0].uri.fsPath + "/.kotlin-for-frc/kotlin-frc-preferences.json", JSON.stringify(parsedJson));
+    savePreferencesJson(parsedJson);
 }
 
 export function createPreferencesJson() {
@@ -63,4 +58,11 @@ function loadPreferencesJson(): PreferencesJson {
         parsedJson = JSON.parse(fs.readFileSync(vscode.workspace.workspaceFolders[0].uri.fsPath + "/.kotlin-for-frc/kotlin-frc-preferences.json", 'utf8'));
     }
     return parsedJson;
+}
+
+function savePreferencesJson(json: PreferencesJson) {
+    if (typeof vscode.workspace.workspaceFolders === 'undefined') {
+        return;
+    }
+    fs.writeFileSync(vscode.workspace.workspaceFolders[0].uri.fsPath + "/.kotlin-for-frc/kotlin-frc-preferences.json", JSON.stringify(json));
 }
