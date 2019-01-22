@@ -45,6 +45,3 @@ Kotlin for FRC is an unofficial companion extension to the official WPILib exten
 
 ### 0.4.0
 * Addressed Issue #2 and added support for Iterative, Sample, and Timed Robot types
-
-### 0.3.1
-* Fixed security hole by removing flatmap-stream dependency
