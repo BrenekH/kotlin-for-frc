@@ -62,6 +62,10 @@ export function activate(context: vscode.ExtensionContext) {
     
     context.subscriptions.push(disposable);
     // * End registering commands
+
+    // * Check build.gradle
+
+    // * Check Main.kt
 }
 
 // this method is called when your extension is deactivated
