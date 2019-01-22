@@ -1,6 +1,9 @@
+"use strict";
+import * as vscode from "vscode";
 import { targetGradleRioVersion } from "./constants";
 import { createBuildGradle, createMainKt } from "./commands";
 import * as preferences from "./preferences";
+import * as fs from "fs";
 
 export function isBuildGradleCompliant(): boolean {
     console.log("Checking build.gradle compliance");
@@ -29,4 +32,11 @@ export function makeMainKtCompliant() {
     console.log("Forcing Main.kt compliance");
     createMainKt();
     preferences.setMainKt(true);
+}
+
+export function isKotlinProject(): boolean {
+    if (typeof vscode.workspace.workspaceFolders === 'undefined') {
+        return false;
+    }
+    return fs.existsSync(vscode.workspace.workspaceFolders[0].uri.fsPath + "/src/main/java/frc/robot/Robot.kt");
 }
