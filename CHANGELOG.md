@@ -1,5 +1,13 @@
 # Change Log
 
+## 1.2.0 - 2019-01-21
+* Fixed Main.java not finding Robot class while linting
+    * This means that Main.java is replaced by Main.kt
+* Updating of GradleRio Version
+* Under the hood abstraction
+* New commands related to checking the integrity of the build.gradle and Main.kt files
+* Travis CI integration
+
 ## 1.1.1 - 2019-01-08
 * Fixed dependency issue that caused create new class/command here to stop working
 * Fixed package auto-detection
