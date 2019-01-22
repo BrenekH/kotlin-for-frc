@@ -12,6 +12,8 @@ Bugs:
     ✔ When trying to convert without Java folder, things go horribly wrong @done(19-01-03 12:26)
 
 Improvements:
+    Testing:
+        ☐ Find a way to simulate a workspace to run unit tests on
     Switch back to Main.kt:
         ✔ Change templates @done(19-01-21 17:08)
         ✔ Create preferences system @done(19-01-21 17:08)
