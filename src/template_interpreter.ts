@@ -1,4 +1,7 @@
-//All Robot types
+// Constants
+import { targetGradleRioVersion } from './constants';
+
+// All Robot types
 import { MainTemplate } from './templates/frc-kotlin/Main';
 import { BuildGradleTemplate } from './templates/frc-kotlin/BuildGradle';
 
@@ -62,6 +65,10 @@ export function parseTemplate(className: string, packageName: string, templatety
     // Package generation
     re = /#{PACKAGE}/gi;
     transformedData = transformedData.replace(re, packageName);
+
+    // Gradle Rio Versioning
+    re = /#{GRADLE_RIO_VERSION}/gi;
+    transformedData = transformedData.replace(re, targetGradleRioVersion);
 
     return transformedData;
 }
