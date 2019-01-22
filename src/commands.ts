@@ -5,6 +5,7 @@ import * as templateinterpreter from "./template_interpreter";
 import * as compliance from "./compliance";
 import * as rimraf from "rimraf";
 import * as fs from "fs";
+import { setRunComplianceTests } from "./preferences";
 
 export function createNew(file_path: any) {
 	vscode.window.showQuickPick(["Command", "Subsystem", "Trigger", "Empty Class"]).then((option: any) => {
@@ -36,6 +37,21 @@ export function forceCompliance() {
 	if (!compliance.isMainKtCompliant()) {
 		compliance.makeMainKtCompliant();
 	}
+}
+
+export function changeComplianceTestPref() {
+	vscode.window.showQuickPick(["Turn GradleRio Version Checks On", "Turn GradleRio Version Checks Off"]).then((option: any) => {
+		switch(option) {
+			case "Turn GradleRio Version Checks On":
+				setRunComplianceTests(true);
+				break;
+			case "Turn GradleRio Version Checks Off":
+				setRunComplianceTests(false);
+				break;
+			default:
+				return;
+		}
+	});
 }
 
 function createNewSubsystem(file_path: any) {

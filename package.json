@@ -15,7 +15,8 @@
         "workspaceContains:.wpilib/wpilib_preferences.json",
         "onCommand:extension.createNew",
         "onCommand:extension.convertJavaProject",
-        "onCommand:extension.forceCompliance"
+        "onCommand:extension.forceCompliance",
+        "onCommand:extension.changeComplianceTestPref"
     ],
     "main": "./out/extension",
     "contributes": {
@@ -31,6 +32,10 @@
             {
                 "command": "extension.forceCompliance",
                 "title": "Kotlin-FRC: Update GradleRio and check for Main.kt"
+            },
+            {
+                "command": "extension.changeComplianceTestPref",
+                "title": "Kotlin-FRC: Change GradleRio Checks"
             }
         ],
         "menus": {
@@ -52,6 +57,10 @@
                 },
                 {
                     "command": "extension.forceCompliance",
+                    "when": "isWPILibProject"
+                },
+                {
+                    "command": "extension.changeComplianceTestPref",
                     "when": "isWPILibProject"
                 }
             ]

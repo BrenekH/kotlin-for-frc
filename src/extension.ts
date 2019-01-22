@@ -24,6 +24,12 @@ export function activate(context: vscode.ExtensionContext) {
 
     context.subscriptions.push(disposable);
 
+    disposable = vscode.commands.registerCommand('extension.changeComplianceTestPref', (file_path: any) => {
+        commands.changeComplianceTestPref();
+    });
+
+    context.subscriptions.push(disposable);
+
     disposable = vscode.commands.registerCommand('extension.convertJavaProject', () => {
         if (typeof vscode.workspace.workspaceFolders === 'undefined') {
 			console.log("Not a valid workspace");
