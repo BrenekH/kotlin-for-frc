@@ -25,12 +25,14 @@ export function isMainKtCompliant(): boolean {
 export function makeBuildGradleCompliant() {
     console.log("Forcing build.gradle compliance");
     createBuildGradle();
+    vscode.window.showInformationMessage("GradleRio version updated");
     preferences.setWPILibVersion(targetGradleRioVersion);
 }
 
 export function makeMainKtCompliant() {
     console.log("Forcing Main.kt compliance");
     createMainKt();
+    vscode.window.showInformationMessage("Main.java converted to Main.kt");
     preferences.setMainKt(true);
 }
 
