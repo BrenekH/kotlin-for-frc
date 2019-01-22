@@ -1,0 +1,1 @@
+export let targetGradleRioVersion = "2019.2.1";

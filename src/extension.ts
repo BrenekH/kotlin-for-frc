@@ -2,6 +2,8 @@
 import * as vscode from 'vscode';
 import * as commands from "./commands";
 import * as fs from "fs";
+import * as preferences from "./preferences";
+import * as compliance from "./compliance";
 import { robotType } from './template_interpreter';
 
 export function activate(context: vscode.ExtensionContext) {
@@ -63,9 +65,17 @@ export function activate(context: vscode.ExtensionContext) {
     context.subscriptions.push(disposable);
     // * End registering commands
 
-    // * Check build.gradle
-
-    // * Check Main.kt
+    // * Compliance testing
+    if (preferences.getRunComplianceTests()) {
+        // * Check build.gradle
+        if (!compliance.isBuildGradleCompliant()) {
+            compliance.makeBuildGradleCompliant();
+        }
+        // * Check Main.kt
+        if (!compliance.isMainKtCompliant()) {
+            compliance.makeMainKtCompliant();
+        }
+    }
 }
 
 // this method is called when your extension is deactivated
