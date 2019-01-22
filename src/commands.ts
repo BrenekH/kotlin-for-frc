@@ -207,6 +207,14 @@ function convertSample() {
 }
 
 export function createMainKtAndBuildGradle() {
+	createMainKt();
+	createBuildGradle();
+}
+
+export function createMainKt() {
 	filegenerator.createFileWithContent("/src/main/java/frc/robot/Main.kt", templateinterpreter.getMainTemplateObject().getText());
+}
+
+export function createBuildGradle() {
 	filegenerator.createFileWithContent("build.gradle", templateinterpreter.getTemplateObjectFromTemplateType(templateinterpreter.templateType.build_gradle).getText());
 }
