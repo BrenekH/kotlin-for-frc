@@ -19,3 +19,7 @@ Improvements:
             ☐ Update preferences.json to reflect compliance
         ☐ Check on activation for Main.kt compliance
             ☐ Update preferences.json to reflect compliance
+    Travis Integration:
+        Slack:
+            ☐ Encrypt slack key
+            ☐ Place key in .travis.yml
