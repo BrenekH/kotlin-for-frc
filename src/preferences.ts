@@ -20,6 +20,11 @@ export function getMainKt(): boolean {
     return parsedJson.main_kt;
 }
 
+export function getRunComplianceTests(): boolean {
+    let parsedJson = loadPreferencesJson();
+    return parsedJson.run_compliance_tests;
+}
+
 export function setWPILibVersion(version: string) {
     let parsedJson = loadPreferencesJson();
     parsedJson.wpilib_version = version;
@@ -29,6 +34,12 @@ export function setWPILibVersion(version: string) {
 export function setMainKt(value: boolean) {
     let parsedJson = loadPreferencesJson();
     parsedJson.main_kt = value;
+    savePreferencesJson(parsedJson);
+}
+
+export function setRunComplianceTests(value: boolean) {
+    let parsedJson = loadPreferencesJson();
+    parsedJson.run_compliance_tests = value;
     savePreferencesJson(parsedJson);
 }
 
