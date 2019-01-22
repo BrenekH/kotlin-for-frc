@@ -1,4 +1,5 @@
 import { targetGradleRioVersion } from "./constants";
+import { createBuildGradle, createMainKt } from "./commands";
 import * as preferences from "./preferences";
 
 export function isBuildGradleCompliant(): boolean {
@@ -18,6 +19,14 @@ export function isMainKtCompliant(): boolean {
     return false;
 }
 
-export function makeBuildGradleCompliant() {}
+export function makeBuildGradleCompliant() {
+    console.log("Forcing build.gradle compliance");
+    createBuildGradle();
+    preferences.setWPILibVersion(targetGradleRioVersion);
+}
 
-export function makeMainKtCompliant() {}
+export function makeMainKtCompliant() {
+    console.log("Forcing Main.kt compliance");
+    createMainKt();
+    preferences.setMainKt(true);
+}
