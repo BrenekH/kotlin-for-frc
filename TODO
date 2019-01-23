@@ -34,3 +34,4 @@ Improvements:
             ✔ Place key in .travis.yml @done(19-01-21 17:42)
     Misc:
         ☐ Add logger for in production debugging
+        ☐ See why .kotlin-for-frc is not being created and handled
