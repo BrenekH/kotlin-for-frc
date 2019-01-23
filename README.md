@@ -18,6 +18,11 @@ Kotlin for FRC is an unofficial companion extension to the official WPILib exten
 
 ## Release Notes
 
+### 1.2.1
+* Changed gradle main class back to frc.robot.Main
+* Added JvmStatic annotation to Main.kt
+* Travis CI GitHub releases
+
 ### 1.2.0
 * Fixed Main.java not finding Robot class while linting
     * This means that Main.java is replaced by Main.kt

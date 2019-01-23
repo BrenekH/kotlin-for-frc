@@ -1,3 +1,8 @@
+Release Checklist:
+    ✔ Update README.md @done(19-01-22 23:05)
+    ✔ Update CHANGELOG.md @done(19-01-22 23:05)
+    ✔ Update version @done(19-01-22 23:04)
+
 2019:
     ✔ Auto detect package @done(19-01-04 13:24)
     ✔ Add all command, subsystem, and trigger types @done(19-01-04 13:09)
@@ -27,7 +32,7 @@ Improvements:
         ✔ Notify user of change @done(19-01-21 21:40)
         ✔ Don't run on java project @done(19-01-21 21:37)
         ✔ Add commands to update the run_compliance_test preference from command palette @done(19-01-21 21:57)
-        ☐ Switch from build.gradle MainKt to JvmStatic annotation
+        ✔ Switch from build.gradle MainKt to JvmStatic annotation @done(19-01-22 23:00)
     Travis Integration:
         Slack:
             ✔ Encrypt slack key @done(19-01-21 17:42)
