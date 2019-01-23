@@ -9,7 +9,7 @@ export class BuildGradleTemplate {
     id "org.jetbrains.kotlin.jvm" version "1.3.0"
 }
 
-def ROBOT_MAIN_CLASS = "frc.robot.MainKt"
+def ROBOT_MAIN_CLASS = "frc.robot.Main"
 
 // Define my targets (RoboRIO) and artifacts (deployable files)
 // This is added by GradleRIO's backing project EmbeddedTools.
