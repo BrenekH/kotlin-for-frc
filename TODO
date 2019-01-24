@@ -19,6 +19,9 @@ Bugs:
 Improvements:
     Testing:
         ☐ Find a way to simulate a workspace to run unit tests on
+        ☐ Add testing dir that contains a sample workspace to run on
+            ☐ Add script to reset the sample workspace
+            ☐ Add dir to .vscodeignore
     Switch back to Main.kt:
         ✔ Change templates @done(19-01-21 17:08)
         ✔ Create preferences system @done(19-01-21 17:08)
@@ -38,5 +41,5 @@ Improvements:
             ✔ Encrypt slack key @done(19-01-21 17:42)
             ✔ Place key in .travis.yml @done(19-01-21 17:42)
     Misc:
-        ☐ Add logger for in production debugging
+        ☐ Add logger for in-production debugging
         ✔ See why .kotlin-for-frc is not being created and handled @done(19-01-22 22:34)
