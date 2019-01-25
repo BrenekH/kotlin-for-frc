@@ -19,10 +19,10 @@ Bugs:
 Improvements:
     Testing:
         ☐ Find a way to simulate a workspace to run unit tests on
-        ☐ Add testing dir that contains a sample workspace to run on
-            ☐ Add script to reset the sample workspace
-            ☐ Add dir to .vscodeignore
-            ☐ https://code.visualstudio.com/api/working-with-extensions/testing-extension details how to do all this
+            ☐ Add testing dir that contains a sample workspace to run on
+                ☐ Add script to reset the sample workspace
+                ☐ Add dir to .vscodeignore
+                ☐ https://code.visualstudio.com/api/working-with-extensions/testing-extension details how to do all this
     Switch back to Main.kt:
         ✔ Change templates @done(19-01-21 17:08)
         ✔ Create preferences system @done(19-01-21 17:08)
