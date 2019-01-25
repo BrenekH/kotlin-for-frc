@@ -13,13 +13,14 @@ Release Checklist:
         ✔ Sample @done(19-01-04 13:09)
         ✔ Timed skeleton @done(19-01-04 13:09)
         ✔ Detect timed vs timed skeleton @done(19-01-04 13:32)
+
 Bugs:
     ✔ When trying to convert without Java folder, things go horribly wrong @done(19-01-03 12:26)
 
 Improvements:
     Testing:
-        ☐ Find a way to simulate a workspace to run unit tests on
-            ☐ Add testing dir that contains a sample workspace to run on
+        ✔ Find a way to simulate a workspace to run unit tests on @done(19-01-25 14:58)
+            ✔ Add testing dir that contains a sample workspace to run on @done(19-01-25 14:58)
                 ☐ Add script to reset the sample workspace
                 ☐ Add dir to .vscodeignore
                 ☐ https://code.visualstudio.com/api/working-with-extensions/testing-extension details how to do all this
