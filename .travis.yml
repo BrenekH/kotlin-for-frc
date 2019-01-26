@@ -19,7 +19,6 @@ script:
 - npm run compile
 - vsce package
 - npm run test --silent
-- sudo chmod +x reset-testing-workspace.sh
 - bash ./reset-testing-workspace.sh
 deploy:
   provider: releases
