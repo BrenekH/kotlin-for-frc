@@ -3,6 +3,9 @@
 out/test/**
 out/**/*.map
 src/**
+testing-workspace/**
+reset-testing-workspace.bat
+reset-testing-workspace.sh
 .gitignore
 tsconfig.json
 vsc-extension-quickstart.md
