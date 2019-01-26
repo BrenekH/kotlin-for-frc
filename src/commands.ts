@@ -6,6 +6,7 @@ import * as compliance from "./compliance";
 import * as rimraf from "rimraf";
 import * as fs from "fs";
 import { setRunComplianceTests } from "./preferences";
+import * as kotlinExt from "./extension";
 
 export function createNew(file_path: any) {
 	vscode.window.showQuickPick(["Command", "Subsystem", "Trigger", "Empty Class"]).then((option: any) => {
@@ -129,10 +130,7 @@ function parseAndSaveTemplateToDocument(file_path: any, package_name: string, te
 	}).then(value => {
 		if (!value) { return; }
 		var user_data = value;
-		if (typeof vscode.workspace.workspaceFolders === 'undefined') {
-			return;
-		}
-		var workspace_folder_path = vscode.workspace.workspaceFolders[0].uri.fsPath;
+		var workspace_folder_path = kotlinExt.getWorkspaceFolderFsPath();
 		var path_to_pass = file_path.fsPath.replace(workspace_folder_path, "");
 		filegenerator.showDocumentInViewer(filegenerator.createFileWithContent(path_to_pass + "/" + user_data + ".kt", templateinterpreter.parseTemplate(user_data, package_name, templateType)));
 	});
@@ -140,27 +138,19 @@ function parseAndSaveTemplateToDocument(file_path: any, package_name: string, te
 
 export function convertJavaProject(current_robot_type: templateinterpreter.robotType) {
 	console.log("Deleting java project");
-	if (typeof vscode.workspace.workspaceFolders === 'undefined') {
-		return;
-	}
-	var pathToDelete = vscode.workspace.workspaceFolders[0].uri.fsPath + "/src/main/java";
+	var pathToDelete = kotlinExt.getWorkspaceFolderFsPath() + "/src/main/java";
 	console.log(pathToDelete);
 	rimraf(pathToDelete, function () {
 		console.log("Done deleting");
 		console.log("Recreating structure");
-		if (typeof vscode.workspace.workspaceFolders === 'undefined') {
-			console.log("Not a valid workspace");
-			vscode.window.showErrorMessage("Kotlin for FRC: Not a valid workspace!");
-			return;
+		if (!fs.existsSync(kotlinExt.getWorkspaceFolderFsPath() + "/src/main/java")) {
+			fs.mkdirSync(kotlinExt.getWorkspaceFolderFsPath() + "/src/main/java");
 		}
-		if (!fs.existsSync(vscode.workspace.workspaceFolders[0].uri.fsPath + "/src/main/java")) {
-			fs.mkdirSync(vscode.workspace.workspaceFolders[0].uri.fsPath + "/src/main/java");
+		if (!fs.existsSync(kotlinExt.getWorkspaceFolderFsPath() + "/src/main/java/frc")) {
+			fs.mkdirSync(kotlinExt.getWorkspaceFolderFsPath() + "/src/main/java/frc");
 		}
-		if (!fs.existsSync(vscode.workspace.workspaceFolders[0].uri.fsPath + "/src/main/java/frc")) {
-			fs.mkdirSync(vscode.workspace.workspaceFolders[0].uri.fsPath + "/src/main/java/frc");
-		}
-		if (!fs.existsSync(vscode.workspace.workspaceFolders[0].uri.fsPath + "/src/main/java/frc/robot")) {
-			fs.mkdirSync(vscode.workspace.workspaceFolders[0].uri.fsPath + "/src/main/java/frc/robot");
+		if (!fs.existsSync(kotlinExt.getWorkspaceFolderFsPath() + "/src/main/java/frc/robot")) {
+			fs.mkdirSync(kotlinExt.getWorkspaceFolderFsPath() + "/src/main/java/frc/robot");
 		}
 		console.log("Done recreating basic file structure");
 		
@@ -205,17 +195,11 @@ function convertTimedSkeleton() {
 }
 
 function convertCommand() {
-	if (typeof vscode.workspace.workspaceFolders === 'undefined') {
-		console.log("Not a valid workspace");
-		vscode.window.showErrorMessage("Kotlin for FRC: Not a valid workspace!");
-		return;
+	if (!fs.existsSync(kotlinExt.getWorkspaceFolderFsPath() + "/src/main/java/frc/robot/commands")) {
+		fs.mkdirSync(kotlinExt.getWorkspaceFolderFsPath() + "/src/main/java/frc/robot/commands");
 	}
-
-	if (!fs.existsSync(vscode.workspace.workspaceFolders[0].uri.fsPath + "/src/main/java/frc/robot/commands")) {
-		fs.mkdirSync(vscode.workspace.workspaceFolders[0].uri.fsPath + "/src/main/java/frc/robot/commands");
-	}
-	if (!fs.existsSync(vscode.workspace.workspaceFolders[0].uri.fsPath + "/src/main/java/frc/robot/subsystems")) {
-		fs.mkdirSync(vscode.workspace.workspaceFolders[0].uri.fsPath + "/src/main/java/frc/robot/subsystems");
+	if (!fs.existsSync(kotlinExt.getWorkspaceFolderFsPath() + "/src/main/java/frc/robot/subsystems")) {
+		fs.mkdirSync(kotlinExt.getWorkspaceFolderFsPath() + "/src/main/java/frc/robot/subsystems");
 	}
 
 	//Static files(don't need any name changes)

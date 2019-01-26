@@ -1,12 +1,10 @@
 import * as vscode from 'vscode';
 import * as fs from 'fs';
 import * as path from 'path';
+import * as kotlinExt from "./extension";
 
 export function createFileWithContent(name: string, content: string) {
-  if (typeof vscode.workspace.workspaceFolders === 'undefined') {
-    return;
-  }
-  var filePath = path.join(String(vscode.workspace.workspaceFolders[0].uri.fsPath), name);
+  var filePath = path.join(String(kotlinExt.getWorkspaceFolderFsPath()), name);
   fs.writeFileSync(filePath, content, 'utf8');
   return filePath;
 }
@@ -31,7 +29,7 @@ export function generatePackage(filePath: any) {
     vscode.window.showErrorMessage("Kotlin for FRC: Could not auto detect package");
     return "frc.robot";
   }
-  var workspace_path = vscode.workspace.workspaceFolders[0].uri.path;
+  var workspace_path = kotlinExt.getWorkspaceFolderPath();
   var path_to_main_folder = workspace_path + "/src/main/java/";
   console.log(path_to_main_folder);
   var package_string = filePath.path.replace(path_to_main_folder, "").replace(/\//g, ".");

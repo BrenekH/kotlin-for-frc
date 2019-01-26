@@ -4,6 +4,7 @@ import { targetGradleRioVersion } from "./constants";
 import { createBuildGradle, createMainKt } from "./commands";
 import * as preferences from "./preferences";
 import * as fs from "fs";
+import * as kotlinExt from "./extension";
 
 export function isBuildGradleCompliant(): boolean {
     console.log("Checking build.gradle compliance");
@@ -37,8 +38,5 @@ export function makeMainKtCompliant() {
 }
 
 export function isKotlinProject(): boolean {
-    if (typeof vscode.workspace.workspaceFolders === 'undefined') {
-        return false;
-    }
-    return fs.existsSync(vscode.workspace.workspaceFolders[0].uri.fsPath + "/src/main/java/frc/robot/Robot.kt");
+    return fs.existsSync(kotlinExt.getWorkspaceFolderFsPath() + "/src/main/java/frc/robot/Robot.kt");
 }
