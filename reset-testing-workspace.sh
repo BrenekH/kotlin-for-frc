@@ -1,4 +1,4 @@
-rm -rf /testing-workspace/workspace/*
+rm -rf testing-workspace/workspace/*
 echo Deleted workspace directory
-cp -a /testing-workspace/template/. /testing-workspace/workspace/
+cp -a testing-workspace/template/. testing-workspace/workspace/
 echo Files successfully copied
