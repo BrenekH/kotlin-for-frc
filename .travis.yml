@@ -20,7 +20,7 @@ script:
 - vsce package
 - npm run test --silent
 - sudo chmod +x reset-testing-workspace.sh
-- sudo ./reset-testing-workspace
+- bash ./reset-testing-workspace
 deploy:
   provider: releases
   api_key:
