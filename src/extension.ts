@@ -9,22 +9,6 @@ import { robotType } from './template_interpreter';
 var currentWorkspacePath: string;
 var currentWorkspaceFsPath: string;
 
-export function getWorkspaceFolderPath() {
-    return currentWorkspacePath;
-}
-
-export function setWorkspaceFolderPath(path: string) {
-    currentWorkspacePath = path;
-} 
-
-export function getWorkspaceFolderFsPath() {
-    return currentWorkspaceFsPath;
-}
-
-export function setWorkspaceFolderFsPath(fsPath: string) {
-    currentWorkspaceFsPath = fsPath;
-}
-
 export function activate(context: vscode.ExtensionContext) {
 
     console.log('Congratulations, your extension "kotlin-for-frc" is now active!');
@@ -117,4 +101,20 @@ export function activate(context: vscode.ExtensionContext) {
 
 // this method is called when your extension is deactivated
 export function deactivate() {
+}
+
+export function getWorkspaceFolderPath() {
+    return currentWorkspacePath;
+}
+
+export function setWorkspaceFolderPath(path: string) {
+    currentWorkspacePath = path;
+} 
+
+export function getWorkspaceFolderFsPath() {
+    return currentWorkspaceFsPath;
+}
+
+export function setWorkspaceFolderFsPath(fsPath: string) {
+    currentWorkspaceFsPath = fsPath;
 }
