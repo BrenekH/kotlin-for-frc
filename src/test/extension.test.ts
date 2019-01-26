@@ -23,17 +23,6 @@ suite("Extension Tests", function () {
             assert.equal(1, 0);
             return;
         }
-        try {
-            console.log("Current 1 workspace: " + vscode.workspace.workspaceFolders[1].uri.fsPath);
-        } catch (e) {
-            console.log("Didn't catch that: " + e);
-        }
-        vscode.workspace.updateWorkspaceFolders(0, undefined, {uri: vscode.Uri.parse("C:\\Users\\metah\\Repos\\VSCodeExtensions\\kotlin-for-frc\\testing-workspace\\workspace")});
-        console.log("After update: " + vscode.workspace.workspaceFolders[1].uri.fsPath);
-        var moddedPath = vscode.workspace.workspaceFolders[0].uri.fsPath.replace("\\out\\test", "\\testing-workspace\\workspace");
-        console.log("Modded path" + moddedPath);
-        var file = vscode.workspace.workspaceFolders[0].uri.fsPath + "/src/main/java/frc/robot/Main.kt";
-        console.log("File path: " + file);
         assert.equal(1, 1);
     });
 });

@@ -24,6 +24,7 @@ Improvements:
                 ✔ Add scripts to reset the sample workspace @started(19-01-25 14:59) @done(19-01-25 18:36) @lasted(3h37m24s)
                 ✔ Add dir to .vscodeignore @done(19-01-25 19:41)
                 ☐ https://code.visualstudio.com/api/working-with-extensions/testing-extension details how to do all this
+            ☐ Reconfigure extension to use a constant from extension.ts instead of querying the vscode api
     Switch back to Main.kt:
         ✔ Change templates @done(19-01-21 17:08)
         ✔ Create preferences system @done(19-01-21 17:08)
