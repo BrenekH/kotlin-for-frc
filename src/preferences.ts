@@ -1,6 +1,7 @@
 'use strict';
 import * as vscode from 'vscode';
 import * as fs from "fs";
+import * as kotlinExt from "./extension";
 
 var defaultJson = `{"wpilib_version": "2019.0.1", "main_kt": false, "run_compliance_tests": true}`;
 
@@ -48,13 +49,10 @@ export function setRunComplianceTests(value: boolean) {
 }
 
 export function createPreferencesJson() {
-    if (typeof vscode.workspace.workspaceFolders === 'undefined') {
-        return;
+    if (!fs.existsSync(kotlinExt.getWorkspaceFolderFsPath() + "/.kotlin-for-frc")) {
+        fs.mkdirSync(kotlinExt.getWorkspaceFolderFsPath() + "/.kotlin-for-frc");
     }
-    if (!fs.existsSync(vscode.workspace.workspaceFolders[0].uri.fsPath + "/.kotlin-for-frc")) {
-        fs.mkdirSync(vscode.workspace.workspaceFolders[0].uri.fsPath + "/.kotlin-for-frc");
-    }
-    fs.writeFileSync(vscode.workspace.workspaceFolders[0].uri.fsPath + "/.kotlin-for-frc/kotlin-frc-preferences.json", defaultJson);
+    fs.writeFileSync(kotlinExt.getWorkspaceFolderFsPath() + "/.kotlin-for-frc/kotlin-frc-preferences.json", defaultJson);
 }
 
 function loadPreferencesJson(): PreferencesJson {
@@ -65,19 +63,16 @@ function loadPreferencesJson(): PreferencesJson {
         return parsedJson;
     }
     try {
-        parsedJson = JSON.parse(fs.readFileSync(vscode.workspace.workspaceFolders[0].uri.fsPath + "/.kotlin-for-frc/kotlin-frc-preferences.json", 'utf8'));
+        parsedJson = JSON.parse(fs.readFileSync(kotlinExt.getWorkspaceFolderFsPath() + "/.kotlin-for-frc/kotlin-frc-preferences.json", 'utf8'));
     }
     catch(e) {
         console.log("Caught Error: " + e);
         createPreferencesJson();
-        parsedJson = JSON.parse(fs.readFileSync(vscode.workspace.workspaceFolders[0].uri.fsPath + "/.kotlin-for-frc/kotlin-frc-preferences.json", 'utf8'));
+        parsedJson = JSON.parse(fs.readFileSync(kotlinExt.getWorkspaceFolderFsPath() + "/.kotlin-for-frc/kotlin-frc-preferences.json", 'utf8'));
     }
     return parsedJson;
 }
 
 function savePreferencesJson(json: PreferencesJson) {
-    if (typeof vscode.workspace.workspaceFolders === 'undefined') {
-        return;
-    }
-    fs.writeFileSync(vscode.workspace.workspaceFolders[0].uri.fsPath + "/.kotlin-for-frc/kotlin-frc-preferences.json", JSON.stringify(json));
+    fs.writeFileSync(kotlinExt.getWorkspaceFolderFsPath() + "/.kotlin-for-frc/kotlin-frc-preferences.json", JSON.stringify(json));
 }

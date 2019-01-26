@@ -6,9 +6,38 @@ import * as preferences from "./preferences";
 import * as compliance from "./compliance";
 import { robotType } from './template_interpreter';
 
+var currentWorkspacePath: string;
+var currentWorkspaceFsPath: string;
+
+export function getWorkspaceFolderPath() {
+    return currentWorkspacePath;
+}
+
+export function setWorkspaceFolderPath(path: string) {
+    currentWorkspacePath = path;
+} 
+
+export function getWorkspaceFolderFsPath() {
+    return currentWorkspaceFsPath;
+}
+
+export function setWorkspaceFolderFsPath(fsPath: string) {
+    currentWorkspaceFsPath = fsPath;
+}
+
 export function activate(context: vscode.ExtensionContext) {
 
     console.log('Congratulations, your extension "kotlin-for-frc" is now active!');
+
+    // Setting up current workspace
+    if (typeof vscode.workspace.workspaceFolders === 'undefined') {
+        console.log("Not a valid workspace");
+        vscode.window.showErrorMessage("Kotlin for FRC: Not a workspace!");
+        return;
+    }
+
+    currentWorkspacePath = vscode.workspace.workspaceFolders[0].uri.path;
+    currentWorkspaceFsPath = vscode.workspace.workspaceFolders[0].uri.fsPath;
 
     // * Registering commands
     console.log("Registering commands");
@@ -31,15 +60,10 @@ export function activate(context: vscode.ExtensionContext) {
     context.subscriptions.push(disposable);
 
     disposable = vscode.commands.registerCommand('extension.convertJavaProject', () => {
-        if (typeof vscode.workspace.workspaceFolders === 'undefined') {
-			console.log("Not a valid workspace");
-			vscode.window.showErrorMessage("Kotlin for FRC: Not a valid workspace!");
-			return;
-        }
         console.log("Reading Robot.java");
         // Check to make sure file paths are even there
         try {
-            var robot_java: string = fs.readFileSync(vscode.workspace.workspaceFolders[0].uri.fsPath + "/src/main/java/frc/robot/Robot.java", 'utf8');
+            var robot_java: string = fs.readFileSync(currentWorkspaceFsPath + "/src/main/java/frc/robot/Robot.java", 'utf8');
         }
         catch (e) {
             console.log(e);
