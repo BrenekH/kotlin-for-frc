@@ -1,6 +1,5 @@
 out
-node_modules/*
-!node_modules/run-script-os/
+node_modules
 .vscode-test/
 *.vsix
 
