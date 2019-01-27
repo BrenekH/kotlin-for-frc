@@ -14,14 +14,7 @@ export function activate(context: vscode.ExtensionContext) {
     console.log('Congratulations, your extension "kotlin-for-frc" is now active!');
 
     // Setting up current workspace
-    if (typeof vscode.workspace.workspaceFolders === 'undefined') {
-        console.log("Not a valid workspace");
-        vscode.window.showErrorMessage("Kotlin for FRC: Not a workspace!");
-        return;
-    }
-
-    currentWorkspacePath = vscode.workspace.workspaceFolders[0].uri.path;
-    currentWorkspaceFsPath = vscode.workspace.workspaceFolders[0].uri.fsPath;
+    resetWorkspaceFolderPaths();
 
     // * Registering commands
     console.log("Registering commands");
@@ -117,4 +110,20 @@ export function getWorkspaceFolderFsPath() {
 
 export function setWorkspaceFolderFsPath(fsPath: string) {
     currentWorkspaceFsPath = fsPath;
+}
+
+export function setWorkspaceFolderPathsFromUri(uri: vscode.Uri) {
+    currentWorkspaceFsPath = uri.fsPath;
+    currentWorkspacePath = uri.path;
+}
+
+export function resetWorkspaceFolderPaths() {
+    if (typeof vscode.workspace.workspaceFolders === 'undefined') {
+        console.log("Not a valid workspace");
+        vscode.window.showErrorMessage("Kotlin for FRC: Not a workspace!");
+        return;
+    }
+
+    currentWorkspacePath = vscode.workspace.workspaceFolders[0].uri.path;
+    currentWorkspaceFsPath = vscode.workspace.workspaceFolders[0].uri.fsPath;
 }
