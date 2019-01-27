@@ -21,7 +21,6 @@ script:
 - npm run compile
 - vsce package
 - npm test --silent
-- bash ./reset-testing-workspace.sh
 deploy:
   provider: releases
   api_key:
