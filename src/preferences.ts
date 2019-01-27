@@ -23,7 +23,7 @@ export function getMainKt(): boolean {
 
 export function getRunComplianceTests(): boolean {
     let parsedJson = loadPreferencesJson();
-    if (typeof parsedJson.run_compliance_tests === 'undefined'){
+    if (typeof parsedJson.run_compliance_tests === 'undefined') {
         setRunComplianceTests(true);
         parsedJson = loadPreferencesJson();
     }
