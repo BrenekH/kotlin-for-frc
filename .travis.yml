@@ -18,7 +18,7 @@ install:
 script:
 - npm run compile
 - vsce package
-- npm run test --silent
+- npm test --silent
 - bash ./reset-testing-workspace.sh
 deploy:
   provider: releases
