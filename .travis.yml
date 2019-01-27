@@ -2,7 +2,7 @@ language: nodejs
 cache: npm
 sudo: true
 node_js:
-- node
+- stable
 os:
 - linux
 dist: trusty
