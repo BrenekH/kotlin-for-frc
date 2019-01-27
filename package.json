@@ -73,7 +73,7 @@
         "postinstall": "node ./node_modules/vscode/bin/install",
         "test": "npm run compile && node ./node_modules/vscode/bin/test && run-script-os",
         "test:win32": "echo Resetting testing workspace && reset-testing-workspace.bat",
-        "test:linux": "echo Resetting testing workspace && bash ./reset-testing-workspace.sh"
+        "test:linux": "echo Resetting testing workspace && ./reset-testing-workspace.sh"
     },
     "devDependencies": {
         "@types/mocha": "^2.2.42",
