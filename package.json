@@ -81,7 +81,7 @@
         "run-script-os": "^1.0.5",
         "tslint": "^5.8.0",
         "typescript": "^2.9.2",
-        "vscode": "^1.1.21"
+        "vscode": "^1.1.28"
     },
     "dependencies": {
         "@types/rimraf": "^2.0.2",

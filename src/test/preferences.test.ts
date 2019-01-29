@@ -18,8 +18,9 @@ suite("Preferences.ts Test", function () {
     });
 
     test("Set main kt", function() {
-        var filePath = kotlinExt.
+        var filePath = kotlinExt.getWorkspaceFolderFsPath() + ".kotlin-for-frc/kotlin-frc-preferences.json"
         fs.writeFileSync(filePath, `{"wpilib_version": "2019.0.1", "main_kt": true, "run_compliance_tests": true}`, 'utf-8');
         assert.equal(preferences.getMainKt(), true);
+        fs.writeFileSync(filePath, `{"wpilib_version": "2019.0.1", "main_kt": false, "run_compliance_tests": true}`, 'utf-8');
     });
 });
