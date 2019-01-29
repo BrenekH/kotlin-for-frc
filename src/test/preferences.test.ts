@@ -1,6 +1,6 @@
 // import * as vscode from 'vscode';
 import * as assert from 'assert';
-// import * as kotlinExt from '../extension';
+import * as kotlinExt from '../extension';
 // import * as compliance from '../compliance';
 // import * as commands from '../commands';
 // import * as file_generator from '../file_generator';
@@ -18,7 +18,8 @@ suite("Preferences.ts Test", function () {
     });
 
     test("Set main kt", function() {
-        preferences.setMainKt(true);
+        var filePath = kotlinExt.
+        fs.writeFileSync(filePath, `{"wpilib_version": "2019.0.1", "main_kt": true, "run_compliance_tests": true}`, 'utf-8');
         assert.equal(preferences.getMainKt(), true);
     });
 });
