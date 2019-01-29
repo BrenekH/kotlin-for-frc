@@ -13,11 +13,12 @@ import * as testingConsts from "./testingConstants";
 suite("Preferences.ts Test", function () {
     testingConsts.setupWorkspace();
 
-    test("Preferences Main Kt value", function() {
+    test("Get Main Kt ", function() {
         assert.equal(preferences.getMainKt(), false);
     });
 
-    test("Set main kt", function() {
+    test("Set Main Kt", function() {
+        // TODO: Change to read preferences to check if the API set the value properly
         var filePath = kotlinExt.getWorkspaceFolderFsPath() + "/.kotlin-for-frc/kotlin-frc-preferences.json"
         fs.writeFileSync(filePath, `{"wpilib_version": "2019.0.1", "main_kt": true, "run_compliance_tests": true}`, 'utf-8');
         assert.equal(preferences.getMainKt(), true);
