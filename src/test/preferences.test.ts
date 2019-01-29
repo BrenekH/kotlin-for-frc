@@ -7,7 +7,7 @@ import * as assert from 'assert';
 import * as preferences from '../preferences';
 // import * as template_interpreter from '../template_interpreter';
 // import * as path from "path";
-// import * as fs from 'fs';
+import * as fs from 'fs';
 import * as testingConsts from "./testingConstants";
 
 suite("Preferences.ts Test", function () {
