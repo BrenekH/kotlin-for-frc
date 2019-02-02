@@ -2,7 +2,7 @@ language: nodejs
 cache: npm
 sudo: true
 node_js:
-- node
+- '10'
 os:
 - linux
 dist: trusty
@@ -13,6 +13,7 @@ before_install:
 - if [ $TRAVIS_OS_NAME == "linux" ]; then export CXX="g++-4.9" CC="gcc-4.9" DISPLAY=:99.0;
   sh -e /etc/init.d/xvfb start; sleep 3; fi
 - sudo apt-get install -y libnss3
+- nvm install node
 install:
 - npm install -g vsce
 - npm install -g typescript
