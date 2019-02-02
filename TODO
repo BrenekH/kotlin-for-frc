@@ -25,11 +25,15 @@ Improvements:
                 ✔ Add dir to .vscodeignore @done(19-01-25 19:41)
                 ✔ https://code.visualstudio.com/api/working-with-extensions/testing-extension details how to do all this @done(19-01-27 16:49)
             ✔ Reconfigure extension to use a constant from extension.ts instead of querying the vscode api @done(19-01-26 16:50)
-        Tests to write:
-            ☐ Preferences API
-            ☐ File generator
-            ☐ Template interpreter
-            ☐ Extension.ts (Testing the workspace folder things)
+        ☐ Add reset function into testingConts.ts
+        Tests:
+            Preferences API:
+                ✔ Get Main Kt @done(19-01-29 15:22)
+                ☐ Set Main Kt
+                ☐ Get WPILib Version
+                ☐ Set WPILib Version
+                ☐ Get Compliance Tests Value
+                ☐ Set Compliance Test Value
     Switch back to Main.kt:
         ✔ Change templates @done(19-01-21 17:08)
         ✔ Create preferences system @done(19-01-21 17:08)
