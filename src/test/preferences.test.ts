@@ -24,5 +24,11 @@ suite("Preferences.ts Test", function () {
 
         var fileContents = fs.readFileSync(filePath, 'utf-8');
         assert.equal(fileContents, `{"wpilib_version":"2019.0.1","main_kt":true,"run_compliance_tests":true}`);
+        
+        preferences.setMainKt(false);
     });
+  
+  test("Get WPILib version", function() {
+      assert.equal(preferences.getWPILibVersion(), "2019.0.1");
+  });
 });
