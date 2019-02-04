@@ -53,7 +53,7 @@ suite("Preferences.ts Test", function () {
         preferences.setRunComplianceTests(false);
 
         var fileContents = fs.readFileSync(filePath, 'utf-8');
-        assert.equal(fileContents, `{"wpilib_version":"2019.0.1","main_kt":true,"run_compliance_tests":false}`);
+        assert.equal(fileContents, `{"wpilib_version":"2019.0.1","main_kt":false,"run_compliance_tests":false}`);
         
         preferences.setRunComplianceTests(true);
     });
