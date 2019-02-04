@@ -18,7 +18,6 @@ suite("Preferences.ts Test", function () {
     });
 
     test("Set Main Kt", function() {
-        // TODO: Change to read preferences to check if the API set the value properly
         var filePath = kotlinExt.getWorkspaceFolderFsPath() + "/.kotlin-for-frc/kotlin-frc-preferences.json";
         
         preferences.setMainKt(true);
