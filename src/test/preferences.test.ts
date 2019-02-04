@@ -41,5 +41,20 @@ suite("Preferences.ts Test", function () {
         assert.equal(fileContents, `{"wpilib_version":"2019.0.1","main_kt":true,"run_compliance_tests":true}`);
         
         preferences.setMainKt(false);
-    });  
+    });
+    
+    test("Get Run Compliance Test", function() {
+        assert.equal(preferences.getRunComplianceTests(), true);
+    });
+
+    test("Set Run Compliance Tests", function() {
+        var filePath = kotlinExt.getWorkspaceFolderFsPath() + "/.kotlin-for-frc/kotlin-frc-preferences.json";
+        
+        preferences.setRunComplianceTests(false);
+
+        var fileContents = fs.readFileSync(filePath, 'utf-8');
+        assert.equal(fileContents, `{"wpilib_version":"2019.0.1","main_kt":true,"run_compliance_tests":false}`);
+        
+        preferences.setRunComplianceTests(true);
+    });
 });
