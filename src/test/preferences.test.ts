@@ -13,6 +13,21 @@ import * as testingConsts from "./testingConstants";
 suite("Preferences.ts Test", function () {
     testingConsts.setupWorkspace();
 
+    test("Get WPILib version", function() {
+        assert.equal(preferences.getWPILibVersion(), "2019.0.1");
+    });
+  
+    test("Set WPILib version", function() {
+      var filePath = kotlinExt.getWorkspaceFolderFsPath() + "/.kotlin-for-frc/kotlin-frc-preferences.json";
+          
+      preferences.setWPILibVersion("2019.2.1");
+  
+      var fileContents = fs.readFileSync(filePath, 'utf-8');
+      assert.equal(fileContents, `{"wpilib_version":"2019.2.1","main_kt":false,"run_compliance_tests":true}`);
+      
+      preferences.setWPILibVersion("2019.0.1");
+    });
+
     test("Get Main Kt ", function() {
         assert.equal(preferences.getMainKt(), false);
     });
@@ -26,20 +41,5 @@ suite("Preferences.ts Test", function () {
         assert.equal(fileContents, `{"wpilib_version":"2019.0.1","main_kt":true,"run_compliance_tests":true}`);
         
         preferences.setMainKt(false);
-    });
-  
-  test("Get WPILib version", function() {
-      assert.equal(preferences.getWPILibVersion(), "2019.0.1");
-  });
-
-  test("Set WPILib version", function() {
-    var filePath = kotlinExt.getWorkspaceFolderFsPath() + "/.kotlin-for-frc/kotlin-frc-preferences.json";
-        
-    preferences.setWPILibVersion("2019.2.1");
-
-    var fileContents = fs.readFileSync(filePath, 'utf-8');
-    assert.equal(fileContents, `{"wpilib_version":"2019.2.1","main_kt":false,"run_compliance_tests":true}`);
-    
-    preferences.setWPILibVersion("2019.0.1");
-  });
+    });  
 });
