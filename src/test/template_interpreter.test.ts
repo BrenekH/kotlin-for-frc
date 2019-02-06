@@ -14,6 +14,7 @@ import { MainTemplate } from '../templates/frc-kotlin/Main';
 suite("Template Grabbing Tests", function () {
     test("Get Main.kt Template Object", function() {
         assert.equal(template_interpreter.getMainTemplateObject(), new MainTemplate);
+        assert.equal(1, 1);
     });
 });
 
