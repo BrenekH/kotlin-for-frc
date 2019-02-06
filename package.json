@@ -87,6 +87,9 @@
         "@types/rimraf": "^2.0.2",
         "rimraf": "^2.0.2"
     },
+    "extensionDependencies": [
+        "wpilibsuite.vscode-wpilib"
+    ],
     "repository": {
         "type": "git",
         "url": "https://github.com/zPaw/kotlin-for-frc.git"
