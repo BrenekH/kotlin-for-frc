@@ -26,6 +26,7 @@
         "templateinterpreter",
         "templatetype",
         "wpilib",
-        "wpilibj"
+        "wpilibj",
+        "wpilibsuite"
     ]
 }
