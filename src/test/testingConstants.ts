@@ -1,3 +1,4 @@
+// import * as spawn from "cross-spawn";
 import * as vscode from "vscode";
 import * as kotlinExt from "../extension";
 
@@ -11,6 +12,14 @@ export function setupWorkspace() {
     kotlinExt.setWorkspaceFolderPath(uri.path);
 }
 
-export function resetWorkspace() {
+export function resetWorkspacePaths() {
     kotlinExt.resetWorkspaceFolderPaths();
+}
+
+export function resetTestingWorkspace() {
+    // Resets the testing workspace
+    var os = process.platform;
+    if (os === "linux") {
+        
+    }
 }

@@ -85,7 +85,8 @@
     },
     "dependencies": {
         "@types/rimraf": "^2.0.2",
-        "rimraf": "^2.0.2"
+        "rimraf": "^2.0.2",
+        "cross-spawn": "^6.0.5"
     },
     "extensionDependencies": [
         "wpilibsuite.vscode-wpilib"
