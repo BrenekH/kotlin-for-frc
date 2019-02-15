@@ -19,5 +19,7 @@ suite("Template Grabbing Tests", function () {
 });
 
 suite("Template Parsing Tests", function() {
-    testingConsts.resetTestingWorkspace();
+    test("Reset testing workspace", function() {
+        testingConsts.resetTestingWorkspace();
+    });
 });
