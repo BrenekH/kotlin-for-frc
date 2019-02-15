@@ -1,4 +1,4 @@
-// import * as spawn from "cross-spawn";
+import * as spawn from "cross-spawn";
 import * as vscode from "vscode";
 import * as kotlinExt from "../extension";
 
@@ -20,6 +20,6 @@ export function resetTestingWorkspace() {
     // Resets the testing workspace
     var os = process.platform;
     if (os === "linux") {
-        
+        spawn.sync("../reset-testing-workspace.sh")
     }
 }

@@ -8,7 +8,7 @@ import * as assert from 'assert';
 // import * as template_interpreter from '../template_interpreter';
 // import * as path from "path";
 // import * as fs from 'fs';
-// import * as testingConsts from "./testingConstants";
+import * as testingConsts from "./testingConstants";
 // import { MainTemplate } from '../templates/frc-kotlin/Main';
 
 suite("Template Grabbing Tests", function () {
@@ -19,5 +19,5 @@ suite("Template Grabbing Tests", function () {
 });
 
 suite("Template Parsing Tests", function() {
-    
+    testingConsts.resetTestingWorkspace();
 });
