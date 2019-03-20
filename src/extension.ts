@@ -82,8 +82,8 @@ export function activate(context: vscode.ExtensionContext) {
     console.log("Compliance testing");
     if (preferences.getRunComplianceTests() && compliance.isKotlinProject()) {
         // * Check build.gradle
-        if (!compliance.isBuildGradleCompliant()) {
-            compliance.makeBuildGradleCompliant();
+        if (!compliance.isGradleRioVersionCompliant()) {
+            compliance.makeGradleRioVersionCompliant();
         }
         // * Check Main.kt
         if (!compliance.isMainKtCompliant()) {
