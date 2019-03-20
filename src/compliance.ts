@@ -6,7 +6,7 @@ import * as preferences from "./preferences";
 import * as fs from "fs";
 import * as kotlinExt from "./extension";
 
-export function isBuildGradleCompliant(): boolean {
+export function isGradleRioVersionCompliant(): boolean {
     console.log("Checking build.gradle compliance");
     let registeredVersion = preferences.getWPILibVersion();
     if (registeredVersion === targetGradleRioVersion) {
@@ -23,7 +23,7 @@ export function isMainKtCompliant(): boolean {
     return false;
 }
 
-export function makeBuildGradleCompliant() {
+export function makeGradleRioVersionCompliant() {
     console.log("Forcing build.gradle compliance");
     createBuildGradle();
     vscode.window.showInformationMessage("GradleRio version updated");
@@ -39,4 +39,11 @@ export function makeMainKtCompliant() {
 
 export function isKotlinProject(): boolean {
     return fs.existsSync(kotlinExt.getWorkspaceFolderFsPath() + "/src/main/java/frc/robot/Robot.kt");
+}
+
+export function updateGradleRioVersion() {
+    var re = /id \"edu.wpi.first.GradleRIO\" version \".+\"/gi;
+    // TODO: Read existing build.gradle as string
+    // TODO: Replace GradleRio version
+    // TODO: Save build.gradle
 }
