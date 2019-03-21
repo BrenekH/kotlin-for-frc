@@ -38,7 +38,7 @@ Improvements:
                 Grabbing templates:
                 Parsing templates:
     Build Gradle Settings Updating:
-        ☐ Make the build.gradle compliance update just the GradleRio version
+        ✔ Make the build.gradle compliance update just the GradleRio version @done(19-03-21 10:37)
     Switch back to Main.kt:
         ✔ Change templates @done(19-01-21 17:08)
         ✔ Create preferences system @done(19-01-21 17:08)
