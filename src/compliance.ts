@@ -2,6 +2,7 @@
 import * as vscode from "vscode";
 import { targetGradleRioVersion } from "./constants";
 import { createBuildGradle, createMainKt } from "./commands";
+import { createFileWithContent } from "./file_generator";
 import * as preferences from "./preferences";
 import * as fs from "fs";
 import * as kotlinExt from "./extension";
@@ -47,4 +48,5 @@ export function updateGradleRioVersion() {
     // TODO: Read existing build.gradle as string
     // TODO: Replace GradleRio version
     // TODO: Save build.gradle
+    createFileWithContent("build.gradle", fs.readFileSync(kotlinExt.getWorkspaceFolderFsPath() + "build.gradle", "utf-8").replace(re, `id "edu.wpi.first.GradleRIO" version "${targetGradleRioVersion}"`));
 }
