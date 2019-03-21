@@ -20,6 +20,6 @@ export function resetTestingWorkspace() {
     // Resets the testing workspace
     var os = process.platform;
     if (os === "linux") {
-        spawn.sync("../reset-testing-workspace.sh")
+        spawn.sync("../reset-testing-workspace.sh");
     }
 }
