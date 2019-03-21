@@ -2,7 +2,7 @@
 
 ## 1.3.0 - 2019-03-21
 * When updating the GradleRIO version, the GradleRIO version is the only line that changes
-* Added many tests to ensure quality code
+* Added tests to ensure quality code
 
 ## 1.2.1 - 2019-01-22
 * Changed gradle main class back to frc.robot.Main
