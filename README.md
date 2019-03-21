@@ -18,6 +18,10 @@ Kotlin for FRC is an unofficial companion extension to the official WPILib exten
 
 ## Release Notes
 
+### 1.3.0
+* When updating the GradleRIO version, the GradleRIO version is the only line that changes
+* Added tests to ensure quality code
+
 ### 1.2.1
 * Changed gradle main class back to frc.robot.Main
 * Added JvmStatic annotation to Main.kt
@@ -47,6 +51,3 @@ Kotlin for FRC is an unofficial companion extension to the official WPILib exten
 * Converted all templates to match WPILib templates for the 2019 FRC Season
 * Implemented auto detection of package when creating new classes
 * New scheme for creating new classes
-
-### 0.4.0
-* Addressed Issue #2 and added support for Iterative, Sample, and Timed Robot types
