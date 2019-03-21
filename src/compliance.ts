@@ -44,9 +44,7 @@ export function isKotlinProject(): boolean {
 
 export function updateGradleRioVersion() {
     var re = /id \"edu.wpi.first.GradleRIO\" version \".+\"/gi;
-    console.log(re);
-    // TODO: Read existing build.gradle as string
-    // TODO: Replace GradleRio version
-    // TODO: Save build.gradle
-    createFileWithContent("build.gradle", fs.readFileSync(kotlinExt.getWorkspaceFolderFsPath() + "build.gradle", "utf-8").replace(re, `id "edu.wpi.first.GradleRIO" version "${targetGradleRioVersion}"`));
+    var fileContent = fs.readFileSync(kotlinExt.getWorkspaceFolderFsPath() + "build.gradle", "utf-8");
+    var replacementString = `id "edu.wpi.first.GradleRIO" version "${targetGradleRioVersion}"`;
+    createFileWithContent("build.gradle", fileContent.replace(re, replacementString));
 }
