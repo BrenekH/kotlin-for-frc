@@ -43,6 +43,7 @@ export function isKotlinProject(): boolean {
 
 export function updateGradleRioVersion() {
     var re = /id \"edu.wpi.first.GradleRIO\" version \".+\"/gi;
+    console.log(re);
     // TODO: Read existing build.gradle as string
     // TODO: Replace GradleRio version
     // TODO: Save build.gradle
