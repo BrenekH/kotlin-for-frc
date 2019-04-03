@@ -22,7 +22,7 @@ suite("Grabbing Templates", function () {
     test("build.gradle", function() {
         testingConsts.resetTestingWorkspace();
         var buildGradleTemplate = new BuildGradleTemplate;
-        assert.equal(template_interpreter.getTemplateObjectFromTemplateType(template_interpreter.templateType.build_gradle), buildGradleTemplate.getText());
+        assert.equal(template_interpreter.getTemplateObjectFromTemplateType(template_interpreter.templateType.build_gradle).getText(), buildGradleTemplate.getText());
     });
 });
 
