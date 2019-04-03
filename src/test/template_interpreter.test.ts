@@ -13,6 +13,7 @@ import { MainTemplate } from '../templates/frc-kotlin/Main';
 import { BuildGradleTemplate } from '../templates/frc-kotlin/BuildGradle';
 import { SubsystemTemplate } from '../templates/frc-kotlin/command-based/subsystems/SubsystemTemplate';
 import { CommandTemplate } from '../templates/frc-kotlin/command-based/commands/CommandTemplate';
+import { CommandGroupTemplate } from '../templates/frc-kotlin/command-based/commands/CommandGroupTemplate';
 
 suite("Grabbing Templates", function () {
     test("Main.kt", function() {
@@ -37,6 +38,12 @@ suite("Grabbing Templates", function () {
         testingConsts.resetTestingWorkspace();
         var commandTemplate = new CommandTemplate;
         assert.equal(template_interpreter.getTemplateObjectFromTemplateType(template_interpreter.templateType.command).getText(), commandTemplate.getText());
+    });
+
+    test("Command Group", function() {
+        testingConsts.resetTestingWorkspace();
+        var commandGroupTemplate = new CommandGroupTemplate;
+        assert.equal(template_interpreter.getTemplateObjectFromTemplateType(template_interpreter.templateType.command_group).getText(), commandGroupTemplate.getText());
     });
 });
 
