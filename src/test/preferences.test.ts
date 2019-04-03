@@ -10,7 +10,7 @@ import * as preferences from '../preferences';
 import * as fs from 'fs';
 import * as testingConsts from "./testingConstants";
 
-suite("Preferences.ts Test", function () {
+suite("Preferences API", function () {
     testingConsts.setupWorkspace();
 
     test("Get WPILib version", function() {
