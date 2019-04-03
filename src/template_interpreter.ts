@@ -58,7 +58,7 @@ export function parseTemplate(className: string, packageName: string, templatety
     rawTemplateData = getTemplateObjectFromTemplateType(templatetype).getText();
     transformedData = rawTemplateData;
 
-    //Class name test
+    // Class name test
     var re = /#{NAME}/gi;
     transformedData = transformedData.replace(re, className);
 

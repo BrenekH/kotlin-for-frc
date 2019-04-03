@@ -12,6 +12,7 @@ import * as testingConsts from "./testingConstants";
 import { MainTemplate } from '../templates/frc-kotlin/Main';
 import { BuildGradleTemplate } from '../templates/frc-kotlin/BuildGradle';
 import { SubsystemTemplate } from '../templates/frc-kotlin/command-based/subsystems/SubsystemTemplate';
+import { CommandTemplate } from '../templates/frc-kotlin/command-based/commands/CommandTemplate';
 
 suite("Grabbing Templates", function () {
     test("Main.kt", function() {
@@ -30,6 +31,12 @@ suite("Grabbing Templates", function () {
         testingConsts.resetTestingWorkspace();
         var subsystemTemplate = new SubsystemTemplate;
         assert.equal(template_interpreter.getTemplateObjectFromTemplateType(template_interpreter.templateType.subsystem).getText(), subsystemTemplate.getText());
+    });
+
+    test("Command", function() {
+        testingConsts.resetTestingWorkspace();
+        var commandTemplate = new CommandTemplate;
+        assert.equal(template_interpreter.getTemplateObjectFromTemplateType(template_interpreter.templateType.command).getText(), commandTemplate.getText());
     });
 });
 
