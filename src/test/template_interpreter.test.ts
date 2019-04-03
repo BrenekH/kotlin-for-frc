@@ -13,8 +13,8 @@ import { MainTemplate } from '../templates/frc-kotlin/Main';
 
 suite("Template Grabbing Tests", function () {
     test("Get Main.kt Template Object", function() {
-        var thing = new MainTemplate;
-        assert.equal(template_interpreter.getMainTemplateObject().getText(), thing.getText());
+        var mainTemplate = new MainTemplate;
+        assert.equal(template_interpreter.getMainTemplateObject().getText(), mainTemplate.getText());
         assert.equal(1, 1);
     });
 });
