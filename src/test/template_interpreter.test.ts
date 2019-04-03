@@ -15,6 +15,7 @@ import { SubsystemTemplate } from '../templates/frc-kotlin/command-based/subsyst
 import { CommandTemplate } from '../templates/frc-kotlin/command-based/commands/CommandTemplate';
 import { CommandGroupTemplate } from '../templates/frc-kotlin/command-based/commands/CommandGroupTemplate';
 import { EmptyClassTemplate } from '../templates/frc-kotlin/command-based/EmptyClassTemplate';
+import { InstantCommandTemplate } from '../templates/frc-kotlin/command-based/commands/InstantCommandTemplate';
 
 suite("Grabbing Templates", function () {
     test("Main.kt", function() {
@@ -51,6 +52,12 @@ suite("Grabbing Templates", function () {
         testingConsts.resetTestingWorkspace();
         var emptyClassTemplate = new EmptyClassTemplate;
         assert.equal(template_interpreter.getTemplateObjectFromTemplateType(template_interpreter.templateType.empty_class).getText(), emptyClassTemplate.getText());
+    });
+
+    test("Instant Command", function() {
+        testingConsts.resetTestingWorkspace();
+        var instantCommandTemplate = new InstantCommandTemplate;
+        assert.equal(template_interpreter.getTemplateObjectFromTemplateType(template_interpreter.templateType.command).getText(), instantCommandTemplate.getText());
     });
 });
 
