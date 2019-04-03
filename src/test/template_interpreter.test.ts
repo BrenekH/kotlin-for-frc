@@ -10,16 +10,23 @@ import * as template_interpreter from '../template_interpreter';
 // import * as fs from 'fs';
 import * as testingConsts from "./testingConstants";
 import { MainTemplate } from '../templates/frc-kotlin/Main';
+import { BuildGradleTemplate } from '../templates/frc-kotlin/BuildGradle';
 
-suite("Template Grabbing Tests", function () {
-    test("Get Main.kt Template Object", function() {
+suite("Grabbing Templates", function () {
+    test("Main.kt", function() {
+        testingConsts.resetTestingWorkspace();
         var mainTemplate = new MainTemplate;
         assert.equal(template_interpreter.getMainTemplateObject().getText(), mainTemplate.getText());
-        assert.equal(1, 1);
+    });
+
+    test("build.gradle", function() {
+        testingConsts.resetTestingWorkspace();
+        var buildGradleTemplate = new BuildGradleTemplate;
+        assert.equal(template_interpreter.getTemplateObjectFromTemplateType(template_interpreter.templateType.build_gradle), buildGradleTemplate.getText());
     });
 });
 
-suite("Template Parsing Tests", function() {
+suite("Parsing Templates", function() {
     test("Reset testing workspace", function() {
         testingConsts.resetTestingWorkspace();
     });
