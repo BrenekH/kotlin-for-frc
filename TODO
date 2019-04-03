@@ -37,8 +37,8 @@ Improvements:
             Template Interpreter:
                 Grabbing templates:
                     ✔ Main.kt @done(19-04-03 15:19)
-                    ☐ Subsystem
-                    ☐ Command
+                    ✔ Subsystem @done(19-04-03 15:25)
+                    ✔ Command @started(19-04-03 15:25) @done(19-04-03 15:26) @lasted(1m26s)
                     ☐ Command Group
                     ☐ Empty Class
                     ☐ Instant Command
