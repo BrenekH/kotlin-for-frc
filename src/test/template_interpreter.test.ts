@@ -11,6 +11,7 @@ import * as template_interpreter from '../template_interpreter';
 import * as testingConsts from "./testingConstants";
 import { MainTemplate } from '../templates/frc-kotlin/Main';
 import { BuildGradleTemplate } from '../templates/frc-kotlin/BuildGradle';
+import { SubsystemTemplate } from '../templates/frc-kotlin/command-based/subsystems/SubsystemTemplate';
 
 suite("Grabbing Templates", function () {
     test("Main.kt", function() {
@@ -23,6 +24,12 @@ suite("Grabbing Templates", function () {
         testingConsts.resetTestingWorkspace();
         var buildGradleTemplate = new BuildGradleTemplate;
         assert.equal(template_interpreter.getTemplateObjectFromTemplateType(template_interpreter.templateType.build_gradle).getText(), buildGradleTemplate.getText());
+    });
+
+    test("Subsystem", function() {
+        testingConsts.resetTestingWorkspace();
+        var subsystemTemplate = new SubsystemTemplate;
+        assert.equal(template_interpreter.getTemplateObjectFromTemplateType(template_interpreter.templateType.subsystem).getText(), subsystemTemplate.getText());
     });
 });
 
