@@ -18,6 +18,7 @@ import { EmptyClassTemplate } from '../templates/frc-kotlin/command-based/EmptyC
 import { InstantCommandTemplate } from '../templates/frc-kotlin/command-based/commands/InstantCommandTemplate';
 import { TimedCommandTemplate } from '../templates/frc-kotlin/command-based/commands/TimedCommand';
 import { PIDSubsystemTemplate } from '../templates/frc-kotlin/command-based/subsystems/PIDSubsystemTemplate';
+import { TriggerTemplate } from '../templates/frc-kotlin/command-based/triggers/TriggerTemplate';
 
 suite("Grabbing Templates", function () {
     test("Main.kt", function() {
@@ -72,6 +73,12 @@ suite("Grabbing Templates", function () {
         testingConsts.resetTestingWorkspace();
         var pidSubsystemTemplate = new PIDSubsystemTemplate;
         assert.equal(template_interpreter.getTemplateObjectFromTemplateType(template_interpreter.templateType.pid_subsystem).getText(), pidSubsystemTemplate.getText());
+    });
+
+    test("Trigger", function() {
+        testingConsts.resetTestingWorkspace();
+        var triggerTemplate = new TriggerTemplate;
+        assert.equal(template_interpreter.getTemplateObjectFromTemplateType(template_interpreter.templateType.trigger).getText(), triggerTemplate.getText());
     });
 });
 
