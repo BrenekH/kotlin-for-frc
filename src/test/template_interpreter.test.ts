@@ -57,7 +57,7 @@ suite("Grabbing Templates", function () {
     test("Instant Command", function() {
         testingConsts.resetTestingWorkspace();
         var instantCommandTemplate = new InstantCommandTemplate;
-        assert.equal(template_interpreter.getTemplateObjectFromTemplateType(template_interpreter.templateType.command).getText(), instantCommandTemplate.getText());
+        assert.equal(template_interpreter.getTemplateObjectFromTemplateType(template_interpreter.templateType.instant_command).getText(), instantCommandTemplate.getText());
     });
 });
 
