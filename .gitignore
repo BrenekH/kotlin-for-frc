@@ -3,4 +3,5 @@ node_modules
 .vscode-test/
 *.vsix
 
-.vscode/
+testing-workspace/template/.vscode
+testing-workspace/workspace/.vscode
