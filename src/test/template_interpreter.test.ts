@@ -84,7 +84,7 @@ suite("Grabbing Templates", function () {
         assert.equal(template_interpreter.getTemplateObjectFromTemplateType(template_interpreter.templateType.trigger).getText(), triggerTemplate.getText());
     });
 
-    test("Robot", function() {
+    test("CommandRobot", function() {
         testingConsts.resetTestingWorkspace();
         var robotTemplate = new CommandRobotTemplate;
         assert.equal(template_interpreter.getTemplateObjectFromTemplateType(template_interpreter.templateType.robot).getText(), robotTemplate.getText());
