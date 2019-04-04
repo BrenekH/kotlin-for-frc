@@ -20,6 +20,7 @@ import { TimedCommandTemplate } from '../templates/frc-kotlin/command-based/comm
 import { PIDSubsystemTemplate } from '../templates/frc-kotlin/command-based/subsystems/PIDSubsystemTemplate';
 import { TriggerTemplate } from '../templates/frc-kotlin/command-based/triggers/TriggerTemplate';
 import { CommandRobotTemplate } from '../templates/frc-kotlin/command-based/Robot';
+import { OITemplate } from '../templates/frc-kotlin/command-based/OI';
 
 suite("Grabbing Templates", function () {
     test("Main.kt", function() {
@@ -86,6 +87,12 @@ suite("Grabbing Templates", function () {
         testingConsts.resetTestingWorkspace();
         var robotTemplate = new CommandRobotTemplate;
         assert.equal(template_interpreter.getTemplateObjectFromTemplateType(template_interpreter.templateType.robot).getText(), robotTemplate.getText());
+    });
+
+    test("OI", function() {
+        testingConsts.resetTestingWorkspace();
+        var oiTemplate = new OITemplate;
+        assert.equal(template_interpreter.getTemplateObjectFromTemplateType(template_interpreter.templateType.oi).getText(), oiTemplate.getText());
     });
 });
 
