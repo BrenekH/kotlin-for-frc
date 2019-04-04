@@ -8,6 +8,8 @@
     },
     // Turn off tsc task auto detection since we have the necessary tasks as npm scripts
     "typescript.tsc.autoDetect": "off",
+    "todo.timekeeping.started.format": "YY-MM-DD HH:mm:ss",
+    "todo.timekeeping.finished.format": "YY-MM-DD HH:mm:ss",
     "cSpell.words": [
         "brenek",
         "deployable",
