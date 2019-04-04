@@ -1,6 +1,6 @@
 Release Checklist:
-    ✔ Update README.md @done(19-03-21 11:00)
-    ✔ Update CHANGELOG.md @done(19-03-21 11:00)
+    ☐ Update README.md
+    ☐ Update CHANGELOG.md
     ☐ Update version
 
 2019:
@@ -45,7 +45,7 @@ Improvements:
                     ✔ Timed Command @done(19-04-04 13:17)
                     ✔ PID Subsystem @started(19-04-04 13:59) @done(19-04-04 13:59) @lasted(22s)
                     ✔ Trigger @started(19-04-04 14:06) @done(19-04-04 14:06) @lasted(38s)
-                    ☐ Robot
+                    ✔ Robot @started(19-04-04 14:10) @done(19-04-04 14:10) @lasted(1m)
                     ☐ OI
                     ☐ Robot Map
                     ✔ build.gradle @done(19-04-03 15:19)
