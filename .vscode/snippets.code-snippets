@@ -21,7 +21,7 @@
 			"test(\"$1\", function(){$0});"
 		],
 		"description": "Create a mocha test",
-		"scope": "kotlin"
+		"scope": "typescript"
 	},
 	"Create Kotlin-For-FRC Mocha Test": {
 		"prefix": "kfftestgrabtemplate",
@@ -33,6 +33,6 @@
 			"});"
 		],
 		"description": "Create a template grabbing test specific to kotlin-for-frc",
-		"scope": "kotlin"
+		"scope": "typescript"
 	}
 }
