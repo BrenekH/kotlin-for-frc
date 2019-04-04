@@ -46,7 +46,7 @@ Improvements:
                     ✔ PID Subsystem @started(19-04-04 13:59) @done(19-04-04 13:59) @lasted(22s)
                     ✔ Trigger @started(19-04-04 14:06) @done(19-04-04 14:06) @lasted(38s)
                     ✔ Robot @started(19-04-04 14:10) @done(19-04-04 14:10) @lasted(1m)
-                    ☐ OI
+                    ✔ OI @started(19-04-04 14:13) @done(19-04-04 14:13) @lasted(25s)
                     ☐ Robot Map
                     ✔ build.gradle @done(19-04-03 15:19)
                 Parsing templates:
