@@ -49,6 +49,10 @@ Improvements:
                     ✔ OI @started(19-04-04 14:13) @done(19-04-04 14:13) @lasted(25s)
                     ✔ Robot Map @started(19-04-04 14:14) @done(19-04-04 14:14) @lasted(24s)
                     ✔ build.gradle @done(19-04-03 15:19)
+                    ☐ Sample Robot
+                    ☐ Timed Robot
+                    ☐ Iterative Robot
+                    ☐ Timed Skeleton
                 Parsing templates:
                     ☐ Main.kt
                     ☐ Subsystem
@@ -63,6 +67,10 @@ Improvements:
                     ☐ OI
                     ☐ Robot Map
                     ☐ build.gradle
+                    ☐ Sample Robot
+                    ☐ Timed Robot
+                    ☐ Iterative Robot
+                    ☐ Timed Skeleton
     Build Gradle Settings Updating:
         ✔ Make the build.gradle compliance update just the GradleRio version @done(19-03-21 10:37)
     Switch back to Main.kt:
