@@ -21,6 +21,7 @@ import { PIDSubsystemTemplate } from '../templates/frc-kotlin/command-based/subs
 import { TriggerTemplate } from '../templates/frc-kotlin/command-based/triggers/TriggerTemplate';
 import { CommandRobotTemplate } from '../templates/frc-kotlin/command-based/Robot';
 import { OITemplate } from '../templates/frc-kotlin/command-based/OI';
+import { RobotMapTemplate } from '../templates/frc-kotlin/command-based/RobotMap';
 
 suite("Grabbing Templates", function () {
     test("Main.kt", function() {
@@ -93,6 +94,12 @@ suite("Grabbing Templates", function () {
         testingConsts.resetTestingWorkspace();
         var oiTemplate = new OITemplate;
         assert.equal(template_interpreter.getTemplateObjectFromTemplateType(template_interpreter.templateType.oi).getText(), oiTemplate.getText());
+    });
+
+    test("Robot Map", function() {
+        testingConsts.resetTestingWorkspace();
+        var robotMapTemplate = new RobotMapTemplate;
+        assert.equal(template_interpreter.getTemplateObjectFromTemplateType(template_interpreter.templateType.robot_map).getText(), robotMapTemplate.getText());
     });
 });
 
