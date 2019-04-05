@@ -103,7 +103,13 @@ suite("Grabbing Templates", function () {
     });
 });
 
-suite("Parsing Templates", function() {
+suite("Template Parsing", function() {
+    /* Possible Tests
+     * All parameters (className, packageName, templateType)
+     * className
+     * packageName
+     * templateType
+    */
     test("Reset testing workspace", function() {
         testingConsts.resetTestingWorkspace();
     });
