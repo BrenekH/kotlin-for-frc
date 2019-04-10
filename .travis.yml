@@ -21,6 +21,7 @@ install:
 script:
 - npm run compile
 - vsce package
+- npm run test-compile
 - npm test --silent
 deploy:
   provider: releases
