@@ -1,5 +1,8 @@
 # Change Log
 
+## 1.4.0
+* Faster extension loading times using webpack
+
 ## 1.3.0 - 2019-03-21
 * When updating the GradleRIO version, the GradleRIO version is the only line that changes
 * Added tests to ensure quality code
