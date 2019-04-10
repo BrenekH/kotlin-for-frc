@@ -18,7 +18,7 @@
         "onCommand:extension.forceCompliance",
         "onCommand:extension.changeComplianceTestPref"
     ],
-    "main": "./out/extension",
+    "main": "./dist/extension",
     "contributes": {
         "commands": [
             {
@@ -67,23 +67,27 @@
         }
     },
     "scripts": {
-        "vscode:prepublish": "npm run compile",
-        "compile": "tsc -p ./",
-        "watch": "tsc -watch -p ./",
+        "vscode:prepublish": "webpack --mode production",
+        "compile": "webpack --mode none",
+        "watch": "webpack --mode none --watch",
+        "test-compile": "tsc -p ./",
         "postinstall": "node ./node_modules/vscode/bin/install",
         "test": "npm run compile && node ./node_modules/vscode/bin/test && run-script-os",
         "test:win32": "echo Resetting testing workspace && reset-testing-workspace.bat",
         "test:linux:darwin": "chmod +x reset-testing-workspace.sh && echo Resetting testing workspace && ./reset-testing-workspace.sh"
     },
     "devDependencies": {
+        "@types/cross-spawn": "^6.0.0",
         "@types/mocha": "^2.2.42",
         "@types/node": "^8.10.25",
-        "@types/cross-spawn": "^6.0.0",
-        "run-script-os": "^1.0.5",
         "cross-spawn": "^6.0.5",
+        "run-script-os": "^1.0.5",
+        "ts-loader": "^5.3.3",
         "tslint": "^5.8.0",
         "typescript": "^2.9.2",
-        "vscode": "^1.1.28"
+        "vscode": "^1.1.28",
+        "webpack": "^4.29.6",
+        "webpack-cli": "^3.3.0"
     },
     "dependencies": {
         "@types/rimraf": "^2.0.2",
