@@ -51,7 +51,6 @@ export enum robotType {
     timed_skeleton
 }
 
-// TODO: Make template parsing much more abstract. Instead of all parsing taking place solely in parseTemplate, there should be one function for className, one for packageName, one for GradleRioVersion, and one that ties the three together with a templateType.
 export function parseTemplate(className: string, packageName: string, templatetype: templateType) {
     var rawTemplateData = getTemplateObjectFromTemplateType(templatetype).getText();
 
