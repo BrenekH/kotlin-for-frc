@@ -112,12 +112,12 @@ suite("Template Parsing", function() {
      * gradleRioVersion
      * templateType
     */
-    test("Class Name Parsing", function() {
-        testingConsts.resetTestingWorkspace();
+    test("Class Name Parsing - Basic", function() {
+        assert.equal("The class name is: MyAmazingClass", template_interpreter.parseForClassName("MyAmazingClass", "The class name is: #{NAME}"));
     });
 
-    test("Package Name Parsing", function() {
-        testingConsts.resetTestingWorkspace();
+    test("Package Name Parsing - Basic", function() {
+        assert.equal("The class name is: frc.robot.team.cool", template_interpreter.parseForPackageName("frc.robot.team.cool", "The class name is: #{PACKAGE}"));
     });
 
     test("GradleRio Version Parsing - Basic", function() {
