@@ -66,11 +66,11 @@ export function parseForClassName(className: string, toParse: string) {
 }
 
 export function parseForPackageName(packageName: string, toParse: string) {
-    return toParse.replace(/#{NAME}/gi, packageName);
+    return toParse.replace(/#{PACKAGE}/gi, packageName);
 }
 
 export function parseForGradleRioVersion(gradleRioVersion: string, toParse: string) {
-    return toParse.replace(/#{NAME}/gi, gradleRioVersion);
+    return toParse.replace(/#{GRADLE_RIO_VERSION}/gi, gradleRioVersion);
 }
 
 export function getTemplateObjectFromTemplateType(targetTemplateType: templateType) {
