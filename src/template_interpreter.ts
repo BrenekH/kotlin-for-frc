@@ -74,6 +74,22 @@ export function parseTemplate(className: string, packageName: string, templatety
     return transformedData;
 }
 
+export function getParsedGradle() {
+    return parseGradleRioVersion(targetGradleRioVersion, getTemplateObjectFromTemplateType(templateType.build_gradle).getText());
+}
+
+export function parseClassName(className: string, toParse: string) {
+    return toParse.replace(/#{NAME}/gi, className);
+}
+
+export function parsePackageName(packageName: string, toParse: string) {
+    return toParse.replace(/#{NAME}/gi, packageName);
+}
+
+export function parseGradleRioVersion(gradleRioVersion: string, toParse: string) {
+    return toParse.replace(/#{NAME}/gi, gradleRioVersion);
+}
+
 export function getTemplateObjectFromTemplateType(targetTemplateType: templateType) {
     switch(targetTemplateType) {
         case templateType.robot:

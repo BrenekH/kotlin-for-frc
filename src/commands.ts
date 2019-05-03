@@ -228,5 +228,5 @@ export function createMainKt() {
 }
 
 export function createBuildGradle() {
-	filegenerator.createFileWithContent("build.gradle", templateinterpreter.parseTemplate("null", "null", templateinterpreter.templateType.build_gradle));
+	filegenerator.createFileWithContent("build.gradle", templateinterpreter.getParsedGradle());
 }
