@@ -53,40 +53,24 @@ export enum robotType {
 
 // TODO: Make template parsing much more abstract. Instead of all parsing taking place solely in parseTemplate, there should be one function for className, one for packageName, one for GradleRioVersion, and one that ties the three together with a templateType.
 export function parseTemplate(className: string, packageName: string, templatetype: templateType) {
-    var className = className;
-    var rawTemplateData: string;    
-    var transformedData: string;
-    rawTemplateData = getTemplateObjectFromTemplateType(templatetype).getText();
-    transformedData = rawTemplateData;
+    var rawTemplateData = getTemplateObjectFromTemplateType(templatetype).getText();
 
-    // Class name test
-    var re = /#{NAME}/gi;
-    transformedData = transformedData.replace(re, className);
-
-    // Package generation
-    re = /#{PACKAGE}/gi;
-    transformedData = transformedData.replace(re, packageName);
-
-    // Gradle Rio Versioning
-    re = /#{GRADLE_RIO_VERSION}/gi;
-    transformedData = transformedData.replace(re, targetGradleRioVersion);
-
-    return transformedData;
+    return parseForClassName(className, parseForPackageName(packageName, rawTemplateData));
 }
 
 export function getParsedGradle() {
-    return parseGradleRioVersion(targetGradleRioVersion, getTemplateObjectFromTemplateType(templateType.build_gradle).getText());
+    return parseForGradleRioVersion(targetGradleRioVersion, getTemplateObjectFromTemplateType(templateType.build_gradle).getText());
 }
 
-export function parseClassName(className: string, toParse: string) {
+export function parseForClassName(className: string, toParse: string) {
     return toParse.replace(/#{NAME}/gi, className);
 }
 
-export function parsePackageName(packageName: string, toParse: string) {
+export function parseForPackageName(packageName: string, toParse: string) {
     return toParse.replace(/#{NAME}/gi, packageName);
 }
 
-export function parseGradleRioVersion(gradleRioVersion: string, toParse: string) {
+export function parseForGradleRioVersion(gradleRioVersion: string, toParse: string) {
     return toParse.replace(/#{NAME}/gi, gradleRioVersion);
 }
 
