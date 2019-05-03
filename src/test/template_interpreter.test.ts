@@ -1,5 +1,5 @@
-// import * as vscode from 'vscode';
 import * as assert from 'assert';
+// import * as vscode from 'vscode';
 // import * as kotlinExt from '../extension';
 // import * as compliance from '../compliance';
 // import * as commands from '../commands';
@@ -9,6 +9,7 @@ import * as template_interpreter from '../template_interpreter';
 // import * as path from "path";
 // import * as fs from 'fs';
 import * as testingConsts from "./testingConstants";
+import * as consts from "../constants";
 import { MainTemplate } from '../templates/frc-kotlin/Main';
 import { BuildGradleTemplate } from '../templates/frc-kotlin/BuildGradle';
 import { SubsystemTemplate } from '../templates/frc-kotlin/command-based/subsystems/SubsystemTemplate';
@@ -119,8 +120,8 @@ suite("Template Parsing", function() {
         testingConsts.resetTestingWorkspace();
     });
 
-    test("GradleRio Version Parsing", function() {
-        testingConsts.resetTestingWorkspace();
+    test("GradleRio Version Parsing - Basic", function() {
+        assert.equal(`The current GradleRIO Version is: ${consts.targetGradleRioVersion}`, "The current GradleRIO Version is: #{GRADLE_RIO_VERSION}");
     });
 
     test("Template Type Parsing", function() {
