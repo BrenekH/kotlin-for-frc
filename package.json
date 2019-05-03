@@ -85,7 +85,7 @@
         "ts-loader": "^5.3.3",
         "tslint": "^5.8.0",
         "typescript": "^2.9.2",
-        "vscode": "^1.1.28",
+        "vscode": "^1.1.33",
         "webpack": "^4.29.6",
         "webpack-cli": "^3.3.0"
     },
