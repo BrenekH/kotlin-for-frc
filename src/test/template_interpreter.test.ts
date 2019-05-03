@@ -105,12 +105,25 @@ suite("Grabbing Templates", function () {
 
 suite("Template Parsing", function() {
     /* Possible Tests
-     * All parameters (className, packageName, templateType)
+     * All parameters (className, packageName, gradleRioVersion, templateType)
      * className
      * packageName
+     * gradleRioVersion
      * templateType
     */
-    test("Reset testing workspace", function() {
+    test("Class Name Parsing", function() {
+        testingConsts.resetTestingWorkspace();
+    });
+
+    test("Package Name Parsing", function() {
+        testingConsts.resetTestingWorkspace();
+    });
+
+    test("GradleRio Version Parsing", function() {
+        testingConsts.resetTestingWorkspace();
+    });
+
+    test("Template Type Parsing", function() {
         testingConsts.resetTestingWorkspace();
     });
 });
