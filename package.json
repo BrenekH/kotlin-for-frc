@@ -72,7 +72,7 @@
         "watch": "webpack --mode none --watch",
         "test-compile": "tsc -p ./",
         "postinstall": "node ./node_modules/vscode/bin/install",
-        "test": "npm run compile && node ./node_modules/vscode/bin/test && run-script-os",
+        "test": "npm run test-compile && node ./node_modules/vscode/bin/test && run-script-os",
         "test:win32": "echo Resetting testing workspace && reset-testing-workspace.bat",
         "test:linux:darwin": "chmod +x reset-testing-workspace.sh && echo Resetting testing workspace && ./reset-testing-workspace.sh"
     },
