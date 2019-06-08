@@ -6,3 +6,5 @@ node_modules
 
 testing-workspace/template/.vscode
 testing-workspace/workspace/.vscode
+
+package-lock.json
