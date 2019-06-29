@@ -5,6 +5,7 @@ import * as fs from "fs";
 import * as preferences from "./preferences";
 import * as compliance from "./compliance";
 import { robotType } from './template_interpreter';
+import { displayChangelog } from './changelog';
 
 var currentWorkspacePath: string;
 var currentWorkspaceFsPath: string;
@@ -90,6 +91,9 @@ export function activate(context: vscode.ExtensionContext) {
             compliance.makeMainKtCompliant();
         }
     }
+
+    // * Check if the extension was updated and display the changelog if it was
+    displayChangelog(context);
 }
 
 // this method is called when your extension is deactivated
