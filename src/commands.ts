@@ -5,8 +5,9 @@ import * as templateinterpreter from "./template_interpreter";
 import * as compliance from "./compliance";
 import * as rimraf from "rimraf";
 import * as fs from "fs";
-import { setRunComplianceTests } from "./preferences";
 import * as kotlinExt from "./extension";
+import * as chnglog from "./changelog";
+import { setRunComplianceTests } from "./preferences";
 
 export function createNew(file_path: any) {
 	vscode.window.showQuickPick(["Command", "Subsystem", "Trigger", "Empty Class"]).then((option: any) => {
@@ -230,3 +231,5 @@ export function createMainKt() {
 export function createBuildGradle() {
 	filegenerator.createFileWithContent("build.gradle", templateinterpreter.getParsedGradle());
 }
+
+export function showChangelog() { chnglog.showChangelog(); }

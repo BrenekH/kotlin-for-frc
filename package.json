@@ -36,6 +36,10 @@
             {
                 "command": "extension.changeComplianceTestPref",
                 "title": "Kotlin-FRC: Change GradleRio Checks"
+            },
+            {
+                "command": "extension.showChangelog",
+                "title": "Kotlin-FRC: Show Changelog"
             }
         ],
         "menus": {
@@ -61,6 +65,10 @@
                 },
                 {
                     "command": "extension.changeComplianceTestPref",
+                    "when": "isWPILibProject"
+                },
+                {
+                    "command": "extension.showChangelog",
                     "when": "isWPILibProject"
                 }
             ]
