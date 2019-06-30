@@ -26,7 +26,7 @@ export function isMainKtCompliant(): boolean {
 
 export function makeGradleRioVersionCompliant() {
     console.log("Forcing build.gradle compliance");
-    createBuildGradle();
+    updateGradleRioVersion();
     vscode.window.showInformationMessage("GradleRio version updated");
     preferences.setWPILibVersion(targetGradleRioVersion);
 }
