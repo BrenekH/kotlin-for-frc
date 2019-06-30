@@ -1,4 +1,4 @@
-# Change Log
+# Kotlin For FRC Changelog
 
 ## 1.4.0 - 2019-06-30
 * Faster extension loading times using webpack
