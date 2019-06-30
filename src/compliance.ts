@@ -1,7 +1,7 @@
 "use strict";
 import * as vscode from "vscode";
 import { targetGradleRioVersion } from "./constants";
-import { createBuildGradle, createMainKt } from "./commands";
+import { createMainKt } from "./commands";
 import { createFileWithContent } from "./file_generator";
 import * as preferences from "./preferences";
 import * as fs from "fs";
@@ -26,7 +26,7 @@ export function isMainKtCompliant(): boolean {
 
 export function makeGradleRioVersionCompliant() {
     console.log("Forcing build.gradle compliance");
-    createBuildGradle();
+    updateGradleRioVersion();
     vscode.window.showInformationMessage("GradleRio version updated");
     preferences.setWPILibVersion(targetGradleRioVersion);
 }
