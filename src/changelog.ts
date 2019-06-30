@@ -16,7 +16,7 @@ function extensionWasUpdated(context: vscode.ExtensionContext): boolean {
 	let currentVersion = thisExtension.packageJSON["version"];
 	let storedVersion = context.globalState.get("lastInitVersion");
 
-	context.globalState.update("lastInitVersion", "0.0.0");
+	context.globalState.update("lastInitVersion", currentVersion);
 
 	if (semver.satisfies(currentVersion, `>${storedVersion}`)) {
 		return true;
@@ -40,7 +40,7 @@ function getWebviewContent() {
 	<title>Kotlin For FRC Changelog</title>
 </head>
 <body>
-	<h1>Change Log</h1>
+	<h1>Kotlin For FRC Changelog</h1>
 	<h2>1.4.0</h2>
 	<ul>
 		<li>Faster extension loading times using webpack</li>
