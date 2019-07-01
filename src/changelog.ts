@@ -23,6 +23,11 @@ function extensionWasUpdated(context: vscode.ExtensionContext): boolean {
 		return false;
 	}
 
+	// @ts-ignore Note: This shouldn't be needed because true is a default value but it's here anyways
+	if (context.globalState.get("toggleChangelog", true) === false) {
+		return false;
+	}
+
 	if (semver.satisfies(currentVersion, `>${storedVersion}`)) {
 		return true;
 	} else {
