@@ -16,7 +16,9 @@
         "onCommand:extension.createNew",
         "onCommand:extension.convertJavaProject",
         "onCommand:extension.forceCompliance",
-        "onCommand:extension.changeComplianceTestPref"
+        "onCommand:extension.changeComplianceTestPref",
+        "onCommand:extension.toggleChangelog",
+        "onCommand:extension.showChangelog"
     ],
     "main": "./dist/extension",
     "contributes": {
@@ -40,6 +42,10 @@
             {
                 "command": "extension.showChangelog",
                 "title": "Kotlin-FRC: Show Changelog"
+            },
+            {
+                "command": "extension.toggleChangelog",
+                "title": "Kotlin-FRC: Toggle Auto-Show Changelog"
             }
         ],
         "menus": {
@@ -69,6 +75,10 @@
                 },
                 {
                     "command": "extension.showChangelog",
+                    "when": "isWPILibProject"
+                },
+                {
+                    "command": "extension.toggleChangelog",
                     "when": "isWPILibProject"
                 }
             ]

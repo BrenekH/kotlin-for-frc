@@ -233,3 +233,14 @@ export function createBuildGradle() {
 }
 
 export function showChangelog() { chnglog.showChangelog(); }
+
+export function toggleChangelog(context: vscode.ExtensionContext) {
+	var currentValue = context.globalState.get("toggleChangelog", true);
+	if (currentValue === true) {
+		context.globalState.update("toggleChangelog", false);
+		vscode.window.showInformationMessage("Kotlin for FRC: Turned auto-show changelog off.");
+	} else {
+		context.globalState.update("toggleChangelog", true);
+		vscode.window.showInformationMessage("Kotlin for FRC: Turned auto-show changelog on.");
+	}
+}

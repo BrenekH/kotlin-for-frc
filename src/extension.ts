@@ -84,6 +84,12 @@ export function activate(context: vscode.ExtensionContext) {
 
     context.subscriptions.push(disposable);
 
+    disposable = vscode.commands.registerCommand('extension.toggleChangelog', (file_path: any) => {
+        commands.toggleChangelog(context);
+    });
+
+    context.subscriptions.push(disposable);
+
     // * End registering commands
 
     // * Compliance testing
