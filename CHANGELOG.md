@@ -1,6 +1,6 @@
 # Change Log
 
-## 1.4.0
+## 1.4.0 - 2019-06-30
 * Faster extension loading times using webpack
 * Actually started using the GradleRIO version updater method
 * Increased the amount of the codebase covered by tests
