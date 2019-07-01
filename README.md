@@ -19,6 +19,11 @@ Kotlin for FRC is an unofficial companion extension to the official WPILib exten
 
 ## Release Notes
 
+### 1.4.0
+* Faster extension loading times using webpack
+* Actually started using the GradleRIO version updater method
+* Increased the amount of the codebase covered by tests
+
 ### 1.3.0
 * When updating the GradleRIO version, the GradleRIO version is the only line that changes
 * Added tests to ensure quality code
