@@ -37,6 +37,8 @@ export function showChangelog() {
 }
 
 function getWebviewContent() {
+	// Webview body content is generated using the batch file in the main directory.
+	// Only copy the latest release and add any special notes you want to send the end user.
 	return `<!DOCTYPE html>
 <html lang="en">
 <head>
