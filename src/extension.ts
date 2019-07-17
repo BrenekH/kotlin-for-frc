@@ -99,10 +99,6 @@ export function activate(context: vscode.ExtensionContext) {
         if (!compliance.isGradleRioVersionCompliant()) {
             compliance.makeGradleRioVersionCompliant();
         }
-        // * Check Main.kt
-        if (!compliance.isMainKtCompliant()) {
-            compliance.makeMainKtCompliant();
-        }
     }
 
     // * Check if the extension was updated and display the changelog if it was
