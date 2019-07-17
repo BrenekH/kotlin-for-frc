@@ -35,10 +35,6 @@ export function forceCompliance() {
 	if (!compliance.isGradleRioVersionCompliant()) {
 		compliance.makeGradleRioVersionCompliant();
 	}
-	// * Check Main.kt
-	if (!compliance.isMainKtCompliant()) {
-		compliance.makeMainKtCompliant();
-	}
 }
 
 export function changeComplianceTestPref() {
