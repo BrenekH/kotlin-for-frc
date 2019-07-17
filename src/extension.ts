@@ -2,10 +2,10 @@
 import * as vscode from "vscode";
 import * as commands from "./commands";
 import * as fs from "fs";
-import * as preferences from "./preferences";
-import * as compliance from "./compliance";
-import { robotType } from "./template_interpreter";
-import { displayChangelog } from "./changelog";
+import * as preferences from "./util/preferences";
+import * as compliance from "./util/compliance";
+import { robotType } from './templates/template_interpreter';
+import { displayChangelog } from './util/changelog';
 
 var currentWorkspacePath: string;
 var currentWorkspaceFsPath: string;
