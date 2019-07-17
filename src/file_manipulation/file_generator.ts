@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
 import * as fs from 'fs';
 import * as path from 'path';
-import * as kotlinExt from "./extension";
+import * as kotlinExt from "../extension";
 
 export function createFileWithContent(name: string, content: string) {
   var filePath = path.join(String(kotlinExt.getWorkspaceFolderFsPath()), name);
