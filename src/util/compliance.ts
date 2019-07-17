@@ -1,7 +1,6 @@
 "use strict";
 import * as vscode from "vscode";
 import { targetGradleRioVersion } from "../constants";
-import { createMainKt } from "../commands";
 import { createFileWithContent } from "../file_manipulation/file_generator";
 import * as preferences from "./preferences";
 import * as fs from "fs";
