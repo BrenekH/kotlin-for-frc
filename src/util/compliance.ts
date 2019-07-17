@@ -16,26 +16,11 @@ export function isGradleRioVersionCompliant(): boolean {
     return false;
 }
 
-export function isMainKtCompliant(): boolean {
-    console.log("Checking Main.kt compliance");
-    if (preferences.getMainKt()) {
-        return true;
-    }
-    return false;
-}
-
 export function makeGradleRioVersionCompliant() {
     console.log("Forcing build.gradle compliance");
     updateGradleRioVersion();
     vscode.window.showInformationMessage("GradleRio version updated");
     preferences.setWPILibVersion(targetGradleRioVersion);
-}
-
-export function makeMainKtCompliant() {
-    console.log("Forcing Main.kt compliance");
-    createMainKt();
-    vscode.window.showInformationMessage("Main.java converted to Main.kt");
-    preferences.setMainKt(true);
 }
 
 export function isKotlinProject(): boolean {
