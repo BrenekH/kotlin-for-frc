@@ -1,13 +1,13 @@
 "use strict";
 import * as vscode from "vscode";
-import * as filegenerator from "./file_generator";
-import * as templateinterpreter from "./template_interpreter";
-import * as compliance from "./compliance";
+import * as filegenerator from "./file_manipulation/file_generator";
+import * as templateinterpreter from "./templates/template_interpreter";
+import * as compliance from "./util/compliance";
 import * as rimraf from "rimraf";
 import * as fs from "fs";
 import * as kotlinExt from "./extension";
-import * as chnglog from "./changelog";
-import { setRunComplianceTests } from "./preferences";
+import * as chnglog from "./util/changelog";
+import { setRunComplianceTests } from "./util/preferences";
 
 export function createNew(file_path: any) {
 	vscode.window.showQuickPick(["Command", "Subsystem", "Trigger", "Empty Class"]).then((option: any) => {

@@ -1,32 +1,32 @@
 // Constants
-import { targetGradleRioVersion } from './constants';
+import { targetGradleRioVersion } from '../constants';
 
 // All Robot types
-import { MainTemplate } from './templates/frc-kotlin/Main';
-import { BuildGradleTemplate } from './templates/frc-kotlin/BuildGradle';
+import { MainTemplate } from './frc-kotlin/Main';
+import { BuildGradleTemplate } from './frc-kotlin/BuildGradle';
 
 // Command based
-import { CommandRobotTemplate } from './templates/frc-kotlin/command-based/Robot';
-import { OITemplate } from './templates/frc-kotlin/command-based/OI';
-import { RobotMapTemplate } from './templates/frc-kotlin/command-based/RobotMap';
-import { SubsystemTemplate } from './templates/frc-kotlin/command-based/subsystems/SubsystemTemplate';
-import { CommandGroupTemplate } from './templates/frc-kotlin/command-based/commands/CommandGroupTemplate';
-import { CommandTemplate } from './templates/frc-kotlin/command-based/commands/CommandTemplate';
-import { TimedCommandTemplate } from './templates/frc-kotlin/command-based/commands/TimedCommand';
-import { InstantCommandTemplate } from './templates/frc-kotlin/command-based/commands/InstantCommandTemplate';
-import { EmptyClassTemplate } from './templates/frc-kotlin/command-based/EmptyClassTemplate';
-import { PIDSubsystemTemplate } from './templates/frc-kotlin/command-based/subsystems/PIDSubsystemTemplate';
-import { TriggerTemplate } from './templates/frc-kotlin/command-based/triggers/TriggerTemplate';
+import { CommandRobotTemplate } from './frc-kotlin/command-based/Robot';
+import { OITemplate } from './frc-kotlin/command-based/OI';
+import { RobotMapTemplate } from './frc-kotlin/command-based/RobotMap';
+import { SubsystemTemplate } from './frc-kotlin/command-based/subsystems/SubsystemTemplate';
+import { CommandGroupTemplate } from './frc-kotlin/command-based/commands/CommandGroupTemplate';
+import { CommandTemplate } from './frc-kotlin/command-based/commands/CommandTemplate';
+import { TimedCommandTemplate } from './frc-kotlin/command-based/commands/TimedCommand';
+import { InstantCommandTemplate } from './frc-kotlin/command-based/commands/InstantCommandTemplate';
+import { EmptyClassTemplate } from './frc-kotlin/command-based/EmptyClassTemplate';
+import { PIDSubsystemTemplate } from './frc-kotlin/command-based/subsystems/PIDSubsystemTemplate';
+import { TriggerTemplate } from './frc-kotlin/command-based/triggers/TriggerTemplate';
 
 // Iterative
-import { IterativeRobotTemplate } from './templates/frc-kotlin/iterative/Robot';
+import { IterativeRobotTemplate } from './frc-kotlin/iterative/Robot';
 
 // Sample
-import { SampleRobotTemplate } from './templates/frc-kotlin/sample/Robot';
+import { SampleRobotTemplate } from './frc-kotlin/sample/Robot';
 
 // Timed
-import { TimedRobotTemplate } from './templates/frc-kotlin/timed/Robot';
-import { TimedRobotSkeletonTemplate } from './templates/frc-kotlin/timed-skeleton/Robot';
+import { TimedRobotTemplate } from './frc-kotlin/timed/Robot';
+import { TimedRobotSkeletonTemplate } from './frc-kotlin/timed-skeleton/Robot';
 
 export enum templateType {
     subsystem = "Subsystem",
