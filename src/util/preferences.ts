@@ -3,22 +3,16 @@ import * as vscode from 'vscode';
 import * as fs from "fs";
 import * as kotlinExt from "../extension";
 
-var defaultJson = `{"wpilib_version": "2019.0.1", "main_kt": false, "run_compliance_tests": true}`;
+var defaultJson = `{"wpilib_version": "2019.0.1", "run_compliance_tests": true}`;
 
 interface PreferencesJson {
     wpilib_version: string;
-    main_kt: boolean;
     run_compliance_tests: boolean;
 }
 
 export function getWPILibVersion(): string {
     let parsedJson = loadPreferencesJson();
     return parsedJson.wpilib_version;
-}
-
-export function getMainKt(): boolean {
-    let parsedJson = loadPreferencesJson();
-    return parsedJson.main_kt;
 }
 
 export function getRunComplianceTests(): boolean {
@@ -33,12 +27,6 @@ export function getRunComplianceTests(): boolean {
 export function setWPILibVersion(version: string) {
     let parsedJson = loadPreferencesJson();
     parsedJson.wpilib_version = version;
-    savePreferencesJson(parsedJson);
-}
-
-export function setMainKt(value: boolean) {
-    let parsedJson = loadPreferencesJson();
-    parsedJson.main_kt = value;
     savePreferencesJson(parsedJson);
 }
 
