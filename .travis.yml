@@ -20,7 +20,6 @@ install:
 script:
 - vsce package
 - npm test --silent
-
 before_deploy:
 - PREFIX="Version "
 - SUFFIX=$(node -p "require('./package.json').version")
