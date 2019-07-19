@@ -27,7 +27,7 @@ before_deploy:
 - PREFIX="Version "
 - SUFFIX=$(node -p "require('./package.json').version")
 - export NAME="${PREFIX}${SUFFIX}"
-- export PREREL_TRUE=$(if [[ $NAME =~ "alpha" ]] || [[ $NAME =~ "beta" ]]; then echo "prerel"; else echo "noprerel"; fi;)
+- export PREREL_TRUE=$(if [[ $NAME =~ "alpha" ]] || [[ $NAME =~ "beta" ]] || [[ $NAME =~ "rc" ]]; then echo "prerel"; else echo "noprerel"; fi;)
 - echo $PREREL_TRUE
 deploy:
   - provider: script
