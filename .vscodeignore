@@ -1,7 +1,7 @@
 .vscode/**
 .vscode-test/**
-out/
-src/
+out/**
+src/**
 testing-workspace/**
 reset-testing-workspace.bat
 reset-testing-workspace.sh
@@ -12,4 +12,4 @@ tslint.json
 .travis.yml
 README.provided_by_vscode
 TODO
-node-modules/
+node_modules/**
