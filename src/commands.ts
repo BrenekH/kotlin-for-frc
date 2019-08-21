@@ -142,7 +142,7 @@ export function convertJavaProject(current_robot_type: templateinterpreter.robot
 		console.log("Done deleting");
 		console.log("Recreating structure");
 		if (customfs.isVscodeFsAvailable) {
-			vscode.workspace.fs.createDirectory(vscode.Uri.file(kotlinExt.getWorkspaceFolderFsPath() + "/src/main/kotlin/frc/robot")).then(() => {
+			(vscode.workspace as any).fs.createDirectory(vscode.Uri.file(kotlinExt.getWorkspaceFolderFsPath() + "/src/main/kotlin/frc/robot")).then(() => {
 				console.log("Done recreating basic file structure");
 			
 				switch(current_robot_type) {
