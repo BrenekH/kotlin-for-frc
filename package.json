@@ -5,7 +5,7 @@
     "version": "2020.0.0-alpha.0",
     "publisher": "Brenek",
     "engines": {
-        "vscode": "^1.37.0"
+        "vscode": "^1.28.0"
     },
     "categories": [
         "Other"

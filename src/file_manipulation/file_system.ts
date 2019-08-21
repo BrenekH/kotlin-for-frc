@@ -1,6 +1,9 @@
 'use strict';
 import * as vscode from 'vscode';
+import * as semver from 'semver';
+
+export var isVscodeFsAvailable = semver.satisfies(vscode.version, ">=1.37.0");
 
 export function mkdir(uri: string) {
-	console.log(vscode.workspace.fs.createDirectory(vscode.Uri.file(uri)));
+	vscode.workspace.fs.createDirectory(vscode.Uri.file(uri));
 }

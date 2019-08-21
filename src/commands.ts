@@ -1,7 +1,7 @@
 "use strict";
 import * as vscode from "vscode";
 import * as filegenerator from "./file_manipulation/file_generator";
-// import * as customfs from "./file_manipulation/file_system";
+import * as customfs from "./file_manipulation/file_system";
 import * as templateinterpreter from "./templates/template_interpreter";
 import * as compliance from "./util/compliance";
 import * as rimraf from "rimraf";
@@ -141,18 +141,45 @@ export function convertJavaProject(current_robot_type: templateinterpreter.robot
 	rimraf(pathToDelete, function () {
 		console.log("Done deleting");
 		console.log("Recreating structure");
-		// if (!fs.existsSync(kotlinExt.getWorkspaceFolderFsPath() + "/src/main/kotlin")) {
-		// 	fs.mkdirSync(kotlinExt.getWorkspaceFolderFsPath() + "/src/main/kotlin");
-		// }
-		// if (!fs.existsSync(kotlinExt.getWorkspaceFolderFsPath() + "/src/main/kotlin/frc")) {
-		// 	fs.mkdirSync(kotlinExt.getWorkspaceFolderFsPath() + "/src/main/kotlin/frc");
-		// }
-		// if (!fs.existsSync(kotlinExt.getWorkspaceFolderFsPath() + "/src/main/kotlin/frc/robot")) {
-			// fs.mkdirSync(kotlinExt.getWorkspaceFolderFsPath() + "/src/main/kotlin/frc/robot");
-		// }
-		vscode.workspace.fs.createDirectory(vscode.Uri.file(kotlinExt.getWorkspaceFolderFsPath() + "/src/main/kotlin/frc/robot")).then(() => {
+		if (customfs.isVscodeFsAvailable) {
+			vscode.workspace.fs.createDirectory(vscode.Uri.file(kotlinExt.getWorkspaceFolderFsPath() + "/src/main/kotlin/frc/robot")).then(() => {
+				console.log("Done recreating basic file structure");
+			
+				switch(current_robot_type) {
+					case templateinterpreter.robotType.command:
+						convertCommand();
+						break;
+					case templateinterpreter.robotType.sample:
+						convertSample();
+						break;
+					case templateinterpreter.robotType.iterative:
+						convertIterative();
+						break;
+					case templateinterpreter.robotType.timed:
+						convertTimed();
+						break;
+					case templateinterpreter.robotType.timed_skeleton:
+						convertTimedSkeleton();
+						break;
+					default:
+						vscode.window.showErrorMessage("Kotlin For FRC: ERROR 'Invalid Template Type'. Please report in the issues section on github with a detailed description of what steps were taken.");
+						return;
+				}
+	
+				vscode.window.showInformationMessage("Kotlin for FRC: Conversion complete!");
+			});
+		} else {
+			if (!fs.existsSync(kotlinExt.getWorkspaceFolderFsPath() + "/src/main/kotlin")) {
+				fs.mkdirSync(kotlinExt.getWorkspaceFolderFsPath() + "/src/main/kotlin");
+			}
+			if (!fs.existsSync(kotlinExt.getWorkspaceFolderFsPath() + "/src/main/kotlin/frc")) {
+				fs.mkdirSync(kotlinExt.getWorkspaceFolderFsPath() + "/src/main/kotlin/frc");
+			}
+			if (!fs.existsSync(kotlinExt.getWorkspaceFolderFsPath() + "/src/main/kotlin/frc/robot")) {
+				fs.mkdirSync(kotlinExt.getWorkspaceFolderFsPath() + "/src/main/kotlin/frc/robot");
+			}
 			console.log("Done recreating basic file structure");
-		
+			
 			switch(current_robot_type) {
 				case templateinterpreter.robotType.command:
 					convertCommand();
@@ -175,7 +202,8 @@ export function convertJavaProject(current_robot_type: templateinterpreter.robot
 			}
 
 			vscode.window.showInformationMessage("Kotlin for FRC: Conversion complete!");
-		});
+		}
+		
 	});
 }
 
