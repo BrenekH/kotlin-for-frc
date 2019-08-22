@@ -12,8 +12,8 @@ import * as fs from 'fs';
 import * as testingConsts from "./testingConstants";
 
 const sleep = (milliseconds: number) => {
-    return new Promise(resolve => setTimeout(resolve, milliseconds))
-  }
+    return new Promise(resolve => setTimeout(resolve, milliseconds));
+};
 
 suite("Preferences API", function () {
     testingConsts.setupWorkspace();
