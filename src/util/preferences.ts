@@ -19,7 +19,7 @@ export async function getWPILibVersion(): Promise<string> {
 export async function getRunComplianceTests(): Promise<boolean> {
     let parsedJson = await loadPreferencesJson();
     if (typeof parsedJson.run_compliance_tests === 'undefined') {
-        setRunComplianceTests(true);
+        await setRunComplianceTests(true);
         parsedJson = await loadPreferencesJson();
     }
     return parsedJson.run_compliance_tests;

@@ -11,12 +11,11 @@ export function mkdir(uri: string) {
 export async function readFile(uri: string) {
 	var contentFromRead = await (vscode.workspace as any).fs.readFile(vscode.Uri.file(uri));
 	var content = Buffer.from(contentFromRead).toString('utf8');
-	return content;
-	
+	return content;	
 }
 
 export function writeToFile(uri: string, content: string) {
 	const writeBytes = Buffer.from(content, 'utf8');
 
-	(vscode.workspace as any).fs.writeFile(vscode.Uri.file(uri), writeBytes).then(() => {return;});
+	(vscode.workspace as any).fs.writeFile(vscode.Uri.file(uri), writeBytes).then(() => {});
 }
