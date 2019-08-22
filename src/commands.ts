@@ -31,10 +31,10 @@ export function createNew(file_path: any) {
 	});
 }
 
-export function forceCompliance() {
+export async function forceCompliance() {
 	// * Check build.gradle
-	if (!compliance.isGradleRioVersionCompliant()) {
-		compliance.makeGradleRioVersionCompliant();
+	if (!await compliance.isGradleRioVersionCompliant()) {
+		await compliance.makeGradleRioVersionCompliant();
 	}
 }
 
