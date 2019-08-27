@@ -22,25 +22,25 @@ import edu.wpi.first.wpilibj.TimedRobot
  * project.
  */
 class Robot : TimedRobot() {
-  /**
-   * This function is run when the robot is first started up and should be used
-   * for any initialization code.
-   */
-  override fun robotInit() {}
+    /**
+     * This function is run when the robot is first started up and should be used
+     * for any initialization code.
+     */
+    override fun robotInit() {}
 
-  override fun robotPeriodic() {}
+    override fun robotPeriodic() {}
 
-  override fun autonomousInit() {}
-  
-  override fun autonomousPeriodic() {}
+    override fun autonomousInit() {}
 
-  override fun teleopInit() {}
+    override fun autonomousPeriodic() {}
 
-  override fun teleopPeriodic() {}
+    override fun teleopInit() {}
 
-  override fun testInit() {}
+    override fun teleopPeriodic() {}
 
-  override fun testPeriodic() {}
+    override fun testInit() {}
+
+    override fun testPeriodic() {}
 }
 `;
 }
