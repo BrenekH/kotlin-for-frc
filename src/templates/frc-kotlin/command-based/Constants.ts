@@ -1,4 +1,4 @@
-export class CommandRobotTemplate {
+export class CommandConstantsTemplate {
 	private useAtProjectConversion: boolean;
 	private text: string;
 	constructor() {
