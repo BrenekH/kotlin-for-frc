@@ -21,7 +21,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard
 import frc.robot.commands.ExampleCommand
 import frc.robot.subsystems.ExampleSubsystem
 
-class Robot : TimedRobot() {
+class Robot: TimedRobot() {
 
   companion object {
     val m_exampleSubsystem: ExampleSubsystem = ExampleSubsystem()
@@ -59,7 +59,7 @@ class Robot : TimedRobot() {
    */
   override fun disabledInit() {}
 
-  override fun disabledPeriodic() {
+  override fun disabledPeriodic () {
     Scheduler.getInstance().run()
   }
 
