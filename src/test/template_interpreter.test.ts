@@ -12,17 +12,17 @@ import * as testingConsts from "./testingConstants";
 import * as consts from "../constants";
 import { MainTemplate } from '../templates/frc-kotlin/Main';
 import { BuildGradleTemplate } from '../templates/frc-kotlin/BuildGradle';
-import { SubsystemTemplate } from '../templates/frc-kotlin/command-based/subsystems/SubsystemTemplate';
-import { CommandTemplate } from '../templates/frc-kotlin/command-based/commands/CommandTemplate';
-import { CommandGroupTemplate } from '../templates/frc-kotlin/command-based/commands/CommandGroupTemplate';
-import { EmptyClassTemplate } from '../templates/frc-kotlin/command-based/EmptyClassTemplate';
-import { InstantCommandTemplate } from '../templates/frc-kotlin/command-based/commands/InstantCommandTemplate';
-import { TimedCommandTemplate } from '../templates/frc-kotlin/command-based/commands/TimedCommand';
-import { PIDSubsystemTemplate } from '../templates/frc-kotlin/command-based/subsystems/PIDSubsystemTemplate';
-import { TriggerTemplate } from '../templates/frc-kotlin/command-based/triggers/TriggerTemplate';
-import { CommandRobotTemplate } from '../templates/frc-kotlin/command-based/Robot';
-import { OITemplate } from '../templates/frc-kotlin/command-based/OI';
-import { RobotMapTemplate } from '../templates/frc-kotlin/command-based/RobotMap';
+import { SubsystemTemplate } from '../templates/frc-kotlin/old-command-based/subsystems/SubsystemTemplate';
+import { CommandTemplate } from '../templates/frc-kotlin/old-command-based/commands/CommandTemplate';
+import { CommandGroupTemplate } from '../templates/frc-kotlin/old-command-based/commands/CommandGroupTemplate';
+import { EmptyClassTemplate } from '../templates/frc-kotlin/old-command-based/EmptyClassTemplate';
+import { InstantCommandTemplate } from '../templates/frc-kotlin/old-command-based/commands/InstantCommandTemplate';
+import { TimedCommandTemplate } from '../templates/frc-kotlin/old-command-based/commands/TimedCommand';
+import { PIDSubsystemTemplate } from '../templates/frc-kotlin/old-command-based/subsystems/PIDSubsystemTemplate';
+import { TriggerTemplate } from '../templates/frc-kotlin/old-command-based/triggers/TriggerTemplate';
+import { CommandRobotTemplate } from '../templates/frc-kotlin/old-command-based/Robot';
+import { OITemplate } from '../templates/frc-kotlin/old-command-based/OI';
+import { RobotMapTemplate } from '../templates/frc-kotlin/old-command-based/RobotMap';
 
 suite("Grabbing Templates", function () {
     test("Main.kt", function() {

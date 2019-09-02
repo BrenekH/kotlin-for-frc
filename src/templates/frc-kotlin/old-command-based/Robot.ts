@@ -1,3 +1,14 @@
+export class CommandRobotTemplate {
+  private useAtProjectConversion: boolean;
+  private text: string;
+  constructor() {
+  this.useAtProjectConversion = true;
+  this.text = `/*----------------------------------------------------------------------------*/
+/* Copyright (c) 2017-2018 FIRST. All Rights Reserved.                        */
+/* Open Source Software - may be modified and shared by FRC teams. The code   */
+/* must be accompanied by the FIRST BSD license file in the root directory of */
+/* the project.                                                               */
+/*----------------------------------------------------------------------------*/
 
 package frc.robot
 
@@ -10,7 +21,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard
 import frc.robot.commands.ExampleCommand
 import frc.robot.subsystems.ExampleSubsystem
 
-class Robot : TimedRobot() {
+class Robot: TimedRobot() {
 
   companion object {
     val m_exampleSubsystem: ExampleSubsystem = ExampleSubsystem()
@@ -48,7 +59,7 @@ class Robot : TimedRobot() {
    */
   override fun disabledInit() {}
 
-  override fun disabledPeriodic() {
+  override fun disabledPeriodic () {
     Scheduler.getInstance().run()
   }
 
