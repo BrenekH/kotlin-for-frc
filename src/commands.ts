@@ -244,3 +244,8 @@ export function toggleChangelog(context: vscode.ExtensionContext) {
 		vscode.window.showInformationMessage("Kotlin for FRC: Turned auto-show changelog on.");
 	}
 }
+
+export function resetAutoShowChangelog(context: vscode.ExtensionContext ) {
+	context.globalState.update("lastInitVersion", "0.0.0");
+	vscode.window.showInformationMessage("Kotlin for FRC: Auto-Show changelog reset.");
+}
