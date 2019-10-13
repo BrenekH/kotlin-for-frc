@@ -16,7 +16,10 @@
         "onCommand:extension.createNew",
         "onCommand:extension.convertJavaProject",
         "onCommand:extension.forceCompliance",
-        "onCommand:extension.changeComplianceTestPref"
+        "onCommand:extension.changeComplianceTestPref",
+        "onCommand:extension.toggleChangelog",
+        "onCommand:extension.showChangelog",
+        "onCommand:extension.resetAutoShowChangelog"
     ],
     "main": "./dist/extension",
     "contributes": {
@@ -36,6 +39,18 @@
             {
                 "command": "extension.changeComplianceTestPref",
                 "title": "Kotlin-FRC: Change GradleRio Checks"
+            },
+            {
+                "command": "extension.showChangelog",
+                "title": "Kotlin-FRC: Show Changelog"
+            },
+            {
+                "command": "extension.toggleChangelog",
+                "title": "Kotlin-FRC: Toggle Auto-Show Changelog"
+            },
+            {
+                "command": "extension.resetAutoShowChangelog",
+                "title": "Kotlin-FRC: Reset Auto-Show Changelog"
             }
         ],
         "menus": {
@@ -62,6 +77,15 @@
                 {
                     "command": "extension.changeComplianceTestPref",
                     "when": "isWPILibProject"
+                },
+                {
+                    "command": "extension.showChangelog"
+                },
+                {
+                    "command": "extension.toggleChangelog"
+                },
+                {
+                    "command": "extension.resetAutoShowChangelog"
                 }
             ]
         }
@@ -91,7 +115,9 @@
     },
     "dependencies": {
         "@types/rimraf": "^2.0.2",
-        "rimraf": "^2.0.2"
+        "@types/semver": "^6.0.1",
+        "rimraf": "^2.0.2",
+        "semver": "^6.1.2"
     },
     "extensionDependencies": [
         "wpilibsuite.vscode-wpilib"
