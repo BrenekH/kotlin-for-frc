@@ -2,10 +2,10 @@
 
 ## Dependencies
 
-To run Kotlin For FRC, you will need:
+To develop Kotlin For FRC, you will need:
 
 * [Node.js](https://nodejs.org/en/download)
-* NPM \(Included with Node.js install\)
+* NPM \(Included with default Node.js install\)
 * [Visual Studio Code](https://code.visualstudio.com/download)
 
 After installing the above programs, clone the repo and run `npm install` inside the kotlin-for-frc directory.
@@ -21,7 +21,7 @@ Each file has a specific purpose.
 
 * extension.ts - The entry point for the extension. Registers commands and performs activation logic.
 * commands.ts - Where most of the logic for commands reside.
-* constants.ts - A file with constants that aren't specific to any file.
+* constants.ts - A file with the constants for the project.
 * file_generator.ts - Creates and shows files.
 * preferences.ts - Manages the preferences that are stored in the `.kotlin-for-frc/kotlin-for-frc-preferences.json` file.
 * compliance.ts - Ensures the GradleRIO version in the build.gradle file is correct and makes sure the Main.kt file is used and not Main.java.
