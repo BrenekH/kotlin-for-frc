@@ -1,4 +1,4 @@
-# Contributer Guidelines
+# Contributor Guidelines
 
 ## Dependencies
 
@@ -26,4 +26,3 @@ Each file has a specific purpose.
 * preferences.ts - Manages the preferences that are stored in the `.kotlin-for-frc/kotlin-for-frc-preferences.json` file.
 * compliance.ts - Ensures the GradleRIO version in the build.gradle file is correct and makes sure the Main.kt file is used and not Main.java.
 * template_interpreter.ts - Reads the templates stored in the `src/templates` directory and adds in the variable data such as package and class names.
-
