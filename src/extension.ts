@@ -1,7 +1,8 @@
 "use strict";
 import * as vscode from "vscode";
 import * as commands from "./commands";
-import * as fs from "fs";
+// import * as fs from "fs";
+import * as customfs from "./file_manipulation/file_system";
 import * as preferences from "./util/preferences";
 import * as compliance from "./util/compliance";
 import { robotType } from './templates/template_interpreter';
@@ -10,7 +11,7 @@ import { displayChangelog } from './util/changelog';
 var currentWorkspacePath: string;
 var currentWorkspaceFsPath: string;
 
-export function activate(context: vscode.ExtensionContext) {
+export async function activate(context: vscode.ExtensionContext) {
 
     console.log("Congratulations, your extension \"kotlin-for-frc\" is now active!");
 
@@ -25,8 +26,8 @@ export function activate(context: vscode.ExtensionContext) {
 
     context.subscriptions.push(disposable);
 
-    disposable = vscode.commands.registerCommand("extension.forceCompliance", (file_path: any) => {
-        commands.forceCompliance();
+    disposable = vscode.commands.registerCommand('extension.forceCompliance', async (file_path: any) => {
+        await commands.forceCompliance();
     });
 
     context.subscriptions.push(disposable);
@@ -37,11 +38,11 @@ export function activate(context: vscode.ExtensionContext) {
 
     context.subscriptions.push(disposable);
 
-    disposable = vscode.commands.registerCommand("extension.convertJavaProject", () => {
+    disposable = vscode.commands.registerCommand('extension.convertJavaProject', async () => {
         console.log("Reading Robot.java");
         // Check to make sure file paths are even there
         try {
-            var robot_java: string = fs.readFileSync(currentWorkspaceFsPath + "/src/main/java/frc/robot/Robot.java", "utf8");
+            var robot_java: string = await customfs.readFile(currentWorkspaceFsPath + "/src/main/java/frc/robot/Robot.java");
         }
         catch (e) {
             console.log(e);
@@ -102,8 +103,8 @@ export function activate(context: vscode.ExtensionContext) {
     console.log("Compliance testing");
     if (preferences.getRunComplianceTests() && compliance.isKotlinProject()) {
         // * Check build.gradle
-        if (!compliance.isGradleRioVersionCompliant()) {
-            compliance.makeGradleRioVersionCompliant();
+        if (!await compliance.isGradleRioVersionCompliant()) {
+            await compliance.makeGradleRioVersionCompliant();
         }
     }
 

@@ -17,7 +17,7 @@ import edu.wpi.first.wpilibj.command.Subsystem
 /**
  * Add your docs here.
  */
-class #{NAME}: Subsystem() {
+class #{NAME} : Subsystem() {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
       

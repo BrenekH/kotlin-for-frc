@@ -14,7 +14,7 @@ package #{PACKAGE}
 
 import edu.wpi.first.wpilibj.command.CommandGroup
 
-class #{NAME}(): CommandGroup() {
+class #{NAME}() : CommandGroup() {
   /**
    * Add your docs here.
    */
