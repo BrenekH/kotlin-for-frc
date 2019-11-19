@@ -12,15 +12,22 @@ The CONTRIBUTING.md file in the repository explains the basics of how to develop
 
 Speaking of new features, there are many things coming to Kotlin For FRC for the 2020 season, but they need to be tested in a production-like environment.
 This is why I am asking for volunteers, especially those who have access to the 2020 WPILib Beta program, to test out the new features.
-A sign-up form can be found here and at the bottom of this document.
+A sign-up form can be found [here](https://forms.gle/mXPFLX4aSKqaQU5e9) and at the bottom of this document.
 
 One controversial feature I have been toying with in the back of my mind is adding anonymized telemetry(anonymous automatic data collection).
 Some metrics that I believe would be beneficial to track include Visual Studio Code version and amount of active users.
-More details about the proposed telemetry ideas can be found on GitHub here.
+More details about the proposed telemetry ideas can be found on GitHub [here](https://github.com/zPaw/kotlin-for-frc/issues/23).
 In order to get feedback, I have created a survey that includes telemetry questions and other general feedback type questions.
-The link is here and below.
+The link is [here](https://forms.gle/s4Xwqubcrz5ybRgs6) and below.
 
 Once again, I thank you for your support and wish for a great build season for everyone!
 
 Brenek Harrison
+
 Creator of Kotlin For FRC
+
+Beta Test Sign Up [https://forms.gle/mXPFLX4aSKqaQU5e9](https://forms.gle/mXPFLX4aSKqaQU5e9)
+
+Telemetry Issue on GitHub [https://github.com/zPaw/kotlin-for-frc/issues/23](https://github.com/zPaw/kotlin-for-frc/issues/23)
+
+Survey [https://forms.gle/s4Xwqubcrz5ybRgs6](https://forms.gle/s4Xwqubcrz5ybRgs6)
