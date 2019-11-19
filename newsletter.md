@@ -8,7 +8,7 @@ It will automatically show up after Kotlin For FRC has updated so you know what 
 
 As with any piece of code, Kotlin For FRC is bound to have bugs and issues lurking throughout the codebase.
 As such, I would like to invite everyone to both report and fix bugs.
-The CONTRIBUTING.md file in the repository explains the basics of how to develop Kotlin For FRC for those who want to fix bugs and add features themselves.
+The [CONTRIBUTING.md](https://github.com/zPaw/kotlin-for-frc/blob/master/CONTRIBUTING.md) file in the repository explains the basics of how to develop Kotlin For FRC for those who want to fix bugs and add features themselves.
 
 Speaking of new features, there are many things coming to Kotlin For FRC for the 2020 season, but they need to be tested in a production-like environment.
 This is why I am asking for volunteers, especially those who have access to the 2020 WPILib Beta program, to test out the new features.
