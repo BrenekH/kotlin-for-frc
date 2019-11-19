@@ -1,16 +1,17 @@
 import * as vscode from 'vscode';
-import * as fs from 'fs';
+// import * as fs from 'fs';
 import * as path from 'path';
+import * as customfs from "./file_system";
 import * as kotlinExt from "../extension";
 
 export function createFileWithContent(name: string, content: string) {
   var filePath = path.join(String(kotlinExt.getWorkspaceFolderFsPath()), name);
-  fs.writeFileSync(filePath, content, 'utf8');
+  customfs.writeToFile(filePath, content);
   return filePath;
 }
 
 export function createFileWithContentAndFullPath(full_path: string, content: string) {
-    fs.writeFileSync(full_path, content, 'utf8');
+    customfs.writeToFile(full_path, content);
     return full_path;
 }
 

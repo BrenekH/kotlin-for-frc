@@ -14,7 +14,7 @@ function extensionWasUpdated(context: vscode.ExtensionContext): boolean {
 		return false;
 	}
 	let currentVersion = thisExtension.packageJSON["version"];
-	let storedVersion = context.globalState.get("lastInitVersion", "0.0.0");
+	let storedVersion = context.globalState.get("lastInitVersion");
 
 	context.globalState.update("lastInitVersion", "0.0.0");
 
