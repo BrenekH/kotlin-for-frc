@@ -17,7 +17,7 @@ import edu.wpi.first.wpilibj.command.TimedCommand
 /**
  * Add your docs here.
  */
-class #{NAME}(val timeout: Double): TimedCommand(timeout) {
+class #{NAME}(val timeout: Double) : TimedCommand(timeout) {
   /**
    * Add your docs here.
    */

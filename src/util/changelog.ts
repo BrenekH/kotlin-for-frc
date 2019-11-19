@@ -16,7 +16,17 @@ function extensionWasUpdated(context: vscode.ExtensionContext): boolean {
 	let currentVersion = thisExtension.packageJSON["version"];
 	let storedVersion = context.globalState.get("lastInitVersion", "0.0.0");
 
-	context.globalState.update("lastInitVersion", "0.0.0");
+	context.globalState.update("lastInitVersion", currentVersion);
+
+	// @ts-ignore Note: This shouldn't be needed because true is a default value but it's here anyways
+	if (context.globalState.get("toggleChangelog", true) === false) {
+		return false;
+	}
+
+	// @ts-ignore Note: This shouldn't be needed because true is a default value but it's here anyways
+	if (context.globalState.get("toggleChangelog", true) === false) {
+		return false;
+	}
 
 	// @ts-ignore Note: This shouldn't be needed because true is a default value but it's here anyways
 	if (context.globalState.get("toggleChangelog", true) === false) {

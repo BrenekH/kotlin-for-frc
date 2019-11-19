@@ -18,7 +18,8 @@
         "onCommand:extension.forceCompliance",
         "onCommand:extension.changeComplianceTestPref",
         "onCommand:extension.toggleChangelog",
-        "onCommand:extension.showChangelog"
+        "onCommand:extension.showChangelog",
+        "onCommand:extension.resetAutoShowChangelog"
     ],
     "main": "./dist/extension",
     "contributes": {
@@ -46,6 +47,10 @@
             {
                 "command": "extension.toggleChangelog",
                 "title": "Kotlin-FRC: Toggle Auto-Show Changelog"
+            },
+            {
+                "command": "extension.resetAutoShowChangelog",
+                "title": "Kotlin-FRC: Reset Auto-Show Changelog"
             }
         ],
         "menus": {
@@ -74,12 +79,13 @@
                     "when": "isWPILibProject"
                 },
                 {
-                    "command": "extension.showChangelog",
-                    "when": "isWPILibProject"
+                    "command": "extension.showChangelog"
                 },
                 {
-                    "command": "extension.toggleChangelog",
-                    "when": "isWPILibProject"
+                    "command": "extension.toggleChangelog"
+                },
+                {
+                    "command": "extension.resetAutoShowChangelog"
                 }
             ]
         }
