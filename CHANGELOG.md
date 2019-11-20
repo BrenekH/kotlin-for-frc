@@ -1,5 +1,13 @@
 # Change Log
 
+## 1.5.0 - 2019-11-19
+
+* Fast-forwarded auto-show changelog from 2020
+* Added Toggle Auto-Show Changelog, Show Changelog, and Reset Auto-Show Changelog commands
+* Added contributing guidelines
+* Added issue templates
+* Fixed various security issues by updating dependencies
+
 ## 1.4.0 - 2019-06-30
 
 * Faster extension loading times using webpack
