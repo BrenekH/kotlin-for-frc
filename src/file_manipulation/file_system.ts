@@ -6,8 +6,25 @@ import * as fs from 'fs';
 export var isVscodeFsAvailable = semver.satisfies(vscode.version, ">=1.37.0");
 
 export function mkdir(uri: string) {
-	// This should only be used when isVscodeFsAvailable is true
-	(vscode.workspace as any).fs.createDirectory(vscode.Uri.file(uri));
+	if (isVscodeFsAvailable) {
+		(vscode.workspace as any).fs.createDirectory(vscode.Uri.file(uri));
+	} else {
+		fs.mkdirSync(uri);
+	}
+}
+
+export function exists(uri: string): Boolean {
+	if (isVscodeFsAvailable) {
+		var exists = true;
+		try {
+			(vscode.workspace as any).fs.stat(vscode.Uri.file(uri));
+		} catch {
+			exists = false;
+		}
+		return exists;
+	} else {
+		return fs.existsSync(uri);
+	}
 }
 
 export async function readFile(uri: string) {
@@ -29,5 +46,14 @@ export function writeToFile(uri: string, content: string) {
 		(vscode.workspace as any).fs.writeFile(vscode.Uri.file(uri), writeBytes).then(() => {});
 	} else {
 		fs.writeFileSync(uri, content);
+	}
+}
+
+export function deleteFile(uri: string) {
+	// Not useful because of rimraf use for getting rid of src folder
+	if (isVscodeFsAvailable) {
+		(vscode.workspace as any).fs.delete(vscode.Uri.file(uri));
+	} else {
+
 	}
 }

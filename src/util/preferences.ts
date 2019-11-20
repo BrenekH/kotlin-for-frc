@@ -1,6 +1,6 @@
 'use strict';
 import * as vscode from 'vscode';
-import * as fs from "fs";
+// import * as fs from "fs";
 import * as kotlinExt from "../extension";
 
 var defaultJson = `{"wpilib_version": "2019.0.1", "run_compliance_tests": true}`;

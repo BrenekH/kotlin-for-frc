@@ -1,7 +1,6 @@
 "use strict";
 import * as vscode from "vscode";
 import * as commands from "./commands";
-// import * as fs from "fs";
 import * as customfs from "./file_manipulation/file_system";
 import * as preferences from "./util/preferences";
 import * as compliance from "./util/compliance";

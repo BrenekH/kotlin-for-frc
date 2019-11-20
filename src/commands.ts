@@ -5,7 +5,7 @@ import * as customfs from "./file_manipulation/file_system";
 import * as templateinterpreter from "./templates/template_interpreter";
 import * as compliance from "./util/compliance";
 import * as rimraf from "rimraf";
-import * as fs from "fs";
+// import * as fs from "fs";
 import * as kotlinExt from "./extension";
 import * as chnglog from "./util/changelog";
 import { setRunComplianceTests } from "./util/preferences";
