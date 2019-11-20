@@ -7,6 +7,7 @@ import * as rimraf from "rimraf";
 import * as fs from "fs";
 import { setRunComplianceTests } from "./preferences";
 import * as kotlinExt from "./extension";
+import * as chnglog from "./changelog";
 
 export function createNew(file_path: any) {
 	vscode.window.showQuickPick(["Command", "Subsystem", "Trigger", "Empty Class"]).then((option: any) => {
@@ -229,4 +230,22 @@ export function createMainKt() {
 
 export function createBuildGradle() {
 	filegenerator.createFileWithContent("build.gradle", templateinterpreter.getParsedGradle());
+}
+
+export function showChangelog() { chnglog.showChangelog(); }
+
+export function toggleChangelog(context: vscode.ExtensionContext) {
+	var currentValue = context.globalState.get("toggleChangelog", true);
+	if (currentValue === true) {
+		context.globalState.update("toggleChangelog", false);
+		vscode.window.showInformationMessage("Kotlin for FRC: Turned auto-show changelog off.");
+	} else {
+		context.globalState.update("toggleChangelog", true);
+		vscode.window.showInformationMessage("Kotlin for FRC: Turned auto-show changelog on.");
+	}
+}
+
+export function resetAutoShowChangelog(context: vscode.ExtensionContext ) {
+	context.globalState.update("lastInitVersion", "0.0.0");
+	vscode.window.showInformationMessage("Kotlin for FRC: Auto-Show changelog reset.");
 }
