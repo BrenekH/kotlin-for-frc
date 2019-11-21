@@ -5,7 +5,7 @@ import * as customfs from "./file_manipulation/file_system";
 import * as templateinterpreter from "./templates/template_interpreter";
 import * as compliance from "./util/compliance";
 import * as rimraf from "rimraf";
-// import * as fs from "fs";
+import * as fs from "fs";
 import * as kotlinExt from "./extension";
 import * as chnglog from "./util/changelog";
 import { setRunComplianceTests } from "./util/preferences";
@@ -223,11 +223,11 @@ function convertTimedSkeleton() {
 }
 
 function convertCommand() {
-	if (!fs.existsSync(kotlinExt.getWorkspaceFolderFsPath() + "/src/main/kotlin/frc/robot/commands")) {
-		fs.mkdirSync(kotlinExt.getWorkspaceFolderFsPath() + "/src/main/kotlin/frc/robot/commands");
+	if (!customfs.exists(kotlinExt.getWorkspaceFolderFsPath() + "/src/main/kotlin/frc/robot/commands")) {
+		customfs.mkdir(kotlinExt.getWorkspaceFolderFsPath() + "/src/main/kotlin/frc/robot/commands");
 	}
-	if (!fs.existsSync(kotlinExt.getWorkspaceFolderFsPath() + "/src/main/kotlin/frc/robot/subsystems")) {
-		fs.mkdirSync(kotlinExt.getWorkspaceFolderFsPath() + "/src/main/kotlin/frc/robot/subsystems");
+	if (!customfs.exists(kotlinExt.getWorkspaceFolderFsPath() + "/src/main/kotlin/frc/robot/subsystems")) {
+		customfs.mkdir(kotlinExt.getWorkspaceFolderFsPath() + "/src/main/kotlin/frc/robot/subsystems");
 	}
 
 	//Static files(don't need any name changes)
@@ -272,7 +272,7 @@ export function toggleChangelog(context: vscode.ExtensionContext) {
 	}
 }
 
-export function resetAutoShowChangelog(context: vscode.ExtensionContext ) {
+export function resetAutoShowChangelog(context: vscode.ExtensionContext) {
 	context.globalState.update("lastInitVersion", "0.0.0");
 	vscode.window.showInformationMessage("Kotlin for FRC: Auto-Show changelog reset.");
 }

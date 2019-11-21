@@ -100,10 +100,12 @@ export async function activate(context: vscode.ExtensionContext) {
 
     // * Compliance testing
     console.log("Compliance testing");
-    if (preferences.getRunComplianceTests() && compliance.isKotlinProject()) {
-        // * Check build.gradle
-        if (!await compliance.isGradleRioVersionCompliant()) {
-            await compliance.makeGradleRioVersionCompliant();
+    if (await compliance.isFRCKotlinProject()) {
+        if (preferences.getRunComplianceTests()) {
+            // * Check build.gradle
+            if (!await compliance.isGradleRioVersionCompliant()) {
+                await compliance.makeGradleRioVersionCompliant();
+            }
         }
     }
 

@@ -30,7 +30,7 @@ export function generatePackage(filePath: any) {
     return "frc.robot";
   }
   var workspace_path = kotlinExt.getWorkspaceFolderPath();
-  var path_to_main_folder = workspace_path + "/src/main/java/";
+  var path_to_main_folder = workspace_path + "/src/main/kotlin/";
   console.log(path_to_main_folder);
   var package_string = filePath.path.replace(path_to_main_folder, "").replace(/\//g, ".");
   console.log(package_string);
