@@ -19,25 +19,25 @@ export async function activate(context: vscode.ExtensionContext) {
 
     // * Registering commands
     console.log("Registering commands");
-    let disposable = vscode.commands.registerCommand("extension.createNew", (file_path: any) => {
+    let disposable = vscode.commands.registerCommand("kotlinforfrc.createNew", (file_path: any) => {
         commands.createNew(file_path);
     });
 
     context.subscriptions.push(disposable);
 
-    disposable = vscode.commands.registerCommand('extension.forceCompliance', async (file_path: any) => {
+    disposable = vscode.commands.registerCommand('kotlinforfrc.forceCompliance', async (file_path: any) => {
         await commands.forceCompliance();
     });
 
     context.subscriptions.push(disposable);
 
-    disposable = vscode.commands.registerCommand("extension.changeComplianceTestPref", (file_path: any) => {
+    disposable = vscode.commands.registerCommand("kotlinforfrc.changeComplianceTestPref", (file_path: any) => {
         commands.changeComplianceTestPref();
     });
 
     context.subscriptions.push(disposable);
 
-    disposable = vscode.commands.registerCommand('extension.convertJavaProject', async () => {
+    disposable = vscode.commands.registerCommand('kotlinforfrc.convertJavaProject', async () => {
         console.log("Reading Robot.java");
         // Check to make sure file paths are even there
         try {
@@ -78,19 +78,19 @@ export async function activate(context: vscode.ExtensionContext) {
     
     context.subscriptions.push(disposable);
 
-    disposable = vscode.commands.registerCommand("extension.showChangelog", (file_path: any) => {
+    disposable = vscode.commands.registerCommand("kotlinforfrc.showChangelog", (file_path: any) => {
         commands.showChangelog();
     });
 
     context.subscriptions.push(disposable);
 
-    disposable = vscode.commands.registerCommand("extension.toggleChangelog", (file_path: any) => {
+    disposable = vscode.commands.registerCommand("kotlinforfrc.toggleChangelog", (file_path: any) => {
         commands.toggleChangelog(context);
     });
 
     context.subscriptions.push(disposable);
 
-    disposable = vscode.commands.registerCommand("extension.resetAutoShowChangelog", (file_path: any) => {
+    disposable = vscode.commands.registerCommand("kotlinforfrc.resetAutoShowChangelog", (file_path: any) => {
         commands.resetAutoShowChangelog(context);
     });
 

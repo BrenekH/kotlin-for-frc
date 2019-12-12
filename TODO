@@ -3,7 +3,7 @@ KfF Version 2020.1.1 Release Checklist:
     ☐ Handle old command-based and new command-based
     ☐ Implement telemetry
     ☐ Fix currently known bugs
-    ☐ Rename command identifiers
+    ✔ Rename command identifiers @started(19-12-12 14:32:38) @done(19-12-12 14:38:04) @lasted(5m26s)
 
 Release Checklist:
     ☐ Update README.md

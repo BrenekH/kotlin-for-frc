@@ -13,43 +13,43 @@
     "icon": "images/wpilib-with-kotlin_K-128x128.png",
     "activationEvents": [
         "workspaceContains:.wpilib/wpilib_preferences.json",
-        "onCommand:extension.createNew",
-        "onCommand:extension.convertJavaProject",
-        "onCommand:extension.forceCompliance",
-        "onCommand:extension.changeComplianceTestPref",
-        "onCommand:extension.toggleChangelog",
-        "onCommand:extension.showChangelog",
-        "onCommand:extension.resetAutoShowChangelog"
+        "onCommand:kotlinforfrc.createNew",
+        "onCommand:kotlinforfrc.convertJavaProject",
+        "onCommand:kotlinforfrc.forceCompliance",
+        "onCommand:kotlinforfrc.changeComplianceTestPref",
+        "onCommand:kotlinforfrc.toggleChangelog",
+        "onCommand:kotlinforfrc.showChangelog",
+        "onCommand:kotlinforfrc.resetAutoShowChangelog"
     ],
     "main": "./dist/extension",
     "contributes": {
         "commands": [
             {
-                "command": "extension.convertJavaProject",
+                "command": "kotlinforfrc.convertJavaProject",
                 "title": "Kotlin-FRC: Convert Java Project to Kotlin"
             },
             {
-                "command": "extension.createNew",
+                "command": "kotlinforfrc.createNew",
                 "title": "Kotlin-FRC: Create new class/command here"
             },
             {
-                "command": "extension.forceCompliance",
+                "command": "kotlinforfrc.forceCompliance",
                 "title": "Kotlin-FRC: Update GradleRio and check for Main.kt"
             },
             {
-                "command": "extension.changeComplianceTestPref",
+                "command": "kotlinforfrc.changeComplianceTestPref",
                 "title": "Kotlin-FRC: Change GradleRio Checks"
             },
             {
-                "command": "extension.showChangelog",
+                "command": "kotlinforfrc.showChangelog",
                 "title": "Kotlin-FRC: Show Changelog"
             },
             {
-                "command": "extension.toggleChangelog",
+                "command": "kotlinforfrc.toggleChangelog",
                 "title": "Kotlin-FRC: Toggle Auto-Show Changelog"
             },
             {
-                "command": "extension.resetAutoShowChangelog",
+                "command": "kotlinforfrc.resetAutoShowChangelog",
                 "title": "Kotlin-FRC: Reset Auto-Show Changelog"
             }
         ],
@@ -57,35 +57,35 @@
             "explorer/context": [
                 {
                     "when": "explorerResourceIsFolder && isWPILibProject",
-                    "command": "extension.createNew",
+                    "command": "kotlinforfrc.createNew",
                     "group": "frc-kotlin"
                 }
             ],
             "commandPalette": [
                 {
-                    "command": "extension.convertJavaProject",
+                    "command": "kotlinforfrc.convertJavaProject",
                     "when": "isWPILibProject"
                 },
                 {
-                    "command": "extension.createNew",
+                    "command": "kotlinforfrc.createNew",
                     "when": "isWPILibProject && !isWPILibProject"
                 },
                 {
-                    "command": "extension.forceCompliance",
+                    "command": "kotlinforfrc.forceCompliance",
                     "when": "isWPILibProject"
                 },
                 {
-                    "command": "extension.changeComplianceTestPref",
+                    "command": "kotlinforfrc.changeComplianceTestPref",
                     "when": "isWPILibProject"
                 },
                 {
-                    "command": "extension.showChangelog"
+                    "command": "kotlinforfrc.showChangelog"
                 },
                 {
-                    "command": "extension.toggleChangelog"
+                    "command": "kotlinforfrc.toggleChangelog"
                 },
                 {
-                    "command": "extension.resetAutoShowChangelog"
+                    "command": "kotlinforfrc.resetAutoShowChangelog"
                 }
             ]
         }
