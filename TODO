@@ -2,7 +2,6 @@ KfF Version 2020.1.1 Release Checklist:
     ☐ Update templates
     ☐ Handle old command-based and new command-based
     ☐ Implement telemetry
-    ☐ Fix currently known bugs
     ✔ Rename command identifiers @started(19-12-12 14:32:38) @done(19-12-12 14:38:04) @lasted(5m26s)
 
 Release Checklist:
@@ -13,7 +12,7 @@ Release Checklist:
 
 Bugs:
     ✔ When trying to convert without Java folder, things go horribly wrong @done(19-01-03 12:26)
-    ☐ .kotlin-for-frc directory is generated anytime the extension is activated
+    ☐ .kotlin-for-frc directory is generated anytime the extension is activated @started(19-12-12 15:33:20)
 
 Improvements:
     Testing:
