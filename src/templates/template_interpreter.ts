@@ -32,6 +32,7 @@ import { SampleRobotTemplate } from './frc-kotlin/sample/Robot';
 import { TimedRobotTemplate } from './frc-kotlin/timed/Robot';
 import { TimedRobotSkeletonTemplate } from './frc-kotlin/timed-skeleton/Robot';
 
+// TODO: Differentiate between old and new command based
 export enum templateType {
     subsystem = "Subsystem",
     command = "Command",
@@ -47,6 +48,7 @@ export enum templateType {
     build_gradle = "build.gradle"
 }
 
+// TODO: Differentiate between old and new command based
 export enum robotType {
     command,
     sample,
@@ -77,6 +79,7 @@ export function parseForGradleRioVersion(gradleRioVersion: string, toParse: stri
     return toParse.replace(/#{GRADLE_RIO_VERSION}/gi, gradleRioVersion);
 }
 
+// TODO: Differentiate between old and new command based
 export function getTemplateObjectFromTemplateType(targetTemplateType: templateType) {
     switch(targetTemplateType) {
         case templateType.robot:
@@ -106,6 +109,7 @@ export function getTemplateObjectFromTemplateType(targetTemplateType: templateTy
     }
 }
 
+// TODO: Differentiate between old and new command based
 export function getTemplateObjectFromRobotType(targetRobotType: robotType) {
     switch(targetRobotType) {
         case robotType.iterative:
