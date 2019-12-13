@@ -5,18 +5,22 @@ import { targetGradleRioVersion } from '../constants';
 import { MainTemplate } from './frc-kotlin/Main';
 import { BuildGradleTemplate } from './frc-kotlin/BuildGradle';
 
-// Command based
-import { CommandRobotTemplate } from './frc-kotlin/old-command-based/Robot';
-import { OITemplate } from './frc-kotlin/old-command-based/OI';
-import { RobotMapTemplate } from './frc-kotlin/old-command-based/RobotMap';
-import { SubsystemTemplate } from './frc-kotlin/old-command-based/subsystems/SubsystemTemplate';
-import { CommandGroupTemplate } from './frc-kotlin/old-command-based/commands/CommandGroupTemplate';
-import { CommandTemplate } from './frc-kotlin/old-command-based/commands/CommandTemplate';
+// New Command based
+import { CommandRobotTemplate } from './frc-kotlin/command-based/Robot';
+// import { CommandSubsystemTemplate } from './frc-kotlin/command-based/subsystems/SubsystemTemplate';
+import { CommandTemplate } from './frc-kotlin/command-based/commands/CommandTemplate';
+// import { CommandRobotContainerTemplate } from './frc-kotlin/command-based/RobotContainer';
+
+// Old Command Based
 import { TimedCommandTemplate } from './frc-kotlin/old-command-based/commands/TimedCommand';
 import { InstantCommandTemplate } from './frc-kotlin/old-command-based/commands/InstantCommandTemplate';
 import { EmptyClassTemplate } from './frc-kotlin/old-command-based/EmptyClassTemplate';
 import { PIDSubsystemTemplate } from './frc-kotlin/old-command-based/subsystems/PIDSubsystemTemplate';
 import { TriggerTemplate } from './frc-kotlin/old-command-based/triggers/TriggerTemplate';
+import { RobotMapTemplate } from './frc-kotlin/old-command-based/RobotMap';
+import { OITemplate } from './frc-kotlin/old-command-based/OI';
+import { CommandGroupTemplate } from './frc-kotlin/old-command-based/commands/CommandGroupTemplate';
+import { SubsystemTemplate } from './frc-kotlin/old-command-based/subsystems/SubsystemTemplate';
 
 // Iterative
 import { IterativeRobotTemplate } from './frc-kotlin/iterative/Robot';
