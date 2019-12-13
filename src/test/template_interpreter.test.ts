@@ -24,6 +24,7 @@ import { OldCommandRobotTemplate } from '../templates/frc-kotlin/old-command-bas
 import { OldCommandOITemplate } from '../templates/frc-kotlin/old-command-based/OI';
 import { OldCommandRobotMapTemplate } from '../templates/frc-kotlin/old-command-based/RobotMap';
 
+// TODO: Differentiate between old and new command based
 suite("Grabbing Templates", function () {
     test("Main.kt", function() {
         testingConsts.resetTestingWorkspace();
