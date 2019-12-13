@@ -56,6 +56,7 @@ async function loadPreferencesJson(): Promise<PreferencesJson> {
     catch(e) {
         console.log("Caught Error: " + e);
         await createPreferencesJson();
+        await sleep(500);
         parsedJson = JSON.parse(await customfs.readFile(kotlinExt.getWorkspaceFolderFsPath() + "/.kotlin-for-frc/kotlin-frc-preferences.json"));
     }
     return parsedJson;
@@ -64,3 +65,7 @@ async function loadPreferencesJson(): Promise<PreferencesJson> {
 async function savePreferencesJson(json: PreferencesJson) {
     customfs.writeToFile(kotlinExt.getWorkspaceFolderFsPath() + "/.kotlin-for-frc/kotlin-frc-preferences.json", JSON.stringify(json));
 }
+
+const sleep = (milliseconds: number) => {
+    return new Promise(resolve => setTimeout(resolve, milliseconds));
+};

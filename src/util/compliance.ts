@@ -15,9 +15,9 @@ export async function isGradleRioVersionCompliant(): Promise<boolean> {
     return false;
 }
 
-export function makeGradleRioVersionCompliant() {
+export async function makeGradleRioVersionCompliant() {
     console.log("Forcing build.gradle compliance");
-    updateGradleRioVersion();
+    await updateGradleRioVersion();
     vscode.window.showInformationMessage("GradleRio version updated");
     preferences.setWPILibVersion(targetGradleRioVersion);
 }
