@@ -6,17 +6,17 @@ import { MainTemplate } from './frc-kotlin/Main';
 import { BuildGradleTemplate } from './frc-kotlin/BuildGradle';
 
 // Command based
-import { CommandRobotTemplate } from './frc-kotlin/command-based/Robot';
-import { OITemplate } from './frc-kotlin/command-based/OI';
-import { RobotMapTemplate } from './frc-kotlin/command-based/RobotMap';
-import { SubsystemTemplate } from './frc-kotlin/command-based/subsystems/SubsystemTemplate';
-import { CommandGroupTemplate } from './frc-kotlin/command-based/commands/CommandGroupTemplate';
-import { CommandTemplate } from './frc-kotlin/command-based/commands/CommandTemplate';
-import { TimedCommandTemplate } from './frc-kotlin/command-based/commands/TimedCommand';
-import { InstantCommandTemplate } from './frc-kotlin/command-based/commands/InstantCommandTemplate';
-import { EmptyClassTemplate } from './frc-kotlin/command-based/EmptyClassTemplate';
-import { PIDSubsystemTemplate } from './frc-kotlin/command-based/subsystems/PIDSubsystemTemplate';
-import { TriggerTemplate } from './frc-kotlin/command-based/triggers/TriggerTemplate';
+import { CommandRobotTemplate } from './frc-kotlin/old-command-based/Robot';
+import { OITemplate } from './frc-kotlin/old-command-based/OI';
+import { RobotMapTemplate } from './frc-kotlin/old-command-based/RobotMap';
+import { SubsystemTemplate } from './frc-kotlin/old-command-based/subsystems/SubsystemTemplate';
+import { CommandGroupTemplate } from './frc-kotlin/old-command-based/commands/CommandGroupTemplate';
+import { CommandTemplate } from './frc-kotlin/old-command-based/commands/CommandTemplate';
+import { TimedCommandTemplate } from './frc-kotlin/old-command-based/commands/TimedCommand';
+import { InstantCommandTemplate } from './frc-kotlin/old-command-based/commands/InstantCommandTemplate';
+import { EmptyClassTemplate } from './frc-kotlin/old-command-based/EmptyClassTemplate';
+import { PIDSubsystemTemplate } from './frc-kotlin/old-command-based/subsystems/PIDSubsystemTemplate';
+import { TriggerTemplate } from './frc-kotlin/old-command-based/triggers/TriggerTemplate';
 
 // Iterative
 import { IterativeRobotTemplate } from './frc-kotlin/iterative/Robot';
