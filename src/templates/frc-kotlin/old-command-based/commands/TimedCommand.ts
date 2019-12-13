@@ -1,4 +1,4 @@
-export class TimedCommandTemplate {
+export class OldCommandTimedCommandTemplate {
     private useAtProjectConversion: boolean;
     private text: string;
     constructor() {

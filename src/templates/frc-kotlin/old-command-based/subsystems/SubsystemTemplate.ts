@@ -1,4 +1,4 @@
-export class SubsystemTemplate {
+export class OldCommandSubsystemTemplate {
   private useAtProjectConversion: boolean;
   private text: string;  
   constructor() {

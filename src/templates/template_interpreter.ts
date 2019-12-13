@@ -12,15 +12,15 @@ import { CommandTemplate } from './frc-kotlin/command-based/commands/CommandTemp
 // import { CommandRobotContainerTemplate } from './frc-kotlin/command-based/RobotContainer';
 
 // Old Command Based
-import { TimedCommandTemplate } from './frc-kotlin/old-command-based/commands/TimedCommand';
-import { InstantCommandTemplate } from './frc-kotlin/old-command-based/commands/InstantCommandTemplate';
-import { EmptyClassTemplate } from './frc-kotlin/old-command-based/EmptyClassTemplate';
-import { PIDSubsystemTemplate } from './frc-kotlin/old-command-based/subsystems/PIDSubsystemTemplate';
-import { TriggerTemplate } from './frc-kotlin/old-command-based/triggers/TriggerTemplate';
-import { RobotMapTemplate } from './frc-kotlin/old-command-based/RobotMap';
-import { OITemplate } from './frc-kotlin/old-command-based/OI';
-import { CommandGroupTemplate } from './frc-kotlin/old-command-based/commands/CommandGroupTemplate';
-import { SubsystemTemplate } from './frc-kotlin/old-command-based/subsystems/SubsystemTemplate';
+import { OldCommandTimedCommandTemplate } from './frc-kotlin/old-command-based/commands/TimedCommand';
+import { OldCommandInstantCommandTemplate } from './frc-kotlin/old-command-based/commands/InstantCommandTemplate';
+import { EmptyClassTemplate } from './frc-kotlin/EmptyClassTemplate';
+import { OldCommandPIDSubsystemTemplate } from './frc-kotlin/old-command-based/subsystems/PIDSubsystemTemplate';
+import { OldCommandTriggerTemplate } from './frc-kotlin/old-command-based/triggers/TriggerTemplate';
+import { OldCommandRobotMapTemplate } from './frc-kotlin/old-command-based/RobotMap';
+import { OldCommandOITemplate } from './frc-kotlin/old-command-based/OI';
+import { OldCommandGroupTemplate } from './frc-kotlin/old-command-based/commands/CommandGroupTemplate';
+import { OldCommandSubsystemTemplate } from './frc-kotlin/old-command-based/subsystems/SubsystemTemplate';
 
 // Iterative
 import { IterativeRobotTemplate } from './frc-kotlin/iterative/Robot';
@@ -82,27 +82,27 @@ export function getTemplateObjectFromTemplateType(targetTemplateType: templateTy
         case templateType.robot:
             return new CommandRobotTemplate();
         case templateType.oi:
-            return new OITemplate();
+            return new OldCommandOITemplate();
         case templateType.robot_map:
-            return new RobotMapTemplate();
+            return new OldCommandRobotMapTemplate();
         case templateType.subsystem:
-            return new SubsystemTemplate();
+            return new OldCommandSubsystemTemplate();
         case templateType.command:
             return new CommandTemplate();
         case templateType.command_group:
-            return new CommandGroupTemplate();
+            return new OldCommandGroupTemplate();
         case templateType.build_gradle:
             return new BuildGradleTemplate();
         case templateType.empty_class:
             return new EmptyClassTemplate();
         case templateType.pid_subsystem:
-            return new PIDSubsystemTemplate();
+            return new OldCommandPIDSubsystemTemplate();
         case templateType.instant_command:
-            return new InstantCommandTemplate();
+            return new OldCommandInstantCommandTemplate();
         case templateType.timed_command:
-            return new TimedCommandTemplate();
+            return new OldCommandTimedCommandTemplate();
         case templateType.trigger:
-            return new TriggerTemplate();
+            return new OldCommandTriggerTemplate();
     }
 }
 

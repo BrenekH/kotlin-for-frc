@@ -1,4 +1,4 @@
-export class CommandTemplate {
+export class OldCommandTemplate {
   private useAtProjectConversion: boolean;
   private text: string;
   constructor() {

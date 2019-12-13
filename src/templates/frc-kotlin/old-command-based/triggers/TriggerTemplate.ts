@@ -1,4 +1,4 @@
-export class TriggerTemplate {
+export class OldCommandTriggerTemplate {
     private useAtProjectConversion: boolean;
     private text: string;
     constructor() {

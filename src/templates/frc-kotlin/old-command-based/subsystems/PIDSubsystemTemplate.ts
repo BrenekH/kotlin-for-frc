@@ -1,4 +1,4 @@
-export class PIDSubsystemTemplate {
+export class OldCommandPIDSubsystemTemplate {
     private useAtProjectConversion: boolean;
     private text: string;
     constructor() {

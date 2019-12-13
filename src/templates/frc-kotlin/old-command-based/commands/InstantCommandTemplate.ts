@@ -1,4 +1,4 @@
-export class InstantCommandTemplate {
+export class OldCommandInstantCommandTemplate {
     private useAtProjectConversion: boolean;
     private text: string;
     constructor() {

@@ -1,4 +1,4 @@
-export class CommandGroupTemplate {
+export class OldCommandGroupTemplate {
   private useAtProjectConversion: boolean;
   private text: string;
   constructor() {
