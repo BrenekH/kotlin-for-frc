@@ -41,19 +41,19 @@ suite("Grabbing Templates", function () {
     test("Subsystem", function() {
         testingConsts.resetTestingWorkspace();
         var subsystemTemplate = new OldCommandSubsystemTemplate;
-        assert.equal(template_interpreter.getTemplateObjectFromTemplateType(template_interpreter.templateType.subsystem).getText(), subsystemTemplate.getText());
+        assert.equal(template_interpreter.getTemplateObjectFromTemplateType(template_interpreter.templateType.old_subsystem).getText(), subsystemTemplate.getText());
     });
 
     test("Command", function() {
         testingConsts.resetTestingWorkspace();
         var commandTemplate = new OldCommandTemplate;
-        assert.equal(template_interpreter.getTemplateObjectFromTemplateType(template_interpreter.templateType.command).getText(), commandTemplate.getText());
+        assert.equal(template_interpreter.getTemplateObjectFromTemplateType(template_interpreter.templateType.old_command).getText(), commandTemplate.getText());
     });
 
     test("Command Group", function() {
         testingConsts.resetTestingWorkspace();
         var commandGroupTemplate = new OldCommandGroupTemplate;
-        assert.equal(template_interpreter.getTemplateObjectFromTemplateType(template_interpreter.templateType.command_group).getText(), commandGroupTemplate.getText());
+        assert.equal(template_interpreter.getTemplateObjectFromTemplateType(template_interpreter.templateType.old_command_group).getText(), commandGroupTemplate.getText());
     });
 
     test("Empty Class", function() {
@@ -65,43 +65,43 @@ suite("Grabbing Templates", function () {
     test("Instant Command", function() {
         testingConsts.resetTestingWorkspace();
         var instantCommandTemplate = new OldCommandInstantCommandTemplate;
-        assert.equal(template_interpreter.getTemplateObjectFromTemplateType(template_interpreter.templateType.instant_command).getText(), instantCommandTemplate.getText());
+        assert.equal(template_interpreter.getTemplateObjectFromTemplateType(template_interpreter.templateType.old_instant_command).getText(), instantCommandTemplate.getText());
     });
 
     test("Timed Command", function() {
         testingConsts.resetTestingWorkspace();
         var timedCommandTemplate = new OldCommandTimedCommandTemplate;
-        assert.equal(template_interpreter.getTemplateObjectFromTemplateType(template_interpreter.templateType.timed_command).getText(), timedCommandTemplate.getText());
+        assert.equal(template_interpreter.getTemplateObjectFromTemplateType(template_interpreter.templateType.old_timed_command).getText(), timedCommandTemplate.getText());
     });
 
     test("PID Subsystem", function() {
         testingConsts.resetTestingWorkspace();
         var pidSubsystemTemplate = new OldCommandPIDSubsystemTemplate;
-        assert.equal(template_interpreter.getTemplateObjectFromTemplateType(template_interpreter.templateType.pid_subsystem).getText(), pidSubsystemTemplate.getText());
+        assert.equal(template_interpreter.getTemplateObjectFromTemplateType(template_interpreter.templateType.old_pid_subsystem).getText(), pidSubsystemTemplate.getText());
     });
 
     test("Trigger", function() {
         testingConsts.resetTestingWorkspace();
         var triggerTemplate = new OldCommandTriggerTemplate;
-        assert.equal(template_interpreter.getTemplateObjectFromTemplateType(template_interpreter.templateType.trigger).getText(), triggerTemplate.getText());
+        assert.equal(template_interpreter.getTemplateObjectFromTemplateType(template_interpreter.templateType.old_trigger).getText(), triggerTemplate.getText());
     });
 
     test("CommandRobot", function() {
         testingConsts.resetTestingWorkspace();
         var robotTemplate = new OldCommandRobotTemplate;
-        assert.equal(template_interpreter.getTemplateObjectFromTemplateType(template_interpreter.templateType.robot).getText(), robotTemplate.getText());
+        assert.equal(template_interpreter.getTemplateObjectFromTemplateType(template_interpreter.templateType.old_robot).getText(), robotTemplate.getText());
     });
 
     test("OI", function() {
         testingConsts.resetTestingWorkspace();
         var oiTemplate = new OldCommandOITemplate;
-        assert.equal(template_interpreter.getTemplateObjectFromTemplateType(template_interpreter.templateType.oi).getText(), oiTemplate.getText());
+        assert.equal(template_interpreter.getTemplateObjectFromTemplateType(template_interpreter.templateType.old_oi).getText(), oiTemplate.getText());
     });
 
     test("Robot Map", function() {
         testingConsts.resetTestingWorkspace();
         var robotMapTemplate = new OldCommandRobotMapTemplate;
-        assert.equal(template_interpreter.getTemplateObjectFromTemplateType(template_interpreter.templateType.robot_map).getText(), robotMapTemplate.getText());
+        assert.equal(template_interpreter.getTemplateObjectFromTemplateType(template_interpreter.templateType.old_robot_map).getText(), robotMapTemplate.getText());
     });
 });
 

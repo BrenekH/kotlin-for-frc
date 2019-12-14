@@ -50,9 +50,13 @@ export async function activate(context: vscode.ExtensionContext) {
         }
         var current_robot_type: robotType = robotType.sample;
 
-        if (robot_java.includes("edu.wpi.first.wpilibj.command.Command")) {
+        if (robot_java.includes("edu.wpi.first.wpilibj2.command.Command")) {
             current_robot_type = robotType.command;
             console.log("Command");
+        }
+        else if (robot_java.includes("edu.wpi.first.wpilibj.command.Command")) {
+            current_robot_type = robotType.old_command;
+            console.log("Old Command");
         }
         else if (robot_java.includes("edu.wpi.first.wpilibj.IterativeRobot")) {
             current_robot_type = robotType.iterative;

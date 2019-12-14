@@ -89,27 +89,27 @@ function createNewCommand(file_path: any) {
 }
 
 export function createCommand(file_path: any) {
-	parseAndSaveTemplateToDocument(file_path, filegenerator.generatePackage(file_path), templateinterpreter.templateType.command);
+	parseAndSaveTemplateToDocument(file_path, filegenerator.generatePackage(file_path), templateinterpreter.templateType.old_command);
 }
 
 export function createCommandGroup(file_path: any) {
-	parseAndSaveTemplateToDocument(file_path, filegenerator.generatePackage(file_path), templateinterpreter.templateType.command_group);
+	parseAndSaveTemplateToDocument(file_path, filegenerator.generatePackage(file_path), templateinterpreter.templateType.old_command_group);
 }
 
 export function createSubsystem(file_path: any) {
-	parseAndSaveTemplateToDocument(file_path, filegenerator.generatePackage(file_path), templateinterpreter.templateType.subsystem);
+	parseAndSaveTemplateToDocument(file_path, filegenerator.generatePackage(file_path), templateinterpreter.templateType.old_subsystem);
 }
 
 export function createTimedCommand(file_path: any) {
-	parseAndSaveTemplateToDocument(file_path, filegenerator.generatePackage(file_path), templateinterpreter.templateType.timed_command);
+	parseAndSaveTemplateToDocument(file_path, filegenerator.generatePackage(file_path), templateinterpreter.templateType.old_timed_command);
 }
 
 export function createInstantCommand(file_path: any) {
-	parseAndSaveTemplateToDocument(file_path, filegenerator.generatePackage(file_path), templateinterpreter.templateType.instant_command);
+	parseAndSaveTemplateToDocument(file_path, filegenerator.generatePackage(file_path), templateinterpreter.templateType.old_instant_command);
 }
 
 export function createPIDSubsystem(file_path: any) {
-	parseAndSaveTemplateToDocument(file_path, filegenerator.generatePackage(file_path), templateinterpreter.templateType.pid_subsystem);
+	parseAndSaveTemplateToDocument(file_path, filegenerator.generatePackage(file_path), templateinterpreter.templateType.old_pid_subsystem);
 }
 
 export function createEmptyClass(file_path: any) {
@@ -117,7 +117,7 @@ export function createEmptyClass(file_path: any) {
 }
 
 export function createTrigger(file_path: any) {
-	parseAndSaveTemplateToDocument(file_path, filegenerator.generatePackage(file_path), templateinterpreter.templateType.trigger);
+	parseAndSaveTemplateToDocument(file_path, filegenerator.generatePackage(file_path), templateinterpreter.templateType.old_trigger);
 }
 
 function parseAndSaveTemplateToDocument(file_path: any, package_name: string, templateType: templateinterpreter.templateType) {
@@ -146,6 +146,9 @@ export function convertJavaProject(current_robot_type: templateinterpreter.robot
 			switch(current_robot_type) {
 				case templateinterpreter.robotType.command:
 					await convertCommand();
+					break;
+				case templateinterpreter.robotType.old_command:
+					await convertOldCommand();
 					break;
 				case templateinterpreter.robotType.sample:
 					convertSample();
@@ -186,21 +189,40 @@ function convertTimedSkeleton() {
 
 async function convertCommand() {
 	if (!await customfs.exists(kotlinExt.getWorkspaceFolderFsPath() + "/src/main/kotlin/frc/robot/commands")) {
-		customfs.mkdir(kotlinExt.getWorkspaceFolderFsPath() + "/src/main/kotlin/frc/robot/commands");
+		await customfs.mkdir(kotlinExt.getWorkspaceFolderFsPath() + "/src/main/kotlin/frc/robot/commands");
 	}
 	if (!await customfs.exists(kotlinExt.getWorkspaceFolderFsPath() + "/src/main/kotlin/frc/robot/subsystems")) {
-		customfs.mkdir(kotlinExt.getWorkspaceFolderFsPath() + "/src/main/kotlin/frc/robot/subsystems");
+		await customfs.mkdir(kotlinExt.getWorkspaceFolderFsPath() + "/src/main/kotlin/frc/robot/subsystems");
 	}
 
-	//Static files(don't need any name changes)
+	// Static files(don't need any name changes)
 	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/Robot.kt", templateinterpreter.getTemplateObjectFromTemplateType(templateinterpreter.templateType.robot).getText());
-	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/RobotMap.kt", templateinterpreter.getTemplateObjectFromTemplateType(templateinterpreter.templateType.robot_map).getText());
-	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/OI.kt", templateinterpreter.getTemplateObjectFromTemplateType(templateinterpreter.templateType.oi).getText());
+	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/Constants.kt", templateinterpreter.getTemplateObjectFromTemplateType(templateinterpreter.templateType.constants).getText());
+	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/RobotContainer.kt", templateinterpreter.getTemplateObjectFromTemplateType(templateinterpreter.templateType.robot_container).getText());
 	createMainKtAndBuildGradle();
 	
-	//Dynamic files(need name changes)
+	// Dynamic files(need name changes)
 	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/commands/ExampleCommand.kt", templateinterpreter.parseTemplate("ExampleCommand", "frc.robot.commands", templateinterpreter.templateType.command));
 	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/subsystems/ExampleSubsystem.kt", templateinterpreter.parseTemplate("ExampleSubsystem", "frc.robot.subsystems", templateinterpreter.templateType.subsystem));
+}
+
+async function convertOldCommand() {
+	if (!await customfs.exists(kotlinExt.getWorkspaceFolderFsPath() + "/src/main/kotlin/frc/robot/commands")) {
+		await customfs.mkdir(kotlinExt.getWorkspaceFolderFsPath() + "/src/main/kotlin/frc/robot/commands");
+	}
+	if (!await customfs.exists(kotlinExt.getWorkspaceFolderFsPath() + "/src/main/kotlin/frc/robot/subsystems")) {
+		await customfs.mkdir(kotlinExt.getWorkspaceFolderFsPath() + "/src/main/kotlin/frc/robot/subsystems");
+	}
+
+	// Static files(don't need any name changes)
+	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/Robot.kt", templateinterpreter.getTemplateObjectFromTemplateType(templateinterpreter.templateType.old_robot).getText());
+	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/RobotMap.kt", templateinterpreter.getTemplateObjectFromTemplateType(templateinterpreter.templateType.old_robot_map).getText());
+	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/OI.kt", templateinterpreter.getTemplateObjectFromTemplateType(templateinterpreter.templateType.old_oi).getText());
+	createMainKtAndBuildGradle();
+	
+	// Dynamic files(need name changes)
+	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/commands/ExampleCommand.kt", templateinterpreter.parseTemplate("ExampleCommand", "frc.robot.commands", templateinterpreter.templateType.old_command));
+	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/subsystems/ExampleSubsystem.kt", templateinterpreter.parseTemplate("ExampleSubsystem", "frc.robot.subsystems", templateinterpreter.templateType.old_subsystem));
 }
 
 function convertSample() {
