@@ -6,7 +6,11 @@ export var isVscodeFsAvailable = semver.satisfies(vscode.version, ">=1.37.0");
 
 export async function mkdir(uri: string) {
 	if (isVscodeFsAvailable) {
-		await vscode.workspace.fs.createDirectory(vscode.Uri.file(uri));
+		try {
+			await vscode.workspace.fs.createDirectory(vscode.Uri.file(uri));
+		} catch {
+			console.log(uri + " already exists");
+		}
 	} else {
 		vscode.window.showErrorMessage("Kotlin for FRC Error: For whatever reason, the code detected that you are not running VSCode version 1.37.0 or higher. Please ensure you are updated and try again. If the issue persists, open a GitHub issue at github.com/zPaw/kotlin-for-frc/issues.");
 	}
