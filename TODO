@@ -5,6 +5,7 @@ KfF Version 2020.1.1 Release Checklist:
     ✔ Handle old command-based and new command-based @done(19-12-15 16:31:06)
     ☐ Implement telemetry
     ✔ Rename command identifiers @started(19-12-12 14:32:38) @done(19-12-12 14:38:04) @lasted(5m26s)
+    ☐ Differentiate between old and new command based when the kotlinforfrc.createNew command is called
 
 Release Checklist:
     ☐ Update README.md
@@ -18,6 +19,17 @@ Bugs:
     ☐ .kotlin-for-frc doesn't generate until a reload after a conversion
 
 Improvements:
+    Command Restructuring:
+        ☐ Move to 3 files in a src/commands directory: commands.ts, conversion.ts, create_new.ts
+        ☐ In conversion.ts create a function for determing the robotType to clean up extension.ts
+        ☐ create_new.ts contains the functions for creating a new file with the kotlinforfrc.createNew command
+        ☐ conversion.ts contains the functions for converting a java project to a kotlin project
+        ☐ commands.ts conatins everything that doesn't fit in conversion.ts or create_new.ts (Changelog, etc.)
+    Misc:
+        ☐ Add logger for in-production debugging
+        ✔ See why .kotlin-for-frc is not being created and handled @done(19-01-22 22:34)
+        ☐ Test git rebase stuff
+        ☐ Move command registering to commands.ts
     Testing:
         ✔ Find a way to simulate a workspace to run unit tests on @done(19-01-27 16:49)
             ✔ Add testing dir that contains a sample workspace to run on @done(19-01-25 14:58)
@@ -77,28 +89,3 @@ Improvements:
                     ☐ Timed Robot
                     ☐ Iterative Robot
                     ☐ Timed Skeleton
-    Build Gradle Settings Updating:
-        ✔ Make the build.gradle compliance update just the GradleRio version @done(19-03-21 10:37)
-    Switch back to Main.kt:
-        ✔ Change templates @done(19-01-21 17:08)
-        ✔ Create preferences system @done(19-01-21 17:08)
-        ✔ Check on activation for build.gradle compliance @done(19-01-21 18:11)
-            ✔ Update preferences.json to reflect compliance @done(19-01-21 18:13)
-        ✔ Check on activation for Main.kt compliance @done(19-01-21 18:11)
-            ✔ Update preferences.json to reflect compliance @done(19-01-21 18:13)
-        ✔ Compliance field in preferences.json to turn off compliance testing @done(19-01-21 17:42)
-        ✔ Switch build.gradle to grabbing versions from constants.ts @done(19-01-21 18:47)
-        ✔ Add command to check compliance @done(19-01-21 21:45)
-        ✔ Notify user of change @done(19-01-21 21:40)
-        ✔ Don't run on java project @done(19-01-21 21:37)
-        ✔ Add commands to update the run_compliance_test preference from command palette @done(19-01-21 21:57)
-        ✔ Switch from build.gradle MainKt to JvmStatic annotation @done(19-01-22 23:00)
-        ☐ Delete Main.java when replaced
-    Travis Integration:
-        Slack:
-            ✔ Encrypt slack key @done(19-01-21 17:42)
-            ✔ Place key in .travis.yml @done(19-01-21 17:42)
-    Misc:
-        ☐ Add logger for in-production debugging
-        ✔ See why .kotlin-for-frc is not being created and handled @done(19-01-22 22:34)
-        ☐ Test git rebase stuff
