@@ -10,24 +10,28 @@ import { convertJavaProject, determineRobotType } from "./conversion";
 
 export async function registerCommands(context: vscode.ExtensionContext) {
 	let disposable = vscode.commands.registerCommand("kotlinforfrc.createNew", (file_path: any) => {
+        kotlinExt.telemetryWrapper.sendCommandRun("createNew");
         createNew(file_path);
     });
 
     context.subscriptions.push(disposable);
 
     disposable = vscode.commands.registerCommand('kotlinforfrc.forceCompliance', async () => {
+        kotlinExt.telemetryWrapper.sendCommandRun("forceCompliance");
         await forceCompliance();
     });
 
     context.subscriptions.push(disposable);
 
     disposable = vscode.commands.registerCommand("kotlinforfrc.changeComplianceTestPref", () => {
+        kotlinExt.telemetryWrapper.sendCommandRun("changeComplianceTestPref");
         changeComplianceTestPref();
     });
 
     context.subscriptions.push(disposable);
 
     disposable = vscode.commands.registerCommand('kotlinforfrc.convertJavaProject', async () => {
+        kotlinExt.telemetryWrapper.sendCommandRun("convertJavaProject");
         console.log("Reading Robot.java");
         // Check to make sure file paths are even there
         try {
@@ -45,18 +49,21 @@ export async function registerCommands(context: vscode.ExtensionContext) {
     context.subscriptions.push(disposable);
 
     disposable = vscode.commands.registerCommand("kotlinforfrc.showChangelog", () => {
+        kotlinExt.telemetryWrapper.sendCommandRun("showChangelog");
         showChangelog();
     });
 
     context.subscriptions.push(disposable);
 
     disposable = vscode.commands.registerCommand("kotlinforfrc.toggleChangelog", () => {
+        kotlinExt.telemetryWrapper.sendCommandRun("toggleChangelog");
         toggleChangelog(context);
     });
 
     context.subscriptions.push(disposable);
 
     disposable = vscode.commands.registerCommand("kotlinforfrc.resetAutoShowChangelog", () => {
+        kotlinExt.telemetryWrapper.sendCommandRun("resetAutoShowChangelog");
         resetAutoShowChangelog(context);
     });
 

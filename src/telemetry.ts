@@ -4,7 +4,7 @@ import TelemetryReporter from "vscode-extension-telemetry";
 
 export class TelemetryWrapper {
 	private reporter: TelemetryReporter;
-	private inExtensionHost: Boolean;
+	private inExtensionHost: boolean;
 
 	constructor() {
 		this.inExtensionHost = (vscode.env.machineId === "someValue.machineId");
@@ -23,5 +23,11 @@ export class TelemetryWrapper {
 		}
 	}
 	
+	sendCommandRun(commandName: string) {
+		if (!this.inExtensionHost) {
+			this.reporter.sendTelemetryEvent("commandRun", {"commandName": commandName}, undefined);
+		}
+	}
+
 	dispose() {this.reporter.dispose();}
 }

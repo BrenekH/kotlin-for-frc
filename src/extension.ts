@@ -8,7 +8,7 @@ import { TelemetryWrapper } from "./telemetry";
 
 var currentWorkspacePath: string;
 var currentWorkspaceFsPath: string;
-var telemetryWrapper: TelemetryWrapper;
+export var telemetryWrapper: TelemetryWrapper;
 
 export async function activate(context: vscode.ExtensionContext) {
     // Setting up current workspace
