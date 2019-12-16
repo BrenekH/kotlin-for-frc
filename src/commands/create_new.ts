@@ -5,17 +5,13 @@ import * as templateinterpreter from "../templates/template_interpreter";
 import * as kotlinExt from "../extension";
 
 export function createNew(file_path: any) {
-	// TODO: Differentiate between old and new command based
-	vscode.window.showQuickPick(["Command", "Subsystem", "Trigger", "Empty Class"]).then((option: any) => {
+	vscode.window.showQuickPick(["New Command Based Classes", "Old Command Based Classes", "Empty Class"]).then((option: any) => {
 		switch(option) {
-			case "Command":
-				createNewCommand(file_path);
+			case "New Command Based Classes":
+				commandBased(file_path);
 				break;
-			case "Subsystem":
-				createNewSubsystem(file_path);
-				break;
-			case "Trigger":
-				createTrigger(file_path);
+			case "Old Command Based Classes":
+				oldCommandBased(file_path);
 				break;
 			case "Empty Class":
 				createEmptyClass(file_path);
@@ -26,35 +22,15 @@ export function createNew(file_path: any) {
 	});
 }
 
-function createNewSubsystem(file_path: any) {
-	vscode.window.showQuickPick(["Subsystem", "PID Subsystem"]).then((option: any) => {
-		switch(option) {
-			case "Subsystem":
-				createSubsystem(file_path);
-				break;
-			case "PID Subsystem":
-				createPIDSubsystem(file_path);
-				break;
-			default:
-				return;
-		}
-	});
-}
-
-function createNewCommand(file_path: any) {
-	vscode.window.showQuickPick(["Command", "Command Group", "Instant Command", "Timed Command"]).then((option: any) => {
+//* Command Based
+function commandBased(file_path: any) {
+	vscode.window.showQuickPick(["Command", "Subsystem"]).then((option: any) => {
 		switch(option) {
 			case "Command":
 				createCommand(file_path);
 				break;
-			case "Command Group":
-				createCommandGroup(file_path);
-				break;
-			case "Instant Command":
-				createInstantCommand(file_path);
-				break;
-			case "Timed Command":
-				createTimedCommand(file_path);
+			case "Subsystem":
+				createSubsystem(file_path);
 				break;
 			default:
 				return;
@@ -63,35 +39,99 @@ function createNewCommand(file_path: any) {
 }
 
 function createCommand(file_path: any) {
-	parseAndSaveTemplateToDocument(file_path, filegenerator.generatePackage(file_path), templateinterpreter.templateType.old_command);
-}
-
-function createCommandGroup(file_path: any) {
-	parseAndSaveTemplateToDocument(file_path, filegenerator.generatePackage(file_path), templateinterpreter.templateType.old_command_group);
+	parseAndSaveTemplateToDocument(file_path, filegenerator.generatePackage(file_path), templateinterpreter.templateType.command);
 }
 
 function createSubsystem(file_path: any) {
+	parseAndSaveTemplateToDocument(file_path, filegenerator.generatePackage(file_path), templateinterpreter.templateType.subsystem);
+}
+
+//! Old Command Based, remove when removed from WPILib
+function oldCommandBased(file_path: any) {
+	vscode.window.showQuickPick(["Command", "Subsystem", "Trigger"]).then((option: any) => {
+		switch(option) {
+			case "Command":
+				createNewOldCommand(file_path);
+				break;
+			case "Subsystem":
+				createNewOldSubsystem(file_path);
+				break;
+			case "Trigger":
+				createOldTrigger(file_path);
+				break;
+			default:
+				return;
+		}
+	});
+}
+
+function createNewOldSubsystem(file_path: any) {
+	vscode.window.showQuickPick(["Subsystem", "PID Subsystem"]).then((option: any) => {
+		switch(option) {
+			case "Subsystem":
+				createOldSubsystem(file_path);
+				break;
+			case "PID Subsystem":
+				createOldPIDSubsystem(file_path);
+				break;
+			default:
+				return;
+		}
+	});
+}
+
+function createNewOldCommand(file_path: any) {
+	vscode.window.showQuickPick(["Command", "Command Group", "Instant Command", "Timed Command"]).then((option: any) => {
+		switch(option) {
+			case "Command":
+				createOldCommand(file_path);
+				break;
+			case "Command Group":
+				createOldCommandGroup(file_path);
+				break;
+			case "Instant Command":
+				createOldInstantCommand(file_path);
+				break;
+			case "Timed Command":
+				createOldTimedCommand(file_path);
+				break;
+			default:
+				return;
+		}
+	});
+}
+
+function createOldCommand(file_path: any) {
+	parseAndSaveTemplateToDocument(file_path, filegenerator.generatePackage(file_path), templateinterpreter.templateType.old_command);
+}
+
+function createOldCommandGroup(file_path: any) {
+	parseAndSaveTemplateToDocument(file_path, filegenerator.generatePackage(file_path), templateinterpreter.templateType.old_command_group);
+}
+
+function createOldSubsystem(file_path: any) {
 	parseAndSaveTemplateToDocument(file_path, filegenerator.generatePackage(file_path), templateinterpreter.templateType.old_subsystem);
 }
 
-function createTimedCommand(file_path: any) {
+function createOldTimedCommand(file_path: any) {
 	parseAndSaveTemplateToDocument(file_path, filegenerator.generatePackage(file_path), templateinterpreter.templateType.old_timed_command);
 }
 
-function createInstantCommand(file_path: any) {
+function createOldInstantCommand(file_path: any) {
 	parseAndSaveTemplateToDocument(file_path, filegenerator.generatePackage(file_path), templateinterpreter.templateType.old_instant_command);
 }
 
-function createPIDSubsystem(file_path: any) {
+function createOldPIDSubsystem(file_path: any) {
 	parseAndSaveTemplateToDocument(file_path, filegenerator.generatePackage(file_path), templateinterpreter.templateType.old_pid_subsystem);
 }
 
-function createEmptyClass(file_path: any) {
-	parseAndSaveTemplateToDocument(file_path, filegenerator.generatePackage(file_path), templateinterpreter.templateType.empty_class);
+function createOldTrigger(file_path: any) {
+	parseAndSaveTemplateToDocument(file_path, filegenerator.generatePackage(file_path), templateinterpreter.templateType.old_trigger);
 }
 
-function createTrigger(file_path: any) {
-	parseAndSaveTemplateToDocument(file_path, filegenerator.generatePackage(file_path), templateinterpreter.templateType.old_trigger);
+//* Miscellaneous
+function createEmptyClass(file_path: any) {
+	parseAndSaveTemplateToDocument(file_path, filegenerator.generatePackage(file_path), templateinterpreter.templateType.empty_class);
 }
 
 function parseAndSaveTemplateToDocument(file_path: any, package_name: string, templateType: templateinterpreter.templateType) {
