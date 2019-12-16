@@ -4,24 +4,21 @@ import * as preferences from "./util/preferences";
 import * as compliance from "./util/compliance";
 import { displayChangelog } from './util/changelog';
 import { registerCommands } from "./commands/commands";
+import { TelemetryWrapper } from "./telemetry";
 
 var currentWorkspacePath: string;
 var currentWorkspaceFsPath: string;
+var telemetryWrapper: TelemetryWrapper;
 
 export async function activate(context: vscode.ExtensionContext) {
-
-    console.log("Congratulations, your extension \"kotlin-for-frc\" is now active!");
-
     // Setting up current workspace
     resetWorkspaceFolderPaths();
 
-    // * Registering commands
+    // Registering commands
     console.log("Registering commands");
     await registerCommands(context);
 
-    // * End registering commands
-
-    // * Compliance testing
+    // Compliance testing
     console.log("Compliance testing");
     if (await compliance.isFRCKotlinProject()) {
         if (preferences.getRunComplianceTests()) {
@@ -32,12 +29,16 @@ export async function activate(context: vscode.ExtensionContext) {
         }
     }
 
-    // * Check if the extension was updated and display the changelog if it was
+    // Check if the extension was updated and display the changelog if it was
     displayChangelog(context);
+
+    // Instantiate the telemetryWrapper
+    telemetryWrapper = new TelemetryWrapper();
 }
 
 // this method is called when your extension is deactivated
 export function deactivate() {
+    telemetryWrapper.dispose();
 }
 
 export function getWorkspaceFolderPath() {
