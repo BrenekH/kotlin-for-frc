@@ -40,7 +40,8 @@ export function determineRobotType(robot_java: string) {
 	return current_robot_type;
 }
 
-export function convertJavaProject(current_robot_type: templateinterpreter.robotType) {
+export function convertJavaProject(current_robot_type: robotType) {
+	kotlinExt.telemetryWrapper.sendRobotType(current_robot_type);
 	console.log("Deleting java project");
 	var pathToDelete = kotlinExt.getWorkspaceFolderFsPath() + "/src/main/java";
 	console.log(pathToDelete);
@@ -51,22 +52,22 @@ export function convertJavaProject(current_robot_type: templateinterpreter.robot
 			console.log("Done recreating basic file structure");
 		
 			switch(current_robot_type) {
-				case templateinterpreter.robotType.command:
+				case robotType.command:
 					await convertCommand();
 					break;
-				case templateinterpreter.robotType.old_command:
+				case robotType.old_command:
 					await convertOldCommand();
 					break;
-				case templateinterpreter.robotType.sample:
+				case robotType.sample:
 					convertSample();
 					break;
-				case templateinterpreter.robotType.iterative:
+				case robotType.iterative:
 					convertIterative();
 					break;
-				case templateinterpreter.robotType.timed:
+				case robotType.timed:
 					convertTimed();
 					break;
-				case templateinterpreter.robotType.timed_skeleton:
+				case robotType.timed_skeleton:
 					convertTimedSkeleton();
 					break;
 				default:

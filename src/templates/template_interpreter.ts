@@ -35,7 +35,6 @@ import { SampleRobotTemplate } from './frc-kotlin/sample/Robot';
 import { TimedRobotTemplate } from './frc-kotlin/timed/Robot';
 import { TimedRobotSkeletonTemplate } from './frc-kotlin/timed-skeleton/Robot';
 
-// TODO: Differentiate between old and new command based
 export enum templateType {
     // Old command based templates
     old_subsystem = "Old Subsystem",
@@ -61,14 +60,13 @@ export enum templateType {
     build_gradle = "build.gradle",
 }
 
-// TODO: Differentiate between old and new command based
 export enum robotType {
-    command,
-    old_command,
-    sample,
-    timed,
-    iterative,
-    timed_skeleton
+    command = "command",
+    old_command = "old_command",
+    sample = "sample",
+    timed = "timed",
+    iterative = "iterative",
+    timed_skeleton = "timed_skeleton"
 }
 
 export function parseTemplate(className: string, packageName: string, templatetype: templateType) {
@@ -93,7 +91,6 @@ export function parseForGradleRioVersion(gradleRioVersion: string, toParse: stri
     return toParse.replace(/#{GRADLE_RIO_VERSION}/gi, gradleRioVersion);
 }
 
-// TODO: Differentiate between old and new command based
 export function getTemplateObjectFromTemplateType(targetTemplateType: templateType) {
     switch(targetTemplateType) {
         // Old Command Based

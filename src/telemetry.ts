@@ -1,6 +1,7 @@
 "use strict";
 import * as vscode from "vscode";
 import TelemetryReporter from "vscode-extension-telemetry";
+import { robotType } from "./templates/template_interpreter";
 
 export class TelemetryWrapper {
 	private reporter: TelemetryReporter;
@@ -26,6 +27,12 @@ export class TelemetryWrapper {
 	sendCommandRun(commandName: string) {
 		if (!this.inExtensionHost) {
 			this.reporter.sendTelemetryEvent("commandRun", {"commandName": commandName}, undefined);
+		}
+	}
+
+	sendRobotType(type: robotType) {
+		if (!this.inExtensionHost) {
+			this.reporter.sendTelemetryEvent("robotType", {"robotType": type.toString()}, undefined);
 		}
 	}
 
