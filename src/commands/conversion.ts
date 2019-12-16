@@ -1,136 +1,43 @@
 "use strict";
 import * as vscode from "vscode";
-import * as filegenerator from "./file_manipulation/file_generator";
-import * as customfs from "./file_manipulation/file_system";
-import * as templateinterpreter from "./templates/template_interpreter";
-import * as compliance from "./util/compliance";
+import * as filegenerator from "../file_manipulation/file_generator";
+import * as customfs from "../file_manipulation/file_system";
+import * as templateinterpreter from "../templates/template_interpreter";
 import * as rimraf from "rimraf";
-import * as kotlinExt from "./extension";
-import * as chnglog from "./util/changelog";
-import { setRunComplianceTests } from "./util/preferences";
+import * as kotlinExt from "../extension";
+import { robotType } from "../templates/template_interpreter";
 
-export function createNew(file_path: any) {
-	vscode.window.showQuickPick(["Command", "Subsystem", "Trigger", "Empty Class"]).then((option: any) => {
-		switch(option) {
-			case "Command":
-				createNewCommand(file_path);
-				break;
-			case "Subsystem":
-				createNewSubsystem(file_path);
-				break;
-			case "Trigger":
-				createTrigger(file_path);
-				break;
-			case "Empty Class":
-				createEmptyClass(file_path);
-				break;
-			default:
-				return;
-		}
-	});
-}
+export function determineRobotType(robot_java: string) {
+	var current_robot_type: robotType = robotType.sample;
 
-export async function forceCompliance() {
-	// * Check build.gradle
-	if (!await compliance.isGradleRioVersionCompliant()) {
-		await compliance.makeGradleRioVersionCompliant();
+	if (robot_java.includes("edu.wpi.first.wpilibj2.command.Command")) {
+		current_robot_type = robotType.command;
+		console.log("Command");
 	}
-}
-
-export function changeComplianceTestPref() {
-	vscode.window.showQuickPick(["Turn GradleRio Version Checks On", "Turn GradleRio Version Checks Off"]).then((option: any) => {
-		switch(option) {
-			case "Turn GradleRio Version Checks On":
-				setRunComplianceTests(true);
-				break;
-			case "Turn GradleRio Version Checks Off":
-				setRunComplianceTests(false);
-				break;
-			default:
-				return;
+	else if (robot_java.includes("edu.wpi.first.wpilibj.command.Command")) {
+		current_robot_type = robotType.old_command;
+		console.log("Old Command");
+	}
+	else if (robot_java.includes("edu.wpi.first.wpilibj.IterativeRobot")) {
+		current_robot_type = robotType.iterative;
+		console.log("Iterative");
+	}
+	else if (robot_java.includes("edu.wpi.first.wpilibj.SampleRobot")) {
+		current_robot_type = robotType.sample;
+		console.log("Sample");
+	}
+	else if (robot_java.includes("edu.wpi.first.wpilibj.TimedRobot")) {
+		if (robot_java.includes("edu.wpi.first.wpilibj.smartdashboard.SendableChooser")) {
+			current_robot_type = robotType.timed;
+			console.log("Timed");
 		}
-	});
-}
-
-function createNewSubsystem(file_path: any) {
-	vscode.window.showQuickPick(["Subsystem", "PID Subsystem"]).then((option: any) => {
-		switch(option) {
-			case "Subsystem":
-				createSubsystem(file_path);
-				break;
-			case "PID Subsystem":
-				createPIDSubsystem(file_path);
-				break;
-			default:
-				return;
+		else {
+			current_robot_type = robotType.timed_skeleton;
+			console.log("Timed skeleton");
 		}
-	});
-}
+	}
 
-function createNewCommand(file_path: any) {
-	vscode.window.showQuickPick(["Command", "Command Group", "Instant Command", "Timed Command"]).then((option: any) => {
-		switch(option) {
-			case "Command":
-				createCommand(file_path);
-				break;
-			case "Command Group":
-				createCommandGroup(file_path);
-				break;
-			case "Instant Command":
-				createInstantCommand(file_path);
-				break;
-			case "Timed Command":
-				createTimedCommand(file_path);
-				break;
-			default:
-				return;
-		}
-	});
-}
-
-export function createCommand(file_path: any) {
-	parseAndSaveTemplateToDocument(file_path, filegenerator.generatePackage(file_path), templateinterpreter.templateType.old_command);
-}
-
-export function createCommandGroup(file_path: any) {
-	parseAndSaveTemplateToDocument(file_path, filegenerator.generatePackage(file_path), templateinterpreter.templateType.old_command_group);
-}
-
-export function createSubsystem(file_path: any) {
-	parseAndSaveTemplateToDocument(file_path, filegenerator.generatePackage(file_path), templateinterpreter.templateType.old_subsystem);
-}
-
-export function createTimedCommand(file_path: any) {
-	parseAndSaveTemplateToDocument(file_path, filegenerator.generatePackage(file_path), templateinterpreter.templateType.old_timed_command);
-}
-
-export function createInstantCommand(file_path: any) {
-	parseAndSaveTemplateToDocument(file_path, filegenerator.generatePackage(file_path), templateinterpreter.templateType.old_instant_command);
-}
-
-export function createPIDSubsystem(file_path: any) {
-	parseAndSaveTemplateToDocument(file_path, filegenerator.generatePackage(file_path), templateinterpreter.templateType.old_pid_subsystem);
-}
-
-export function createEmptyClass(file_path: any) {
-	parseAndSaveTemplateToDocument(file_path, filegenerator.generatePackage(file_path), templateinterpreter.templateType.empty_class);
-}
-
-export function createTrigger(file_path: any) {
-	parseAndSaveTemplateToDocument(file_path, filegenerator.generatePackage(file_path), templateinterpreter.templateType.old_trigger);
-}
-
-function parseAndSaveTemplateToDocument(file_path: any, package_name: string, templateType: templateinterpreter.templateType) {
-	console.log(file_path);
-	vscode.window.showInputBox({
-		placeHolder: "Name your " + templateType.toString()
-	}).then(value => {
-		if (!value) { return; }
-		var user_data = value;
-		var workspace_folder_path = kotlinExt.getWorkspaceFolderFsPath();
-		var path_to_pass = file_path.fsPath.replace(workspace_folder_path, "");
-		filegenerator.showDocumentInViewer(filegenerator.createFileWithContent(path_to_pass + "/" + user_data + ".kt", templateinterpreter.parseTemplate(user_data, package_name, templateType)));
-	});
+	return current_robot_type;
 }
 
 export function convertJavaProject(current_robot_type: templateinterpreter.robotType) {
@@ -235,28 +142,10 @@ function createMainKtAndBuildGradle() {
 	createBuildGradle();
 }
 
-export function createMainKt() {
+function createMainKt() {
 	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/Main.kt", templateinterpreter.getMainTemplateObject().getText());
 }
 
-export function createBuildGradle() {
+function createBuildGradle() {
 	filegenerator.createFileWithContent("build.gradle", templateinterpreter.getParsedGradle());
-}
-
-export function showChangelog() { chnglog.showChangelog(); }
-
-export function toggleChangelog(context: vscode.ExtensionContext) {
-	var currentValue = context.globalState.get("toggleChangelog", true);
-	if (currentValue === true) {
-		context.globalState.update("toggleChangelog", false);
-		vscode.window.showInformationMessage("Kotlin for FRC: Turned auto-show changelog off.");
-	} else {
-		context.globalState.update("toggleChangelog", true);
-		vscode.window.showInformationMessage("Kotlin for FRC: Turned auto-show changelog on.");
-	}
-}
-
-export function resetAutoShowChangelog(context: vscode.ExtensionContext) {
-	context.globalState.update("lastInitVersion", "0.0.0");
-	vscode.window.showInformationMessage("Kotlin for FRC: Auto-Show changelog reset.");
 }

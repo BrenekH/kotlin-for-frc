@@ -20,16 +20,16 @@ Bugs:
 
 Improvements:
     Command Restructuring:
-        ☐ Move to 3 files in a src/commands directory: commands.ts, conversion.ts, create_new.ts
-        ☐ In conversion.ts create a function for determing the robotType to clean up extension.ts
-        ☐ create_new.ts contains the functions for creating a new file with the kotlinforfrc.createNew command
-        ☐ conversion.ts contains the functions for converting a java project to a kotlin project
-        ☐ commands.ts conatins everything that doesn't fit in conversion.ts or create_new.ts (Changelog, etc.)
+        ✔ Move to 3 files in a src/commands directory: commands.ts, conversion.ts, create_new.ts @started(19-12-15 17:12:59) @done(19-12-15 17:25:59) @lasted(13m1s)
+        ✔ In conversion.ts create a function for determing the robotType to clean up extension.ts @done(19-12-15 17:26:08)
+        ✔ create_new.ts contains the functions for creating a new file with the kotlinforfrc.createNew command @done(19-12-15 17:12:53)
+        ✔ conversion.ts contains the functions for converting a java project to a kotlin project @done(19-12-15 17:14:28)
+        ✔ commands.ts conatins everything that doesn't fit in conversion.ts or create_new.ts (Changelog, Compliance etc.) @done(19-12-15 17:14:31)
     Misc:
         ☐ Add logger for in-production debugging
         ✔ See why .kotlin-for-frc is not being created and handled @done(19-01-22 22:34)
         ☐ Test git rebase stuff
-        ☐ Move command registering to commands.ts
+        ✔ Move command registering to commands.ts @done(19-12-15 17:26:12)
     Testing:
         ✔ Find a way to simulate a workspace to run unit tests on @done(19-01-27 16:49)
             ✔ Add testing dir that contains a sample workspace to run on @done(19-01-25 14:58)
