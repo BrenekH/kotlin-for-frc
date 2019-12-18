@@ -24,6 +24,7 @@ script:
 - git tag -l > git-tags.tagfile
 - LAST_GIT_TAG=$(tail -2 git-tags.tagfile | head -1)
 - github_changelog_generator --output RELEASE_NOTES.md --since-tag $LAST_GIT_TAG --user zPaw --project kotlin-for-frc --no-compare-link --header-label ""
+- sed 3d RELEASE_NOTES.md > modded_release_notes.md
 
 before_deploy:
 - PREFIX="Version "
@@ -47,7 +48,7 @@ deploy:
     file: "*.vsix"
     skip_cleanup: true
     draft: true
-    release_notes_file: RELEASE_NOTES.md
+    release_notes_file: modded_release_notes.md
     name: $NAME
     on:
       tags: true
@@ -62,7 +63,7 @@ deploy:
     file: "*.vsix"
     skip_cleanup: true
     draft: true
-    release_notes_file: RELEASE_NOTES.md
+    release_notes_file: modded_release_notes.md
     name: $NAME
     prerelease: true
     on:
