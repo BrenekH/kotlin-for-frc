@@ -14,12 +14,16 @@ before_install:
   /usr/bin/Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 & fi
 
 install:
+- gem install github_changelog_generator
 - npm install -g vsce
 - npm install
 
 script:
 - vsce package
 - npm test --silent
+- git tag -l > git-tags.tagfile
+- LAST_GIT_TAG=$(tail -2 git-tags.tagfile | head -1)
+- github_changelog_generator --output RELEASE_NOTES.md --since-tag $LAST_GIT_TAG --user zPaw --project kotlin-for-frc --no-compare-link --header-label ""
 
 before_deploy:
 - PREFIX="Version "
@@ -39,10 +43,11 @@ deploy:
     api_key:
       secure: iEgdn0NpXxoddbv7b3HVrnHOFdyySXzmaxsk01AiYPCc2jCvPcJepiSWkCubm5m9qQdzLXA7PRBbdZf5znEh5lnRaif8MhmcoF3yTcIDNggE1E5wEt5Vp2bCJWGVSpRvqmqoK54zCHWhZD3ZmuIih4WiwDLWsA7To2+eVSTzR4fnwntyW4G3BXQZY70LCh6LJpv0Wdwu4usabv97R2wmdJKO4bNOqGaZpDgKdSXxLz5wI9dBIgdkWhEdFY8eJrZe1QhWP1eCmFKBWymbN1zQHc9a83lrY5lm7C7pjdz14IB78G3jSXY7FtVa+hWtBftHT5CynUvutJ4zsJhhmnYzfj6/3w6zpPDEW5ltVOGN4v8wHk8dS8fsMpQ+HUWy9rzhUZJUXJtuGmMw2OIxzbozf6AjPCo5JzB4Liqz/sU8QSBtzmQmSCK7v3A69KlJ499poWONUFayHMj+pn8yeaqrIzVidMpYgwxFOxrQjcDv+F+GskT2B4M5uF+RNQgq0177y8NpkW0pBTu58hAmTFtkg38sI18+4ED5N/WW+VhmmtiiNcu9hjVe7H7a4HqzMw1jh1wel1UaCHKFodBCaWrjFo+t3eGaQmd6LSS+jU6yCF5n8LT/Htw/A6+m4zjLSY8PZMtob7Ma7CAwiEAZ1pPidsBnBAE3LYXdB1iuOt9dBpQ=
     file_glob: true
+    edge: true
     file: "*.vsix"
     skip_cleanup: true
     draft: true
-    body: "TODO: Place relevant changes here!"
+    release_notes_file: RELEASE_NOTES.md
     name: $NAME
     on:
       tags: true
@@ -53,10 +58,11 @@ deploy:
     api_key:
       secure: iEgdn0NpXxoddbv7b3HVrnHOFdyySXzmaxsk01AiYPCc2jCvPcJepiSWkCubm5m9qQdzLXA7PRBbdZf5znEh5lnRaif8MhmcoF3yTcIDNggE1E5wEt5Vp2bCJWGVSpRvqmqoK54zCHWhZD3ZmuIih4WiwDLWsA7To2+eVSTzR4fnwntyW4G3BXQZY70LCh6LJpv0Wdwu4usabv97R2wmdJKO4bNOqGaZpDgKdSXxLz5wI9dBIgdkWhEdFY8eJrZe1QhWP1eCmFKBWymbN1zQHc9a83lrY5lm7C7pjdz14IB78G3jSXY7FtVa+hWtBftHT5CynUvutJ4zsJhhmnYzfj6/3w6zpPDEW5ltVOGN4v8wHk8dS8fsMpQ+HUWy9rzhUZJUXJtuGmMw2OIxzbozf6AjPCo5JzB4Liqz/sU8QSBtzmQmSCK7v3A69KlJ499poWONUFayHMj+pn8yeaqrIzVidMpYgwxFOxrQjcDv+F+GskT2B4M5uF+RNQgq0177y8NpkW0pBTu58hAmTFtkg38sI18+4ED5N/WW+VhmmtiiNcu9hjVe7H7a4HqzMw1jh1wel1UaCHKFodBCaWrjFo+t3eGaQmd6LSS+jU6yCF5n8LT/Htw/A6+m4zjLSY8PZMtob7Ma7CAwiEAZ1pPidsBnBAE3LYXdB1iuOt9dBpQ=
     file_glob: true
+    edge: true
     file: "*.vsix"
     skip_cleanup: true
     draft: true
-    body: "TODO: Place relevant changes here!"
+    release_notes_file: RELEASE_NOTES.md
     name: $NAME
     prerelease: true
     on:
