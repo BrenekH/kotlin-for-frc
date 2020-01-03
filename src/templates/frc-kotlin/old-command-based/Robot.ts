@@ -4,7 +4,7 @@ export class OldCommandRobotTemplate {
   constructor() {
   this.useAtProjectConversion = true;
   this.text = `/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2017-2018 FIRST. All Rights Reserved.                        */
+/* Copyright (c) 2019 FIRST. All Rights Reserved.                        */
 /* Open Source Software - may be modified and shared by FRC teams. The code   */
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
@@ -85,7 +85,7 @@ class Robot: TimedRobot() {
      */
 
     // schedule the autonomous command (example)
-    m_chooser.selected?.start()
+    m_chooser.selected?.let{ m_chooser_selected.start() }
   }
 
   /**
