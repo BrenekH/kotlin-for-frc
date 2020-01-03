@@ -1,6 +1,7 @@
 KfF Version 2020.1.1 Release Checklist:
     Update Templates:
         ☐ Update templates
+            ☐ Verify mavenCentral is no longer needed
         ✔ Implement into template_interpreter.ts @done(19-12-15 16:31:00)
     ✔ Handle old command-based and new command-based @done(19-12-15 16:31:06)
     ✔ Implement telemetry @done(19-12-15 19:52:40)

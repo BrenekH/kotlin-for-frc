@@ -9,6 +9,9 @@ export class BuildGradleTemplate {
     id "org.jetbrains.kotlin.jvm" version "1.3.0"
 }
 
+sourceCompatibility = JavaVersion.VERSION_11
+targetCompatibility = JavaVersion.VERSION_11
+
 def ROBOT_MAIN_CLASS = "frc.robot.Main"
 
 // Define my targets (RoboRIO) and artifacts (deployable files)
@@ -44,26 +47,36 @@ deploy {
 def includeDesktopSupport = false
 
 // Maven central needed for JUnit
-repositories {
-    mavenCentral()
-}
+// repositories {
+//     mavenCentral()
+// }
 
 // Defining my dependencies. In this case, WPILib (+ friends), and vendor libraries.
 // Also defines JUnit 4.
 dependencies {
-    compile wpi.deps.wpilib()
-    compile wpi.deps.vendor.java()
-    compile "org.jetbrains.kotlin:kotlin-stdlib"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib"
+
+    implementation wpi.deps.wpilib()
+    nativeZip wpi.deps.wpilibJni(wpi.platforms.roborio)
+    nativeDesktopZip wpi.deps.wpilibJni(wpi.platforms.desktop)
+
+
+    implementation wpi.deps.vendor.java()
     nativeZip wpi.deps.vendor.jni(wpi.platforms.roborio)
     nativeDesktopZip wpi.deps.vendor.jni(wpi.platforms.desktop)
-    testCompile 'junit:junit:4.12'
+
+    testImplementation 'junit:junit:4.12'
+
+    // Enable simulation gui support. Must check the box in vscode to enable support
+    // upon debugging
+    simulation wpi.deps.sim.gui(wpi.platforms.desktop, false)
 }
 
 // Setting up my Jar File. In this case, adding all libraries into the main jar ('fat jar')
 // in order to make them all available at runtime. Also adding the manifest so WPILib
 // knows where to look for our Robot Class.
 jar {
-    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    from { configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
     manifest edu.wpi.first.gradlerio.GradleRIOPlugin.javaManifest(ROBOT_MAIN_CLASS)
 }
 `;
