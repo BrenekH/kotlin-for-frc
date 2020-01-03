@@ -23,90 +23,85 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler
  * project.
  */
 class Robot : TimedRobot() {
-	lateinit var m_autonomousCommand: Command
+  lateinit var m_autonomousCommand: Command
 
-	lateinit var m_robotContainer: RobotContainer
+  lateinit var m_robotContainer: RobotContainer
 
-	/**
-	 * This function is run when the robot is first started up and should be used for any
-	 * initialization code.
-	 */
-	override fun robotInit() {
-		// Instantiate our RobotContainer.  This will perform all our button bindings, and put our
-		// autonomous chooser on the dashboard.
-		m_robotContainer = RobotContainer()
-	}
+  /**
+   * This function is run when the robot is first started up and should be used for any
+   * initialization code.
+   */
+  override fun robotInit() {
+    // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
+    // autonomous chooser on the dashboard.
+    m_robotContainer = RobotContainer()
+  }
 
-	/**
-	 * This function is called every robot packet, no matter the mode. Use this for items like
-	 * diagnostics that you want ran during disabled, autonomous, teleoperated and test.
-	 *
-	 * <p>This runs after the mode specific periodic functions, but before
-	 * LiveWindow and SmartDashboard integrated updating.
-	 */
-	override fun robotPeriodic() {
-		// Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
-		// commands, running already-scheduled commands, removing finished or interrupted commands,
-		// and running subsystem periodic() methods.  This must be called from the robot's periodic
-		// block in order for anything in the Command-based framework to work.
-		CommandScheduler.getInstance().run()
-	}
+  /**
+   * This function is called every robot packet, no matter the mode. Use this for items like
+   * diagnostics that you want ran during disabled, autonomous, teleoperated and test.
+   *
+   * <p>This runs after the mode specific periodic functions, but before
+   * LiveWindow and SmartDashboard integrated updating.
+   */
+  override fun robotPeriodic() {
+    // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
+    // commands, running already-scheduled commands, removing finished or interrupted commands,
+    // and running subsystem periodic() methods.  This must be called from the robot's periodic
+    // block in order for anything in the Command-based framework to work.
+    CommandScheduler.getInstance().run()
+  }
 
-	/**
-	 * This function is called once each time the robot enters Disabled mode.
-	 */
-	override fun disabledInit() {
-	}
+  /**
+   * This function is called once each time the robot enters Disabled mode.
+   */
+  override fun disabledInit() {
+  }
 
-	override fun disabledPeriodic() {
-	}
+  override fun disabledPeriodic() {
+  }
 
-	/**
-	 * This autonomous runs the autonomous command selected by your {@link RobotContainer} class.
-	 */
-	override fun autonomousInit() {
-		m_autonomousCommand = m_robotContainer.m_autoCommandChooser.selected
+  /**
+   * This autonomous runs the autonomous command selected by your {@link RobotContainer} class.
+   */
+  override fun autonomousInit() {
+    m_autonomousCommand = m_robotContainer.m_autoCommandChooser.selected
 
-		// schedule the autonomous command (example)
-		if (m_autonomousCommand != null) {
-		m_autonomousCommand.schedule()
-		}
-	}
+    // schedule the autonomous command (example)
+    m_autonomousCommand?.let{ m_autonomousCommand.schedule() }
+  }
 
-	/**
-	 * This function is called periodically during autonomous.
-	 */
-	override fun autonomousPeriodic() {
-	}
+  /**
+   * This function is called periodically during autonomous.
+   */
+  override fun autonomousPeriodic() {
+  }
 
-	override fun teleopInit() {
-		// This makes sure that the autonomous stops running when
-		// teleop starts running. If you want the autonomous to
-		// continue until interrupted by another command, remove
-		// this line or comment it out.
-		if (m_autonomousCommand != null) {
-		m_autonomousCommand.cancel()
-		}
-	}
+  override fun teleopInit() {
+    // This makes sure that the autonomous stops running when
+    // teleop starts running. If you want the autonomous to
+    // continue until interrupted by another command, remove
+    // this line or comment it out.
+    m_autonomousCommand?.let{ m_autonomousCommand.cancel() }
+  }
 
-	/**
-	 * This function is called periodically during operator control.
-	 */
-	override fun teleopPeriodic() {
-	}
+  /**
+   * This function is called periodically during operator control.
+   */
+  override fun teleopPeriodic() {
+  }
 
-	override fun testInit() {
-		// Cancels all running commands at the start of test mode.
-		CommandScheduler.getInstance().cancelAll()
-	}
+  override fun testInit() {
+    // Cancels all running commands at the start of test mode.
+    CommandScheduler.getInstance().cancelAll()
+  }
 
-	/**
-	 * This function is called periodically during test mode.
-	 */
-	override fun testPeriodic() {
-	}
+  /**
+   * This function is called periodically during test mode.
+   */
+  override fun testPeriodic() {
+  }
 }
-
 `;
 	}
 	public getText(): string {

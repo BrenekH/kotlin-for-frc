@@ -27,7 +27,6 @@ class #{NAME} : SubsystemBase() {
 	override fun periodic() {
 	}
 }
-
 `;
 	}
 	public getText(): string {

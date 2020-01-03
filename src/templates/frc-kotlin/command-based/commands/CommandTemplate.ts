@@ -15,22 +15,36 @@ package #{PACKAGE}
 import frc.robot.subsystems.ExampleSubsystem
 import edu.wpi.first.wpilibj2.command.CommandBase
 
-/**
- * An example command that uses an example subsystem.
- */
 class #{NAME}(subsystem: ExampleSubsystem) : CommandBase() {
-	val m_subsystem: ExampleSubsystem = subsystem
+  val m_subsystem: ExampleSubsystem = subsystem
 
-	/**
-	 * Creates a new #{NAME}.
-	 *
-	 * @param subsystem The subsystem used by this command.
-	 */
-	init {
-		addRequirements(subsystem)
-	}
+  /**
+   * Creates a new #{NAME}.
+   *
+   * @param subsystem The subsystem used by this command.
+   */
+  init {
+    addRequirements(subsystem)
+  }
+
+  // Called when the command is initially scheduled.
+  override initialize() {
+  }
+
+  // Called every time the scheduler runs while the command is scheduled.
+  override execute() {
+  }
+
+  // Called once the command ends or is interrupted.
+  override end(interrupted: Boolean) {
+  }
+
+  // Returns true when the command should end.
+  override isFinished(): Boolean {
+    return false;
+  }
+
 }
-
 `;
 	}
 	public getText(): string {

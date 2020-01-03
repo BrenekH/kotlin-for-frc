@@ -17,6 +17,8 @@ import frc.robot.subsystems.ExampleSubsystem
 import edu.wpi.first.wpilibj2.command.Command
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard
+import edu.wpi.first.wpilibj.GenericHID
+import edu.wpi.first.wpilibj.XboxController
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -39,7 +41,7 @@ class RobotContainer {
 	init {
 		// Configure the button bindings
 		configureButtonBindings()
-		m_autoCommandChooser.setDefaultOption("Default Auto", ExampleCommand(m_exampleSubsystem))
+		m_autoCommandChooser.setDefaultOption("Default Auto", m_autoCommand)
 		SmartDashboard.putData("Auto mode", m_autoCommandChooser)
 	}
 
@@ -52,7 +54,6 @@ class RobotContainer {
 	fun configureButtonBindings() {
 	}
 }
-
 `;
 	}
 	public getText(): string {

@@ -22,7 +22,6 @@ package frc.robot
  */
 class Constants {
 }
-	  
 `;
 	}
 	public getText(): string {
