@@ -1,4 +1,4 @@
-export class InstantCommandTemplate {
+export class TrapezoidProfileCommandTemplate {
     private useAtProjectConversion: boolean;
     private text: string;
     constructor() {
@@ -12,18 +12,26 @@ export class InstantCommandTemplate {
 
 package #{PACKAGE}
 
-import edu.wpi.first.wpilibj2.command.InstantCommand
+import edu.wpi.first.wpilibj.trajectory.TrapezoidProfile
+import edu.wpi.first.wpilibj2.command.TrapezoidProfileCommand
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-class #{NAME} : InstantCommand() {
+class #{NAME} : TrapezoidProfileCommand() {
   init {
-    // Use addRequirements() here to declare subsystem dependencies.
-  }
-
-  // Called when the command is initially scheduled.
-  override fun initialize() {
+    super(
+      new TrapezoidProfile(
+        // The motion profile constraints
+        TrapezoidProfile.Constraints(0, 0),
+        // Goal state
+        TrapezoidProfile.State(),
+        // Initial state
+        TrapezoidProfile.State()
+      ),
+      { state ->
+        // Use current trajectory state here
+      })
   }
 }
 `;
@@ -32,7 +40,7 @@ class #{NAME} : InstantCommand() {
   public getText(): string {
     return this.text;
   }
-  
+
   public useAtConversion(): boolean {
     return this.useAtProjectConversion;
   }

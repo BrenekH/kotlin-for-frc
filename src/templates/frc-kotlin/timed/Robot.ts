@@ -35,7 +35,7 @@ class Robot : TimedRobot() {
     m_autoSelected = ""
     m_chooser = SendableChooser<String>()
   }
- 
+
   /**
    * This function is run when the robot is first started up and should be
    * used for any initialization code.
@@ -45,7 +45,7 @@ class Robot : TimedRobot() {
     m_chooser.addOption("My Auto", kCustomAuto)
     SmartDashboard.putData("Auto choices", m_chooser)
   }
-  
+
   /**
    * This function is called every robot packet, no matter the mode. Use
    * this for items like diagnostics that you want ran during disabled,
@@ -54,7 +54,8 @@ class Robot : TimedRobot() {
    * <p>This runs after the mode specific periodic functions, but before
    * LiveWindow and SmartDashboard integrated updating.
    */
-  override fun robotPeriodic() {}
+  override fun robotPeriodic() {
+  }
 
   /**
    * This autonomous (along with the chooser code above) shows how to select
@@ -77,14 +78,16 @@ class Robot : TimedRobot() {
    * This function is called periodically during autonomous.
    */
   override fun autonomousPeriodic() {
-    if (m_autoSelected == kCustomAuto) {
-      // Put custom auto code here
-    }
-    else {
-      // Put default auto code here
+    when (m_autoSelected) {
+        kCustomAuto -> {
+            // Put custom auto code here
+        }
+        else -> {
+            // Put default auto code here
+        }
     }
   }
-  
+
   /**
    * This function is called periodically during operator control.
    */

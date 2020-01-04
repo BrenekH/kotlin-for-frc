@@ -5,25 +5,26 @@ import * as assert from 'assert';
 // import * as commands from '../commands';
 // import * as file_generator from '../file_generator';
 // import * as preferences from '../preferences';
-import * as template_interpreter from '../template_interpreter';
+import * as template_interpreter from '../templates/template_interpreter';
 // import * as path from "path";
 // import * as fs from 'fs';
 import * as testingConsts from "./testingConstants";
 import * as consts from "../constants";
 import { MainTemplate } from '../templates/frc-kotlin/Main';
 import { BuildGradleTemplate } from '../templates/frc-kotlin/BuildGradle';
-import { SubsystemTemplate } from '../templates/frc-kotlin/command-based/subsystems/SubsystemTemplate';
-import { CommandTemplate } from '../templates/frc-kotlin/command-based/commands/CommandTemplate';
-import { CommandGroupTemplate } from '../templates/frc-kotlin/command-based/commands/CommandGroupTemplate';
-import { EmptyClassTemplate } from '../templates/frc-kotlin/command-based/EmptyClassTemplate';
-import { InstantCommandTemplate } from '../templates/frc-kotlin/command-based/commands/InstantCommandTemplate';
-import { TimedCommandTemplate } from '../templates/frc-kotlin/command-based/commands/TimedCommand';
-import { PIDSubsystemTemplate } from '../templates/frc-kotlin/command-based/subsystems/PIDSubsystemTemplate';
-import { TriggerTemplate } from '../templates/frc-kotlin/command-based/triggers/TriggerTemplate';
-import { CommandRobotTemplate } from '../templates/frc-kotlin/command-based/Robot';
-import { OITemplate } from '../templates/frc-kotlin/command-based/OI';
-import { RobotMapTemplate } from '../templates/frc-kotlin/command-based/RobotMap';
+import { OldCommandSubsystemTemplate } from '../templates/frc-kotlin/old-command-based/subsystems/SubsystemTemplate';
+import { OldCommandTemplate } from '../templates/frc-kotlin/old-command-based/commands/CommandTemplate';
+import { OldCommandGroupTemplate } from '../templates/frc-kotlin/old-command-based/commands/CommandGroupTemplate';
+import { EmptyClassTemplate } from '../templates/frc-kotlin/EmptyClassTemplate';
+import { OldCommandInstantCommandTemplate } from '../templates/frc-kotlin/old-command-based/commands/InstantCommandTemplate';
+import { OldCommandTimedCommandTemplate } from '../templates/frc-kotlin/old-command-based/commands/TimedCommand';
+import { OldCommandPIDSubsystemTemplate } from '../templates/frc-kotlin/old-command-based/subsystems/PIDSubsystemTemplate';
+import { OldCommandTriggerTemplate } from '../templates/frc-kotlin/old-command-based/triggers/TriggerTemplate';
+import { OldCommandRobotTemplate } from '../templates/frc-kotlin/old-command-based/Robot';
+import { OldCommandOITemplate } from '../templates/frc-kotlin/old-command-based/OI';
+import { OldCommandRobotMapTemplate } from '../templates/frc-kotlin/old-command-based/RobotMap';
 
+// TODO: Differentiate between old and new command based
 suite("Grabbing Templates", function () {
     test("Main.kt", function() {
         testingConsts.resetTestingWorkspace();
@@ -39,20 +40,20 @@ suite("Grabbing Templates", function () {
 
     test("Subsystem", function() {
         testingConsts.resetTestingWorkspace();
-        var subsystemTemplate = new SubsystemTemplate;
-        assert.equal(template_interpreter.getTemplateObjectFromTemplateType(template_interpreter.templateType.subsystem).getText(), subsystemTemplate.getText());
+        var subsystemTemplate = new OldCommandSubsystemTemplate;
+        assert.equal(template_interpreter.getTemplateObjectFromTemplateType(template_interpreter.templateType.old_subsystem).getText(), subsystemTemplate.getText());
     });
 
     test("Command", function() {
         testingConsts.resetTestingWorkspace();
-        var commandTemplate = new CommandTemplate;
-        assert.equal(template_interpreter.getTemplateObjectFromTemplateType(template_interpreter.templateType.command).getText(), commandTemplate.getText());
+        var commandTemplate = new OldCommandTemplate;
+        assert.equal(template_interpreter.getTemplateObjectFromTemplateType(template_interpreter.templateType.old_command).getText(), commandTemplate.getText());
     });
 
     test("Command Group", function() {
         testingConsts.resetTestingWorkspace();
-        var commandGroupTemplate = new CommandGroupTemplate;
-        assert.equal(template_interpreter.getTemplateObjectFromTemplateType(template_interpreter.templateType.command_group).getText(), commandGroupTemplate.getText());
+        var commandGroupTemplate = new OldCommandGroupTemplate;
+        assert.equal(template_interpreter.getTemplateObjectFromTemplateType(template_interpreter.templateType.old_command_group).getText(), commandGroupTemplate.getText());
     });
 
     test("Empty Class", function() {
@@ -63,44 +64,44 @@ suite("Grabbing Templates", function () {
 
     test("Instant Command", function() {
         testingConsts.resetTestingWorkspace();
-        var instantCommandTemplate = new InstantCommandTemplate;
-        assert.equal(template_interpreter.getTemplateObjectFromTemplateType(template_interpreter.templateType.instant_command).getText(), instantCommandTemplate.getText());
+        var instantCommandTemplate = new OldCommandInstantCommandTemplate;
+        assert.equal(template_interpreter.getTemplateObjectFromTemplateType(template_interpreter.templateType.old_instant_command).getText(), instantCommandTemplate.getText());
     });
 
     test("Timed Command", function() {
         testingConsts.resetTestingWorkspace();
-        var timedCommandTemplate = new TimedCommandTemplate;
-        assert.equal(template_interpreter.getTemplateObjectFromTemplateType(template_interpreter.templateType.timed_command).getText(), timedCommandTemplate.getText());
+        var timedCommandTemplate = new OldCommandTimedCommandTemplate;
+        assert.equal(template_interpreter.getTemplateObjectFromTemplateType(template_interpreter.templateType.old_timed_command).getText(), timedCommandTemplate.getText());
     });
 
     test("PID Subsystem", function() {
         testingConsts.resetTestingWorkspace();
-        var pidSubsystemTemplate = new PIDSubsystemTemplate;
-        assert.equal(template_interpreter.getTemplateObjectFromTemplateType(template_interpreter.templateType.pid_subsystem).getText(), pidSubsystemTemplate.getText());
+        var pidSubsystemTemplate = new OldCommandPIDSubsystemTemplate;
+        assert.equal(template_interpreter.getTemplateObjectFromTemplateType(template_interpreter.templateType.old_pid_subsystem).getText(), pidSubsystemTemplate.getText());
     });
 
     test("Trigger", function() {
         testingConsts.resetTestingWorkspace();
-        var triggerTemplate = new TriggerTemplate;
-        assert.equal(template_interpreter.getTemplateObjectFromTemplateType(template_interpreter.templateType.trigger).getText(), triggerTemplate.getText());
+        var triggerTemplate = new OldCommandTriggerTemplate;
+        assert.equal(template_interpreter.getTemplateObjectFromTemplateType(template_interpreter.templateType.old_trigger).getText(), triggerTemplate.getText());
     });
 
     test("CommandRobot", function() {
         testingConsts.resetTestingWorkspace();
-        var robotTemplate = new CommandRobotTemplate;
-        assert.equal(template_interpreter.getTemplateObjectFromTemplateType(template_interpreter.templateType.robot).getText(), robotTemplate.getText());
+        var robotTemplate = new OldCommandRobotTemplate;
+        assert.equal(template_interpreter.getTemplateObjectFromTemplateType(template_interpreter.templateType.old_robot).getText(), robotTemplate.getText());
     });
 
     test("OI", function() {
         testingConsts.resetTestingWorkspace();
-        var oiTemplate = new OITemplate;
-        assert.equal(template_interpreter.getTemplateObjectFromTemplateType(template_interpreter.templateType.oi).getText(), oiTemplate.getText());
+        var oiTemplate = new OldCommandOITemplate;
+        assert.equal(template_interpreter.getTemplateObjectFromTemplateType(template_interpreter.templateType.old_oi).getText(), oiTemplate.getText());
     });
 
     test("Robot Map", function() {
         testingConsts.resetTestingWorkspace();
-        var robotMapTemplate = new RobotMapTemplate;
-        assert.equal(template_interpreter.getTemplateObjectFromTemplateType(template_interpreter.templateType.robot_map).getText(), robotMapTemplate.getText());
+        var robotMapTemplate = new OldCommandRobotMapTemplate;
+        assert.equal(template_interpreter.getTemplateObjectFromTemplateType(template_interpreter.templateType.old_robot_map).getText(), robotMapTemplate.getText());
     });
 });
 
