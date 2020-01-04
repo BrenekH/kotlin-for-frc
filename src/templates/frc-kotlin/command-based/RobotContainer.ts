@@ -28,7 +28,7 @@ import edu.wpi.first.wpilibj.XboxController
  */
 class RobotContainer {
 	// The robot's subsystems and commands are defined here...
-	val m_exampleSubsystem: ExampleSubsystem = ExampleSubsystem()
+	private val m_exampleSubsystem: ExampleSubsystem = ExampleSubsystem()
 
 	val m_autoCommand: ExampleCommand = ExampleCommand(m_exampleSubsystem)
 
@@ -52,6 +52,11 @@ class RobotContainer {
 	 * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
 	 */
 	fun configureButtonBindings() {
+	}
+
+	fun getAutonomousCommand(): Command {
+		// Return the selected command
+		return m_autoCommandChooser.selected
 	}
 }
 `;
