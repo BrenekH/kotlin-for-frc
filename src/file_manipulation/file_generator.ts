@@ -4,7 +4,7 @@ import * as customfs from "./file_system";
 import * as kotlinExt from "../extension";
 
 const sleep = (milliseconds: number) => {
-  return new Promise(resolve => setTimeout(resolve, milliseconds));
+  return new Promise((resolve) => setTimeout(resolve, milliseconds));
 };
 
 export function createFileWithContent(name: string, content: string) {
@@ -25,7 +25,7 @@ export async function showDocumentInViewer(filePath: string | undefined) {
 
   await sleep(500);
   var openPath = vscode.Uri.file(filePath);
-  vscode.workspace.openTextDocument(openPath).then(doc => {
+  vscode.workspace.openTextDocument(openPath).then((doc) => {
     vscode.window.showTextDocument(doc, vscode.ViewColumn.Active);
   });
 }

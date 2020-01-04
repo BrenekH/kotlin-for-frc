@@ -12,11 +12,11 @@ export class TelemetryWrapper {
 		
 		if (!this.inExtensionHost) {
 			// If the extension is not being debugged, create the TelemetryReporter
-	        const extensionId = "brenek.kotlin-for-frc";
-    	    const extensionVersion = vscode.extensions.getExtension(extensionId)!.packageJSON.version;
+			const extensionId = "brenek.kotlin-for-frc";
+			const extensionVersion = vscode.extensions.getExtension(extensionId)!.packageJSON.version;
 
-    	    const botNoStealingKeys = Buffer.from("OTA1NzZlNjItZTJkNC00MTc3LWJjOTYtMDAyMmQ0YTk4OGQ0", "base64").toString();
-    
+			const botNoStealingKeys = Buffer.from("OTA1NzZlNjItZTJkNC00MTc3LWJjOTYtMDAyMmQ0YTk4OGQ0", "base64").toString();
+	
 			this.reporter = new TelemetryReporter(extensionId, extensionVersion, botNoStealingKeys);
 		} else {
 			// If the extension is being debugged, create a bogus reporter that might fail

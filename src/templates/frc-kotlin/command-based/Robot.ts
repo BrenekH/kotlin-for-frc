@@ -1,9 +1,9 @@
 export class CommandRobotTemplate {
-	private useAtProjectConversion: boolean;
-	private text: string;
-	constructor() {
-	  this.useAtProjectConversion = true;
-	  this.text = `/*----------------------------------------------------------------------------*/
+  private useAtProjectConversion: boolean;
+  private text: string;
+  constructor() {
+    this.useAtProjectConversion = true;
+    this.text = `/*----------------------------------------------------------------------------*/
 /* Copyright (c) 2017-2019 FIRST. All Rights Reserved.                        */
 /* Open Source Software - may be modified and shared by FRC teams. The code   */
 /* must be accompanied by the FIRST BSD license file in the root directory of */
@@ -103,11 +103,11 @@ class Robot : TimedRobot() {
   }
 }
 `;
-	}
-	public getText(): string {
-		return this.text;
-	}
-	public useAtConversion(): boolean {
-		return this.useAtProjectConversion;
-	}
+  }
+  public getText(): string {
+    return this.text;
+  }
+  public useAtConversion(): boolean {
+    return this.useAtProjectConversion;
+  }
 }
