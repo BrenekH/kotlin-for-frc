@@ -6,7 +6,7 @@ export class BuildGradleTemplate {
     this.text = `plugins {
     id "java"
     id "edu.wpi.first.GradleRIO" version "#{GRADLE_RIO_VERSION}"
-    id "org.jetbrains.kotlin.jvm" version "1.3.0"
+    id "org.jetbrains.kotlin.jvm" version "1.3.50"
 }
 
 sourceCompatibility = JavaVersion.VERSION_11
@@ -46,10 +46,10 @@ deploy {
 // Set this to true to enable desktop support.
 def includeDesktopSupport = false
 
-// Maven central needed for JUnit
-// repositories {
-//     mavenCentral()
-// }
+// Maven central needed for JUnit and Kotlin
+repositories {
+    mavenCentral()
+}
 
 // Defining my dependencies. In this case, WPILib (+ friends), and vendor libraries.
 // Also defines JUnit 4.

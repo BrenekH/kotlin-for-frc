@@ -28,19 +28,19 @@ class #{NAME}(subsystem: ExampleSubsystem) : CommandBase() {
   }
 
   // Called when the command is initially scheduled.
-  override initialize() {
+  override fun initialize() {
   }
 
   // Called every time the scheduler runs while the command is scheduled.
-  override execute() {
+  override fun execute() {
   }
 
   // Called once the command ends or is interrupted.
-  override end(interrupted: Boolean) {
+  override fun end(interrupted: Boolean) {
   }
 
   // Returns true when the command should end.
-  override isFinished(): Boolean {
+  override fun isFinished(): Boolean {
     return false;
   }
 

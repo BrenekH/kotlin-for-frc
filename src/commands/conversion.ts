@@ -8,7 +8,7 @@ import * as kotlinExt from "../extension";
 import { robotType } from "../templates/template_interpreter";
 
 export function determineRobotType(robot_java: string) {
-	var current_robot_type: robotType = robotType.sample;
+	var current_robot_type: robotType = robotType.timed;
 
 	if (robot_java.includes("edu.wpi.first.wpilibj2.command.Command")) {
 		current_robot_type = robotType.command;
@@ -17,14 +17,6 @@ export function determineRobotType(robot_java: string) {
 	else if (robot_java.includes("edu.wpi.first.wpilibj.command.Command")) {
 		current_robot_type = robotType.old_command;
 		console.log("Old Command");
-	}
-	else if (robot_java.includes("edu.wpi.first.wpilibj.IterativeRobot")) {
-		current_robot_type = robotType.iterative;
-		console.log("Iterative");
-	}
-	else if (robot_java.includes("edu.wpi.first.wpilibj.SampleRobot")) {
-		current_robot_type = robotType.sample;
-		console.log("Sample");
 	}
 	else if (robot_java.includes("edu.wpi.first.wpilibj.TimedRobot")) {
 		if (robot_java.includes("edu.wpi.first.wpilibj.smartdashboard.SendableChooser")) {
@@ -35,6 +27,10 @@ export function determineRobotType(robot_java: string) {
 			current_robot_type = robotType.timed_skeleton;
 			console.log("Timed skeleton");
 		}
+	}
+	else if (robot_java.includes("edu.wpi.first.hal.HAL")) {
+		current_robot_type = robotType.robot_base_skeleton;
+		console.log("Robot Base Skeleton");
 	}
 
 	return current_robot_type;
@@ -58,17 +54,14 @@ export function convertJavaProject(current_robot_type: robotType) {
 				case robotType.old_command:
 					await convertOldCommand();
 					break;
-				case robotType.sample:
-					convertSample();
-					break;
-				case robotType.iterative:
-					convertIterative();
-					break;
 				case robotType.timed:
 					convertTimed();
 					break;
 				case robotType.timed_skeleton:
 					convertTimedSkeleton();
+					break;
+				case robotType.robot_base_skeleton:
+					convertRobotBaseSkeleton();
 					break;
 				default:
 					vscode.window.showErrorMessage("Kotlin For FRC: ERROR 'Invalid Template Type'. Please report in the issues section on github with a detailed description of what steps were taken.");
@@ -80,11 +73,6 @@ export function convertJavaProject(current_robot_type: robotType) {
 	});
 }
 
-function convertIterative() {
-	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/Robot.kt", templateinterpreter.getTemplateObjectFromRobotType(templateinterpreter.robotType.iterative).getText());
-	createMainKtAndBuildGradle();
-}
-
 function convertTimed() {
 	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/Robot.kt", templateinterpreter.getTemplateObjectFromRobotType(templateinterpreter.robotType.timed).getText());
 	createMainKtAndBuildGradle();
@@ -92,6 +80,11 @@ function convertTimed() {
 
 function convertTimedSkeleton() {
 	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/Robot.kt", templateinterpreter.getTemplateObjectFromRobotType(templateinterpreter.robotType.timed_skeleton).getText());
+	createMainKtAndBuildGradle();
+}
+
+function convertRobotBaseSkeleton() {
+	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/Robot.kt", templateinterpreter.getTemplateObjectFromRobotType(templateinterpreter.robotType.robot_base_skeleton).getText());
 	createMainKtAndBuildGradle();
 }
 
@@ -131,11 +124,6 @@ async function convertOldCommand() {
 	// Dynamic files(need name changes)
 	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/commands/ExampleCommand.kt", templateinterpreter.parseTemplate("ExampleCommand", "frc.robot.commands", templateinterpreter.templateType.old_command));
 	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/subsystems/ExampleSubsystem.kt", templateinterpreter.parseTemplate("ExampleSubsystem", "frc.robot.subsystems", templateinterpreter.templateType.old_subsystem));
-}
-
-function convertSample() {
-	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/Robot.kt", templateinterpreter.getTemplateObjectFromRobotType(templateinterpreter.robotType.sample).getText());
-	createMainKtAndBuildGradle();
 }
 
 function createMainKtAndBuildGradle() {

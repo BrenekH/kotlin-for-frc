@@ -48,7 +48,7 @@ export async function writeToFile(uri: string, content: string) {
 		// Only used when VSCode is updated at or past 1.37.0
 		const writeBytes = Buffer.from(content, 'utf8');
 
-		await vscode.workspace.fs.writeFile(vscode.Uri.file(uri), writeBytes).then(() => {});
+		await vscode.workspace.fs.writeFile(vscode.Uri.file(uri), writeBytes);
 	} else {
 		vscode.window.showErrorMessage("Kotlin for FRC Error: For whatever reason, the code detected that you are not running VSCode version 1.37.0 or higher. Please ensure you are updated and try again. If the issue persists, open a GitHub issue at github.com/zPaw/kotlin-for-frc/issues.");
 	}

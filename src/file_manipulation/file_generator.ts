@@ -3,6 +3,10 @@ import * as path from 'path';
 import * as customfs from "./file_system";
 import * as kotlinExt from "../extension";
 
+const sleep = (milliseconds: number) => {
+  return new Promise(resolve => setTimeout(resolve, milliseconds));
+};
+
 export function createFileWithContent(name: string, content: string) {
   var filePath = path.join(String(kotlinExt.getWorkspaceFolderFsPath()), name);
   customfs.writeToFile(filePath, content);
@@ -14,13 +18,15 @@ export function createFileWithContentAndFullPath(full_path: string, content: str
     return full_path;
 }
 
-export function showDocumentInViewer(filePath: string | undefined) {
+export async function showDocumentInViewer(filePath: string | undefined) {
   if (typeof filePath === 'undefined') {
     return;
   }
+
+  await sleep(500);
   var openPath = vscode.Uri.file(filePath);
   vscode.workspace.openTextDocument(openPath).then(doc => {
-    vscode.window.showTextDocument(doc);
+    vscode.window.showTextDocument(doc, vscode.ViewColumn.Active);
   });
 }
 

@@ -1,10 +1,10 @@
 KfF Version 2020.1.1 Release Checklist:
     Update Templates:
-        ☐ Update templates
-            ☐ Verify mavenCentral is no longer needed
-            ☐ Remove iterative and sample implementations
-            ☐ Add RobotBase Skeleton implementation
-        ✔ Implement into template_interpreter.ts @done(19-12-15 16:31:00)
+        ✔ Update templates @done(20-01-03 21:52:25)
+            ✔ Verify mavenCentral is no longer needed @done(20-01-03 21:49:50)
+            ✔ Remove iterative and sample implementations @done(20-01-03 21:49:46)
+            ✔ Add RobotBase Skeleton implementation @done(20-01-03 21:49:45)
+        ✔ Implement into template_interpreter.ts @done(20-01-03 21:52:21)
     ✔ Handle old command-based and new command-based @done(19-12-15 16:31:06)
     ✔ Implement telemetry @done(19-12-15 19:52:40)
     ✔ Rename command identifiers @started(19-12-12 14:32:38) @done(19-12-12 14:38:04) @lasted(5m26s)

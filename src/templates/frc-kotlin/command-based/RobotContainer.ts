@@ -56,7 +56,7 @@ class RobotContainer {
 
 	fun getAutonomousCommand(): Command {
 		// Return the selected command
-		return m_autoCommandChooser.selected
+		return m_autoCommandChooser.getSelected()
 	}
 }
 `;
