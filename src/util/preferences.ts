@@ -2,8 +2,9 @@
 import * as vscode from 'vscode';
 import * as kotlinExt from "../extension";
 import * as customfs from "../file_manipulation/file_system";
+import { targetGradleRioVersion } from "../constants";
 
-var defaultJson = `{"wpilib_version": "2019.0.1", "run_compliance_tests": true}`;
+var defaultJson = `{"wpilib_version": "${targetGradleRioVersion}", "run_compliance_tests": true}`;
 
 interface PreferencesJson {
     wpilib_version: string;

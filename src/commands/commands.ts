@@ -4,7 +4,7 @@ import * as compliance from "../util/compliance";
 import * as chnglog from "../util/changelog";
 import * as customfs from "../file_manipulation/file_system";
 import * as kotlinExt from "../extension";
-import { setRunComplianceTests } from "../util/preferences";
+import { setRunComplianceTests, createPreferencesJson } from "../util/preferences";
 import { createNew } from "./create_new";
 import { convertJavaProject, determineRobotType } from "./conversion";
 
@@ -44,6 +44,8 @@ export async function registerCommands(context: vscode.ExtensionContext) {
         }
         
         convertJavaProject(determineRobotType(robot_java));
+
+        createPreferencesJson();
     });
     
     context.subscriptions.push(disposable);
