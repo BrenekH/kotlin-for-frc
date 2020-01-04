@@ -23,7 +23,7 @@ export class TelemetryWrapper {
 			this.reporter = new TelemetryReporter("extension.host", "0.0.1", Buffer.from("ZGU4ZjQ1NTEtNjU0OS00NGJlLWI5ZDUtZmU0ODNjOWE1OTFi", "base64").toString());
 		}
 	}
-	
+
 	sendCommandRun(commandName: string) {
 		if (!this.inExtensionHost) {
 			this.reporter.sendTelemetryEvent("commandRun", {"commandName": commandName}, undefined);

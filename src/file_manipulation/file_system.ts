@@ -16,7 +16,7 @@ export async function mkdir(uri: string) {
 	}
 }
 
-export async function exists(uri: string): Promise<Boolean> {
+export async function exists(uri: string): Promise<boolean> {
 	if (isVscodeFsAvailable) {
 		var exists = true;
 		try {
@@ -36,7 +36,7 @@ export async function readFile(uri: string) {
 		// Only used when VSCode is updated at or past 1.37.0
 		var contentFromRead = await vscode.workspace.fs.readFile(vscode.Uri.file(uri));
 		var content = contentFromRead.toString();
-		return content;	
+		return content;
 	} else {
 		vscode.window.showErrorMessage("Kotlin for FRC Error: For whatever reason, the code detected that you are not running VSCode version 1.37.0 or higher. Please ensure you are updated and try again. If the issue persists, open a GitHub issue at github.com/zPaw/kotlin-for-frc/issues.");
 		return "";

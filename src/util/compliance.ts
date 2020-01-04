@@ -6,7 +6,7 @@ import * as customfs from "../file_manipulation/file_system";
 import * as preferences from "./preferences";
 import * as kotlinExt from "../extension";
 
-export async function isGradleRioVersionCompliant(): Promise<Boolean> {
+export async function isGradleRioVersionCompliant(): Promise<boolean> {
     console.log("Checking build.gradle compliance");
     let registeredVersion = await preferences.getWPILibVersion();
     if (registeredVersion === targetGradleRioVersion) {

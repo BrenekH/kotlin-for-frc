@@ -2,10 +2,11 @@
 import * as vscode from "vscode";
 import * as filegenerator from "../file_manipulation/file_generator";
 import * as customfs from "../file_manipulation/file_system";
-import * as templateinterpreter from "../templates/template_interpreter";
 import * as rimraf from "rimraf";
 import * as kotlinExt from "../extension";
-import { robotType } from "../templates/template_interpreter";
+import { templateType, robotType, getTemplateObjectFromRobotType,
+		getTemplateObjectFromTemplateType, parseTemplate,
+		getParsedGradle, getMainTemplateObject } from "../templates/template_interpreter";
 
 export function determineRobotType(robot_java: string) {
 	var current_robot_type: robotType = robotType.timed;
@@ -74,17 +75,17 @@ export function convertJavaProject(current_robot_type: robotType) {
 }
 
 function convertTimed() {
-	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/Robot.kt", templateinterpreter.getTemplateObjectFromRobotType(templateinterpreter.robotType.timed).getText());
+	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/Robot.kt", getTemplateObjectFromRobotType(robotType.timed).getText());
 	createMainKtAndBuildGradle();
 }
 
 function convertTimedSkeleton() {
-	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/Robot.kt", templateinterpreter.getTemplateObjectFromRobotType(templateinterpreter.robotType.timed_skeleton).getText());
+	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/Robot.kt", getTemplateObjectFromRobotType(robotType.timed_skeleton).getText());
 	createMainKtAndBuildGradle();
 }
 
 function convertRobotBaseSkeleton() {
-	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/Robot.kt", templateinterpreter.getTemplateObjectFromRobotType(templateinterpreter.robotType.robot_base_skeleton).getText());
+	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/Robot.kt", getTemplateObjectFromRobotType(robotType.robot_base_skeleton).getText());
 	createMainKtAndBuildGradle();
 }
 
@@ -97,14 +98,14 @@ async function convertCommand() {
 	}
 
 	// Static files(don't need any name changes)
-	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/Robot.kt", templateinterpreter.getTemplateObjectFromTemplateType(templateinterpreter.templateType.robot).getText());
-	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/Constants.kt", templateinterpreter.getTemplateObjectFromTemplateType(templateinterpreter.templateType.constants).getText());
-	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/RobotContainer.kt", templateinterpreter.getTemplateObjectFromTemplateType(templateinterpreter.templateType.robot_container).getText());
+	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/Robot.kt", getTemplateObjectFromTemplateType(templateType.robot).getText());
+	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/Constants.kt", getTemplateObjectFromTemplateType(templateType.constants).getText());
+	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/RobotContainer.kt", getTemplateObjectFromTemplateType(templateType.robot_container).getText());
 	createMainKtAndBuildGradle();
 	
 	// Dynamic files(need name changes)
-	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/commands/ExampleCommand.kt", templateinterpreter.parseTemplate("ExampleCommand", "frc.robot.commands", templateinterpreter.templateType.command));
-	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/subsystems/ExampleSubsystem.kt", templateinterpreter.parseTemplate("ExampleSubsystem", "frc.robot.subsystems", templateinterpreter.templateType.subsystem));
+	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/commands/ExampleCommand.kt", parseTemplate("ExampleCommand", "frc.robot.commands", templateType.command));
+	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/subsystems/ExampleSubsystem.kt", parseTemplate("ExampleSubsystem", "frc.robot.subsystems", templateType.subsystem));
 }
 
 async function convertOldCommand() {
@@ -116,14 +117,14 @@ async function convertOldCommand() {
 	}
 
 	// Static files(don't need any name changes)
-	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/Robot.kt", templateinterpreter.getTemplateObjectFromTemplateType(templateinterpreter.templateType.old_robot).getText());
-	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/RobotMap.kt", templateinterpreter.getTemplateObjectFromTemplateType(templateinterpreter.templateType.old_robot_map).getText());
-	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/OI.kt", templateinterpreter.getTemplateObjectFromTemplateType(templateinterpreter.templateType.old_oi).getText());
+	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/Robot.kt", getTemplateObjectFromTemplateType(templateType.old_robot).getText());
+	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/RobotMap.kt", getTemplateObjectFromTemplateType(templateType.old_robot_map).getText());
+	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/OI.kt", getTemplateObjectFromTemplateType(templateType.old_oi).getText());
 	createMainKtAndBuildGradle();
 	
 	// Dynamic files(need name changes)
-	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/commands/ExampleCommand.kt", templateinterpreter.parseTemplate("ExampleCommand", "frc.robot.commands", templateinterpreter.templateType.old_command));
-	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/subsystems/ExampleSubsystem.kt", templateinterpreter.parseTemplate("ExampleSubsystem", "frc.robot.subsystems", templateinterpreter.templateType.old_subsystem));
+	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/commands/ExampleCommand.kt", parseTemplate("ExampleCommand", "frc.robot.commands", templateType.old_command));
+	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/subsystems/ExampleSubsystem.kt", parseTemplate("ExampleSubsystem", "frc.robot.subsystems", templateType.old_subsystem));
 }
 
 function createMainKtAndBuildGradle() {
@@ -132,9 +133,9 @@ function createMainKtAndBuildGradle() {
 }
 
 function createMainKt() {
-	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/Main.kt", templateinterpreter.getMainTemplateObject().getText());
+	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/Main.kt", getMainTemplateObject().getText());
 }
 
 function createBuildGradle() {
-	filegenerator.createFileWithContent("build.gradle", templateinterpreter.getParsedGradle());
+	filegenerator.createFileWithContent("build.gradle", getParsedGradle());
 }

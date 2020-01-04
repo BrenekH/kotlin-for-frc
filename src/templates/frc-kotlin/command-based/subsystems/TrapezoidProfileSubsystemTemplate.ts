@@ -40,4 +40,3 @@ class #{NAME} : TrapezoidProfileSubsystem() {
     return this.useAtProjectConversion;
   }
 }
-  

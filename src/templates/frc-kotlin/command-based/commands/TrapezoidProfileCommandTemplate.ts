@@ -40,7 +40,7 @@ class #{NAME} : TrapezoidProfileCommand() {
   public getText(): string {
     return this.text;
   }
-  
+
   public useAtConversion(): boolean {
     return this.useAtProjectConversion;
   }

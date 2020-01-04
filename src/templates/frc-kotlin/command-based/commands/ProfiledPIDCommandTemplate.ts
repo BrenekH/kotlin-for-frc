@@ -51,7 +51,7 @@ class #{NAME} : ProfiledPIDCommand() {
   public getText(): string {
     return this.text;
   }
-  
+
   public useAtConversion(): boolean {
     return this.useAtProjectConversion;
   }
