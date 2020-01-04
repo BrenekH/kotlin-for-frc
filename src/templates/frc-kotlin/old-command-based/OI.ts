@@ -1,4 +1,4 @@
-export class OITemplate {
+export class OldCommandOITemplate {
   private useAtProjectConversion: boolean;
   private text: string;
   constructor() {
