@@ -20,7 +20,8 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup
 class #{NAME} : ParallelCommandGroup() {
   init {
 	// Add your commands in the super() call, e.g.
-	// super(new FooCommand(), new BarCommand()); super()
+  // super(new FooCommand(), new BarCommand())
+  super()
   }
 }
 `;
