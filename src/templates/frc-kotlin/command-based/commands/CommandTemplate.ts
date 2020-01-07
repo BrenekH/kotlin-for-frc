@@ -15,16 +15,14 @@ package #{PACKAGE}
 import frc.robot.subsystems.ExampleSubsystem
 import edu.wpi.first.wpilibj2.command.CommandBase
 
-class #{NAME}(subsystem: ExampleSubsystem) : CommandBase() {
-  val m_subsystem: ExampleSubsystem = subsystem
-
+class #{NAME}(val m_subsystem: ExampleSubsystem) : CommandBase() {
   /**
    * Creates a new #{NAME}.
    *
-   * @param subsystem The subsystem used by this command.
+   * @param m_subsystem The subsystem used by this command.
    */
   init {
-    addRequirements(subsystem)
+    addRequirements(m_subsystem)
   }
 
   // Called when the command is initially scheduled.
@@ -41,9 +39,8 @@ class #{NAME}(subsystem: ExampleSubsystem) : CommandBase() {
 
   // Returns true when the command should end.
   override fun isFinished(): Boolean {
-    return false;
+    return false
   }
-
 }
 `;
   }
