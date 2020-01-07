@@ -1,4 +1,4 @@
-export class RobotMapTemplate {
+export class OldCommandRobotMapTemplate {
   private useAtProjectConversion: boolean;
   private text: string;
   constructor() {
