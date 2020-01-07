@@ -20,6 +20,13 @@ Kotlin for FRC is an unofficial companion extension to the official WPILib exten
 
 ## Release Notes
 
+### 1.5.0
+* Fast-forwarded auto-show changelog from 2020
+* Added Toggle Auto-Show Changelog, Show Changelog, and Reset Auto-Show Changelog commands
+* Added contributing guidelines
+* Added issue templates
+* Fixed various security issues by updating dependencies
+
 ### 1.4.0
 
 * Faster extension loading times using webpack
