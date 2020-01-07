@@ -35,6 +35,8 @@ class Robot : TimedRobot() {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = RobotContainer()
+    // Automatically grab auto command to ensure m_autonomousCommand is defined before teleopInit is run
+    m_autonomousCommand = m_robotContainer.getAutonomousCommand()
   }
 
   /**
