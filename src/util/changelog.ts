@@ -23,11 +23,7 @@ function extensionWasUpdated(context: vscode.ExtensionContext): boolean {
 		return false;
 	}
 
-	if (semver.satisfies(currentVersion, `>${storedVersion}`)) {
-		return true;
-	} else {
-		return false;
-	}
+	return semver.satisfies(currentVersion, `>${storedVersion}`);
 }
 
 export function showChangelog() {
