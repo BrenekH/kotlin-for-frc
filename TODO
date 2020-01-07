@@ -1,32 +1,38 @@
+KfF Version 2020.1.1 Release Checklist:
+    Update Templates:
+        ✔ Update templates @done(20-01-03 21:52:25)
+            ✔ Verify mavenCentral is no longer needed @done(20-01-03 21:49:50)
+            ✔ Remove iterative and sample implementations @done(20-01-03 21:49:46)
+            ✔ Add RobotBase Skeleton implementation @done(20-01-03 21:49:45)
+        ✔ Implement into template_interpreter.ts @done(20-01-03 21:52:21)
+    ✔ Handle old command-based and new command-based @done(19-12-15 16:31:06)
+    ✔ Implement telemetry @done(19-12-15 19:52:40)
+    ✔ Rename command identifiers @started(19-12-12 14:32:38) @done(19-12-12 14:38:04) @lasted(5m26s)
+    ✔ Differentiate between old and new command based when the kotlinforfrc.createNew command is called @done(19-12-15 17:47:51)
+    ✔ Update GradleRIO version @done(20-01-03 15:49:40)
+
 Release Checklist:
     ☐ Update README.md
     ☐ Update CHANGELOG.md
+    ☐ Update Changelog Webview HTML
     ☐ Update version
-
-2019:
-    ✔ Auto detect package @done(19-01-04 13:24)
-    ✔ Add all command, subsystem, and trigger types @done(19-01-04 13:09)
-    Robot Types:
-        ✔ Iterative (Deprecated so need to look into that) @done(19-01-04 13:09)
-        ✔ Timed @done(19-01-04 13:09)
-        ✔ Command @done(19-01-04 13:09)
-        ✔ Sample @done(19-01-04 13:09)
-        ✔ Timed skeleton @done(19-01-04 13:09)
-        ✔ Detect timed vs timed skeleton @done(19-01-04 13:32)
 
 Bugs:
     ✔ When trying to convert without Java folder, things go horribly wrong @done(19-01-03 12:26)
+    ✔ .kotlin-for-frc directory is generated anytime the extension is activated @started(19-12-12 15:33:20) @done(19-12-12 22:57:13) @lasted(7h23m53s)
+    ✔ .kotlin-for-frc doesn't generate until a reload after a conversion @done(20-01-03 22:12:05)
 
 Improvements:
+    Misc:
+        ☐ Add logger for in-production debugging
     Testing:
-        ✔ Find a way to simulate a workspace to run unit tests on @done(19-01-27 16:49)
-            ✔ Add testing dir that contains a sample workspace to run on @done(19-01-25 14:58)
-                ✔ Add scripts to reset the sample workspace @started(19-01-25 14:59) @done(19-01-25 18:36) @lasted(3h37m24s)
-                ✔ Add dir to .vscodeignore @done(19-01-25 19:41)
-                ✔ https://code.visualstudio.com/api/working-with-extensions/testing-extension details how to do all this @done(19-01-27 16:49)
-            ✔ Reconfigure extension to use a constant from extension.ts instead of querying the vscode api @done(19-01-26 16:50)
-        ☐ Add reset function into testingConts.ts
         Tests:
+            Custom FileSystem:
+                ☐ mkdir function
+                ☐ exists function
+                ☐ readFile function
+                ☐ deleteFile function
+                ☐ writeToFile function
             Preferences API:
                 ✔ Get Main Kt @done(19-01-29 15:22)
                 ✔ Set Main Kt @done(19-02-06 15:06)
@@ -71,28 +77,3 @@ Improvements:
                     ☐ Timed Robot
                     ☐ Iterative Robot
                     ☐ Timed Skeleton
-    Build Gradle Settings Updating:
-        ✔ Make the build.gradle compliance update just the GradleRio version @done(19-03-21 10:37)
-    Switch back to Main.kt:
-        ✔ Change templates @done(19-01-21 17:08)
-        ✔ Create preferences system @done(19-01-21 17:08)
-        ✔ Check on activation for build.gradle compliance @done(19-01-21 18:11)
-            ✔ Update preferences.json to reflect compliance @done(19-01-21 18:13)
-        ✔ Check on activation for Main.kt compliance @done(19-01-21 18:11)
-            ✔ Update preferences.json to reflect compliance @done(19-01-21 18:13)
-        ✔ Compliance field in preferences.json to turn off compliance testing @done(19-01-21 17:42)
-        ✔ Switch build.gradle to grabbing versions from constants.ts @done(19-01-21 18:47)
-        ✔ Add command to check compliance @done(19-01-21 21:45)
-        ✔ Notify user of change @done(19-01-21 21:40)
-        ✔ Don't run on java project @done(19-01-21 21:37)
-        ✔ Add commands to update the run_compliance_test preference from command palette @done(19-01-21 21:57)
-        ✔ Switch from build.gradle MainKt to JvmStatic annotation @done(19-01-22 23:00)
-        ☐ Delete Main.java when replaced
-    Travis Integration:
-        Slack:
-            ✔ Encrypt slack key @done(19-01-21 17:42)
-            ✔ Place key in .travis.yml @done(19-01-21 17:42)
-    Misc:
-        ☐ Add logger for in-production debugging
-        ✔ See why .kotlin-for-frc is not being created and handled @done(19-01-22 22:34)
-        ☐ Test git rebase stuff

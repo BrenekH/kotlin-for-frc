@@ -28,10 +28,8 @@ class Robot : TimedRobot() {
    */
   override fun robotInit() {}
 
-  override fun robotPeriodic() {}
-
   override fun autonomousInit() {}
-  
+
   override fun autonomousPeriodic() {}
 
   override fun teleopInit() {}

@@ -1,4 +1,4 @@
-export class InstantCommandTemplate {
+export class ParallelRaceGroupTemplate {
     private useAtProjectConversion: boolean;
     private text: string;
     constructor() {
@@ -12,18 +12,16 @@ export class InstantCommandTemplate {
 
 package #{PACKAGE}
 
-import edu.wpi.first.wpilibj2.command.InstantCommand
+import edu.wpi.first.wpilibj2.command.ParallelRaceGroup
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/latest/docs/software/commandbased/convenience-features.html
-class #{NAME} : InstantCommand() {
+class #{NAME} : ParallelRaceGroup() {
   init {
-    // Use addRequirements() here to declare subsystem dependencies.
-  }
-
-  // Called when the command is initially scheduled.
-  override fun initialize() {
+	// Add your commands in the super() call, e.g.
+	// super(new FooCommand(), new BarCommand())
+	super()
   }
 }
 `;
