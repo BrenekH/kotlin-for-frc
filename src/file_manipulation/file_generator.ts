@@ -1,26 +1,32 @@
 import * as vscode from 'vscode';
-import * as fs from 'fs';
 import * as path from 'path';
-import * as kotlinExt from "./extension";
+import * as customfs from "./file_system";
+import * as kotlinExt from "../extension";
+
+const sleep = (milliseconds: number) => {
+  return new Promise((resolve) => setTimeout(resolve, milliseconds));
+};
 
 export function createFileWithContent(name: string, content: string) {
   var filePath = path.join(String(kotlinExt.getWorkspaceFolderFsPath()), name);
-  fs.writeFileSync(filePath, content, 'utf8');
+  customfs.writeToFile(filePath, content);
   return filePath;
 }
 
 export function createFileWithContentAndFullPath(full_path: string, content: string) {
-    fs.writeFileSync(full_path, content, 'utf8');
+    customfs.writeToFile(full_path, content);
     return full_path;
 }
 
-export function showDocumentInViewer(filePath: string | undefined) {
+export async function showDocumentInViewer(filePath: string | undefined) {
   if (typeof filePath === 'undefined') {
     return;
   }
+
+  await sleep(500);
   var openPath = vscode.Uri.file(filePath);
-  vscode.workspace.openTextDocument(openPath).then(doc => {
-    vscode.window.showTextDocument(doc);
+  vscode.workspace.openTextDocument(openPath).then((doc) => {
+    vscode.window.showTextDocument(doc, vscode.ViewColumn.Active);
   });
 }
 
@@ -30,7 +36,7 @@ export function generatePackage(filePath: any) {
     return "frc.robot";
   }
   var workspace_path = kotlinExt.getWorkspaceFolderPath();
-  var path_to_main_folder = workspace_path + "/src/main/java/";
+  var path_to_main_folder = workspace_path + "/src/main/kotlin/";
   console.log(path_to_main_folder);
   var package_string = filePath.path.replace(path_to_main_folder, "").replace(/\//g, ".");
   console.log(package_string);

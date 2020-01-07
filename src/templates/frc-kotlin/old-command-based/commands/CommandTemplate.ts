@@ -1,10 +1,10 @@
-export class TimedCommandTemplate {
-    private useAtProjectConversion: boolean;
-    private text: string;
-    constructor() {
+export class OldCommandTemplate {
+  private useAtProjectConversion: boolean;
+  private text: string;
+  constructor() {
     this.useAtProjectConversion = false;
     this.text = `/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2018 FIRST. All Rights Reserved.                             */
+/* Copyright (c) 2017-2018 FIRST. All Rights Reserved.                        */
 /* Open Source Software - may be modified and shared by FRC teams. The code   */
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
@@ -12,18 +12,16 @@ export class TimedCommandTemplate {
 
 package #{PACKAGE}
 
-import edu.wpi.first.wpilibj.command.TimedCommand
+import edu.wpi.first.wpilibj.command.Command
+import frc.robot.Robot
 
 /**
- * Add your docs here.
+ * An example command. You can replace me with your own command.
  */
-class #{NAME}(val timeout: Double): TimedCommand(timeout) {
-  /**
-   * Add your docs here.
-   */
+class #{NAME} : Command() {
   init {
     // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
+    requires(Robot.m_exampleSubsystem)
   }
 
   // Called just before this Command runs the first time
@@ -32,7 +30,12 @@ class #{NAME}(val timeout: Double): TimedCommand(timeout) {
   // Called repeatedly when this Command is scheduled to run
   override fun execute() {}
 
-  // Called once after timeout
+  // Make this return true when this Command no longer needs to run execute()
+  override fun isFinished(): Boolean {
+    return false
+  }
+
+  // Called once after isFinished returns true
   override fun end() {}
 
   // Called when another command which requires one or more of the same
@@ -41,12 +44,10 @@ class #{NAME}(val timeout: Double): TimedCommand(timeout) {
 }
 `;
   }
-  
   public getText(): string {
     return this.text;
   }
-  
   public useAtConversion(): boolean {
     return this.useAtProjectConversion;
   }
-}
+}  
