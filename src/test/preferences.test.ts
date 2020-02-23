@@ -10,6 +10,7 @@ import * as preferences from '../util/preferences';
 import * as fs from 'fs';
 // import * as customfs from "../file_manipulation/file_system";
 import * as testingConsts from "./testingConstants";
+import { targetGradleRIOVersion } from "../constants";
 
 const sleep = (milliseconds: number) => {
     return new Promise(resolve => setTimeout(resolve, milliseconds));
@@ -47,7 +48,7 @@ suite("Preferences API", function () {
         await sleep(100);
 
         var fileContents = fs.readFileSync(filePath, "utf-8");
-        assert.equal(fileContents, `{"wpilib_version":"2019.0.1","run_compliance_tests":false}`);
+        assert.equal(fileContents, `{"wpilib_version":"${targetGradleRIOVersion}","run_compliance_tests":false}`);
         
         await preferences.setRunComplianceTests(true);
     });
