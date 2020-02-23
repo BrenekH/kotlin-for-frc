@@ -15,7 +15,7 @@ Release Checklist:
     ☐ Update README.md
     ☐ Update CHANGELOG.md
     ☐ Update Changelog Webview HTML
-    ☐ Update version
+    ✔ Update version @done(20-02-22 18:33:57)
 
 Bugs:
     ✔ When trying to convert without Java folder, things go horribly wrong @done(19-01-03 12:26)
