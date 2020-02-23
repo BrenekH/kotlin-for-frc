@@ -39,17 +39,4 @@ suite("Preferences API", function () {
     test("Get Run Compliance Test", async function() {
         assert.equal(await preferences.getRunComplianceTests(), true);
     });
-
-    test("Set Run Compliance Tests", async function() {
-        var filePath = kotlinExt.getWorkspaceFolderFsPath() + "/.kotlin-for-frc/kotlin-frc-preferences.json";
-        
-        await preferences.setRunComplianceTests(false);
-
-        await sleep(100);
-
-        var fileContents = fs.readFileSync(filePath, "utf-8");
-        assert.equal(fileContents, `{"wpilib_version":"${targetGradleRioVersion}","run_compliance_tests":false}`);
-        
-        await preferences.setRunComplianceTests(true);
-    });
 });
