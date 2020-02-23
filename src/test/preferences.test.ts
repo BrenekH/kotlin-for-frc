@@ -10,7 +10,6 @@ import * as preferences from '../util/preferences';
 import * as fs from 'fs';
 // import * as customfs from "../file_manipulation/file_system";
 import * as testingConsts from "./testingConstants";
-import { targetGradleRioVersion } from "../constants";
 
 const sleep = (milliseconds: number) => {
     return new Promise(resolve => setTimeout(resolve, milliseconds));
