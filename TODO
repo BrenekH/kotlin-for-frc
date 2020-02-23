@@ -13,7 +13,7 @@ KfF Version 2020.1.1 Release Checklist:
 
 Release Checklist:
     ☐ Update README.md
-    ☐ Update CHANGELOG.md
+    ✔ Update CHANGELOG.md @done(20-02-22 18:39:50)
     ☐ Update Changelog Webview HTML
     ✔ Update version @done(20-02-22 18:33:57)
 
