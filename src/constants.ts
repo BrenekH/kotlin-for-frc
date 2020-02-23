@@ -1,1 +1,1 @@
-export let targetGradleRioVersion = "2020.2.2";
+export let targetGradleRioVersion = "2020.3.2";
