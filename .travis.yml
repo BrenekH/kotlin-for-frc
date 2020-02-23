@@ -30,7 +30,7 @@ before_deploy:
 - echo $PREREL_TRUE
 - git tag -l > git-tags.tagfile
 - LAST_GIT_TAG=$(tail -2 git-tags.tagfile | head -1)
-- github_changelog_generator --output RELEASE_NOTES.md --since-tag $LAST_GIT_TAG --user zPaw --project kotlin-for-frc --no-compare-link --header-label ""
+- github_changelog_generator --output RELEASE_NOTES.md --since-tag $LAST_GIT_TAG --user zPaw --project kotlin-for-frc --no-compare-link --header-label "" --base ""
 - sed 3d RELEASE_NOTES.md > modded_release_notes.md
 
 deploy:
