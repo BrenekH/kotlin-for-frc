@@ -7,7 +7,7 @@ export function setupWorkspace() {
         console.log("Whoops");
         return;
     }
-    var uri = vscode.Uri.parse(vscode.workspace.workspaceFolders[0].uri.path.replace("/out/test", "/testing-workspace/workspace"));
+    var uri = vscode.Uri.parse(vscode.workspace.workspaceFolders[0].uri.path + "/testing-workspace/workspace");
     kotlinExt.setWorkspaceFolderFsPath(uri.fsPath);
     kotlinExt.setWorkspaceFolderPath(uri.path);
 }
