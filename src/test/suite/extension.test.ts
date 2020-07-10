@@ -1,15 +1,31 @@
+// import * as vscode from 'vscode';
+import * as kotlinExt from '../../extension';
+// import * as compliance from '../compliance';
+// import * as commands from '../commands';
+// import * as file_generator from '../file_generator';
+// import * as preferences from '../preferences';
+// import * as template_interpreter from '../template_interpreter';
+// import * as path from "path";
+// import * as fs from 'fs';
+import * as testingConsts from "./testingConstants";
+
+//
+// Note: This example test is leveraging the Mocha test framework.
+// Please refer to their documentation on https://mochajs.org/ for help.
+//
+
+// The module 'assert' provides assertion methods from node
 import * as assert from 'assert';
 
-// You can import and use all API from the 'vscode' module
-// as well as import your extension to test it
-import * as vscode from 'vscode';
-// import * as myExtension from '../extension';
+// Defines a Mocha test suite to group tests of similar kind together
+suite("Extension Tests", function () {
+    testingConsts.setupWorkspace();
 
-suite('Extension Test Suite', () => {
-	vscode.window.showInformationMessage('Start all tests.');
+    // Defines a Mocha unit test
+    test("Setting up workspace folders", function() {
+        console.log("Path: " + kotlinExt.getWorkspaceFolderPath());
+        console.log("FsPath: " + kotlinExt.getWorkspaceFolderFsPath());
 
-	test('Sample test', () => {
-		assert.equal(-1, [1, 2, 3].indexOf(5));
-		assert.equal(-1, [1, 2, 3].indexOf(0));
-	});
+        assert.equal(1, 1);
+    });
 });
