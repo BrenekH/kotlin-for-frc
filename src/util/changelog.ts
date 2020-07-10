@@ -44,18 +44,11 @@ function getWebviewContent() {
 </head>
 <body>
 <h1>Kotlin for FRC Changelog</h1>
-<h2><a href="https://github.com/zPaw/kotlin-for-frc/tree/2020.1.1">2020.1.1</a> (2020-01-06)</h2>
+<h2><a href="https://github.com/zPaw/kotlin-for-frc/tree/2020.2.1">2020.2.1</a> (2020-02-22)</h2>
 <p><strong>Implemented enhancements:</strong></p>
 <ul>
-<li>New Command API <a href="https://github.com/zPaw/kotlin-for-frc/issues/19">#19</a></li>
-<li>Use github-changelog-generator for CHANGELOG.md <a href="https://github.com/zPaw/kotlin-for-frc/issues/16">#16</a></li>
+<li>Update to GradleRIO 2020.3.2</li>
 </ul>
-<p><strong>Fixed bugs:</strong></p>
-<ul>
-<li>.kotlin-for-frc appears even when it's not needed <a href="https://github.com/zPaw/kotlin-for-frc/issues/24">#24</a></li>
-</ul>
-<hr>
-<p>Thanks to everyone who downloaded my extension. Here's to a great season!</p>
 </body>
 </html>`;
 }
