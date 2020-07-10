@@ -1,15 +1,16 @@
 // import * as vscode from 'vscode';
 import * as assert from 'assert';
-import * as kotlinExt from '../extension';
+import * as kotlinExt from '../../extension';
 // import * as compliance from '../compliance';
 // import * as commands from '../commands';
 // import * as file_generator from '../file_generator';
-import * as preferences from '../util/preferences';
+import * as preferences from '../../util/preferences';
 // import * as template_interpreter from '../template_interpreter';
 // import * as path from "path";
 import * as fs from 'fs';
 // import * as customfs from "../file_manipulation/file_system";
 import * as testingConsts from "./testingConstants";
+import { targetGradleRioVersion } from "../../constants";
 
 const sleep = (milliseconds: number) => {
     return new Promise(resolve => setTimeout(resolve, milliseconds));
@@ -19,7 +20,7 @@ suite("Preferences API", function () {
     testingConsts.setupWorkspace();
 
     test("Get WPILib version", async function() {
-        assert.equal(await preferences.getWPILibVersion(), "2019.0.1");
+        assert.equal(await preferences.getWPILibVersion(), targetGradleRioVersion);
     });
   
     test("Set WPILib version", async function() {
