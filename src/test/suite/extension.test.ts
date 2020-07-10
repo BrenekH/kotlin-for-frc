@@ -1,5 +1,5 @@
 // import * as vscode from 'vscode';
-import * as kotlinExt from '../extension';
+import * as kotlinExt from '../../extension';
 // import * as compliance from '../compliance';
 // import * as commands from '../commands';
 // import * as file_generator from '../file_generator';

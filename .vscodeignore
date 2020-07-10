@@ -23,3 +23,9 @@ reset-testing-workspace.sh
 generate_changelog_html.bat
 
 *.vsix
+
+**/tsconfig.json
+**/.eslintrc.json
+**/*.map
+**/*.ts
+out/test/**

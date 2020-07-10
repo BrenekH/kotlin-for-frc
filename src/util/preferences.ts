@@ -48,7 +48,6 @@ async function loadPreferencesJson(): Promise<PreferencesJson> {
     var parsedJson: PreferencesJson;
     if (typeof vscode.workspace.workspaceFolders === 'undefined') {
         parsedJson = JSON.parse(defaultJson);
-        parsedJson.wpilib_version = "null";
         return parsedJson;
     }
     try {
