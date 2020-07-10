@@ -1,5 +1,11 @@
 # Kotlin for FRC Changelog
 
+## [2020.2.1](https://github.com/zPaw/kotlin-for-frc/tree/2020.2.1) (2020-02-22)
+
+**Implemented enhancements:**
+
+- Update to GradleRIO 2020.3.2
+
 ## [2020.1.1](https://github.com/zPaw/kotlin-for-frc/tree/2020.1.1) (2020-01-06)
 
 **Implemented enhancements:**
