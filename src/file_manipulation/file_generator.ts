@@ -13,9 +13,9 @@ export function createFileWithContent(name: string, content: string) {
   return filePath;
 }
 
-export function createFileWithContentAndFullPath(full_path: string, content: string) {
-    customfs.writeToFile(full_path, content);
-    return full_path;
+export function createFileWithContentAndFullPath(fullPath: string, content: string) {
+    customfs.writeToFile(fullPath, content);
+    return fullPath;
 }
 
 export async function showDocumentInViewer(filePath: string | undefined) {
@@ -35,10 +35,10 @@ export function generatePackage(filePath: any) {
     vscode.window.showErrorMessage("Kotlin for FRC: Could not auto detect package");
     return "frc.robot";
   }
-  var workspace_path = kotlinExt.getWorkspaceFolderPath();
-  var path_to_main_folder = workspace_path + "/src/main/kotlin/";
-  console.log(path_to_main_folder);
-  var package_string = filePath.path.replace(path_to_main_folder, "").replace(/\//g, ".");
-  console.log(package_string);
-  return package_string;
+  var workspacePath = kotlinExt.getWorkspaceFolderPath();
+  var pathToMainFolder = workspacePath + "/src/main/kotlin/";
+  console.log(pathToMainFolder);
+  var packageString = filePath.path.replace(pathToMainFolder, "").replace(/\//g, ".");
+  console.log(packageString);
+  return packageString;
 }

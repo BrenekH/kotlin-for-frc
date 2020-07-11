@@ -10,6 +10,17 @@ var currentWorkspacePath: string;
 var currentWorkspaceFsPath: string;
 export var telemetryWrapper: TelemetryWrapper;
 
+export function resetWorkspaceFolderPaths() {
+    if (typeof vscode.workspace.workspaceFolders === "undefined") {
+        console.log("Not a valid workspace");
+        vscode.window.showErrorMessage("Kotlin for FRC: Not a workspace!");
+        return;
+    }
+
+    currentWorkspacePath = vscode.workspace.workspaceFolders[0].uri.path;
+    currentWorkspaceFsPath = vscode.workspace.workspaceFolders[0].uri.fsPath;
+}
+
 export async function activate(context: vscode.ExtensionContext) {
     // Setting up current workspace
     resetWorkspaceFolderPaths();
@@ -60,15 +71,4 @@ export function setWorkspaceFolderFsPath(fsPath: string) {
 export function setWorkspaceFolderPathsFromUri(uri: vscode.Uri) {
     currentWorkspaceFsPath = uri.fsPath;
     currentWorkspacePath = uri.path;
-}
-
-export function resetWorkspaceFolderPaths() {
-    if (typeof vscode.workspace.workspaceFolders === "undefined") {
-        console.log("Not a valid workspace");
-        vscode.window.showErrorMessage("Kotlin for FRC: Not a workspace!");
-        return;
-    }
-
-    currentWorkspacePath = vscode.workspace.workspaceFolders[0].uri.path;
-    currentWorkspaceFsPath = vscode.workspace.workspaceFolders[0].uri.fsPath;
 }
