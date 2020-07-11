@@ -32,7 +32,7 @@ export async function activate(context: vscode.ExtensionContext) {
     // Compliance testing
     console.log("Compliance testing");
     if (await compliance.isFRCKotlinProject()) {
-        if (preferences.getRunComplianceTests()) {
+        if (await preferences.getRunComplianceTests()) {
             // * Check build.gradle
             if (!await compliance.isGradleRioVersionCompliant()) {
                 await compliance.makeGradleRioVersionCompliant();
