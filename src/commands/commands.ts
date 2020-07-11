@@ -8,10 +8,50 @@ import { setRunComplianceTests, createPreferencesJson } from "../util/preference
 import { createNew } from "./create_new";
 import { convertJavaProject, determineRobotType } from "./conversion";
 
+function showChangelog() { chnglog.showChangelog(); }
+
+async function forceCompliance() {
+	// Check build.gradle
+	if (!await compliance.isGradleRioVersionCompliant()) {
+		await compliance.makeGradleRioVersionCompliant();
+	}
+}
+
+function changeComplianceTestPref() {
+	vscode.window.showQuickPick(["Turn GradleRio Version Checks On", "Turn GradleRio Version Checks Off"]).then((option: any) => {
+		switch(option) {
+			case "Turn GradleRio Version Checks On":
+				setRunComplianceTests(true);
+				break;
+			case "Turn GradleRio Version Checks Off":
+				setRunComplianceTests(false);
+				break;
+			default:
+				return;
+		}
+	});
+}
+
+function toggleChangelog(context: vscode.ExtensionContext) {
+	var currentValue = context.globalState.get("toggleChangelog", true);
+	if (currentValue === true) {
+		context.globalState.update("toggleChangelog", false);
+		vscode.window.showInformationMessage("Kotlin for FRC: Turned auto-show changelog off.");
+	} else {
+		context.globalState.update("toggleChangelog", true);
+		vscode.window.showInformationMessage("Kotlin for FRC: Turned auto-show changelog on.");
+	}
+}
+
+function resetAutoShowChangelog(context: vscode.ExtensionContext) {
+	context.globalState.update("lastInitVersion", "0.0.0");
+	vscode.window.showInformationMessage("Kotlin for FRC: Auto-Show changelog reset.");
+}
+
 export async function registerCommands(context: vscode.ExtensionContext) {
-	let disposable = vscode.commands.registerCommand("kotlinforfrc.createNew", (file_path: any) => {
+	let disposable = vscode.commands.registerCommand("kotlinforfrc.createNew", (filePath: any) => {
         kotlinExt.telemetryWrapper.sendCommandRun("createNew");
-        createNew(file_path);
+        createNew(filePath);
     });
 
     context.subscriptions.push(disposable);
@@ -34,8 +74,9 @@ export async function registerCommands(context: vscode.ExtensionContext) {
         kotlinExt.telemetryWrapper.sendCommandRun("convertJavaProject");
         console.log("Reading Robot.java");
         // Check to make sure file paths are even there
+        var robotJava: string = "";
         try {
-            var robot_java: string = await customfs.readFile(kotlinExt.getWorkspaceFolderFsPath() + "/src/main/java/frc/robot/Robot.java");
+            robotJava = await customfs.readFile(kotlinExt.getWorkspaceFolderFsPath() + "/src/main/java/frc/robot/Robot.java");
         }
         catch (e) {
             console.log(e);
@@ -43,7 +84,7 @@ export async function registerCommands(context: vscode.ExtensionContext) {
             return;
         }
         
-        convertJavaProject(determineRobotType(robot_java));
+        convertJavaProject(determineRobotType(robotJava));
 
         createPreferencesJson();
     });
@@ -70,44 +111,4 @@ export async function registerCommands(context: vscode.ExtensionContext) {
     });
 
     context.subscriptions.push(disposable);
-}
-
-async function forceCompliance() {
-	// * Check build.gradle
-	if (!await compliance.isGradleRioVersionCompliant()) {
-		await compliance.makeGradleRioVersionCompliant();
-	}
-}
-
-function changeComplianceTestPref() {
-	vscode.window.showQuickPick(["Turn GradleRio Version Checks On", "Turn GradleRio Version Checks Off"]).then((option: any) => {
-		switch(option) {
-			case "Turn GradleRio Version Checks On":
-				setRunComplianceTests(true);
-				break;
-			case "Turn GradleRio Version Checks Off":
-				setRunComplianceTests(false);
-				break;
-			default:
-				return;
-		}
-	});
-}
-
-function showChangelog() { chnglog.showChangelog(); }
-
-function toggleChangelog(context: vscode.ExtensionContext) {
-	var currentValue = context.globalState.get("toggleChangelog", true);
-	if (currentValue === true) {
-		context.globalState.update("toggleChangelog", false);
-		vscode.window.showInformationMessage("Kotlin for FRC: Turned auto-show changelog off.");
-	} else {
-		context.globalState.update("toggleChangelog", true);
-		vscode.window.showInformationMessage("Kotlin for FRC: Turned auto-show changelog on.");
-	}
-}
-
-function resetAutoShowChangelog(context: vscode.ExtensionContext) {
-	context.globalState.update("lastInitVersion", "0.0.0");
-	vscode.window.showInformationMessage("Kotlin for FRC: Auto-Show changelog reset.");
 }
