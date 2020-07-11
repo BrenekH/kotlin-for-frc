@@ -49,49 +49,122 @@ import { RobotBaseSkeleton } from './frc-kotlin/robotbase-skeleton/Robot';
 
 export enum templateType {
     // Old command based templates
-    old_subsystem = "Old Subsystem",
-    old_command = "Old Command",
-    old_command_group = "Old Command Group",
-    old_instant_command = "Old Instant Command",
-    old_timed_command = "Old Timed Command",
-    old_pid_subsystem = "Old PID Subsystem",
-    old_trigger = "Old Trigger",
-    old_robot = "Old Command Based Robot",
-    old_oi = "Old OI",
-    old_robot_map = "Old Robot Map",
+    oldSubsystem = "Old Subsystem",
+    oldCommand = "Old Command",
+    oldCommandGroup = "Old Command Group",
+    oldInstantCommand = "Old Instant Command",
+    oldTimedCommand = "Old Timed Command",
+    oldPIDSubsystem = "Old PID Subsystem",
+    oldTrigger = "Old Trigger",
+    oldRobot = "Old Command Based Robot",
+    oldOI = "Old OI",
+    oldRobotMap = "Old Robot Map",
     
     // Command based templates
     // General
     robot = "Command Based Robot",
     constants = "Constants",
-    robot_container = "Robot Container",
+    robotContainer = "Robot Container",
     // Commands
     command = "Command",
-    instant_command = "Instant Command",
-    parallel_command_group = "Parallel Command Group",
-    parallel_deadline_group = "Parallel Deadline Group",
-    parallel_race_group = "Parallel Race Group",
-    pid_command = "PID Command",
-    profiled_pid_command = "Profiled PID Command",
-    sequential_command_group = "Sequential Command Group",
-    trapezoid_profile_command = "Trapezoid Profile Command",
+    instantCommand = "Instant Command",
+    parallelCommandGroup = "Parallel Command Group",
+    parallelDeadlineGroup = "Parallel Deadline Group",
+    parallelRaceGroup = "Parallel Race Group",
+    PIDCommand = "PID Command",
+    profiledPIDCommand = "Profiled PID Command",
+    sequentialCommandGroup = "Sequential Command Group",
+    trapezoidProfileCommand = "Trapezoid Profile Command",
     // Subsystems
     subsystem = "Subsystem",
-    pid_subsystem = "PID Subsystem",
-    profiled_pid_subsystem = "Profiled PID Subsystem",
-    trapezoid_profile_subsystem = "Trapezoid Profile Subsystem",
+    PIDSubsystem = "PID Subsystem",
+    profiledPIDSubsystem = "Profiled PID Subsystem",
+    trapezoidProfileSubsystem = "Trapezoid Profile Subsystem",
 
     // Misc templates
-    empty_class = "Empty Class",
-    build_gradle = "build.gradle",
+    emptyClass = "Empty Class",
+    buildGradle = "build.gradle",
 }
 
 export enum robotType {
     command = "command",
-    old_command = "old_command",
+    oldCommand = "old_command",
     timed = "timed",
-    timed_skeleton = "timed_skeleton",
-    robot_base_skeleton = "robot_base_skeleton",
+    timedSkeleton = "timed_skeleton",
+    robotBaseSkeleton = "robot_base_skeleton",
+}
+
+export function getTemplateObjectFromTemplateType(targetTemplateType: templateType) {
+    switch(targetTemplateType) {
+        // Old Command Based
+        case templateType.oldRobot:
+            return new OldCommandRobotTemplate();
+        case templateType.oldOI:
+            return new OldCommandOITemplate();
+        case templateType.oldRobotMap:
+            return new OldCommandRobotMapTemplate();
+        case templateType.oldSubsystem:
+            return new OldCommandSubsystemTemplate();
+        case templateType.oldCommand:
+            return new OldCommandTemplate();
+        case templateType.oldCommandGroup:
+            return new OldCommandGroupTemplate();
+        case templateType.oldPIDSubsystem:
+            return new OldCommandPIDSubsystemTemplate();
+        case templateType.oldInstantCommand:
+            return new OldCommandInstantCommandTemplate();
+        case templateType.oldTimedCommand:
+            return new OldCommandTimedCommandTemplate();
+        case templateType.oldTrigger:
+            return new OldCommandTriggerTemplate();
+        
+        // Command based
+        // General
+        case templateType.robot:
+            return new CommandRobotTemplate();
+        case templateType.robotContainer:
+            return new CommandRobotContainerTemplate();
+        case templateType.constants:
+            return new CommandConstantsTemplate();
+        // Commands
+        case templateType.command:
+            return new CommandTemplate();
+        case templateType.instantCommand:
+            return new InstantCommandTemplate();
+        case templateType.parallelCommandGroup:
+            return new ParallelCommandGroupTemplate();
+        case templateType.parallelDeadlineGroup:
+            return new ParallelDeadlineGroupTemplate();
+        case templateType.parallelRaceGroup:
+            return new ParallelRaceGroupTemplate();
+        case templateType.PIDCommand:
+            return new PIDCommandTemplate();
+        case templateType.profiledPIDCommand:
+            return new ProfiledPIDCommandTemplate();
+        case templateType.sequentialCommandGroup:
+            return new SequentialCommandGroupTemplate();
+        case templateType.trapezoidProfileCommand:
+            return new TrapezoidProfileCommandTemplate();
+        // Subsystems
+        case templateType.subsystem:
+            return new CommandSubsystemTemplate();
+        case templateType.PIDSubsystem:
+            return new PIDSubsystemTemplate();
+        case templateType.profiledPIDSubsystem:
+            return new ProfiledPIDSubsystemTemplate();
+        case templateType.trapezoidProfileSubsystem:
+            return new TrapezoidProfileSubsystemTemplate();
+
+        // Misc
+        case templateType.buildGradle:
+            return new BuildGradleTemplate();
+        case templateType.emptyClass:
+            return new EmptyClassTemplate();
+    }
+}
+
+export function parseForClassName(className: string, toParse: string) {
+    return toParse.replace(/#{NAME}/gi, className);
 }
 
 export function parseTemplate(className: string, packageName: string, templatetype: templateType) {
@@ -100,89 +173,16 @@ export function parseTemplate(className: string, packageName: string, templatety
     return parseForClassName(className, parseForPackageName(packageName, rawTemplateData));
 }
 
-export function getParsedGradle() {
-    return parseForGradleRioVersion(targetGradleRioVersion, getTemplateObjectFromTemplateType(templateType.build_gradle).getText());
-}
-
-export function parseForClassName(className: string, toParse: string) {
-    return toParse.replace(/#{NAME}/gi, className);
-}
-
-export function parseForPackageName(packageName: string, toParse: string) {
-    return toParse.replace(/#{PACKAGE}/gi, packageName);
-}
-
 export function parseForGradleRioVersion(gradleRioVersion: string, toParse: string) {
     return toParse.replace(/#{GRADLE_RIO_VERSION}/gi, gradleRioVersion);
 }
 
-export function getTemplateObjectFromTemplateType(targetTemplateType: templateType) {
-    switch(targetTemplateType) {
-        // Old Command Based
-        case templateType.old_robot:
-            return new OldCommandRobotTemplate();
-        case templateType.old_oi:
-            return new OldCommandOITemplate();
-        case templateType.old_robot_map:
-            return new OldCommandRobotMapTemplate();
-        case templateType.old_subsystem:
-            return new OldCommandSubsystemTemplate();
-        case templateType.old_command:
-            return new OldCommandTemplate();
-        case templateType.old_command_group:
-            return new OldCommandGroupTemplate();
-        case templateType.old_pid_subsystem:
-            return new OldCommandPIDSubsystemTemplate();
-        case templateType.old_instant_command:
-            return new OldCommandInstantCommandTemplate();
-        case templateType.old_timed_command:
-            return new OldCommandTimedCommandTemplate();
-        case templateType.old_trigger:
-            return new OldCommandTriggerTemplate();
-        
-        // Command based
-        // General
-        case templateType.robot:
-            return new CommandRobotTemplate();
-        case templateType.robot_container:
-            return new CommandRobotContainerTemplate();
-        case templateType.constants:
-            return new CommandConstantsTemplate();
-        // Commands
-        case templateType.command:
-            return new CommandTemplate();
-        case templateType.instant_command:
-            return new InstantCommandTemplate();
-        case templateType.parallel_command_group:
-            return new ParallelCommandGroupTemplate();
-        case templateType.parallel_deadline_group:
-            return new ParallelDeadlineGroupTemplate();
-        case templateType.parallel_race_group:
-            return new ParallelRaceGroupTemplate();
-        case templateType.pid_command:
-            return new PIDCommandTemplate();
-        case templateType.profiled_pid_command:
-            return new ProfiledPIDCommandTemplate();
-        case templateType.sequential_command_group:
-            return new SequentialCommandGroupTemplate();
-        case templateType.trapezoid_profile_command:
-            return new TrapezoidProfileCommandTemplate();
-        // Subsystems
-        case templateType.subsystem:
-            return new CommandSubsystemTemplate();
-        case templateType.pid_subsystem:
-            return new PIDSubsystemTemplate();
-        case templateType.profiled_pid_subsystem:
-            return new ProfiledPIDSubsystemTemplate();
-        case templateType.trapezoid_profile_subsystem:
-            return new TrapezoidProfileSubsystemTemplate();
+export function getParsedGradle() {
+    return parseForGradleRioVersion(targetGradleRioVersion, getTemplateObjectFromTemplateType(templateType.buildGradle).getText());
+}
 
-        // Misc
-        case templateType.build_gradle:
-            return new BuildGradleTemplate();
-        case templateType.empty_class:
-            return new EmptyClassTemplate();
-    }
+export function parseForPackageName(packageName: string, toParse: string) {
+    return toParse.replace(/#{PACKAGE}/gi, packageName);
 }
 
 export function getTemplateObjectFromRobotType(targetRobotType: robotType) {
@@ -191,11 +191,11 @@ export function getTemplateObjectFromRobotType(targetRobotType: robotType) {
             return new TimedRobotTemplate();
         case robotType.command:
             return new CommandRobotTemplate();
-        case robotType.old_command:
+        case robotType.oldCommand:
             return new OldCommandRobotTemplate();
-        case robotType.timed_skeleton:
+        case robotType.timedSkeleton:
             return new TimedRobotSkeletonTemplate();
-        case robotType.robot_base_skeleton:
+        case robotType.robotBaseSkeleton:
             return new RobotBaseSkeleton();
     }
 }

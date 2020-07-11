@@ -15,6 +15,13 @@ export async function isGradleRioVersionCompliant(): Promise<boolean> {
     return false;
 }
 
+export async function updateGradleRioVersion() {
+    var re = /id \"edu.wpi.first.GradleRIO\" version \".+\"/gi;
+    var fileContent = await customfs.readFile(kotlinExt.getWorkspaceFolderFsPath() + "/build.gradle");
+    var replacementString = `id "edu.wpi.first.GradleRIO" version "${targetGradleRioVersion}"`;
+    createFileWithContent("build.gradle", fileContent.replace(re, replacementString));
+}
+
 export async function makeGradleRioVersionCompliant() {
     console.log("Forcing build.gradle compliance");
     await updateGradleRioVersion();
@@ -24,11 +31,4 @@ export async function makeGradleRioVersionCompliant() {
 
 export async function isFRCKotlinProject(): Promise<Boolean> {
     return await customfs.exists(kotlinExt.getWorkspaceFolderFsPath() + "/src/main/kotlin/frc/robot/Robot.kt");
-}
-
-export async function updateGradleRioVersion() {
-    var re = /id \"edu.wpi.first.GradleRIO\" version \".+\"/gi;
-    var fileContent = await customfs.readFile(kotlinExt.getWorkspaceFolderFsPath() + "/build.gradle");
-    var replacementString = `id "edu.wpi.first.GradleRIO" version "${targetGradleRioVersion}"`;
-    createFileWithContent("build.gradle", fileContent.replace(re, replacementString));
 }

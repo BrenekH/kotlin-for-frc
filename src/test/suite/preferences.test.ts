@@ -13,7 +13,7 @@ import * as testingConsts from "./testingConstants";
 import { targetGradleRioVersion } from "../../constants";
 
 const sleep = (milliseconds: number) => {
-    return new Promise(resolve => setTimeout(resolve, milliseconds));
+    return new Promise((resolve) => setTimeout(resolve, milliseconds));
 };
 
 suite("Preferences API", function () {
@@ -31,7 +31,7 @@ suite("Preferences API", function () {
       await sleep(100);
   
       var fileContents = fs.readFileSync(filePath, 'utf-8');
-      assert.equal(fileContents, `{"wpilib_version":"2019.2.1","run_compliance_tests":true}`);
+      assert.equal(fileContents, `{"wpilibVersion":"2019.2.1","runComplianceTests":true}`);
       
       await preferences.setWPILibVersion(targetGradleRioVersion);
     });
@@ -48,7 +48,7 @@ suite("Preferences API", function () {
         await sleep(100);
 
         var fileContents = fs.readFileSync(filePath, "utf-8");
-        assert.equal(fileContents, `{"wpilib_version":"${targetGradleRioVersion}","run_compliance_tests":false}`);
+        assert.equal(fileContents, `{"wpilibVersion":"${targetGradleRioVersion}","runComplianceTests":false}`);
         
         await preferences.setRunComplianceTests(true);
     });
