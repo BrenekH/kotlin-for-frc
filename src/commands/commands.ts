@@ -7,6 +7,7 @@ import * as kotlinExt from "../extension";
 import { setRunComplianceTests, createPreferencesJson } from "../util/preferences";
 import { createNew } from "./create_new";
 import { convertJavaProject, determineRobotType } from "./conversion";
+import { getLatestGradleRioVersion } from "../gradlerioversion";
 
 function showChangelog() { chnglog.showChangelog(); }
 
@@ -110,5 +111,19 @@ export async function registerCommands(context: vscode.ExtensionContext) {
         resetAutoShowChangelog(context);
     });
 
+    context.subscriptions.push(disposable);
+
+    disposable = vscode.commands.registerCommand("kotlinforfrc.gradlerioversion", async () => {
+        console.log(await getLatestGradleRioVersion(context));
+    });
+
+    context.subscriptions.push(disposable);
+
+    disposable = vscode.commands.registerCommand("kotlinforfrc.resetgradleriocache", async () => {
+        await context.globalState.update("latestGradleRioVersion", "");
+        await context.globalState.update("lastGradleRioVersionUpdateTime", 0);
+        console.log("reset gradle rio cache");
+    });
+    
     context.subscriptions.push(disposable);
 }

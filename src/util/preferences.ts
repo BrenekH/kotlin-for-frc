@@ -2,9 +2,8 @@
 import * as vscode from 'vscode';
 import * as kotlinExt from "../extension";
 import * as customfs from "../file_manipulation/file_system";
-import { targetGradleRioVersion } from "../constants";
 
-var defaultJson = `{"wpilibVersion": "${targetGradleRioVersion}", "runComplianceTests": true}`;
+var defaultJson = `{"runComplianceTests": true}`;
 
 interface PreferencesJson {
     wpilibVersion: string;
@@ -44,21 +43,10 @@ async function loadPreferencesJson(): Promise<PreferencesJson> {
     return parsedJson;
 }
 
-export async function setWPILibVersion(version: string) {
-    let parsedJson = await loadPreferencesJson();
-    parsedJson.wpilibVersion = version;
-    savePreferencesJson(parsedJson);
-}
-
 export async function setRunComplianceTests(value: boolean) {
     let parsedJson = await loadPreferencesJson();
     parsedJson.runComplianceTests = value;
     savePreferencesJson(parsedJson);
-}
-
-export async function getWPILibVersion(): Promise<string> {
-    let parsedJson = await loadPreferencesJson();
-    return parsedJson.wpilibVersion;
 }
 
 export async function getRunComplianceTests(): Promise<boolean> {

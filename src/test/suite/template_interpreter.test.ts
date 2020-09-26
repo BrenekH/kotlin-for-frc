@@ -9,7 +9,6 @@ import * as templateInterpreter from '../../templates/template_interpreter';
 // import * as path from "path";
 // import * as fs from 'fs';
 import * as testingConsts from "./testingConstants";
-import * as consts from "../../constants";
 import { MainTemplate } from '../../templates/frc-kotlin/Main';
 import { BuildGradleTemplate } from '../../templates/frc-kotlin/BuildGradle';
 import { OldCommandSubsystemTemplate } from '../../templates/frc-kotlin/old-command-based/subsystems/SubsystemTemplate';
@@ -122,7 +121,7 @@ suite("Template Parsing", function() {
     });
 
     test("GradleRio Version Parsing - Basic", function() {
-        assert.equal(`The current GradleRIO Version is: ${consts.targetGradleRioVersion}`, templateInterpreter.parseForGradleRioVersion(consts.targetGradleRioVersion, "The current GradleRIO Version is: #{GRADLE_RIO_VERSION}"));
+        assert.equal(`The current GradleRIO Version is: 2020.0.0`, templateInterpreter.parseForGradleRioVersion("2020.0.0", "The current GradleRIO Version is: #{GRADLE_RIO_VERSION}"));
     });
 
     test("Template Type Parsing", function() {

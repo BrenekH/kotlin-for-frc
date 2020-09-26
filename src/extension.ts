@@ -1,7 +1,9 @@
 "use strict";
 import * as vscode from "vscode";
+import * as semver from "semver";
 import * as preferences from "./util/preferences";
 import * as compliance from "./util/compliance";
+import * as grv from "./gradlerioversion";
 import { displayChangelog } from './util/changelog';
 import { registerCommands } from "./commands/commands";
 import { TelemetryWrapper } from "./telemetry";
@@ -9,6 +11,7 @@ import { TelemetryWrapper } from "./telemetry";
 var currentWorkspacePath: string;
 var currentWorkspaceFsPath: string;
 export var telemetryWrapper: TelemetryWrapper;
+var validLatestGradleRioVersion: string;
 
 export function resetWorkspaceFolderPaths() {
     if (typeof vscode.workspace.workspaceFolders === "undefined") {
@@ -45,6 +48,19 @@ export async function activate(context: vscode.ExtensionContext) {
 
     // Instantiate the telemetryWrapper
     telemetryWrapper = new TelemetryWrapper();
+
+    // Setup the latest valid version of GradleRIO
+    const latestVersion = await grv.getLatestGradleRioVersion(context);
+    const currentVersion = await grv.getCurrentGradleRioVersion();
+
+    console.log(`GradleRIO latestVersion: ${latestVersion}; currentVersion ${currentVersion}`);
+
+    if (latestVersion !== currentVersion && semver.parse(latestVersion)?.major === semver.parse(currentVersion)?.major) {
+        validLatestGradleRioVersion = latestVersion;
+    } else {
+        validLatestGradleRioVersion = currentVersion;
+    }
+    console.log(`Valid Latest GradleRIO Version: ${validLatestGradleRioVersion}`);
 }
 
 // this method is called when your extension is deactivated
@@ -71,4 +87,8 @@ export function setWorkspaceFolderFsPath(fsPath: string) {
 export function setWorkspaceFolderPathsFromUri(uri: vscode.Uri) {
     currentWorkspaceFsPath = uri.fsPath;
     currentWorkspacePath = uri.path;
+}
+
+export function getValidLatestGradleRioVersion() {
+    return validLatestGradleRioVersion;
 }

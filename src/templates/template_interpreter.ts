@@ -1,5 +1,4 @@
-// Constants
-import { targetGradleRioVersion } from '../constants';
+import * as kotlinExt from "../extension";
 
 // All Robot types
 import { MainTemplate } from './frc-kotlin/Main';
@@ -178,7 +177,7 @@ export function parseForGradleRioVersion(gradleRioVersion: string, toParse: stri
 }
 
 export function getParsedGradle() {
-    return parseForGradleRioVersion(targetGradleRioVersion, getTemplateObjectFromTemplateType(templateType.buildGradle).getText());
+    return parseForGradleRioVersion(kotlinExt.getValidLatestGradleRioVersion(), getTemplateObjectFromTemplateType(templateType.buildGradle).getText());
 }
 
 export function parseForPackageName(packageName: string, toParse: string) {

@@ -10,7 +10,6 @@ import * as preferences from '../../util/preferences';
 import * as fs from 'fs';
 // import * as customfs from "../file_manipulation/file_system";
 import * as testingConsts from "./testingConstants";
-import { targetGradleRioVersion } from "../../constants";
 
 const sleep = (milliseconds: number) => {
     return new Promise((resolve) => setTimeout(resolve, milliseconds));
@@ -19,37 +18,37 @@ const sleep = (milliseconds: number) => {
 suite("Preferences API", function () {
     testingConsts.setupWorkspace();
 
-    test("Get WPILib version", async function() {
-        assert.equal(await preferences.getWPILibVersion(), targetGradleRioVersion);
-    });
+    // test("Get WPILib version", async function() {
+    //     assert.equal(await preferences.getWPILibVersion(), targetGradleRioVersion);
+    // });
   
-    test("Set WPILib version", async function() {
-      var filePath = kotlinExt.getWorkspaceFolderFsPath() + "/.kotlin-for-frc/kotlin-frc-preferences.json";
+    // test("Set WPILib version", async function() {
+    //   var filePath = kotlinExt.getWorkspaceFolderFsPath() + "/.kotlin-for-frc/kotlin-frc-preferences.json";
           
-      await preferences.setWPILibVersion("2019.2.1");
+    //   await preferences.setWPILibVersion("2019.2.1");
 
-      await sleep(100);
+    //   await sleep(100);
   
-      var fileContents = fs.readFileSync(filePath, 'utf-8');
-      assert.equal(fileContents, `{"wpilibVersion":"2019.2.1","runComplianceTests":true}`);
+    //   var fileContents = fs.readFileSync(filePath, 'utf-8');
+    //   assert.equal(fileContents, `{"wpilibVersion":"2019.2.1","runComplianceTests":true}`);
       
-      await preferences.setWPILibVersion(targetGradleRioVersion);
-    });
+    //   await preferences.setWPILibVersion(targetGradleRioVersion);
+    // });
     
-    test("Get Run Compliance Test", async function() {
-        assert.equal(await preferences.getRunComplianceTests(), true);
-    });
+    // test("Get Run Compliance Test", async function() {
+    //     assert.equal(await preferences.getRunComplianceTests(), true);
+    // });
 
-    test("Set Run Compliance Tests", async function() {
-        var filePath = kotlinExt.getWorkspaceFolderFsPath() + "/.kotlin-for-frc/kotlin-frc-preferences.json";
+    // test("Set Run Compliance Tests", async function() {
+    //     var filePath = kotlinExt.getWorkspaceFolderFsPath() + "/.kotlin-for-frc/kotlin-frc-preferences.json";
         
-        await preferences.setRunComplianceTests(false);
+    //     await preferences.setRunComplianceTests(false);
 
-        await sleep(100);
+    //     await sleep(100);
 
-        var fileContents = fs.readFileSync(filePath, "utf-8");
-        assert.equal(fileContents, `{"wpilibVersion":"${targetGradleRioVersion}","runComplianceTests":false}`);
+    //     var fileContents = fs.readFileSync(filePath, "utf-8");
+    //     assert.equal(fileContents, `{"wpilibVersion":"${targetGradleRioVersion}","runComplianceTests":false}`);
         
-        await preferences.setRunComplianceTests(true);
-    });
+    //     await preferences.setRunComplianceTests(true);
+    // });
 });
