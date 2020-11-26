@@ -58,7 +58,7 @@ export class DummyTemplate {
 }
 
 export class IntegratedTemplateProvider {
-	getTemplateObject(targetTemplateType: templateType): ITemplate {
+	getTemplateObject(targetTemplateType: templateType): ITemplate | null {
 		switch(targetTemplateType) {
 			// Old Command Based
 			case templateType.oldRobot:
@@ -124,6 +124,10 @@ export class IntegratedTemplateProvider {
 				return new BuildGradleTemplate();
 			case templateType.emptyClass:
 				return new EmptyClassTemplate();
+
+			// Default case should never run because the Integrated Template Provider is the fail safe
+			default:
+				return null;
 		}
 	}
 }
