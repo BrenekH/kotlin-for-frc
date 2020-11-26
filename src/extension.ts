@@ -7,7 +7,7 @@ import * as grv from "./gradlerioversion";
 import { displayChangelog } from './util/changelog';
 import { registerCommands } from "./commands/commands";
 import { TelemetryWrapper } from "./telemetry";
-import { ITemplateProvider, DummyTemplateProvider } from "./templates/template_provider";
+import { ITemplateProvider, DummyTemplateProvider, IntegratedTemplateProvider } from "./templates/template_provider";
 
 var currentWorkspacePath: string;
 var currentWorkspaceFsPath: string;
@@ -15,7 +15,7 @@ var validLatestGradleRioVersion: string;
 export var telemetryWrapper: TelemetryWrapper;
 export const localTemplateProvider: ITemplateProvider = new DummyTemplateProvider();
 export const globalTemplateProvider: ITemplateProvider = new DummyTemplateProvider();
-export const integratedTemplateProvider: ITemplateProvider = new DummyTemplateProvider();
+export const integratedTemplateProvider: ITemplateProvider = new IntegratedTemplateProvider();
 
 export function resetWorkspaceFolderPaths() {
     if (typeof vscode.workspace.workspaceFolders === "undefined") {

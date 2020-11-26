@@ -1,4 +1,6 @@
-import { templateType } from "./template_interpreter";
+import * as vscode from "vscode";
+import * as kotlinExt from "../extension";
+import { parseStringToTemplateType, templateType } from "./template_interpreter";
 
 // All Robot types
 import { BuildGradleTemplate } from './frc-kotlin/BuildGradle';
@@ -39,7 +41,7 @@ import { OldCommandRobotTemplate } from './frc-kotlin/old-command-based/Robot';
 import { OldCommandTemplate } from './frc-kotlin/old-command-based/commands/CommandTemplate';
 
 export interface ITemplateProvider {
-	getTemplateObject(targetTemplateType: templateType): ITemplate | null;
+	getTemplateObject(targetTemplateType: templateType): Promise<ITemplate | null>;
 }
 
 export interface ITemplate {
@@ -47,7 +49,7 @@ export interface ITemplate {
 }
 
 export class DummyTemplateProvider {
-	getTemplateObject(targetTemplateType: templateType): ITemplate | null {
+	async getTemplateObject(targetTemplateType: templateType): Promise<ITemplate | null> {
 		return null;
 	}
 }
@@ -56,8 +58,35 @@ export class DummyTemplate {
 	text = "";
 }
 
+export class LocalTemplateProvider {
+	relativePath: string = ".kfftemplates";
+	validFileExtension: string = "kfftemplate";
+	async getTemplateObject(targetTemplateType: templateType): Promise<ITemplate | null> {
+		let pathToSearch = vscode.Uri.file(kotlinExt.getWorkspaceFolderFsPath() + this.relativePath);
+		let filesFound: Array<string> = [];
+		let values = await vscode.workspace.fs.readDirectory(pathToSearch);
+		// then((values: [string, vscode.FileType][]) => {
+		// 	values.forEach((value: [string, vscode.FileType]) => {
+		// 		if (value[1] === vscode.FileType.File) {
+		// 			let temp: string | undefined = value[0]?.split('\\')?.pop()?.split('/')?.pop();
+		// 			let fileNameWithExtension: string = (temp === undefined) ? "" : temp;
+		// 			let splitArray = fileNameWithExtension.split(".");
+		// 			let fileExtension = splitArray[splitArray.length - 1];
+		// 			if (fileExtension === this.validFileExtension) {
+		// 				let parsedType = parseStringToTemplateType(splitArray[0]);
+		// 				if (parsedType === targetTemplateType) {
+		// 					// TODO: Return the contents of value[0](the file) and return a ITemplate interface compliant object
+		// 				}
+		// 			}
+		// 		}
+		// 	});
+		// });
+		return null;
+	}
+}
+
 export class IntegratedTemplateProvider {
-	getTemplateObject(targetTemplateType: templateType): ITemplate | null {
+	async getTemplateObject(targetTemplateType: templateType): Promise<ITemplate | null> {
 		switch(targetTemplateType) {
 			// Old Command Based
 			case templateType.oldRobot:

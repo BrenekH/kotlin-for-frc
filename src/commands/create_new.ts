@@ -16,7 +16,7 @@ export function parseAndSaveTemplateToDocument(filePath: any, packageName: strin
 		var userData = value;
 		var workspaceFolderPath = kotlinExt.getWorkspaceFolderFsPath();
 		var pathToPass = filePath.fsPath.replace(workspaceFolderPath, "");
-		filegenerator.showDocumentInViewer(filegenerator.createFileWithContent(pathToPass + "/" + userData + ".kt", templateinterpreter.parseTemplate(userData, packageName, templateType)));
+		templateinterpreter.parseTemplate(userData, packageName, templateType).then((value: string) => { filegenerator.showDocumentInViewer(filegenerator.createFileWithContent(pathToPass + "/" + userData + ".kt", value)); });
 	});
 }
 

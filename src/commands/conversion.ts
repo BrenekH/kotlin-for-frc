@@ -7,6 +7,7 @@ import * as kotlinExt from "../extension";
 import { templateType, robotType, getTemplateObjectFromRobotType,
 		getTemplateObjectFromTemplateType, parseTemplate,
 		getParsedGradle, getMainTemplateObject } from "../templates/template_interpreter";
+import { ITemplate } from "../templates/template_provider";
 
 export function determineRobotType(robotJava: string) {
 	var currentRobotType: robotType = robotType.timed;
@@ -38,11 +39,11 @@ export function determineRobotType(robotJava: string) {
 }
 
 function createBuildGradle() {
-	filegenerator.createFileWithContent("build.gradle", getParsedGradle());
+	getParsedGradle().then((value: string) => { filegenerator.createFileWithContent("build.gradle", value); });
 }
 
 function createMainKt() {
-	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/Main.kt", getMainTemplateObject().getText());
+	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/Main.kt", getMainTemplateObject().text);
 }
 
 function createMainKtAndBuildGradle() {
@@ -51,17 +52,17 @@ function createMainKtAndBuildGradle() {
 }
 
 function convertTimed() {
-	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/Robot.kt", getTemplateObjectFromRobotType(robotType.timed).getText());
+	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/Robot.kt", getTemplateObjectFromRobotType(robotType.timed).text);
 	createMainKtAndBuildGradle();
 }
 
 function convertTimedSkeleton() {
-	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/Robot.kt", getTemplateObjectFromRobotType(robotType.timedSkeleton).getText());
+	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/Robot.kt", getTemplateObjectFromRobotType(robotType.timedSkeleton).text);
 	createMainKtAndBuildGradle();
 }
 
 function convertRobotBaseSkeleton() {
-	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/Robot.kt", getTemplateObjectFromRobotType(robotType.robotBaseSkeleton).getText());
+	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/Robot.kt", getTemplateObjectFromRobotType(robotType.robotBaseSkeleton).text);
 	createMainKtAndBuildGradle();
 }
 
@@ -74,14 +75,14 @@ async function convertCommand() {
 	}
 
 	// Static files(don't need any name changes)
-	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/Robot.kt", getTemplateObjectFromTemplateType(templateType.robot).getText());
-	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/Constants.kt", getTemplateObjectFromTemplateType(templateType.constants).getText());
-	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/RobotContainer.kt", getTemplateObjectFromTemplateType(templateType.robotContainer).getText());
+	getTemplateObjectFromTemplateType(templateType.robot).then((value: ITemplate) => { filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/Robot.kt", value.text); });
+	getTemplateObjectFromTemplateType(templateType.constants).then((value: ITemplate) => { filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/Constants.kt", value.text); });
+	getTemplateObjectFromTemplateType(templateType.robotContainer).then((value: ITemplate) => { filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/RobotContainer.kt", value.text); });
 	createMainKtAndBuildGradle();
 	
 	// Dynamic files(need name changes)
-	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/commands/ExampleCommand.kt", parseTemplate("ExampleCommand", "frc.robot.commands", templateType.command));
-	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/subsystems/ExampleSubsystem.kt", parseTemplate("ExampleSubsystem", "frc.robot.subsystems", templateType.subsystem));
+	parseTemplate("ExampleCommand", "frc.robot.commands", templateType.command).then((value: string) => { filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/commands/ExampleCommand.kt", value); });
+	parseTemplate("ExampleSubsystem", "frc.robot.subsystems", templateType.subsystem).then((value: string) => {  filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/subsystems/ExampleSubsystem.kt", value); });
 }
 
 async function convertOldCommand() {
@@ -93,14 +94,14 @@ async function convertOldCommand() {
 	}
 
 	// Static files(don't need any name changes)
-	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/Robot.kt", getTemplateObjectFromTemplateType(templateType.oldRobot).getText());
-	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/RobotMap.kt", getTemplateObjectFromTemplateType(templateType.oldRobotMap).getText());
-	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/OI.kt", getTemplateObjectFromTemplateType(templateType.oldOI).getText());
+	getTemplateObjectFromTemplateType(templateType.oldRobot).then((value: ITemplate) => { filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/Robot.kt", value.text); });
+	getTemplateObjectFromTemplateType(templateType.oldRobotMap).then((value: ITemplate) => { filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/RobotMap.kt", value.text); });
+	getTemplateObjectFromTemplateType(templateType.oldOI).then((value: ITemplate) => { filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/OI.kt", value.text); });
 	createMainKtAndBuildGradle();
 	
 	// Dynamic files(need name changes)
-	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/commands/ExampleCommand.kt", parseTemplate("ExampleCommand", "frc.robot.commands", templateType.oldCommand));
-	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/subsystems/ExampleSubsystem.kt", parseTemplate("ExampleSubsystem", "frc.robot.subsystems", templateType.oldSubsystem));
+	parseTemplate("ExampleCommand", "frc.robot.commands", templateType.oldCommand).then((value: string) => { filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/commands/ExampleCommand.kt", value); });
+	parseTemplate("ExampleSubsystem", "frc.robot.subsystems", templateType.oldSubsystem).then((value: string) => { filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/subsystems/ExampleSubsystem.kt", value); });
 }
 
 export function convertJavaProject(currentRobotType: robotType) {

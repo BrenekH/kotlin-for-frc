@@ -9,6 +9,7 @@ import * as templateInterpreter from '../../templates/template_interpreter';
 // import * as path from "path";
 // import * as fs from 'fs';
 import * as testingConsts from "./testingConstants";
+import { ITemplate } from "../../templates/template_provider";
 import { MainTemplate } from '../../templates/frc-kotlin/Main';
 import { BuildGradleTemplate } from '../../templates/frc-kotlin/BuildGradle';
 import { OldCommandSubsystemTemplate } from '../../templates/frc-kotlin/old-command-based/subsystems/SubsystemTemplate';
@@ -31,76 +32,76 @@ suite("Grabbing Templates", function () {
         assert.equal(templateInterpreter.getMainTemplateObject().text, mainTemplate.text);
     });
 
-    test("build.gradle", function() {
+    test("build.gradle", async function() {
         testingConsts.resetTestingWorkspace();
         var buildGradleTemplate = new BuildGradleTemplate;
-        assert.equal(templateInterpreter.getTemplateObjectFromTemplateType(templateInterpreter.templateType.buildGradle).text, buildGradleTemplate.text);
+        assert.equal((await templateInterpreter.getTemplateObjectFromTemplateType(templateInterpreter.templateType.buildGradle)).text, buildGradleTemplate.text);
     });
 
-    test("Subsystem", function() {
+    test("Subsystem", async function() {
         testingConsts.resetTestingWorkspace();
         var subsystemTemplate = new OldCommandSubsystemTemplate;
-        assert.equal(templateInterpreter.getTemplateObjectFromTemplateType(templateInterpreter.templateType.oldSubsystem).text, subsystemTemplate.text);
+        assert.equal((await templateInterpreter.getTemplateObjectFromTemplateType(templateInterpreter.templateType.oldSubsystem)).text, subsystemTemplate.text);
     });
 
-    test("Command", function() {
+    test("Command", async function() {
         testingConsts.resetTestingWorkspace();
         var commandTemplate = new OldCommandTemplate;
-        assert.equal(templateInterpreter.getTemplateObjectFromTemplateType(templateInterpreter.templateType.oldCommand).text, commandTemplate.text);
+        assert.equal((await templateInterpreter.getTemplateObjectFromTemplateType(templateInterpreter.templateType.oldCommand)).text, commandTemplate.text);
     });
 
-    test("Command Group", function() {
+    test("Command Group", async function() {
         testingConsts.resetTestingWorkspace();
         var commandGroupTemplate = new OldCommandGroupTemplate;
-        assert.equal(templateInterpreter.getTemplateObjectFromTemplateType(templateInterpreter.templateType.oldCommandGroup).text, commandGroupTemplate.text);
+        assert.equal((await templateInterpreter.getTemplateObjectFromTemplateType(templateInterpreter.templateType.oldCommandGroup)).text, commandGroupTemplate.text);
     });
 
-    test("Empty Class", function() {
+    test("Empty Class", async function() {
         testingConsts.resetTestingWorkspace();
         var emptyClassTemplate = new EmptyClassTemplate;
-        assert.equal(templateInterpreter.getTemplateObjectFromTemplateType(templateInterpreter.templateType.emptyClass).text, emptyClassTemplate.text);
+        assert.equal((await templateInterpreter.getTemplateObjectFromTemplateType(templateInterpreter.templateType.emptyClass)).text, emptyClassTemplate.text);
     });
 
-    test("Instant Command", function() {
+    test("Instant Command", async function() {
         testingConsts.resetTestingWorkspace();
         var instantCommandTemplate = new OldCommandInstantCommandTemplate;
-        assert.equal(templateInterpreter.getTemplateObjectFromTemplateType(templateInterpreter.templateType.oldInstantCommand).text, instantCommandTemplate.text);
+        assert.equal((await templateInterpreter.getTemplateObjectFromTemplateType(templateInterpreter.templateType.oldInstantCommand)).text, instantCommandTemplate.text);
     });
 
-    test("Timed Command", function() {
+    test("Timed Command", async function() {
         testingConsts.resetTestingWorkspace();
         var timedCommandTemplate = new OldCommandTimedCommandTemplate;
-        assert.equal(templateInterpreter.getTemplateObjectFromTemplateType(templateInterpreter.templateType.oldTimedCommand).text, timedCommandTemplate.text);
+        assert.equal((await templateInterpreter.getTemplateObjectFromTemplateType(templateInterpreter.templateType.oldTimedCommand)).text, timedCommandTemplate.text);
     });
 
-    test("PID Subsystem", function() {
+    test("PID Subsystem", async function() {
         testingConsts.resetTestingWorkspace();
         var pidSubsystemTemplate = new OldCommandPIDSubsystemTemplate;
-        assert.equal(templateInterpreter.getTemplateObjectFromTemplateType(templateInterpreter.templateType.oldPIDSubsystem).text, pidSubsystemTemplate.text);
+        assert.equal((await templateInterpreter.getTemplateObjectFromTemplateType(templateInterpreter.templateType.oldPIDSubsystem)).text, pidSubsystemTemplate.text);
     });
 
-    test("Trigger", function() {
+    test("Trigger", async function() {
         testingConsts.resetTestingWorkspace();
         var triggerTemplate = new OldCommandTriggerTemplate;
-        assert.equal(templateInterpreter.getTemplateObjectFromTemplateType(templateInterpreter.templateType.oldTrigger).text, triggerTemplate.text);
+        assert.equal((await templateInterpreter.getTemplateObjectFromTemplateType(templateInterpreter.templateType.oldTrigger)).text, triggerTemplate.text);
     });
 
-    test("CommandRobot", function() {
+    test("CommandRobot", async function() {
         testingConsts.resetTestingWorkspace();
         var robotTemplate = new OldCommandRobotTemplate;
-        assert.equal(templateInterpreter.getTemplateObjectFromTemplateType(templateInterpreter.templateType.oldRobot).text, robotTemplate.text);
+        assert.equal((await templateInterpreter.getTemplateObjectFromTemplateType(templateInterpreter.templateType.oldRobot)).text, robotTemplate.text);
     });
 
-    test("OI", function() {
+    test("OI", async function() {
         testingConsts.resetTestingWorkspace();
         var oiTemplate = new OldCommandOITemplate;
-        assert.equal(templateInterpreter.getTemplateObjectFromTemplateType(templateInterpreter.templateType.oldOI).text, oiTemplate.text);
+        assert.equal((await templateInterpreter.getTemplateObjectFromTemplateType(templateInterpreter.templateType.oldOI)).text, oiTemplate.text);
     });
 
-    test("Robot Map", function() {
+    test("Robot Map", async function() {
         testingConsts.resetTestingWorkspace();
         var robotMapTemplate = new OldCommandRobotMapTemplate;
-        assert.equal(templateInterpreter.getTemplateObjectFromTemplateType(templateInterpreter.templateType.oldRobotMap).text, robotMapTemplate.text);
+        assert.equal((await templateInterpreter.getTemplateObjectFromTemplateType(templateInterpreter.templateType.oldRobotMap)).text, robotMapTemplate.text);
     });
 });
 
