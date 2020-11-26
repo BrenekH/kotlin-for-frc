@@ -39,7 +39,6 @@ import { OldCommandRobotTemplate } from './frc-kotlin/old-command-based/Robot';
 import { OldCommandTemplate } from './frc-kotlin/old-command-based/commands/CommandTemplate';
 
 export interface ITemplateProvider {
-	// TODO: Define completely
 	getTemplateObject(targetTemplateType: templateType): ITemplate | null;
 }
 
