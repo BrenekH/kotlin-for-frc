@@ -1,5 +1,6 @@
 import * as vscode from "vscode";
 import * as kotlinExt from "../extension";
+import * as customfs from "../file_manipulation/file_system";
 import { parseStringToTemplateType, templateType } from "./template_interpreter";
 
 // All Robot types
@@ -59,28 +60,35 @@ export class DummyTemplate {
 }
 
 export class LocalTemplateProvider {
-	relativePath: string = ".kfftemplates";
+	relativePath: string = "/.kfftemplates";
 	validFileExtension: string = "kfftemplate";
+
 	async getTemplateObject(targetTemplateType: templateType): Promise<ITemplate | null> {
-		let pathToSearch = vscode.Uri.file(kotlinExt.getWorkspaceFolderFsPath() + this.relativePath);
-		let filesFound: Array<string> = [];
-		let values = await vscode.workspace.fs.readDirectory(pathToSearch);
-		// then((values: [string, vscode.FileType][]) => {
-		// 	values.forEach((value: [string, vscode.FileType]) => {
-		// 		if (value[1] === vscode.FileType.File) {
-		// 			let temp: string | undefined = value[0]?.split('\\')?.pop()?.split('/')?.pop();
-		// 			let fileNameWithExtension: string = (temp === undefined) ? "" : temp;
-		// 			let splitArray = fileNameWithExtension.split(".");
-		// 			let fileExtension = splitArray[splitArray.length - 1];
-		// 			if (fileExtension === this.validFileExtension) {
-		// 				let parsedType = parseStringToTemplateType(splitArray[0]);
-		// 				if (parsedType === targetTemplateType) {
-		// 					// TODO: Return the contents of value[0](the file) and return a ITemplate interface compliant object
-		// 				}
-		// 			}
-		// 		}
-		// 	});
-		// });
+		let pathToSearch = kotlinExt.getWorkspaceFolderPath() + this.relativePath;
+		let values: [string, vscode.FileType][];
+		try {
+			values = await vscode.workspace.fs.readDirectory(vscode.Uri.file(pathToSearch));
+		} catch (e) {
+			console.error(e);
+			return null;
+		}
+
+		for (var value of values) {
+			if (value[1] === vscode.FileType.File) {
+				let temp: string | undefined = value[0]?.split('\\')?.pop()?.split('/')?.pop();
+				let fileNameWithExtension: string = (temp === undefined) ? "" : temp;
+
+				let splitArray = fileNameWithExtension.split(".");
+				let fileExtension = splitArray[splitArray.length - 1];
+
+				if (fileExtension === this.validFileExtension) {
+					let parsedType = parseStringToTemplateType(splitArray[0]);
+					if (parsedType === targetTemplateType) {
+						return {text: await customfs.readFile(pathToSearch + "/" + value[0])};
+					}
+				}
+			}
+		}
 		return null;
 	}
 }
