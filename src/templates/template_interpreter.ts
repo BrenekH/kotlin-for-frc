@@ -66,9 +66,19 @@ export enum robotType {
 
 export async function getTemplateObjectFromTemplateType(targetTemplateType: templateType): Promise<ITemplate> {
     var templateObj;
-    templateObj = await kotlinExt.localTemplateProvider.getTemplateObject(targetTemplateType);
+    try {
+        templateObj = await kotlinExt.localTemplateProvider.getTemplateObject(targetTemplateType);
+    } catch (e) {
+        console.error("Caught error: " + e);
+        templateObj = null;
+    }
     if (templateObj === null) {
-        templateObj = await kotlinExt.globalTemplateProvider.getTemplateObject(targetTemplateType);
+        try {
+            templateObj = await kotlinExt.globalTemplateProvider.getTemplateObject(targetTemplateType);
+        } catch (e) {
+            console.error("Caught error: " + e);
+            templateObj = null;
+        }
         if (templateObj === null) {
             templateObj = await kotlinExt.integratedTemplateProvider.getTemplateObject(targetTemplateType);
         }
