@@ -1,9 +1,5 @@
 export class BuildGradleTemplate {
-  private useAtProjectConversion: boolean;
-  private text: string;
-  constructor() {
-    this.useAtProjectConversion = true;
-    this.text = `plugins {
+    text: string = `plugins {
     id "java"
     id "edu.wpi.first.GradleRIO" version "#{GRADLE_RIO_VERSION}"
     id "org.jetbrains.kotlin.jvm" version "1.3.50"
@@ -80,11 +76,4 @@ jar {
     manifest edu.wpi.first.gradlerio.GradleRIOPlugin.javaManifest(ROBOT_MAIN_CLASS)
 }
 `;
-  }
-  public getText(): string {
-    return this.text;
-  }
-  public useAtConversion(): boolean {
-    return this.useAtProjectConversion;
-  }
 }

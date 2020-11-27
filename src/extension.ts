@@ -4,14 +4,19 @@ import * as semver from "semver";
 import * as preferences from "./util/preferences";
 import * as compliance from "./util/compliance";
 import * as grv from "./gradlerioversion";
+import { homedir } from "os";
 import { displayChangelog } from './util/changelog';
 import { registerCommands } from "./commands/commands";
 import { TelemetryWrapper } from "./telemetry";
+import { ITemplateProvider, IntegratedTemplateProvider, FileSystemTemplateProvider } from "./templates/template_provider";
 
 var currentWorkspacePath: string;
 var currentWorkspaceFsPath: string;
-export var telemetryWrapper: TelemetryWrapper;
 var validLatestGradleRioVersion: string;
+export var telemetryWrapper: TelemetryWrapper;
+export var localTemplateProvider: ITemplateProvider;
+export var globalTemplateProvider: ITemplateProvider;
+export const integratedTemplateProvider: ITemplateProvider = new IntegratedTemplateProvider();
 
 export function resetWorkspaceFolderPaths() {
     if (typeof vscode.workspace.workspaceFolders === "undefined") {
@@ -61,6 +66,10 @@ export async function activate(context: vscode.ExtensionContext) {
         validLatestGradleRioVersion = currentVersion;
     }
     console.log(`Valid Latest GradleRIO Version: ${validLatestGradleRioVersion}`);
+
+    // Instantiate template providers
+    localTemplateProvider = new FileSystemTemplateProvider(getWorkspaceFolderPath() + "/.kfftemplates");
+    globalTemplateProvider = new FileSystemTemplateProvider(homedir() + "/.kfftemplates");
 }
 
 // this method is called when your extension is deactivated
