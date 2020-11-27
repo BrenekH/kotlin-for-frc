@@ -1,5 +1,4 @@
 import * as vscode from "vscode";
-import * as kotlinExt from "../extension";
 import * as customfs from "../file_manipulation/file_system";
 import { parseStringToTemplateType, templateType } from "./template_interpreter";
 

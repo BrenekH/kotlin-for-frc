@@ -8,7 +8,7 @@ import { homedir } from "os";
 import { displayChangelog } from './util/changelog';
 import { registerCommands } from "./commands/commands";
 import { TelemetryWrapper } from "./telemetry";
-import { ITemplateProvider, DummyTemplateProvider, IntegratedTemplateProvider, FileSystemTemplateProvider } from "./templates/template_provider";
+import { ITemplateProvider, IntegratedTemplateProvider, FileSystemTemplateProvider } from "./templates/template_provider";
 
 var currentWorkspacePath: string;
 var currentWorkspaceFsPath: string;
