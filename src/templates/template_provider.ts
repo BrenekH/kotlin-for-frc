@@ -59,17 +59,19 @@ export class DummyTemplate {
 	text = "";
 }
 
-export class LocalTemplateProvider {
-	relativePath: string = "/.kfftemplates";
+export class FileSystemTemplateProvider {
+	pathToSearch: string;
 	validFileExtension: string = "kfftemplate";
+	constructor(pathToSearch: string) {
+		this.pathToSearch = pathToSearch;
+	}
 
 	async getTemplateObject(targetTemplateType: templateType): Promise<ITemplate | null> {
-		let pathToSearch = kotlinExt.getWorkspaceFolderPath() + this.relativePath;
 		let values: [string, vscode.FileType][];
 		try {
-			values = await vscode.workspace.fs.readDirectory(vscode.Uri.file(pathToSearch));
+			values = await vscode.workspace.fs.readDirectory(vscode.Uri.file(this.pathToSearch));
 		} catch (e) {
-			console.error(e);
+			console.error("Handled error: " + e);
 			return null;
 		}
 
@@ -82,9 +84,15 @@ export class LocalTemplateProvider {
 				let fileExtension = splitArray[splitArray.length - 1];
 
 				if (fileExtension === this.validFileExtension) {
-					let parsedType = parseStringToTemplateType(splitArray[0]);
+					let parsedType: templateType;
+					try {
+						parsedType = parseStringToTemplateType(splitArray[0]);
+					} catch(e) {
+						console.error("Handled error: " + e);
+						return null;
+					}
 					if (parsedType === targetTemplateType) {
-						return {text: await customfs.readFile(pathToSearch + "/" + value[0])};
+						return {text: await customfs.readFile(this.pathToSearch + "/" + value[0])};
 					}
 				}
 			}
