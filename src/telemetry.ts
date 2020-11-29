@@ -5,39 +5,38 @@ import axios from "axios";
 import { robotType, templateType } from "./templates/template_interpreter";
 
 export class TelemetryReporter {
-	private postUrl: string = "https://kff-data-staging.herokuapp.com/postdata";
-	private inExtensionHost: boolean;
+	private postUrl: string = "https://kff-data-server.herokuapp.com/postdata";
+	private inDebugExtensionHost: boolean;
 	private extensionVersion: string;
 	private botNoStealingKeys: string;
 
 	constructor() {
-		this.inExtensionHost = (vscode.env.machineId === "someValue.machineId");
-		this.inExtensionHost = false;
+		this.inDebugExtensionHost = (vscode.env.machineId === "someValue.machineId");
 		const extensionId = "brenek.kotlin-for-frc";
 		this.extensionVersion = vscode.extensions.getExtension(extensionId)!.packageJSON.version;
 		this.botNoStealingKeys = Buffer.from("eWRzYm15NGVhdzQ2eXQydA==", "base64").toString();
 	}
 
 	recordActivationEvent(autoShowChangelogEnabled: boolean, autoUpdateGradleRioEnabled: boolean) {
-		if (!this.inExtensionHost) {
+		if (!this.inDebugExtensionHost) {
 			this.sendEvent(100, {autoShowChangelog: autoShowChangelogEnabled, autoUpdateGradleRio: autoUpdateGradleRioEnabled});
 		}
 	}
 
 	recordCommandRan(commandId: string) {
-		if (!this.inExtensionHost) {
+		if (!this.inDebugExtensionHost) {
 			this.sendEvent(110, {commandId: commandId});
 		}
 	}
 
 	recordConversionEvent(type: robotType) {
-		if (!this.inExtensionHost) {
+		if (!this.inDebugExtensionHost) {
 			this.sendEvent(120, {robotType: type.toString()});
 		}
 	}
 
 	recordTemplateProviderQuery(templateProviderType: string, templateType: templateType) {
-		if (!this.inExtensionHost) {
+		if (!this.inDebugExtensionHost) {
 			this.sendEvent(130, {templateProviderType: templateProviderType, templateType: templateType.toString()});
 		}
 	}
