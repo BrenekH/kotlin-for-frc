@@ -105,7 +105,7 @@ async function convertOldCommand() {
 }
 
 export function convertJavaProject(currentRobotType: robotType) {
-	kotlinExt.telemetryWrapper.sendRobotType(currentRobotType);
+	kotlinExt.telemetry.sendRobotType(currentRobotType);
 	console.log("Deleting java project");
 	var pathToDelete = kotlinExt.getWorkspaceFolderFsPath() + "/src/main/java";
 	console.log(pathToDelete);

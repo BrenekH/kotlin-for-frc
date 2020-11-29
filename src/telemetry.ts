@@ -1,40 +1,57 @@
 "use strict";
 import * as vscode from "vscode";
-import TelemetryReporter from "vscode-extension-telemetry";
+import * as os from "os";
+import axios from "axios";
 import { robotType } from "./templates/template_interpreter";
 
-export class TelemetryWrapper {
-	private reporter: TelemetryReporter;
+export class TelemetryReporter {
+	private postUrl: string = "https://kff-data-staging.herokuapp.com/postdata";
 	private inExtensionHost: boolean;
+	private extensionVersion: string;
+	private botNoStealingKeys: string;
 
 	constructor() {
 		this.inExtensionHost = (vscode.env.machineId === "someValue.machineId");
-		
-		if (!this.inExtensionHost) {
-			// If the extension is not being debugged, create the TelemetryReporter
-			const extensionId = "brenek.kotlin-for-frc";
-			const extensionVersion = vscode.extensions.getExtension(extensionId)!.packageJSON.version;
-
-			const botNoStealingKeys = Buffer.from("OTA1NzZlNjItZTJkNC00MTc3LWJjOTYtMDAyMmQ0YTk4OGQ0", "base64").toString();
-	
-			this.reporter = new TelemetryReporter(extensionId, extensionVersion, botNoStealingKeys);
-		} else {
-			// If the extension is being debugged, create a bogus reporter that might fail
-			this.reporter = new TelemetryReporter("extension.host", "0.0.1", Buffer.from("ZGU4ZjQ1NTEtNjU0OS00NGJlLWI5ZDUtZmU0ODNjOWE1OTFi", "base64").toString());
-		}
+		this.inExtensionHost = false;
+		const extensionId = "brenek.kotlin-for-frc";
+		this.extensionVersion = vscode.extensions.getExtension(extensionId)!.packageJSON.version;
+		this.botNoStealingKeys = Buffer.from("eWRzYm15NGVhdzQ2eXQydA==", "base64").toString();
 	}
 
 	sendCommandRun(commandName: string) {
 		if (!this.inExtensionHost) {
-			this.reporter.sendTelemetryEvent("commandRun", {"commandName": commandName}, undefined);
+			this.sendEvent(100, {"commandName": commandName});
 		}
 	}
 
 	sendRobotType(type: robotType) {
 		if (!this.inExtensionHost) {
-			this.reporter.sendTelemetryEvent("robotType", {"robotType": type.toString()}, undefined);
+			this.sendEvent(110, {"robotType": type.toString()});
 		}
 	}
 
-	dispose() {this.reporter.dispose();}
+	sendEvent(eventId: number, eventData: object) {
+		let payloadJSON: object = {"machine_id": vscode.env.machineId,
+									"session_id": vscode.env.sessionId,
+									"extension_version": this.extensionVersion,
+									"vscode_version": vscode.version,
+									"event_id": eventId,
+									"event": eventData,
+									"os": os.platform(),
+									"os_version": os.release()};
+		axios({
+			method: "post",
+			url: this.postUrl,
+			data: payloadJSON,
+			headers: {
+				"Content-Type": "application/json",
+				"Authorization": this.botNoStealingKeys
+			}
+		}).then(() => {
+			console.log("Post request complete");
+		}).catch((reason: any) => {
+			console.error("Post request failed because of following error");
+			console.error(reason);
+		});
+	}
 }

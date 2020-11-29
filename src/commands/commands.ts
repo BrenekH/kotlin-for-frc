@@ -51,28 +51,28 @@ function resetAutoShowChangelog(context: vscode.ExtensionContext) {
 
 export async function registerCommands(context: vscode.ExtensionContext) {
 	let disposable = vscode.commands.registerCommand("kotlinforfrc.createNew", (filePath: any) => {
-        kotlinExt.telemetryWrapper.sendCommandRun("createNew");
+        kotlinExt.telemetry.sendCommandRun("createNew");
         createNew(filePath);
     });
 
     context.subscriptions.push(disposable);
 
     disposable = vscode.commands.registerCommand('kotlinforfrc.forceCompliance', async () => {
-        kotlinExt.telemetryWrapper.sendCommandRun("forceCompliance");
+        kotlinExt.telemetry.sendCommandRun("forceCompliance");
         await forceCompliance();
     });
 
     context.subscriptions.push(disposable);
 
     disposable = vscode.commands.registerCommand("kotlinforfrc.changeComplianceTestPref", () => {
-        kotlinExt.telemetryWrapper.sendCommandRun("changeComplianceTestPref");
+        kotlinExt.telemetry.sendCommandRun("changeComplianceTestPref");
         changeComplianceTestPref();
     });
 
     context.subscriptions.push(disposable);
 
     disposable = vscode.commands.registerCommand('kotlinforfrc.convertJavaProject', async () => {
-        kotlinExt.telemetryWrapper.sendCommandRun("convertJavaProject");
+        kotlinExt.telemetry.sendCommandRun("convertJavaProject");
         console.log("Reading Robot.java");
         // Check to make sure file paths are even there
         var robotJava: string = "";
@@ -93,21 +93,21 @@ export async function registerCommands(context: vscode.ExtensionContext) {
     context.subscriptions.push(disposable);
 
     disposable = vscode.commands.registerCommand("kotlinforfrc.showChangelog", () => {
-        kotlinExt.telemetryWrapper.sendCommandRun("showChangelog");
+        kotlinExt.telemetry.sendCommandRun("showChangelog");
         showChangelog();
     });
 
     context.subscriptions.push(disposable);
 
     disposable = vscode.commands.registerCommand("kotlinforfrc.toggleChangelog", () => {
-        kotlinExt.telemetryWrapper.sendCommandRun("toggleChangelog");
+        kotlinExt.telemetry.sendCommandRun("toggleChangelog");
         toggleChangelog(context);
     });
 
     context.subscriptions.push(disposable);
 
     disposable = vscode.commands.registerCommand("kotlinforfrc.resetAutoShowChangelog", () => {
-        kotlinExt.telemetryWrapper.sendCommandRun("resetAutoShowChangelog");
+        kotlinExt.telemetry.sendCommandRun("resetAutoShowChangelog");
         resetAutoShowChangelog(context);
     });
 

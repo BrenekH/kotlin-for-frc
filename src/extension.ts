@@ -7,13 +7,13 @@ import * as grv from "./gradlerioversion";
 import { homedir } from "os";
 import { displayChangelog } from './util/changelog';
 import { registerCommands } from "./commands/commands";
-import { TelemetryWrapper } from "./telemetry";
+import { TelemetryReporter } from "./telemetry";
 import { ITemplateProvider, IntegratedTemplateProvider, FileSystemTemplateProvider } from "./templates/template_provider";
 
 var currentWorkspacePath: string;
 var currentWorkspaceFsPath: string;
 var validLatestGradleRioVersion: string;
-export var telemetryWrapper: TelemetryWrapper;
+export var telemetry: TelemetryReporter;
 export var localTemplateProvider: ITemplateProvider;
 export var globalTemplateProvider: ITemplateProvider;
 export const integratedTemplateProvider: ITemplateProvider = new IntegratedTemplateProvider();
@@ -52,7 +52,7 @@ export async function activate(context: vscode.ExtensionContext) {
     displayChangelog(context);
 
     // Instantiate the telemetryWrapper
-    telemetryWrapper = new TelemetryWrapper();
+    telemetry = new TelemetryReporter();
 
     // Setup the latest valid version of GradleRIO
     const latestVersion = await grv.getLatestGradleRioVersion(context);
@@ -73,9 +73,7 @@ export async function activate(context: vscode.ExtensionContext) {
 }
 
 // this method is called when your extension is deactivated
-export function deactivate() {
-    telemetryWrapper.dispose();
-}
+export function deactivate() {}
 
 export function getWorkspaceFolderPath() {
     return currentWorkspacePath;
