@@ -35,7 +35,7 @@
             },
             {
                 "command": "kotlinforfrc.forceCompliance",
-                "title": "Kotlin-FRC: Update GradleRio and check for Main.kt"
+                "title": "Kotlin-FRC: Update GradleRio"
             },
             {
                 "command": "kotlinforfrc.changeComplianceTestPref",
