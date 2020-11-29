@@ -51,28 +51,28 @@ function resetAutoShowChangelog(context: vscode.ExtensionContext) {
 
 export async function registerCommands(context: vscode.ExtensionContext) {
 	let disposable = vscode.commands.registerCommand("kotlinforfrc.createNew", (filePath: any) => {
-        kotlinExt.telemetryWrapper.sendCommandRun("createNew");
+        kotlinExt.telemetry.recordCommandRan("createNew");
         createNew(filePath);
     });
 
     context.subscriptions.push(disposable);
 
     disposable = vscode.commands.registerCommand('kotlinforfrc.forceCompliance', async () => {
-        kotlinExt.telemetryWrapper.sendCommandRun("forceCompliance");
+        kotlinExt.telemetry.recordCommandRan("forceCompliance");
         await forceCompliance();
     });
 
     context.subscriptions.push(disposable);
 
     disposable = vscode.commands.registerCommand("kotlinforfrc.changeComplianceTestPref", () => {
-        kotlinExt.telemetryWrapper.sendCommandRun("changeComplianceTestPref");
+        kotlinExt.telemetry.recordCommandRan("changeComplianceTestPref");
         changeComplianceTestPref();
     });
 
     context.subscriptions.push(disposable);
 
     disposable = vscode.commands.registerCommand('kotlinforfrc.convertJavaProject', async () => {
-        kotlinExt.telemetryWrapper.sendCommandRun("convertJavaProject");
+        kotlinExt.telemetry.recordCommandRan("convertJavaProject");
         console.log("Reading Robot.java");
         // Check to make sure file paths are even there
         var robotJava: string = "";
@@ -93,33 +93,35 @@ export async function registerCommands(context: vscode.ExtensionContext) {
     context.subscriptions.push(disposable);
 
     disposable = vscode.commands.registerCommand("kotlinforfrc.showChangelog", () => {
-        kotlinExt.telemetryWrapper.sendCommandRun("showChangelog");
+        kotlinExt.telemetry.recordCommandRan("showChangelog");
         showChangelog();
     });
 
     context.subscriptions.push(disposable);
 
     disposable = vscode.commands.registerCommand("kotlinforfrc.toggleChangelog", () => {
-        kotlinExt.telemetryWrapper.sendCommandRun("toggleChangelog");
+        kotlinExt.telemetry.recordCommandRan("toggleChangelog");
         toggleChangelog(context);
     });
 
     context.subscriptions.push(disposable);
 
     disposable = vscode.commands.registerCommand("kotlinforfrc.resetAutoShowChangelog", () => {
-        kotlinExt.telemetryWrapper.sendCommandRun("resetAutoShowChangelog");
+        kotlinExt.telemetry.recordCommandRan("resetAutoShowChangelog");
         resetAutoShowChangelog(context);
     });
 
     context.subscriptions.push(disposable);
 
     disposable = vscode.commands.registerCommand("kotlinforfrc.gradlerioversion", async () => {
+        kotlinExt.telemetry.recordCommandRan("gradlerioversion");
         console.log(await getLatestGradleRioVersion(context));
     });
 
     context.subscriptions.push(disposable);
 
     disposable = vscode.commands.registerCommand("kotlinforfrc.resetgradleriocache", async () => {
+        kotlinExt.telemetry.recordCommandRan("resetgradleriocache");
         await context.globalState.update("latestGradleRioVersion", "");
         await context.globalState.update("lastGradleRioVersionUpdateTime", 0);
         console.log("reset gradle rio cache");

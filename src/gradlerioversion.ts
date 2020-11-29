@@ -8,7 +8,6 @@ export async function queryOnlineGradleRioVersion(): Promise<string> {
 	var response: any;
 	try {
 		response = await get("https://plugins.gradle.org/m2/edu/wpi/first/GradleRIO/maven-metadata.xml");
-
 	} catch (error) {
 		console.log(error);
 		return "";
