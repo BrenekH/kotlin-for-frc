@@ -14,7 +14,7 @@ export class TelemetryReporter {
 		this.inDebugExtensionHost = (vscode.env.machineId === "someValue.machineId");
 		const extensionId = "brenek.kotlin-for-frc";
 		this.extensionVersion = vscode.extensions.getExtension(extensionId)!.packageJSON.version;
-		this.botNoStealingKeys = Buffer.from("eWRzYm15NGVhdzQ2eXQydA==", "base64").toString();
+		this.botNoStealingKeys = Buffer.from("aHFqNzF0Z2phOWE0dmI2dQ==", "base64").toString();
 	}
 
 	recordActivationEvent(autoShowChangelogEnabled: boolean, autoUpdateGradleRioEnabled: boolean) {
