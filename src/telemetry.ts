@@ -2,7 +2,7 @@
 import * as vscode from "vscode";
 import * as os from "os";
 import axios from "axios";
-import { robotType } from "./templates/template_interpreter";
+import { robotType, templateType } from "./templates/template_interpreter";
 
 export class TelemetryReporter {
 	private postUrl: string = "https://kff-data-staging.herokuapp.com/postdata";
@@ -18,15 +18,27 @@ export class TelemetryReporter {
 		this.botNoStealingKeys = Buffer.from("eWRzYm15NGVhdzQ2eXQydA==", "base64").toString();
 	}
 
-	sendCommandRun(commandName: string) {
+	recordActivationEvent(autoShowChangelogEnabled: boolean, autoUpdateGradleRioEnabled: boolean) {
 		if (!this.inExtensionHost) {
-			this.sendEvent(100, {"commandName": commandName});
+			this.sendEvent(100, {autoShowChangelog: autoShowChangelogEnabled, autoUpdateGradleRio: autoUpdateGradleRioEnabled});
 		}
 	}
 
-	sendRobotType(type: robotType) {
+	recordCommandRan(commandId: string) {
 		if (!this.inExtensionHost) {
-			this.sendEvent(110, {"robotType": type.toString()});
+			this.sendEvent(110, {commandId: commandId});
+		}
+	}
+
+	recordConversionEvent(type: robotType) {
+		if (!this.inExtensionHost) {
+			this.sendEvent(120, {robotType: type.toString()});
+		}
+	}
+
+	recordTemplateProviderQuery(templateProviderType: string, templateType: templateType) {
+		if (!this.inExtensionHost) {
+			this.sendEvent(130, {templateProviderType: templateProviderType, templateType: templateType.toString()});
 		}
 	}
 

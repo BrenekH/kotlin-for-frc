@@ -70,6 +70,8 @@ export async function activate(context: vscode.ExtensionContext) {
     // Instantiate template providers
     localTemplateProvider = new FileSystemTemplateProvider(getWorkspaceFolderPath() + "/.kfftemplates");
     globalTemplateProvider = new FileSystemTemplateProvider(homedir() + "/.kfftemplates");
+
+    telemetry.recordActivationEvent(context.globalState.get("toggleChangelog", true), await preferences.getRunComplianceTests());
 }
 
 // this method is called when your extension is deactivated
