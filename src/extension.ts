@@ -37,6 +37,19 @@ export async function activate(context: vscode.ExtensionContext) {
     console.log("Registering commands");
     await registerCommands(context);
 
+    // Setup the latest valid version of GradleRIO
+    const latestVersion = await grv.getLatestGradleRioVersion(context);
+    const currentVersion = await grv.getCurrentGradleRioVersion();
+
+    console.log(`GradleRIO latestVersion: ${latestVersion}; currentVersion ${currentVersion}`);
+
+    if (latestVersion !== currentVersion && semver.parse(latestVersion)?.major === semver.parse(currentVersion)?.major) {
+        validLatestGradleRioVersion = latestVersion;
+    } else {
+        validLatestGradleRioVersion = currentVersion;
+    }
+    console.log(`Valid Latest GradleRIO Version: ${validLatestGradleRioVersion}`);
+
     // Compliance testing
     console.log("Compliance testing");
     if (await compliance.isFRCKotlinProject()) {
@@ -53,19 +66,6 @@ export async function activate(context: vscode.ExtensionContext) {
 
     // Instantiate the telemetryWrapper
     telemetry = new TelemetryReporter();
-
-    // Setup the latest valid version of GradleRIO
-    const latestVersion = await grv.getLatestGradleRioVersion(context);
-    const currentVersion = await grv.getCurrentGradleRioVersion();
-
-    console.log(`GradleRIO latestVersion: ${latestVersion}; currentVersion ${currentVersion}`);
-
-    if (latestVersion !== currentVersion && semver.parse(latestVersion)?.major === semver.parse(currentVersion)?.major) {
-        validLatestGradleRioVersion = latestVersion;
-    } else {
-        validLatestGradleRioVersion = currentVersion;
-    }
-    console.log(`Valid Latest GradleRIO Version: ${validLatestGradleRioVersion}`);
 
     // Instantiate template providers
     localTemplateProvider = new FileSystemTemplateProvider(getWorkspaceFolderPath() + "/.kfftemplates");
