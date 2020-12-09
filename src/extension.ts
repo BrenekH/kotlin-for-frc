@@ -1,14 +1,13 @@
 "use strict";
 import * as vscode from "vscode";
 import * as semver from "semver";
-import * as preferences from "./util/preferences";
-import * as compliance from "./util/compliance";
 import * as grv from "./gradlerioversion";
 import { homedir } from "os";
 import { displayChangelog } from './util/changelog';
 import { registerCommands } from "./commands/commands";
 import { TelemetryReporter } from "./telemetry";
 import { ITemplateProvider, IntegratedTemplateProvider, FileSystemTemplateProvider } from "./templates/template_provider";
+import * as customfs from "./file_manipulation/file_system";
 
 var currentWorkspacePath: string;
 var currentWorkspaceFsPath: string;
@@ -50,15 +49,18 @@ export async function activate(context: vscode.ExtensionContext) {
     }
     console.log(`Valid Latest GradleRIO Version: ${validLatestGradleRioVersion}`);
 
-    // Compliance testing
-    console.log("Compliance testing");
-    if (await compliance.isFRCKotlinProject()) {
-        if (await preferences.getRunComplianceTests()) {
-            // * Check build.gradle
-            if (!await compliance.isGradleRioVersionCompliant()) {
-                await compliance.makeGradleRioVersionCompliant();
+    // Auto-Update GradleRIO version
+    const autoUpdateGradleRIOVersion: boolean | undefined = vscode.workspace.getConfiguration("kotlinForFRC.gradleRioVersion").get("autoUpdate");
+    if (await isFRCKotlinProject()) {
+        if (autoUpdateGradleRIOVersion) {
+            if (!await isGradleRioVersionUpToDate()) {
+                await grv.updateGradleRioVersion();
             }
         }
+
+        const autoShowChangelog: boolean | undefined = vscode.workspace.getConfiguration("kotlinForFRC.changelog").get("showOnUpdate");
+        telemetry.recordActivationEvent((autoShowChangelog === undefined) ? true : autoShowChangelog,
+                                        (autoUpdateGradleRIOVersion === undefined) ? true : autoUpdateGradleRIOVersion);
     }
 
     // Check if the extension was updated and display the changelog if it was
@@ -70,8 +72,6 @@ export async function activate(context: vscode.ExtensionContext) {
     // Instantiate template providers
     localTemplateProvider = new FileSystemTemplateProvider(getWorkspaceFolderPath() + "/.kfftemplates");
     globalTemplateProvider = new FileSystemTemplateProvider(homedir() + "/.kfftemplates");
-
-    telemetry.recordActivationEvent(context.globalState.get("toggleChangelog", true), await preferences.getRunComplianceTests());
 }
 
 // this method is called when your extension is deactivated
@@ -100,4 +100,17 @@ export function setWorkspaceFolderPathsFromUri(uri: vscode.Uri) {
 
 export function getValidLatestGradleRioVersion() {
     return validLatestGradleRioVersion;
+}
+
+export async function isFRCKotlinProject(): Promise<Boolean> {
+    return await customfs.exists(getWorkspaceFolderFsPath() + "/src/main/kotlin/frc/robot/Robot.kt");
+}
+
+export async function isGradleRioVersionUpToDate(): Promise<boolean> {
+    console.log("Checking build.gradle compliance");
+    let currentVersion = await grv.getCurrentGradleRioVersion();
+    if (currentVersion === getValidLatestGradleRioVersion()) {
+        return true;
+    }
+    return false;
 }

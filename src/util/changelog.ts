@@ -40,7 +40,7 @@ function extensionWasUpdated(context: vscode.ExtensionContext): boolean {
 	context.globalState.update("lastInitVersion", currentVersion);
 
 	// @ts-ignore Note: This shouldn't be needed because true is a default value but it's here anyways
-	if (context.globalState.get("toggleChangelog", true) === false) {
+	if (vscode.workspace.getConfiguration("kotlinForFRC.changelog").get("showOnUpdate") === false) {
 		return false;
 	}
 

@@ -2,7 +2,8 @@
 import * as vscode from "vscode";
 import * as filesystem from "./file_manipulation/file_system";
 import get from "axios";
-import { getWorkspaceFolderPath } from "./extension";
+import { getWorkspaceFolderPath, getWorkspaceFolderFsPath, getValidLatestGradleRioVersion } from "./extension";
+import { createFileWithContent } from "./file_manipulation/file_generator";
 
 export async function queryOnlineGradleRioVersion(): Promise<string> {
 	var response: any;
@@ -56,4 +57,12 @@ export async function getCurrentGradleRioVersion(): Promise<string> {
 		return currentVersionArray[1];
 	}
 	return "";
+}
+
+export async function updateGradleRioVersion() {
+    var re = /id \"edu.wpi.first.GradleRIO\" version \".+\"/gi;
+    var fileContent = await filesystem.readFile(getWorkspaceFolderFsPath() + "/build.gradle");
+    var replacementString = `id "edu.wpi.first.GradleRIO" version "${getValidLatestGradleRioVersion()}"`;
+	createFileWithContent("build.gradle", fileContent.replace(re, replacementString));
+	vscode.window.showInformationMessage(`GradleRio version updated to ${getValidLatestGradleRioVersion()}`);
 }

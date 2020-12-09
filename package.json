@@ -13,94 +13,88 @@
     "icon": "images/wpilib-with-kotlin_K-128x128.png",
     "activationEvents": [
         "workspaceContains:.wpilib/wpilib_preferences.json",
-        "onCommand:kotlinforfrc.createNew",
-        "onCommand:kotlinforfrc.convertJavaProject",
-        "onCommand:kotlinforfrc.forceCompliance",
-        "onCommand:kotlinforfrc.changeComplianceTestPref",
-        "onCommand:kotlinforfrc.toggleChangelog",
-        "onCommand:kotlinforfrc.showChangelog",
-        "onCommand:kotlinforfrc.resetAutoShowChangelog",
-        "onCommand:kotlinforfrc.gradlerioversion"
+        "onCommand:kotlinForFRC.createNew",
+        "onCommand:kotlinForFRC.convertJavaProject",
+        "onCommand:kotlinForFRC.showChangelog",
+        "onCommand:kotlinForFRC.resetAutoShowChangelog",
+        "onCommand:kotlinForFRC.updateGradleRIOVersion",
+        "onCommand:kotlinForFRC.resetGradleRIOCache"
     ],
     "main": "./dist/extension",
     "contributes": {
+        "configuration": {
+            "title": "Kotlin for FRC",
+            "properties": {
+                "kotlinForFRC.gradleRioVersion.autoUpdate": {
+                    "type": "boolean",
+                    "default": true,
+                    "scope": "window",
+                    "description": "Whether or not to automatically update the Gradle RIO Version when the Kotlin for FRC extension is loaded."
+                },
+                "kotlinForFRC.changelog.showOnUpdate": {
+                    "type": "boolean",
+                    "default": true,
+                    "scope": "application",
+                    "description": "Whether or not to show the changelog when Kotlin for FRC has been updated"
+                }
+            }
+        },
         "commands": [
             {
-                "command": "kotlinforfrc.convertJavaProject",
+                "command": "kotlinForFRC.convertJavaProject",
                 "title": "Kotlin-FRC: Convert Java Project to Kotlin"
             },
             {
-                "command": "kotlinforfrc.createNew",
+                "command": "kotlinForFRC.createNew",
                 "title": "Kotlin-FRC: Create new class/command here"
             },
             {
-                "command": "kotlinforfrc.forceCompliance",
-                "title": "Kotlin-FRC: Update GradleRio"
-            },
-            {
-                "command": "kotlinforfrc.changeComplianceTestPref",
-                "title": "Kotlin-FRC: Change GradleRio Checks"
-            },
-            {
-                "command": "kotlinforfrc.showChangelog",
+                "command": "kotlinForFRC.showChangelog",
                 "title": "Kotlin-FRC: Show Changelog"
             },
             {
-                "command": "kotlinforfrc.toggleChangelog",
-                "title": "Kotlin-FRC: Toggle Auto-Show Changelog"
+                "command": "kotlinForFRC.resetAutoShowChangelog",
+                "title": "Kotlin-FRC: Reset Auto-Show Changelog Cache"
             },
             {
-                "command": "kotlinforfrc.resetAutoShowChangelog",
-                "title": "Kotlin-FRC: Reset Auto-Show Changelog"
+                "command": "kotlinForFRC.updateGradleRIOVersion",
+                "title": "Kotlin-FRC: Update GradleRIO Version"
             },
             {
-                "command": "kotlinforfrc.gradlerioversion",
-                "title": "Kotlin-FRC: Gradle Rio Version"
-            },
-            {
-                "command": "kotlinforfrc.resetgradleriocache",
-                "title": "Kotlin-FRC: Reset Gradle Rio Cache"
+                "command": "kotlinForFRC.resetGradleRIOCache",
+                "title": "Kotlin-FRC: Reset GradleRIO Version Cache"
             }
         ],
         "menus": {
             "explorer/context": [
                 {
                     "when": "explorerResourceIsFolder && isWPILibProject",
-                    "command": "kotlinforfrc.createNew",
+                    "command": "kotlinForFRC.createNew",
                     "group": "frc-kotlin"
                 }
             ],
             "commandPalette": [
                 {
-                    "command": "kotlinforfrc.convertJavaProject",
+                    "command": "kotlinForFRC.convertJavaProject",
                     "when": "isWPILibProject"
                 },
                 {
-                    "command": "kotlinforfrc.createNew",
+                    "command": "kotlinForFRC.createNew",
                     "when": "isWPILibProject && !isWPILibProject"
                 },
                 {
-                    "command": "kotlinforfrc.forceCompliance",
+                    "command": "kotlinForFRC.showChangelog"
+                },
+                {
+                    "command": "kotlinForFRC.resetAutoShowChangelog",
                     "when": "isWPILibProject"
                 },
                 {
-                    "command": "kotlinforfrc.changeComplianceTestPref",
+                    "command": "kotlinForFRC.updateGradleRIOVersion",
                     "when": "isWPILibProject"
                 },
                 {
-                    "command": "kotlinforfrc.showChangelog"
-                },
-                {
-                    "command": "kotlinforfrc.toggleChangelog"
-                },
-                {
-                    "command": "kotlinforfrc.resetAutoShowChangelog"
-                },
-                {
-                    "command": "kotlinforfrc.gradlerioversion"
-                },
-                {
-                    "command": "kotlinforfrc.resetgradleriocache"
+                    "command": "kotlinForFRC.resetGradleRIOCache"
                 }
             ]
         }
