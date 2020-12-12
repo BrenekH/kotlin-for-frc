@@ -1,11 +1,11 @@
 "use strict";
 import * as vscode from "vscode";
 import * as chnglog from "../util/changelog";
-import * as customfs from "../file_manipulation/file_system";
+import * as customfs from "../file_manipulation/fileSystem";
 import * as kotlinExt from "../extension";
 import { createNew } from "./create_new";
 import { targetYear } from "../constants";
-import { getLatestGradleRioVersion } from "../gradlerioversion";
+import { updateGradleRioVersion } from "../gradlerioversion";
 import { convertJavaProject, determineRobotType } from "./conversion";
 
 function showChangelog() { chnglog.showChangelog(); }
@@ -58,15 +58,14 @@ export async function registerCommands(context: vscode.ExtensionContext) {
 
     disposable = vscode.commands.registerCommand("kotlinForFRC.updateGradleRIOVersion", async () => {
         kotlinExt.telemetry.recordCommandRan("updateGradleRIOVersion");
-        // TODO: Update build.gradle with latest GradleRIO version
-        console.log(await getLatestGradleRioVersion(targetYear, context));
+        updateGradleRioVersion();
     });
 
     context.subscriptions.push(disposable);
 
     disposable = vscode.commands.registerCommand("kotlinForFRC.resetGradleRIOCache", async () => {
         kotlinExt.telemetry.recordCommandRan("resetGradleRIOCache");
-        await context.globalState.update("grcCache", "");
+        await context.globalState.update("grvCache", "");
         await context.globalState.update("lastGradleRioVersionUpdateTime", 0);
         console.log("reset gradle rio cache");
     });

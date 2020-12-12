@@ -1,6 +1,6 @@
 import * as vscode from "vscode";
-import * as customfs from "../file_manipulation/file_system";
-import { parseStringToTemplateType, templateType } from "./template_interpreter";
+import * as customfs from "../file_manipulation/fileSystem";
+import { parseStringToTemplateType, templateType } from "./templateInterpreter";
 
 // All Robot types
 import { BuildGradleTemplate } from "./frc-kotlin/BuildGradle";

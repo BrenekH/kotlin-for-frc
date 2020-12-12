@@ -2,13 +2,13 @@
 import * as vscode from "vscode";
 import * as semver from "semver";
 import * as grv from "./gradlerioversion";
-import * as customfs from "./file_manipulation/file_system";
+import * as customfs from "./file_manipulation/fileSystem";
 import { homedir } from "os";
 import { targetYear } from "./constants";
 import { displayChangelog } from './util/changelog';
 import { registerCommands } from "./commands/commands";
 import { TelemetryReporter } from "./telemetry";
-import { ITemplateProvider, IntegratedTemplateProvider, FileSystemTemplateProvider } from "./templates/template_provider";
+import { ITemplateProvider, IntegratedTemplateProvider, FileSystemTemplateProvider } from "./templates/templateProvider";
 
 var currentWorkspacePath: string;
 var currentWorkspaceFsPath: string;
@@ -40,7 +40,12 @@ export async function activate(context: vscode.ExtensionContext) {
     // Setup the latest valid version of GradleRIO for this workspace
     const currentVersion = await grv.getCurrentGradleRioVersion();
     const currentYear = semver.parse(currentVersion)?.major as string | undefined;
-    // TODO: Maybe add a warning or error about not being able to get year of current GradleRIO version
+
+    if (currentYear === undefined) {
+        console.warn("KfF: Dispatching warning because currentYear returned undefined");
+        vscode.window.showWarningMessage(`Kotlin for FRC: Could not infer current year from build.gradle. Defaulting to ${targetYear}. Warning Code: 15730`);
+    }
+
     const latestVersion = await grv.getLatestGradleRioVersion((currentYear === undefined) ? targetYear : currentYear, context);
 
     console.log(`GradleRIO latestVersion: ${latestVersion}; currentVersion ${currentVersion}`);

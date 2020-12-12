@@ -1,7 +1,7 @@
 "use strict";
 import * as vscode from "vscode";
-import * as filegenerator from "../file_manipulation/file_generator";
-import { templateType } from "../templates/template_interpreter";
+import * as filegenerator from "../file_manipulation/fileGenerator";
+import { templateType } from "../templates/templateInterpreter";
 import { parseAndSaveTemplateToDocument } from "./create_new";
 
 export function createCommandBased(filePath: any) {

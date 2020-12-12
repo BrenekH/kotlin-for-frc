@@ -15,7 +15,7 @@ import { TimedRobotSkeletonTemplate } from './frc-kotlin/timed-skeleton/Robot';
 
 // Robot Base Skeleton
 import { RobotBaseSkeleton } from './frc-kotlin/robotbase-skeleton/Robot';
-import { ITemplate, DummyTemplate } from "./template_provider";
+import { ITemplate, DummyTemplate } from "./templateProvider";
 
 export enum templateType {
     // Old command based templates

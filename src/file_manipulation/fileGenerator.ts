@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 import * as path from 'path';
-import * as customfs from "./file_system";
+import * as customfs from "./fileSystem";
 import * as kotlinExt from "../extension";
 
 const sleep = (milliseconds: number) => {

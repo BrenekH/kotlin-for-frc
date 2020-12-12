@@ -1,10 +1,10 @@
 "use strict";
 import * as vscode from "vscode";
 import * as semver from "semver";
-import * as filesystem from "./file_manipulation/file_system";
+import * as filesystem from "./file_manipulation/fileSystem";
 import get from "axios";
 import { getWorkspaceFolderPath, getWorkspaceFolderFsPath, getValidLatestGradleRioVersion } from "./extension";
-import { createFileWithContent } from "./file_manipulation/file_generator";
+import { createFileWithContent } from "./file_manipulation/fileGenerator";
 
 export async function getGradleRIOVersionXML(): Promise<string> {
 	var response: any;
@@ -36,7 +36,7 @@ export async function getLatestOnlineGradleRioVersions(): Promise<{[key: string]
 		allVersions.push(element.replace("<version>", "").replace("</version>", ""));
 	});
 
-	let x: {[key: string]: string} = {}; // TODO: Name this better
+	let allVersionsLatest: {[key: string]: string} = {};
 
 	allVersions.forEach((element) => {
 		let tempYear = element.match(/[0-9]{4}/);
@@ -45,16 +45,16 @@ export async function getLatestOnlineGradleRioVersions(): Promise<{[key: string]
 			year = tempYear[0];
 		}
 
-		if (x[year] !== undefined) {
-			if (semver.satisfies(element, `>${x[year]}`)) {
-				x[year] = element;
+		if (allVersionsLatest[year] !== undefined) {
+			if (semver.satisfies(element, `>${allVersionsLatest[year]}`)) {
+				allVersionsLatest[year] = element;
 			}
 		} else {
-			x[year] = element;
+			allVersionsLatest[year] = element;
 		}
 	});
 
-	return x;
+	return allVersionsLatest;
 }
 
 export async function updateGradleRIOVersionCache(context: vscode.ExtensionContext) {

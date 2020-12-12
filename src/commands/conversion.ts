@@ -1,13 +1,13 @@
 "use strict";
 import * as vscode from "vscode";
-import * as filegenerator from "../file_manipulation/file_generator";
-import * as customfs from "../file_manipulation/file_system";
+import * as filegenerator from "../file_manipulation/fileGenerator";
+import * as customfs from "../file_manipulation/fileSystem";
 import * as rimraf from "rimraf";
 import * as kotlinExt from "../extension";
 import { templateType, robotType, getTemplateObjectFromRobotType,
 		getTemplateObjectFromTemplateType, parseTemplate,
-		getParsedGradle, getMainTemplateObject } from "../templates/template_interpreter";
-import { ITemplate } from "../templates/template_provider";
+		getParsedGradle, getMainTemplateObject } from "../templates/templateInterpreter";
+import { ITemplate } from "../templates/templateProvider";
 
 export function determineRobotType(robotJava: string) {
 	var currentRobotType: robotType = robotType.timed;

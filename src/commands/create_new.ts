@@ -1,11 +1,11 @@
 "use strict";
 import * as vscode from "vscode";
-import * as filegenerator from "../file_manipulation/file_generator";
-import * as templateinterpreter from "../templates/template_interpreter";
+import * as filegenerator from "../file_manipulation/fileGenerator";
+import * as templateinterpreter from "../templates/templateInterpreter";
 import * as kotlinExt from "../extension";
-import { templateType } from "../templates/template_interpreter";
-import { createCommandBased } from "./create_command_based";
-import { oldCommandBased } from "./create_old_command_based";
+import { templateType } from "../templates/templateInterpreter";
+import { createCommandBased } from "./createCommandBased";
+import { oldCommandBased } from "./createOldCommandBased";
 
 export function parseAndSaveTemplateToDocument(filePath: any, packageName: string, templateType: templateType) {
 	console.log(filePath);
