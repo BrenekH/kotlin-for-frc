@@ -25,7 +25,7 @@ export class TelemetryReporter {
 
 	recordCommandRan(commandId: string) {
 		if (!this.inDebugExtensionHost) {
-			this.sendEvent(110, {commandId: commandId});
+			this.sendEvent(110, {commandId});
 		}
 	}
 
@@ -35,9 +35,9 @@ export class TelemetryReporter {
 		}
 	}
 
-	recordTemplateProviderQuery(templateProviderType: string, templateType: templateType) {
+	recordTemplateProviderQuery(inTemplateProviderType: string, templateType: templateType) {
 		if (!this.inDebugExtensionHost) {
-			this.sendEvent(130, {templateProviderType: templateProviderType, templateType: templateType.toString()});
+			this.sendEvent(130, {templateProviderType: inTemplateProviderType, templateType: templateType.toString()});
 		}
 	}
 

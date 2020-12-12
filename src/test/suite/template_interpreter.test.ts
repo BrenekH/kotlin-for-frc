@@ -122,7 +122,7 @@ suite("Template Parsing", function() {
     });
 
     test("GradleRio Version Parsing - Basic", function() {
-        assert.equal(`The current GradleRIO Version is: 2020.0.0`, templateInterpreter.parseForGradleRioVersion("2020.0.0", "The current GradleRIO Version is: #{GRADLE_RIO_VERSION}"));
+        assert.equal("The current GradleRIO Version is: 2020.0.0", templateInterpreter.parseForGradleRioVersion("2020.0.0", "The current GradleRIO Version is: #{GRADLE_RIO_VERSION}"));
     });
 
     test("Template Type Parsing", function() {
