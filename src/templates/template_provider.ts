@@ -3,42 +3,42 @@ import * as customfs from "../file_manipulation/file_system";
 import { parseStringToTemplateType, templateType } from "./template_interpreter";
 
 // All Robot types
-import { BuildGradleTemplate } from './frc-kotlin/BuildGradle';
-import { EmptyClassTemplate } from './frc-kotlin/EmptyClassTemplate';
+import { BuildGradleTemplate } from "./frc-kotlin/BuildGradle";
+import { EmptyClassTemplate } from "./frc-kotlin/EmptyClassTemplate";
 
 // Command based General
-import { CommandRobotTemplate } from './frc-kotlin/command-based/Robot';
-import { CommandRobotContainerTemplate } from './frc-kotlin/command-based/RobotContainer';
-import { CommandConstantsTemplate } from './frc-kotlin/command-based/Constants';
+import { CommandRobotTemplate } from "./frc-kotlin/command-based/Robot";
+import { CommandRobotContainerTemplate } from "./frc-kotlin/command-based/RobotContainer";
+import { CommandConstantsTemplate } from "./frc-kotlin/command-based/Constants";
 
 // Command based Commands
-import { CommandTemplate } from './frc-kotlin/command-based/commands/CommandTemplate';
-import { InstantCommandTemplate } from './frc-kotlin/command-based/commands/InstantCommandTemplate';
-import { ParallelCommandGroupTemplate } from './frc-kotlin/command-based/commands/ParallelCommandGroupTemplate';
-import { ParallelDeadlineGroupTemplate } from './frc-kotlin/command-based/commands/ParallelDeadlineGroupTemplate';
-import { ParallelRaceGroupTemplate } from './frc-kotlin/command-based/commands/ParallelRaceGroupTemplate';
-import { PIDCommandTemplate } from './frc-kotlin/command-based/commands/PIDCommandTemplate';
-import { ProfiledPIDCommandTemplate } from './frc-kotlin/command-based/commands/ProfiledPIDCommandTemplate';
-import { SequentialCommandGroupTemplate } from './frc-kotlin/command-based/commands/SequentialCommandGroupTemplate';
-import { TrapezoidProfileCommandTemplate } from './frc-kotlin/command-based/commands/TrapezoidProfileCommandTemplate';
+import { CommandTemplate } from "./frc-kotlin/command-based/commands/CommandTemplate";
+import { InstantCommandTemplate } from "./frc-kotlin/command-based/commands/InstantCommandTemplate";
+import { ParallelCommandGroupTemplate } from "./frc-kotlin/command-based/commands/ParallelCommandGroupTemplate";
+import { ParallelDeadlineGroupTemplate } from "./frc-kotlin/command-based/commands/ParallelDeadlineGroupTemplate";
+import { ParallelRaceGroupTemplate } from "./frc-kotlin/command-based/commands/ParallelRaceGroupTemplate";
+import { PIDCommandTemplate } from "./frc-kotlin/command-based/commands/PIDCommandTemplate";
+import { ProfiledPIDCommandTemplate } from "./frc-kotlin/command-based/commands/ProfiledPIDCommandTemplate";
+import { SequentialCommandGroupTemplate } from "./frc-kotlin/command-based/commands/SequentialCommandGroupTemplate";
+import { TrapezoidProfileCommandTemplate } from "./frc-kotlin/command-based/commands/TrapezoidProfileCommandTemplate";
 
 // Command based Subsystems
-import { CommandSubsystemTemplate } from './frc-kotlin/command-based/subsystems/SubsystemTemplate';
-import { PIDSubsystemTemplate } from './frc-kotlin/command-based/subsystems/PIDSubsystemTemplate';
-import { ProfiledPIDSubsystemTemplate } from './frc-kotlin/command-based/subsystems/ProfiledPIDSubsystemTemplate';
-import { TrapezoidProfileSubsystemTemplate } from './frc-kotlin/command-based/subsystems/TrapezoidProfileSubsystemTemplate';
+import { CommandSubsystemTemplate } from "./frc-kotlin/command-based/subsystems/SubsystemTemplate";
+import { PIDSubsystemTemplate } from "./frc-kotlin/command-based/subsystems/PIDSubsystemTemplate";
+import { ProfiledPIDSubsystemTemplate } from "./frc-kotlin/command-based/subsystems/ProfiledPIDSubsystemTemplate";
+import { TrapezoidProfileSubsystemTemplate } from "./frc-kotlin/command-based/subsystems/TrapezoidProfileSubsystemTemplate";
 
 // Old Command Based
-import { OldCommandTimedCommandTemplate } from './frc-kotlin/old-command-based/commands/TimedCommand';
-import { OldCommandInstantCommandTemplate } from './frc-kotlin/old-command-based/commands/InstantCommandTemplate';
-import { OldCommandPIDSubsystemTemplate } from './frc-kotlin/old-command-based/subsystems/PIDSubsystemTemplate';
-import { OldCommandTriggerTemplate } from './frc-kotlin/old-command-based/triggers/TriggerTemplate';
-import { OldCommandRobotMapTemplate } from './frc-kotlin/old-command-based/RobotMap';
-import { OldCommandOITemplate } from './frc-kotlin/old-command-based/OI';
-import { OldCommandGroupTemplate } from './frc-kotlin/old-command-based/commands/CommandGroupTemplate';
-import { OldCommandSubsystemTemplate } from './frc-kotlin/old-command-based/subsystems/SubsystemTemplate';
-import { OldCommandRobotTemplate } from './frc-kotlin/old-command-based/Robot';
-import { OldCommandTemplate } from './frc-kotlin/old-command-based/commands/CommandTemplate';
+import { OldCommandTimedCommandTemplate } from "./frc-kotlin/old-command-based/commands/TimedCommand";
+import { OldCommandInstantCommandTemplate } from "./frc-kotlin/old-command-based/commands/InstantCommandTemplate";
+import { OldCommandPIDSubsystemTemplate } from "./frc-kotlin/old-command-based/subsystems/PIDSubsystemTemplate";
+import { OldCommandTriggerTemplate } from "./frc-kotlin/old-command-based/triggers/TriggerTemplate";
+import { OldCommandRobotMapTemplate } from "./frc-kotlin/old-command-based/RobotMap";
+import { OldCommandOITemplate } from "./frc-kotlin/old-command-based/OI";
+import { OldCommandGroupTemplate } from "./frc-kotlin/old-command-based/commands/CommandGroupTemplate";
+import { OldCommandSubsystemTemplate } from "./frc-kotlin/old-command-based/subsystems/SubsystemTemplate";
+import { OldCommandRobotTemplate } from "./frc-kotlin/old-command-based/Robot";
+import { OldCommandTemplate } from "./frc-kotlin/old-command-based/commands/CommandTemplate";
 
 export interface ITemplateProvider {
 	getTemplateObject(targetTemplateType: templateType): Promise<ITemplate | null>;
@@ -76,7 +76,7 @@ export class FileSystemTemplateProvider {
 
 		for (var value of values) {
 			if (value[1] === vscode.FileType.File) {
-				let temp: string | undefined = value[0]?.split('\\')?.pop()?.split('/')?.pop();
+				let temp: string | undefined = value[0]?.split("\\")?.pop()?.split("/")?.pop();
 				let fileNameWithExtension: string = (temp === undefined) ? "" : temp;
 
 				let splitArray = fileNameWithExtension.split(".");

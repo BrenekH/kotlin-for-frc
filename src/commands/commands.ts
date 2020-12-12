@@ -23,7 +23,7 @@ export async function registerCommands(context: vscode.ExtensionContext) {
 
     context.subscriptions.push(disposable);
 
-    disposable = vscode.commands.registerCommand('kotlinForFRC.convertJavaProject', async () => {
+    disposable = vscode.commands.registerCommand("kotlinForFRC.convertJavaProject", async () => {
         kotlinExt.telemetry.recordCommandRan("convertJavaProject");
         console.log("Reading Robot.java");
         // Check to make sure file paths are even there

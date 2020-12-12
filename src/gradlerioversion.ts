@@ -32,13 +32,13 @@ export async function getLatestOnlineGradleRioVersions(): Promise<{[key: string]
 
 	let allVersions: string[] = [];
 
-	temp?.forEach(element => {
+	temp?.forEach((element) => {
 		allVersions.push(element.replace("<version>", "").replace("</version>", ""));
 	});
 
 	let x: {[key: string]: string} = {}; // TODO: Name this better
 
-	allVersions.forEach(element => {
+	allVersions.forEach((element) => {
 		let tempYear = element.match(/[0-9]{4}/);
 		let year = "0000";
 		if (tempYear !== null) {
