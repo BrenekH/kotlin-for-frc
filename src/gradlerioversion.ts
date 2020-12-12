@@ -1,11 +1,12 @@
 "use strict";
 import * as vscode from "vscode";
+import * as semver from "semver";
 import * as filesystem from "./file_manipulation/file_system";
 import get from "axios";
 import { getWorkspaceFolderPath, getWorkspaceFolderFsPath, getValidLatestGradleRioVersion } from "./extension";
 import { createFileWithContent } from "./file_manipulation/file_generator";
 
-export async function queryOnlineGradleRioVersion(): Promise<string> {
+export async function getGradleRIOVersionXML(): Promise<string> {
 	var response: any;
 	try {
 		response = await get("https://plugins.gradle.org/m2/edu/wpi/first/GradleRIO/maven-metadata.xml");
@@ -13,37 +14,71 @@ export async function queryOnlineGradleRioVersion(): Promise<string> {
 		console.log(error);
 		return "";
 	}
+	return response.data as string;
+}
 
-	var resultObj = (response.data as String).match(/<version>(.*)<\/version/);
-	
+export async function getLatestOnlineGradleRioVersions(): Promise<{[key: string]: string}> {
+	const responseString = await getGradleRIOVersionXML();
+
+	let resultObj = responseString.match(/<versions>(.*)<\/versions>/s);
+
 	if (resultObj === null) {
 		resultObj = ["", ""];
 	}
 
-	console.log("Grabbed online GradleRIO version: " + resultObj[1]);
+	const allVersionsString = resultObj[0];
 
-	return resultObj[1];
+	const temp = allVersionsString.match(/<version>([A-Za-z0-9.\-]*)<\/version>/g);
+
+	let allVersions: string[] = [];
+
+	temp?.forEach(element => {
+		allVersions.push(element.replace("<version>", "").replace("</version>", ""));
+	});
+
+	let x: {[key: string]: string} = {}; // TODO: Name this better
+
+	allVersions.forEach(element => {
+		let tempYear = element.match(/[0-9]{4}/);
+		let year = "0000";
+		if (tempYear !== null) {
+			year = tempYear[0];
+		}
+
+		if (x[year] !== undefined) {
+			if (semver.satisfies(element, `>${x[year]}`)) {
+				x[year] = element;
+			}
+		} else {
+			x[year] = element;
+		}
+	});
+
+	return x;
 }
 
-export async function getLatestGradleRioVersion(context: vscode.ExtensionContext): Promise<string> {
-	const storedVersion = context.globalState.get("latestGradleRioVersion", "") as string;
+export async function updateGradleRIOVersionCache(context: vscode.ExtensionContext) {
 	const storedLastUpdate = context.globalState.get("lastGradleRioVersionUpdateTime", 0) as number;
 	const currentTime = Date.now();
-	var latestVersion = "";
 
-	if (storedVersion === "") {
-		latestVersion = await queryOnlineGradleRioVersion();
-	} else if (currentTime > storedLastUpdate + 86400000) {
-		latestVersion = await queryOnlineGradleRioVersion();
+	if (!(currentTime > storedLastUpdate + 86400000)) {
+		return;
 	}
 
-	if (latestVersion !== "") {
-		await context.globalState.update("latestGradleRioVersion", latestVersion);
-		await context.globalState.update("lastGradleRioVersionUpdateTime", currentTime);
-		return latestVersion;
-	}	
+	const latestVersions: {[key: string]: string} = await getLatestOnlineGradleRioVersions();
+	context.globalState.update("grvCache", JSON.stringify(latestVersions));
+}
 
-	return storedVersion as string;
+export async function getLatestGradleRioVersion(currentYear: string, context: vscode.ExtensionContext): Promise<string | undefined> {
+	await updateGradleRIOVersionCache(context);
+
+	const grvCacheValue: string | undefined = context.globalState.get("grvCache");
+
+	if (grvCacheValue === undefined) {  // Curse you Typescript!
+		return undefined;
+	}
+
+	return JSON.parse(grvCacheValue)[currentYear];
 }
 
 export async function getCurrentGradleRioVersion(): Promise<string> {
