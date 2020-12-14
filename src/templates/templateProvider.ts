@@ -91,7 +91,7 @@ export class FileSystemTemplateProvider {
 						return null;
 					}
 					if (parsedType === targetTemplateType) {
-						return {text: await customfs.readFile(this.pathToSearch + "/" + value[0])};
+						return {text: await customfs.readFile(`${this.pathToSearch}/${value[0]}`)};
 					}
 				}
 			}
