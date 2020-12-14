@@ -8,7 +8,7 @@ class #{NAME} : Subsystem() {
     // here. Call these from Commands.
     override fun initDefaultCommand() {
         // Set the default command for a subsystem here.
-        // setDefaultCommand(new MySpecialCommand());
+        // setDefaultCommand(MySpecialCommand())
     }
 }
 `;
