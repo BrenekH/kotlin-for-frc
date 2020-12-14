@@ -79,7 +79,7 @@ async function convertCommand() {
 	getTemplateObjectFromTemplateType(templateType.constants).then((value: ITemplate) => { filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/Constants.kt", value.text); });
 	getTemplateObjectFromTemplateType(templateType.robotContainer).then((value: ITemplate) => { filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/RobotContainer.kt", value.text); });
 	createMainKtAndBuildGradle();
-	
+
 	// Dynamic files(need name changes)
 	parseTemplate("ExampleCommand", "frc.robot.commands", templateType.command).then((value: string) => { filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/commands/ExampleCommand.kt", value); });
 	parseTemplate("ExampleSubsystem", "frc.robot.subsystems", templateType.subsystem).then((value: string) => {  filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/subsystems/ExampleSubsystem.kt", value); });
@@ -98,7 +98,7 @@ async function convertOldCommand() {
 	getTemplateObjectFromTemplateType(templateType.oldRobotMap).then((value: ITemplate) => { filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/RobotMap.kt", value.text); });
 	getTemplateObjectFromTemplateType(templateType.oldOI).then((value: ITemplate) => { filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/OI.kt", value.text); });
 	createMainKtAndBuildGradle();
-	
+
 	// Dynamic files(need name changes)
 	parseTemplate("ExampleCommand", "frc.robot.commands", templateType.oldCommand).then((value: string) => { filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/commands/ExampleCommand.kt", value); });
 	parseTemplate("ExampleSubsystem", "frc.robot.subsystems", templateType.oldSubsystem).then((value: string) => { filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/subsystems/ExampleSubsystem.kt", value); });
@@ -114,7 +114,7 @@ export function convertJavaProject(currentRobotType: robotType) {
 		console.log("Recreating structure");
 		vscode.workspace.fs.createDirectory(vscode.Uri.file(kotlinExt.getWorkspaceFolderFsPath() + "/src/main/kotlin/frc/robot")).then(async () => {
 			console.log("Done recreating basic file structure");
-		
+
 			switch(currentRobotType) {
 				case robotType.command:
 					await convertCommand();
@@ -137,6 +137,6 @@ export function convertJavaProject(currentRobotType: robotType) {
 			}
 
 			vscode.window.showInformationMessage("Kotlin for FRC: Conversion complete!");
-		});		
+		});
 	});
 }

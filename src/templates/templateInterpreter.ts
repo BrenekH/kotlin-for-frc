@@ -29,7 +29,7 @@ export enum templateType {
     oldRobot = "Old Command Based Robot",
     oldOI = "Old OI",
     oldRobotMap = "Old Robot Map",
-    
+
     // Command based templates
     // General
     robot = "Command Based Robot",
@@ -62,6 +62,8 @@ export enum robotType {
     timed = "timed",
     timedSkeleton = "timed_skeleton",
     robotBaseSkeleton = "robot_base_skeleton",
+    romiCommand = "romi_command",
+    romiTimed = "romi_timed",
 }
 
 export async function getTemplateObjectFromTemplateType(targetTemplateType: templateType): Promise<ITemplate> {
@@ -121,6 +123,11 @@ export function getTemplateObjectFromRobotType(targetRobotType: robotType) {
             return new TimedRobotSkeletonTemplate();
         case robotType.robotBaseSkeleton:
             return new RobotBaseSkeleton();
+        // TODO: Change these to proper classes probably
+        case robotType.romiCommand:
+            return new CommandRobotTemplate();
+        case robotType.romiTimed:
+            return new TimedRobotTemplate();
     }
 }
 

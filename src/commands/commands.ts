@@ -36,10 +36,10 @@ export async function registerCommands(context: vscode.ExtensionContext) {
             vscode.window.showErrorMessage("Kotlin for FRC: Could not find Robot.java. You may have already converted this project or the correct directories are missing.");
             return;
         }
-        
+
         convertJavaProject(determineRobotType(robotJava));
     });
-    
+
     context.subscriptions.push(disposable);
 
     disposable = vscode.commands.registerCommand("kotlinForFRC.showChangelog", () => {
@@ -69,6 +69,6 @@ export async function registerCommands(context: vscode.ExtensionContext) {
         await context.globalState.update("lastGradleRioVersionUpdateTime", 0);
         console.log("reset gradle rio cache");
     });
-    
+
     context.subscriptions.push(disposable);
 }
