@@ -1,4 +1,4 @@
-export class BuildGradleTemplate {
+export class RomiBuildGradleTemplate {
     text: string = `plugins {
     id "java"
     id "edu.wpi.first.GradleRIO" version "#{GRADLE_RIO_VERSION}"
@@ -10,48 +10,17 @@ targetCompatibility = JavaVersion.VERSION_11
 
 def ROBOT_MAIN_CLASS = "frc.robot.Main"
 
-// Define my targets (RoboRIO) and artifacts (deployable files)
-// This is added by GradleRIO's backing project EmbeddedTools.
-deploy {
-    targets {
-        roboRIO("roborio") {
-            // Team number is loaded either from the .wpilib/wpilib_preferences.json
-            // or from command line. If not found an exception will be thrown.
-            // You can use getTeamOrDefault(team) instead of getTeamNumber if you
-            // want to store a team number in this file.
-            team = frc.getTeamNumber()
-        }
-    }
-    artifacts {
-        frcJavaArtifact('frcJava') {
-            targets << "roborio"
-            // Debug can be overridden by command line, for use with VSCode
-            debug = frc.getDebugOrDefault(false)
-        }
-        // Built in artifact to deploy arbitrary files to the roboRIO.
-        fileTreeArtifact('frcStaticFileDeploy') {
-            // The directory below is the local directory to deploy
-            files = fileTree(dir: 'src/main/deploy')
-            // Deploy to RoboRIO target, into /home/lvuser/deploy
-            targets << "roborio"
-            directory = '/home/lvuser/deploy'
-        }
-    }
-}
-
 // Set this to true to enable desktop support.
-def includeDesktopSupport = false
+def includeDesktopSupport = true
 
 // Defining my dependencies. In this case, WPILib (+ friends), and vendor libraries.
 // Also defines JUnit 4.
 dependencies {
     implementation wpi.deps.wpilib()
-    nativeZip wpi.deps.wpilibJni(wpi.platforms.roborio)
     nativeDesktopZip wpi.deps.wpilibJni(wpi.platforms.desktop)
 
 
     implementation wpi.deps.vendor.java()
-    nativeZip wpi.deps.vendor.jni(wpi.platforms.roborio)
     nativeDesktopZip wpi.deps.vendor.jni(wpi.platforms.desktop)
 
     testImplementation 'junit:junit:4.12'
@@ -60,11 +29,16 @@ dependencies {
     // upon debugging
     simulation wpi.deps.sim.gui(wpi.platforms.desktop, false)
     simulation wpi.deps.sim.driverstation(wpi.platforms.desktop, false)
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
 
     // Websocket extensions require additional configuration.
     // simulation wpi.deps.sim.ws_server(wpi.platforms.desktop, false)
-    // simulation wpi.deps.sim.ws_client(wpi.platforms.desktop, false)
+    simulation wpi.deps.sim.ws_client(wpi.platforms.desktop, false)
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+}
+
+// Set the websocket remote host (the Romi IP address).
+sim {
+    envVar "HALSIMWS_HOST", "10.0.0.2"
 }
 
 // Setting up my Jar File. In this case, adding all libraries into the main jar ('fat jar')
