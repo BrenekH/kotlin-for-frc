@@ -9,19 +9,30 @@ import { templateType, robotType, getTemplateObjectFromRobotType,
 		getParsedGradle, getMainTemplateObject } from "../templates/templateInterpreter";
 import { ITemplate } from "../templates/templateProvider";
 
-export function determineRobotType(robotJava: string) {
-	var currentRobotType: robotType = robotType.timed;
+export function determineRobotType(robotJava: string, buildGradle: string) {
+	// TODO: Unit test this function
+	let currentRobotType: robotType = robotType.timed;
 
 	if (robotJava.includes("edu.wpi.first.wpilibj2.command.Command")) {
-		currentRobotType = robotType.command;
-		console.log("Command");
+		if (buildGradle.includes("// Set the websocket remote host (the Romi IP address).")) {
+			currentRobotType = robotType.romiCommand;
+			console.log("RomiCommand");
+		}
+		else {
+			currentRobotType = robotType.command;
+			console.log("Command");
+		}
 	}
 	else if (robotJava.includes("edu.wpi.first.wpilibj.command.Command")) {
 		currentRobotType = robotType.oldCommand;
 		console.log("Old Command");
 	}
 	else if (robotJava.includes("edu.wpi.first.wpilibj.TimedRobot")) {
-		if (robotJava.includes("edu.wpi.first.wpilibj.smartdashboard.SendableChooser")) {
+		if (robotJava.includes("new RomiDrivetrain();")) {
+			currentRobotType = robotType.romiTimed;
+			console.log("RomiTimed");
+		}
+		else if (robotJava.includes("edu.wpi.first.wpilibj.smartdashboard.SendableChooser")) {
 			currentRobotType = robotType.timed;
 			console.log("Timed");
 		}
@@ -104,6 +115,32 @@ async function convertOldCommand() {
 	parseTemplate("ExampleSubsystem", "frc.robot.subsystems", templateType.oldSubsystem).then((value: string) => { filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/subsystems/ExampleSubsystem.kt", value); });
 }
 
+async function convertRomiTimed() {
+	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/Robot.kt", getTemplateObjectFromRobotType(robotType.romiTimed).text);
+
+	getTemplateObjectFromTemplateType(templateType.subsystem).then((value: ITemplate) => { filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/RomiDrivetrain.kt", value.text); });
+	createMainKtAndBuildGradle();
+}
+
+async function convertRomiCommand() {
+	if (!await customfs.exists(kotlinExt.getWorkspaceFolderFsPath() + "/src/main/kotlin/frc/robot/commands")) {
+		await customfs.mkdir(kotlinExt.getWorkspaceFolderFsPath() + "/src/main/kotlin/frc/robot/commands");
+	}
+	if (!await customfs.exists(kotlinExt.getWorkspaceFolderFsPath() + "/src/main/kotlin/frc/robot/subsystems")) {
+		await customfs.mkdir(kotlinExt.getWorkspaceFolderFsPath() + "/src/main/kotlin/frc/robot/subsystems");
+	}
+
+	// Static files(don't need any name changes)
+	getTemplateObjectFromTemplateType(templateType.robot).then((value: ITemplate) => { filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/Robot.kt", value.text); });
+	getTemplateObjectFromTemplateType(templateType.constants).then((value: ITemplate) => { filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/Constants.kt", value.text); });
+	getTemplateObjectFromTemplateType(templateType.robotContainer).then((value: ITemplate) => { filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/RobotContainer.kt", value.text); });
+	createMainKtAndBuildGradle();
+
+	// Dynamic files(need name changes)
+	parseTemplate("ExampleCommand", "frc.robot.commands", templateType.command).then((value: string) => { filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/commands/ExampleCommand.kt", value); });
+	parseTemplate("ExampleSubsystem", "frc.robot.subsystems", templateType.subsystem).then((value: string) => {  filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/subsystems/ExampleSubsystem.kt", value); });
+}
+
 export function convertJavaProject(currentRobotType: robotType) {
 	kotlinExt.telemetry.recordConversionEvent(currentRobotType);
 	console.log("Deleting java project");
@@ -130,6 +167,12 @@ export function convertJavaProject(currentRobotType: robotType) {
 					break;
 				case robotType.robotBaseSkeleton:
 					convertRobotBaseSkeleton();
+					break;
+				case robotType.romiCommand:
+					convertRomiCommand();
+					break;
+				case robotType.romiTimed:
+					convertRomiTimed();
 					break;
 				default:
 					vscode.window.showErrorMessage("Kotlin For FRC: ERROR 'Invalid Template Type'. Please report in the issues section on github with a detailed description of what steps were taken.");

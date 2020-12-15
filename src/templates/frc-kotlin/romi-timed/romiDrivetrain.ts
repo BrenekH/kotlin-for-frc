@@ -1,0 +1,58 @@
+export class RomiTimedDrivetrainTemplate {
+    text: string = `package frc.robot
+
+import edu.wpi.first.wpilibj.Encoder
+import edu.wpi.first.wpilibj.Spark
+import edu.wpi.first.wpilibj.drive.DifferentialDrive
+
+class RomiDrivetrain {
+    // The Romi has the left and right motors set to
+    // PWM channels 0 and 1 respectively
+    private val leftMotor = Spark(0)
+    private val rightMotor = Spark(1)
+
+    // The Romi has onboard encoders that are hardcoded
+    // to use DIO pins 4/5 and 6/7 for the left and right
+    private val leftEncoder = Encoder(4, 5)
+    private val rightEncoder = Encoder(6, 7)
+
+    // Set up the differential drive controller
+    private val diffDrive = DifferentialDrive(leftMotor, rightMotor)
+
+    companion object {
+        private const val COUNTS_PER_REVOLUTION = 1440.0
+        private const val WHEEL_DIAMETER_INCH = 2.75
+    }
+
+    /**
+     * Creates a new RomiDrivetrain.
+     */
+    init {
+        // DifferentialDrive defaults to having the right side flipped
+        // We don't need to do this because the Romi has accounted for this
+        // in firmware/hardware
+        diffDrive.isRightSideInverted = false
+        resetEncoders()
+    }
+
+    fun arcadeDrive(xaxisSpeed: Double, zaxisRotate: Double) {
+        diffDrive.arcadeDrive(xaxisSpeed, zaxisRotate)
+    }
+
+    fun resetEncoders() {
+        leftEncoder.reset()
+        rightEncoder.reset()
+    }
+
+    // The Kotlin getter pattern is used here so that the value updates everytime the property is accessed
+    val leftEncoderCount: Int
+        get() = leftEncoder.get()
+    val rightEncoderCount: Int
+        get() = rightEncoder.get()
+    val leftDistanceInch: Double
+        get() = Math.PI * WHEEL_DIAMETER_INCH * (leftEncoderCount / COUNTS_PER_REVOLUTION)
+    val rightDistanceInch: Double
+        get() = Math.PI * WHEEL_DIAMETER_INCH * (rightEncoderCount / COUNTS_PER_REVOLUTION)
+}
+`;
+}

@@ -16,6 +16,7 @@ import { TimedRobotSkeletonTemplate } from './frc-kotlin/timed-skeleton/Robot';
 // Robot Base Skeleton
 import { RobotBaseSkeleton } from './frc-kotlin/robotbase-skeleton/Robot';
 import { ITemplate, DummyTemplate } from "./templateProvider";
+import { RomiTimedRobotTemplate } from "./frc-kotlin/romi-timed/robot";
 
 export enum templateType {
     // Old command based templates
@@ -50,6 +51,13 @@ export enum templateType {
     PIDSubsystem = "PID Subsystem",
     profiledPIDSubsystem = "Profiled PID Subsystem",
     trapezoidProfileSubsystem = "Trapezoid Profile Subsystem",
+
+    // Romi
+    romiTimedDrivetrain = "Romi Timed Drivetrain",
+    romiCommandRobotContainer = "Romi Command Robot Container",
+    romiCommandConstants = "Romi Command Constants",
+    romiCommandExampleCommand = "Romi Command Example Command",
+    romiCommandDrivetrainSubsystem = "Romi Command Drivetrain Subsystem",
 
     // Misc templates
     emptyClass = "Empty Class",
@@ -123,11 +131,10 @@ export function getTemplateObjectFromRobotType(targetRobotType: robotType) {
             return new TimedRobotSkeletonTemplate();
         case robotType.robotBaseSkeleton:
             return new RobotBaseSkeleton();
-        // TODO: Change these to proper classes probably
         case robotType.romiCommand:
             return new CommandRobotTemplate();
         case robotType.romiTimed:
-            return new TimedRobotTemplate();
+            return new RomiTimedRobotTemplate();
     }
 }
 

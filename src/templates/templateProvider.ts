@@ -39,6 +39,11 @@ import { OldCommandGroupTemplate } from "./frc-kotlin/old-command-based/commands
 import { OldCommandSubsystemTemplate } from "./frc-kotlin/old-command-based/subsystems/SubsystemTemplate";
 import { OldCommandRobotTemplate } from "./frc-kotlin/old-command-based/Robot";
 import { OldCommandTemplate } from "./frc-kotlin/old-command-based/commands/CommandTemplate";
+import { RomiTimedDrivetrainTemplate } from "./frc-kotlin/romi-timed/romiDrivetrain";
+import { RomiCommandRobotContainerTemplate } from "./frc-kotlin/romi-command-based/robotContainer";
+import { RomiCommandConstantsTemplate } from "./frc-kotlin/romi-command-based/constants";
+import { RomiCommandExampleCommandTemplate } from "./frc-kotlin/romi-command-based/commands/exampleCommand";
+import { RomiCommandDrivetrainSubsystemTemplate } from "./frc-kotlin/romi-command-based/subsystems/romiDrivetrainSubsystem";
 
 export interface ITemplateProvider {
 	getTemplateObject(targetTemplateType: templateType): Promise<ITemplate | null>;
@@ -161,6 +166,18 @@ export class IntegratedTemplateProvider {
 				return new ProfiledPIDSubsystemTemplate();
 			case templateType.trapezoidProfileSubsystem:
 				return new TrapezoidProfileSubsystemTemplate();
+
+			// Romi
+			case templateType.romiTimedDrivetrain:
+				return new RomiTimedDrivetrainTemplate();
+			case templateType.romiCommandRobotContainer:
+				return new RomiCommandRobotContainerTemplate();
+			case templateType.romiCommandConstants:
+				return new RomiCommandConstantsTemplate();
+			case templateType.romiCommandExampleCommand:
+				return new RomiCommandExampleCommandTemplate();
+			case templateType.romiCommandDrivetrainSubsystem:
+				return new RomiCommandDrivetrainSubsystemTemplate();
 
 			// Misc
 			case templateType.buildGradle:
