@@ -1,9 +1,9 @@
-export class CommandRobotContainerTemplate {
+export class RomiCommandRobotContainerTemplate {
     text: string = `package frc.robot
 
 import edu.wpi.first.wpilibj2.command.Command
 import frc.robot.commands.ExampleCommand
-import frc.robot.subsystems.ExampleSubsystem
+import frc.robot.subsystems.RomiDrivetrain
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -13,8 +13,8 @@ import frc.robot.subsystems.ExampleSubsystem
  */
 class RobotContainer {
     // The robot's subsystems and commands are defined here...
-    private val exampleSubsystem = ExampleSubsystem()
-    private val autoCommand = ExampleCommand(exampleSubsystem)
+    private val romiDrivetrain = RomiDrivetrain()
+    private val autoCommand = ExampleCommand(romiDrivetrain)
 
     /**
      * The container for the robot.  Contains subsystems, OI devices, and commands.

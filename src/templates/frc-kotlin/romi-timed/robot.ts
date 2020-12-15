@@ -1,4 +1,4 @@
-export class TimedRobotTemplate {
+export class RomiTimedRobotTemplate {
     text: string = `package frc.robot
 
 import edu.wpi.first.wpilibj.TimedRobot
@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard
 class Robot : TimedRobot() {
     private var selectedAutonomous: String? = null
     private val autonomousChooser = SendableChooser<String>()
+    private val drivetrain = RomiDrivetrain()
 
     companion object {
         private const val DEFAULT_AUTO = "Default"
@@ -56,8 +57,9 @@ class Robot : TimedRobot() {
      */
     override fun autonomousInit() {
         selectedAutonomous = autonomousChooser.selected
-        // autoSelected = SmartDashboard.getString("Auto Selector", kDefaultAuto)
+        // m_autoSelected = SmartDashboard.getString("Auto Selector", kDefaultAuto);
         println("Auto selected: $selectedAutonomous")
+        drivetrain.resetEncoders()
     }
 
     /**

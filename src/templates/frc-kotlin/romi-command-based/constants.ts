@@ -1,4 +1,4 @@
-export class CommandConstantsTemplate {
+export class RomiCommandConstantsTemplate {
     text: string = `package frc.robot
 
 /**
@@ -14,6 +14,22 @@ class Constants {
     companion object {
         // Put constant values inside the companion object to make them globally accessible.
         // ex. val motorPort: Int = 0
+    }
+
+    class Drivetrain {
+        companion object {
+            // The Romi has the left and right motors set to
+            // PWM channels 0 and 1 respectively
+            const val LEFT_MOTOR_CHANNEL = 0
+            const val RIGHT_MOTOR_CHANNEL = 1
+
+            // The Romi has onboard encoders that are hardcoded
+            // to use DIO pins 4/5 and 6/7 for the left and right
+            const val LEFT_ENCODER_A = 4
+            const val LEFT_ENCODER_B = 5
+            const val RIGHT_ENCODER_A = 6
+            const val RIGHT_ENCODER_B = 7
+        }
     }
 }
 `;

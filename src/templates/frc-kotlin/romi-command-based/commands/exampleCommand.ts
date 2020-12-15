@@ -1,16 +1,15 @@
-export class CommandTemplate {
-    text: string = `package #{PACKAGE}
+export class RomiCommandExampleCommandTemplate {
+    text: string = `package frc.robot.commands
 
 import edu.wpi.first.wpilibj2.command.CommandBase
-import frc.robot.subsystems.ExampleSubsystem
+import frc.robot.subsystems.RomiDrivetrain
 
 /**
+ * An example command that uses an example subsystem.
+ *
  * @property subsystem
  */
-class #{NAME}(private val subsystem: ExampleSubsystem) : CommandBase() {
-    /**
-     * Creates a new #{NAME}.
-     */
+class ExampleCommand(private val subsystem: RomiDrivetrain) : CommandBase() {
     init {
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(subsystem)

@@ -27,7 +27,7 @@ export async function registerCommands(context: vscode.ExtensionContext) {
         kotlinExt.telemetry.recordCommandRan("convertJavaProject");
         console.log("Reading Robot.java");
         // Check to make sure file paths are even there
-        var robotJava: string = "";
+        let robotJava: string = "";
         try {
             robotJava = await customfs.readFile(kotlinExt.getWorkspaceFolderFsPath() + "/src/main/java/frc/robot/Robot.java");
         }
@@ -36,10 +36,19 @@ export async function registerCommands(context: vscode.ExtensionContext) {
             vscode.window.showErrorMessage("Kotlin for FRC: Could not find Robot.java. You may have already converted this project or the correct directories are missing.");
             return;
         }
-        
-        convertJavaProject(determineRobotType(robotJava));
+
+        let buildGradleContent: string = "";
+		try {
+			buildGradleContent = await customfs.readFile(`${kotlinExt.getWorkspaceFolderPath()}/build.gradle`);
+		}
+		catch (e) {
+			console.error(e);
+			vscode.window.showWarningMessage("Kotlin For FRC: Could not read build.gradle to differentiate between a Romi Command project and a regular Command project. Defaulting to the regular version.");
+		}
+
+        convertJavaProject(determineRobotType(robotJava, buildGradleContent));
     });
-    
+
     context.subscriptions.push(disposable);
 
     disposable = vscode.commands.registerCommand("kotlinForFRC.showChangelog", () => {
@@ -69,6 +78,6 @@ export async function registerCommands(context: vscode.ExtensionContext) {
         await context.globalState.update("lastGradleRioVersionUpdateTime", 0);
         console.log("reset gradle rio cache");
     });
-    
+
     context.subscriptions.push(disposable);
 }

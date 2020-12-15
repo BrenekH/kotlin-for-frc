@@ -16,6 +16,7 @@ import { TimedRobotSkeletonTemplate } from './frc-kotlin/timed-skeleton/Robot';
 // Robot Base Skeleton
 import { RobotBaseSkeleton } from './frc-kotlin/robotbase-skeleton/Robot';
 import { ITemplate, DummyTemplate } from "./templateProvider";
+import { RomiTimedRobotTemplate } from "./frc-kotlin/romi-timed/robot";
 
 export enum templateType {
     // Old command based templates
@@ -29,7 +30,7 @@ export enum templateType {
     oldRobot = "Old Command Based Robot",
     oldOI = "Old OI",
     oldRobotMap = "Old Robot Map",
-    
+
     // Command based templates
     // General
     robot = "Command Based Robot",
@@ -51,9 +52,17 @@ export enum templateType {
     profiledPIDSubsystem = "Profiled PID Subsystem",
     trapezoidProfileSubsystem = "Trapezoid Profile Subsystem",
 
+    // Romi
+    romiTimedDrivetrain = "Romi Timed Drivetrain",
+    romiCommandRobotContainer = "Romi Command Robot Container",
+    romiCommandConstants = "Romi Command Constants",
+    romiCommandExampleCommand = "Romi Command Example Command",
+    romiCommandDrivetrainSubsystem = "Romi Command Drivetrain Subsystem",
+
     // Misc templates
     emptyClass = "Empty Class",
     buildGradle = "build.gradle",
+    romiBuildGradle = "Romi-specific build.gradle",
 }
 
 export enum robotType {
@@ -62,6 +71,8 @@ export enum robotType {
     timed = "timed",
     timedSkeleton = "timed_skeleton",
     robotBaseSkeleton = "robot_base_skeleton",
+    romiCommand = "romi_command",
+    romiTimed = "romi_timed",
 }
 
 export async function getTemplateObjectFromTemplateType(targetTemplateType: templateType): Promise<ITemplate> {
@@ -101,8 +112,14 @@ export function parseForGradleRioVersion(gradleRioVersion: string, toParse: stri
     return toParse.replace(/#{GRADLE_RIO_VERSION}/gi, gradleRioVersion);
 }
 
-export async function getParsedGradle() {
-    return parseForGradleRioVersion(kotlinExt.getValidLatestGradleRioVersion(), (await getTemplateObjectFromTemplateType(templateType.buildGradle)).text);
+export async function getParsedGradle(useRomiBuildGradle: boolean) {
+    let buildGradleTemplateType: templateType;
+    if (useRomiBuildGradle) {
+        buildGradleTemplateType = templateType.romiBuildGradle;
+    } else {
+        buildGradleTemplateType = templateType.buildGradle;
+    }
+    return parseForGradleRioVersion(kotlinExt.getValidLatestGradleRioVersion(), (await getTemplateObjectFromTemplateType(buildGradleTemplateType)).text);
 }
 
 export function parseForPackageName(packageName: string, toParse: string) {
@@ -121,6 +138,10 @@ export function getTemplateObjectFromRobotType(targetRobotType: robotType) {
             return new TimedRobotSkeletonTemplate();
         case robotType.robotBaseSkeleton:
             return new RobotBaseSkeleton();
+        case robotType.romiCommand:
+            return new CommandRobotTemplate();
+        case robotType.romiTimed:
+            return new RomiTimedRobotTemplate();
     }
 }
 
