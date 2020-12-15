@@ -44,6 +44,7 @@ import { RomiCommandRobotContainerTemplate } from "./frc-kotlin/romi-command-bas
 import { RomiCommandConstantsTemplate } from "./frc-kotlin/romi-command-based/constants";
 import { RomiCommandExampleCommandTemplate } from "./frc-kotlin/romi-command-based/commands/exampleCommand";
 import { RomiCommandDrivetrainSubsystemTemplate } from "./frc-kotlin/romi-command-based/subsystems/romiDrivetrainSubsystem";
+import { RomiBuildGradleTemplate } from "./frc-kotlin/RomiBuildGradle";
 
 export interface ITemplateProvider {
 	getTemplateObject(targetTemplateType: templateType): Promise<ITemplate | null>;
@@ -184,6 +185,8 @@ export class IntegratedTemplateProvider {
 				return new BuildGradleTemplate();
 			case templateType.emptyClass:
 				return new EmptyClassTemplate();
+			case templateType.romiBuildGradle:
+				return new RomiBuildGradleTemplate();
 
 			// Default case should never run because the Integrated Template Provider is the fail safe
 			default:

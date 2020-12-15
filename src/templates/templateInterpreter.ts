@@ -62,6 +62,7 @@ export enum templateType {
     // Misc templates
     emptyClass = "Empty Class",
     buildGradle = "build.gradle",
+    romiBuildGradle = "Romi-specific build.gradle",
 }
 
 export enum robotType {
@@ -111,8 +112,14 @@ export function parseForGradleRioVersion(gradleRioVersion: string, toParse: stri
     return toParse.replace(/#{GRADLE_RIO_VERSION}/gi, gradleRioVersion);
 }
 
-export async function getParsedGradle() {
-    return parseForGradleRioVersion(kotlinExt.getValidLatestGradleRioVersion(), (await getTemplateObjectFromTemplateType(templateType.buildGradle)).text);
+export async function getParsedGradle(useRomiBuildGradle: boolean) {
+    let buildGradleTemplateType: templateType;
+    if (useRomiBuildGradle) {
+        buildGradleTemplateType = templateType.romiBuildGradle;
+    } else {
+        buildGradleTemplateType = templateType.buildGradle;
+    }
+    return parseForGradleRioVersion(kotlinExt.getValidLatestGradleRioVersion(), (await getTemplateObjectFromTemplateType(buildGradleTemplateType)).text);
 }
 
 export function parseForPackageName(packageName: string, toParse: string) {

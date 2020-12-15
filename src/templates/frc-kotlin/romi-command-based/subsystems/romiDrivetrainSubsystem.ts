@@ -8,13 +8,9 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase
 import frc.robot.Constants
 
 class RomiDrivetrain : SubsystemBase() {
-    // The Romi has the left and right motors set to
-    // PWM channels 0 and 1 respectively
     private val leftMotor = Spark(Constants.Drivetrain.LEFT_MOTOR_CHANNEL)
     private val rightMotor = Spark(Constants.Drivetrain.RIGHT_MOTOR_CHANNEL)
 
-    // The Romi has onboard encoders that are hardcoded
-    // to use DIO pins 4/5 and 6/7 for the left and right
     private val leftEncoder = Encoder(Constants.Drivetrain.LEFT_ENCODER_A, Constants.Drivetrain.LEFT_ENCODER_B)
     private val rightEncoder = Encoder(Constants.Drivetrain.RIGHT_ENCODER_A, Constants.Drivetrain.RIGHT_ENCODER_B)
 
@@ -43,7 +39,6 @@ class RomiDrivetrain : SubsystemBase() {
         leftEncoder.reset()
         rightEncoder.reset()
     }
-
 
     // The Kotlin getter pattern is used here so that the value updates every time the property is accessed
     val leftEncoderCount: Int

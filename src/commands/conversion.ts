@@ -49,32 +49,32 @@ export function determineRobotType(robotJava: string, buildGradle: string) {
 	return currentRobotType;
 }
 
-function createBuildGradle() {
-	getParsedGradle().then((value: string) => { filegenerator.createFileWithContent("build.gradle", value); });
+function createBuildGradle(useRomiBuildGradle: boolean) {
+	getParsedGradle(useRomiBuildGradle).then((value: string) => { filegenerator.createFileWithContent("build.gradle", value); });
 }
 
 function createMainKt() {
 	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/Main.kt", getMainTemplateObject().text);
 }
 
-function createMainKtAndBuildGradle() {
+function createMainKtAndBuildGradle(useRomiBuildGradle: boolean) {
 	createMainKt();
-	createBuildGradle();
+	createBuildGradle(useRomiBuildGradle);
 }
 
 function convertTimed() {
 	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/Robot.kt", getTemplateObjectFromRobotType(robotType.timed).text);
-	createMainKtAndBuildGradle();
+	createMainKtAndBuildGradle(false);
 }
 
 function convertTimedSkeleton() {
 	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/Robot.kt", getTemplateObjectFromRobotType(robotType.timedSkeleton).text);
-	createMainKtAndBuildGradle();
+	createMainKtAndBuildGradle(false);
 }
 
 function convertRobotBaseSkeleton() {
 	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/Robot.kt", getTemplateObjectFromRobotType(robotType.robotBaseSkeleton).text);
-	createMainKtAndBuildGradle();
+	createMainKtAndBuildGradle(false);
 }
 
 async function convertCommand() {
@@ -89,7 +89,7 @@ async function convertCommand() {
 	getTemplateObjectFromTemplateType(templateType.robot).then((value: ITemplate) => { filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/Robot.kt", value.text); });
 	getTemplateObjectFromTemplateType(templateType.constants).then((value: ITemplate) => { filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/Constants.kt", value.text); });
 	getTemplateObjectFromTemplateType(templateType.robotContainer).then((value: ITemplate) => { filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/RobotContainer.kt", value.text); });
-	createMainKtAndBuildGradle();
+	createMainKtAndBuildGradle(false);
 
 	// Dynamic files(need name changes)
 	parseTemplate("ExampleCommand", "frc.robot.commands", templateType.command).then((value: string) => { filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/commands/ExampleCommand.kt", value); });
@@ -108,7 +108,7 @@ async function convertOldCommand() {
 	getTemplateObjectFromTemplateType(templateType.oldRobot).then((value: ITemplate) => { filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/Robot.kt", value.text); });
 	getTemplateObjectFromTemplateType(templateType.oldRobotMap).then((value: ITemplate) => { filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/RobotMap.kt", value.text); });
 	getTemplateObjectFromTemplateType(templateType.oldOI).then((value: ITemplate) => { filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/OI.kt", value.text); });
-	createMainKtAndBuildGradle();
+	createMainKtAndBuildGradle(false);
 
 	// Dynamic files(need name changes)
 	parseTemplate("ExampleCommand", "frc.robot.commands", templateType.oldCommand).then((value: string) => { filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/commands/ExampleCommand.kt", value); });
@@ -118,8 +118,8 @@ async function convertOldCommand() {
 async function convertRomiTimed() {
 	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/Robot.kt", getTemplateObjectFromRobotType(robotType.romiTimed).text);
 
-	getTemplateObjectFromTemplateType(templateType.subsystem).then((value: ITemplate) => { filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/RomiDrivetrain.kt", value.text); });
-	createMainKtAndBuildGradle();
+	getTemplateObjectFromTemplateType(templateType.romiTimedDrivetrain).then((value: ITemplate) => { filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/RomiDrivetrain.kt", value.text); });
+	createMainKtAndBuildGradle(true);
 }
 
 async function convertRomiCommand() {
@@ -131,14 +131,13 @@ async function convertRomiCommand() {
 	}
 
 	// Static files(don't need any name changes)
-	getTemplateObjectFromTemplateType(templateType.robot).then((value: ITemplate) => { filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/Robot.kt", value.text); });
-	getTemplateObjectFromTemplateType(templateType.constants).then((value: ITemplate) => { filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/Constants.kt", value.text); });
-	getTemplateObjectFromTemplateType(templateType.robotContainer).then((value: ITemplate) => { filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/RobotContainer.kt", value.text); });
-	createMainKtAndBuildGradle();
+	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/Robot.kt", getTemplateObjectFromRobotType(robotType.romiCommand).text);
 
-	// Dynamic files(need name changes)
-	parseTemplate("ExampleCommand", "frc.robot.commands", templateType.command).then((value: string) => { filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/commands/ExampleCommand.kt", value); });
-	parseTemplate("ExampleSubsystem", "frc.robot.subsystems", templateType.subsystem).then((value: string) => {  filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/subsystems/ExampleSubsystem.kt", value); });
+	getTemplateObjectFromTemplateType(templateType.romiCommandConstants).then((value: ITemplate) => { filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/Constants.kt", value.text); });
+	getTemplateObjectFromTemplateType(templateType.romiCommandRobotContainer).then((value: ITemplate) => { filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/RobotContainer.kt", value.text); });
+	getTemplateObjectFromTemplateType(templateType.romiCommandExampleCommand).then((value: ITemplate) => { filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/commands/ExampleCommand.kt", value.text); });
+	getTemplateObjectFromTemplateType(templateType.romiCommandDrivetrainSubsystem).then((value: ITemplate) => { filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/subsystems/RomiDrivetrain.kt", value.text); });
+	createMainKtAndBuildGradle(true);
 }
 
 export function convertJavaProject(currentRobotType: robotType) {
