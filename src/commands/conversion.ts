@@ -8,6 +8,7 @@ import { templateType, robotType, getTemplateObjectFromRobotType,
 		getTemplateObjectFromTemplateType, parseTemplate,
 		getParsedGradle, getMainTemplateObject } from "../templates/templateInterpreter";
 import { ITemplate } from "../templates/templateProvider";
+import { ExampleCommand } from "../templates/frc-kotlin/command-based/commands/ExampleCommand";
 
 export function determineRobotType(robotJava: string, buildGradle: string) {
 	// TODO: Unit test this function
@@ -92,8 +93,8 @@ async function convertCommand() {
 	createMainKtAndBuildGradle(false);
 
 	// Dynamic files(need name changes)
-	parseTemplate("ExampleCommand", "frc.robot.commands", templateType.command).then((value: string) => { filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/commands/ExampleCommand.kt", value); });
 	parseTemplate("ExampleSubsystem", "frc.robot.subsystems", templateType.subsystem).then((value: string) => {  filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/subsystems/ExampleSubsystem.kt", value); });
+	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/commands/ExampleCommand.kt", (new ExampleCommand()).text);
 }
 
 async function convertOldCommand() {

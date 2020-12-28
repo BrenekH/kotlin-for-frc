@@ -1,14 +1,19 @@
-export class CommandTemplate {
-    text: string = `package #{PACKAGE}
+export class ExampleCommand {
+    text: string = `package frc.robot.commands
 
 import edu.wpi.first.wpilibj2.command.CommandBase
+import frc.robot.subsystems.ExampleSubsystem
 
-class #{NAME}() : CommandBase() {
+/**
+ * @property subsystem
+ */
+class ExampleCommand(private val subsystem: ExampleSubsystem) : CommandBase() {
     /**
-     * Creates a new #{NAME}.
+     * Creates a new ExampleCommand.
      */
     init {
         // Use addRequirements() here to declare subsystem dependencies.
+        addRequirements(subsystem)
     }
 
     // Called when the command is initially scheduled.
