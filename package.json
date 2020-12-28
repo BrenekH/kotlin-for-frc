@@ -18,7 +18,8 @@
         "onCommand:kotlinForFRC.showChangelog",
         "onCommand:kotlinForFRC.resetAutoShowChangelog",
         "onCommand:kotlinForFRC.updateGradleRIOVersion",
-        "onCommand:kotlinForFRC.resetGradleRIOCache"
+        "onCommand:kotlinForFRC.resetGradleRIOCache",
+        "onCommand:kotlinForFRC.simulateFRCKotlinCode"
     ],
     "main": "./dist/extension",
     "contributes": {
@@ -63,6 +64,10 @@
             {
                 "command": "kotlinForFRC.resetGradleRIOCache",
                 "title": "Kotlin-FRC: Reset GradleRIO Version Cache"
+            },
+            {
+                "command": "kotlinForFRC.simulateFRCKotlinCode",
+                "title": "Kotlin-FRC: Simulate FRC Kotlin Code"
             }
         ],
         "menus": {
@@ -91,6 +96,10 @@
                 },
                 {
                     "command": "kotlinForFRC.updateGradleRIOVersion",
+                    "when": "isWPILibProject"
+                },
+                {
+                    "command": "kotlinForFRC.simulateFRCKotlinCode",
                     "when": "isWPILibProject"
                 },
                 {

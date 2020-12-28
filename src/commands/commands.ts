@@ -4,9 +4,10 @@ import * as chnglog from "../util/changelog";
 import * as customfs from "../file_manipulation/fileSystem";
 import * as kotlinExt from "../extension";
 import { createNew } from "./create_new";
-import { targetYear } from "../constants";
+import { simulateCodeTerminalName } from "../constants";
 import { updateGradleRioVersion } from "../gradlerioversion";
 import { convertJavaProject, determineRobotType } from "./conversion";
+import { getPlatformGradlew, getJavaHomeGradleArg } from "../util/gradle";
 
 function showChangelog() { chnglog.showChangelog(); }
 
@@ -77,6 +78,22 @@ export async function registerCommands(context: vscode.ExtensionContext) {
         await context.globalState.update("grvCache", "");
         await context.globalState.update("lastGradleRioVersionUpdateTime", 0);
         console.log("reset gradle rio cache");
+    });
+
+    context.subscriptions.push(disposable);
+
+    disposable = vscode.commands.registerCommand("kotlinForFRC.simulateFRCKotlinCode", () => {
+        const terminals = <vscode.Terminal[]>(<any>vscode.window).terminals;
+        let searchTerminal;
+        for (let t of terminals) {
+            if (t.name === simulateCodeTerminalName) {
+                searchTerminal = t;
+            }
+        }
+
+        let terminal: vscode.Terminal = (searchTerminal === undefined) ? vscode.window.createTerminal(simulateCodeTerminalName) : searchTerminal;
+		terminal.show();
+		terminal.sendText(`${getPlatformGradlew()} simulateJava ${getJavaHomeGradleArg()}`);
     });
 
     context.subscriptions.push(disposable);
