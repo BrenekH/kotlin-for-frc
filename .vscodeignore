@@ -5,6 +5,7 @@ src/**
 testing-workspace/**
 .github/**
 node_modules/**
+.pytest_cache/**
 
 .gitignore
 .gitattributes
@@ -21,6 +22,7 @@ README.provided_by_vscode
 reset-testing-workspace.bat
 reset-testing-workspace.sh
 generate_changelog_html.bat
+RELEASE_NOTES.md
 
 *.vsix
 
