@@ -110,8 +110,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./gh-actions-test-vscode-extension-${{ env.TAG_USED }}.vsix
-          asset_name: gh-actions-test-vscode-extension-${{ env.TAG_USED }}.vsix
+          asset_path: ./kotlin-for-frc-${{ env.TAG_USED }}.vsix
+          asset_name: kotlin-for-frc-${{ env.TAG_USED }}.vsix
           asset_content_type: application/octet-stream
 
   deploy-vscode-marketplace:
