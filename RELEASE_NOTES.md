@@ -1,7 +1,7 @@
 # Kotlin for FRC Changelog
 
-## [2020.2.1](https://github.com/zPaw/kotlin-for-frc/tree/2020.2.1) \(2020-02-22\)
+## [2021.1.1-beta.2](https://github.com/zPaw/kotlin-for-frc/tree/2021.1.1-beta.2) \(2020-12-29\)
 
 **Implemented Enhancements:**
 
-- Updated to GradleRIO 2020.3.2
+- Set up GitHub Actions as CI/CD. No appreciable change in the extension from [2021.1.1-beta.1](https://github.com/zPaw/kotlin-for-frc/releases/tag/2021.1.1-beta.1)
