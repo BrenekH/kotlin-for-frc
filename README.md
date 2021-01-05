@@ -23,3 +23,9 @@ Kotlin for FRC is an unofficial companion extension to the WPILib extension. It 
 
 * Any existing code in the project gets deleted when converting to a Kotlin project
   * This will never be fixed because Kotlin for FRC's conversion tool is meant to be used on a fresh project, not one already worked in. If you need a tool to convert Java code to Kotlin code, try [try.kotlinlang.org](https://try.kotlinlang.org)'s Convert from Java feature.
+
+## Contributing
+
+Kotlin for FRC uses [GitHub Discussions](https://github.com/zPaw/kotlin-for-frc/discussions) to talk and ask questions and [GitHub Issues](https://github.com/zPaw/kotlin-for-frc/issues) to track bugs and features.
+
+Developer information, including project structure and dependencies, can be found in [CONTRIBUTING.md](https://github.com/zPaw/kotlin-for-frc/blob/master/CONTRIBUTING.md).
