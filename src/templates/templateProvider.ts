@@ -1,5 +1,5 @@
 import * as vscode from "vscode";
-import * as customfs from "../file_manipulation/fileSystem";
+import * as customfs from "../fileManipulation/fileSystem";
 import { parseStringToTemplateType, templateType } from "./templateInterpreter";
 
 // All Robot types

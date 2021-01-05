@@ -1,7 +1,7 @@
 "use strict";
 import * as vscode from "vscode";
-import * as filegenerator from "../file_manipulation/fileGenerator";
-import * as customfs from "../file_manipulation/fileSystem";
+import * as filegenerator from "../fileManipulation/fileGenerator";
+import * as customfs from "../fileManipulation/fileSystem";
 import * as rimraf from "rimraf";
 import * as kotlinExt from "../extension";
 import { templateType, robotType, getTemplateObjectFromRobotType,

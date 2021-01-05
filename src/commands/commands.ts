@@ -1,7 +1,7 @@
 "use strict";
 import * as vscode from "vscode";
 import * as chnglog from "../util/changelog";
-import * as customfs from "../file_manipulation/fileSystem";
+import * as customfs from "../fileManipulation/fileSystem";
 import * as kotlinExt from "../extension";
 import { createNew } from "./create_new";
 import { simulateCodeTerminalName } from "../constants";

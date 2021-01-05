@@ -2,7 +2,7 @@
 import * as vscode from "vscode";
 import * as semver from "semver";
 import * as grv from "./gradlerioversion";
-import * as customfs from "./file_manipulation/fileSystem";
+import * as customfs from "./fileManipulation/fileSystem";
 import { homedir } from "os";
 import { targetYear } from "./constants";
 import { displayChangelog } from './util/changelog';

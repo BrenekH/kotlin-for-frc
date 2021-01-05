@@ -1,10 +1,10 @@
 "use strict";
 import * as vscode from "vscode";
 import * as semver from "semver";
-import * as filesystem from "./file_manipulation/fileSystem";
+import * as filesystem from "./fileManipulation/fileSystem";
 import get from "axios";
 import { getWorkspaceFolderPath, getWorkspaceFolderFsPath, getValidLatestGradleRioVersion } from "./extension";
-import { createFileWithContent } from "./file_manipulation/fileGenerator";
+import { createFileWithContent } from "./fileManipulation/fileGenerator";
 
 export async function getGradleRIOVersionXML(): Promise<string> {
 	var response: any;
