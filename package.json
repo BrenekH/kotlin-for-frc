@@ -2,7 +2,7 @@
     "name": "kotlin-for-frc",
     "displayName": "Kotlin for FRC",
     "description": "Kotlin for FRC is an unofficial companion extension to the official WPILib extension which adds support for Kotlin",
-    "version": "2021.1.1-beta.4",
+    "version": "2021.1.1-beta.5",
     "publisher": "Brenek",
     "engines": {
         "vscode": "^1.37.0"
@@ -43,31 +43,38 @@
         "commands": [
             {
                 "command": "kotlinForFRC.convertJavaProject",
-                "title": "Kotlin-FRC: Convert Java Project to Kotlin"
+                "title": "Convert Java Project to Kotlin",
+                "category": "Kotlin-FRC"
             },
             {
                 "command": "kotlinForFRC.createNew",
-                "title": "Kotlin-FRC: Create new class/command here"
+                "title": "Create new Kotlin class/command here",
+                "category": "Kotlin-FRC"
             },
             {
                 "command": "kotlinForFRC.showChangelog",
-                "title": "Kotlin-FRC: Show Changelog"
+                "title": "Show Changelog",
+                "category": "Kotlin-FRC"
             },
             {
                 "command": "kotlinForFRC.resetAutoShowChangelog",
-                "title": "Kotlin-FRC: Reset Auto-Show Changelog Cache"
+                "title": "Reset Auto-Show Changelog Cache",
+                "category": "Kotlin-FRC"
             },
             {
                 "command": "kotlinForFRC.updateGradleRIOVersion",
-                "title": "Kotlin-FRC: Update GradleRIO Version"
+                "title": "Update GradleRIO Version",
+                "category": "Kotlin-FRC"
             },
             {
                 "command": "kotlinForFRC.resetGradleRIOCache",
-                "title": "Kotlin-FRC: Reset GradleRIO Version Cache"
+                "title": "Reset GradleRIO Version Cache",
+                "category": "Kotlin-FRC"
             },
             {
                 "command": "kotlinForFRC.simulateFRCKotlinCode",
-                "title": "Kotlin-FRC: Simulate FRC Kotlin Code"
+                "title": "Simulate FRC Kotlin Code",
+                "category": "Kotlin-FRC"
             }
         ],
         "menus": {
@@ -141,7 +148,7 @@
     "dependencies": {
         "@types/rimraf": "^3.0.0",
         "@types/semver": "^7.1.0",
-        "axios": "^0.19.0",
+        "axios": "^0.21.1",
         "rimraf": "^3.0.2",
         "semver": "^7.2.2"
     },

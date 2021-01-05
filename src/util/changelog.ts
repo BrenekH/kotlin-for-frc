@@ -13,6 +13,11 @@ function getWebviewContent() {
 </head>
 <body>
 <h1>Kotlin for FRC Changelog</h1>
+<h2><a href="https://github.com/zPaw/kotlin-for-frc/tree/2021.1.1-beta.5">2021.1.1-beta.5</a> (2021-01-05)</h2>
+<p><strong>Implemented Enhancements:</strong></p>
+<ul>
+<li>Use command categories instead of manually prefixing <code>Kotlin-FRC</code> to each command definition</li>
+</ul>
 <h2><a href="https://github.com/zPaw/kotlin-for-frc/tree/2020.2.1">2020.2.1</a> (2020-02-22)</h2>
 <p><strong>Implemented enhancements:</strong></p>
 <ul>

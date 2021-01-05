@@ -1,7 +1,7 @@
 # Kotlin for FRC Changelog
 
-## [2021.1.1-beta.4](https://github.com/zPaw/kotlin-for-frc/tree/2021.1.1-beta.4) \(2020-12-29\)
+## [2021.1.1-beta.5](https://github.com/zPaw/kotlin-for-frc/tree/2021.1.1-beta.5) \(2020-01-05\)
 
 **Implemented Enhancements:**
 
-- I goofed and didn't set up the workflow properly... again. This should actually automatically attach the built .vsix file
+- Use command categories instead of manually prefixing `Kotlin-FRC` to each command definition
