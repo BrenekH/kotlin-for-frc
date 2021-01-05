@@ -1,4 +1,4 @@
-# Kotlin For FIRST Robotics Competition
+# Kotlin for FIRST Robotics Competition
 
 [![Node.js CI](https://github.com/zPaw/kotlin-for-frc/workflows/Node.js%20CI/badge.svg?branch=master&event=push)](https://github.com/zPaw/kotlin-for-frc/actions)
 [![Ratings](https://vsmarketplacebadge.apphb.com/rating/brenek.kotlin-for-frc.svg)](https://marketplace.visualstudio.com/items?itemName=brenek.kotlin-for-frc)
