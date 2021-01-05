@@ -1,6 +1,6 @@
 "use strict";
 import * as vscode from "vscode";
-import * as filegenerator from "../file_manipulation/fileGenerator";
+import * as filegenerator from "../fileManipulation/fileGenerator";
 import * as templateinterpreter from "../templates/templateInterpreter";
 import * as kotlinExt from "../extension";
 import { templateType } from "../templates/templateInterpreter";

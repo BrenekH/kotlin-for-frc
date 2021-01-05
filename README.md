@@ -1,38 +1,31 @@
-# Kotlin For FIRST Robotics Competition
+# Kotlin for FIRST Robotics Competition
 
-[![Build Status](https://travis-ci.com/zPaw/kotlin-for-frc.svg?branch=master)](https://travis-ci.com/zPaw/kotlin-for-frc)
+[![Node.js CI](https://github.com/zPaw/kotlin-for-frc/workflows/Node.js%20CI/badge.svg?branch=master&event=push)](https://github.com/zPaw/kotlin-for-frc/actions)
 [![Ratings](https://vsmarketplacebadge.apphb.com/rating/brenek.kotlin-for-frc.svg)](https://marketplace.visualstudio.com/items?itemName=brenek.kotlin-for-frc)
 
-Kotlin for FRC is an unofficial companion extension to the official WPILib extension. It adds support for Kotlin so that FRC teams can program efficiently in their preferred JVM language.
+Kotlin for FRC is an unofficial companion extension to the WPILib extension. It adds various support features so that FRC teams can program effectively in Kotlin using Visual Studio Code.
 
 ## Features
 
-* Easily convert Java projects created by WPILib to Kotlin ready ones
-* Quickly and efficiently add the basic templates just like WPILib does for C++ and Java
+* Easily convert new Java projects created by WPILib to Kotlin ones
 
-## Requirements
+![Convert Demo](images/convertDemo.gif)
 
-* [WPILib Visual Studio Code Extension](https://github.com/wpilibsuite/vscode-wpilib/releases) (2020 Version required)
+* Quickly generate code files from templates just like WPILib does for C++ and Java
+
+![New Command Demo](images/newCommandDemo.gif)
+
+* Simulate Kotlin code in the FRC Sim GUI
+
+![Simulate Kotlin Code Demo](images/simulateDemo.gif)
 
 ## Known Issues
 
-* None.....Yet
+* Any existing code in the project gets deleted when converting to a Kotlin project
+  * This will never be fixed because Kotlin for FRC's conversion tool is meant to be used on a fresh project, not one already worked in. If you need a tool to convert Java code to Kotlin code, try [try.kotlinlang.org](https://try.kotlinlang.org)'s Convert from Java feature.
 
-## Release Notes
+## Contributing
 
-## [2020.2.1](https://github.com/zPaw/kotlin-for-frc/tree/2020.2.1) (2020-02-22)
+Kotlin for FRC uses [GitHub Discussions](https://github.com/zPaw/kotlin-for-frc/discussions) to talk and ask questions and [GitHub Issues](https://github.com/zPaw/kotlin-for-frc/issues) to track bugs and features.
 
-**Implemented enhancements:**
-
-* Update to GradleRIO 2020.3.2
-
-## [2020.1.1](https://github.com/zPaw/kotlin-for-frc/tree/2020.1.1) (2020-01-06)
-
-**Implemented enhancements:**
-
-* New Command API [\#19](https://github.com/zPaw/kotlin-for-frc/issues/19)
-* Use github-changelog-generator for CHANGELOG.md [\#16](https://github.com/zPaw/kotlin-for-frc/issues/16)
-
-**Fixed bugs:**
-
-* .kotlin-for-frc appears even when it's not needed [\#24](https://github.com/zPaw/kotlin-for-frc/issues/24)
+Developer information, including project structure and dependencies, can be found in [CONTRIBUTING.md](https://github.com/zPaw/kotlin-for-frc/blob/master/CONTRIBUTING.md).

@@ -1,13 +1,13 @@
 "use strict";
 import * as vscode from "vscode";
 import * as semver from "semver";
-import * as grv from "./gradlerioversion";
-import * as customfs from "./file_manipulation/fileSystem";
+import * as grv from "./util/gradlerioversion";
+import * as customfs from "./fileManipulation/fileSystem";
 import { homedir } from "os";
 import { targetYear } from "./constants";
 import { displayChangelog } from './util/changelog';
 import { registerCommands } from "./commands/commands";
-import { TelemetryReporter } from "./telemetry";
+import { TelemetryReporter } from "./util/telemetry";
 import { ITemplateProvider, IntegratedTemplateProvider, FileSystemTemplateProvider } from "./templates/templateProvider";
 
 var currentWorkspacePath: string;
