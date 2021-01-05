@@ -23,6 +23,7 @@ export async function showDocumentInViewer(filePath: string | undefined) {
     return;
   }
 
+  // Not sure why this sleep is here but it is probably important :P
   await sleep(500);
   var openPath = vscode.Uri.file(filePath);
   vscode.workspace.openTextDocument(openPath).then((doc) => {
