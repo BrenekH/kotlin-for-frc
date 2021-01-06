@@ -36,7 +36,13 @@
                     "type": "boolean",
                     "default": true,
                     "scope": "application",
-                    "description": "Whether or not to show the changelog when Kotlin for FRC has been updated"
+                    "description": "Whether or not to show the changelog when Kotlin for FRC has been updated."
+                },
+                "kotlinForFRC.simulate.javaHome": {
+                    "type": "string",
+                    "default": null,
+                    "scope": "window",
+                    "description": "Defines a custom JAVA_HOME for Kotlin for FRC to use when simulating FRC Kotlin code."
                 }
             }
         },
