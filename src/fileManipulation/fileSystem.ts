@@ -12,7 +12,7 @@ export async function mkdir(uri: string) {
 			console.log(uri + " already exists");
 		}
 	} else {
-		vscode.window.showErrorMessage("Kotlin for FRC Error: For whatever reason, the code detected that you are not running VSCode version 1.37.0 or higher. Please ensure you are updated and try again. If the issue persists, open a GitHub issue at github.com/zPaw/kotlin-for-frc/issues.");
+		vscode.window.showErrorMessage("Kotlin for FRC Error: For whatever reason, the code detected that you are not running VSCode version 1.37.0 or higher. Please ensure you are updated and try again. If the issue persists, open a GitHub issue at github.com/BrenekH/kotlin-for-frc/issues.");
 	}
 }
 
@@ -26,7 +26,7 @@ export async function exists(uri: string): Promise<boolean> {
 		}
 		return exists;
 	} else {
-		vscode.window.showErrorMessage("Kotlin for FRC Error: For whatever reason, the code detected that you are not running VSCode version 1.37.0 or higher. Please ensure you are updated and try again. If the issue persists, open a GitHub issue at github.com/zPaw/kotlin-for-frc/issues.");
+		vscode.window.showErrorMessage("Kotlin for FRC Error: For whatever reason, the code detected that you are not running VSCode version 1.37.0 or higher. Please ensure you are updated and try again. If the issue persists, open a GitHub issue at github.com/BrenekH/kotlin-for-frc/issues.");
 		return false;
 	}
 }
@@ -38,7 +38,7 @@ export async function readFile(uri: string) {
 		var content = contentFromRead.toString();
 		return content;
 	} else {
-		vscode.window.showErrorMessage("Kotlin for FRC Error: For whatever reason, the code detected that you are not running VSCode version 1.37.0 or higher. Please ensure you are updated and try again. If the issue persists, open a GitHub issue at github.com/zPaw/kotlin-for-frc/issues.");
+		vscode.window.showErrorMessage("Kotlin for FRC Error: For whatever reason, the code detected that you are not running VSCode version 1.37.0 or higher. Please ensure you are updated and try again. If the issue persists, open a GitHub issue at github.com/BrenekH/kotlin-for-frc/issues.");
 		return "";
 	}
 }
@@ -50,7 +50,7 @@ export async function writeToFile(uri: string, content: string) {
 
 		await vscode.workspace.fs.writeFile(vscode.Uri.file(uri), writeBytes);
 	} else {
-		vscode.window.showErrorMessage("Kotlin for FRC Error: For whatever reason, the code detected that you are not running VSCode version 1.37.0 or higher. Please ensure you are updated and try again. If the issue persists, open a GitHub issue at github.com/zPaw/kotlin-for-frc/issues.");
+		vscode.window.showErrorMessage("Kotlin for FRC Error: For whatever reason, the code detected that you are not running VSCode version 1.37.0 or higher. Please ensure you are updated and try again. If the issue persists, open a GitHub issue at github.com/BrenekH/kotlin-for-frc/issues.");
 	}
 }
 
@@ -59,6 +59,6 @@ export function deleteFile(uri: string) {
 	if (isVscodeFsAvailable) {
 		vscode.workspace.fs.delete(vscode.Uri.file(uri));
 	} else {
-		vscode.window.showErrorMessage("Kotlin for FRC Error: For whatever reason, the code detected that you are not running VSCode version 1.37.0 or higher. Please ensure you are updated and try again. If the issue persists, open a GitHub issue at github.com/zPaw/kotlin-for-frc/issues.");
+		vscode.window.showErrorMessage("Kotlin for FRC Error: For whatever reason, the code detected that you are not running VSCode version 1.37.0 or higher. Please ensure you are updated and try again. If the issue persists, open a GitHub issue at github.com/BrenekH/kotlin-for-frc/issues.");
 	}
 }
