@@ -9,9 +9,17 @@ export function getPlatformGradlew(): string {
 }
 
 export function getJavaHomeGradleArg(): string {
-    let javaHomeConfig = vscode.workspace.getConfiguration("java").get("home");
-    if (javaHomeConfig === null || javaHomeConfig === undefined) {
+    let javaHomeConfig = vscode.workspace.getConfiguration("java").get<string | undefined | null>("home");
+    let kffJavaHomeConfig = vscode.workspace.getConfiguration("kotlinForFRC.simulate").get<string | undefined | null>("javaHome");
+    if ((kffJavaHomeConfig === null || kffJavaHomeConfig === undefined) && (javaHomeConfig === null || javaHomeConfig === undefined)) {
         return "";
     }
-    return `-Dorg.gradle.java.home="${javaHomeConfig}"`;
+    let javaHome = "";
+    if (kffJavaHomeConfig !== null && kffJavaHomeConfig !== undefined) {
+        javaHome = kffJavaHomeConfig;
+    } else if (javaHomeConfig !== null && javaHomeConfig !== undefined) {
+        // Should just be an else but typescript doesn't realize that the above return statement exists to check null/undefined
+        javaHome = javaHomeConfig;
+    }
+    return `-Dorg.gradle.java.home="${javaHome}"`;
 }
