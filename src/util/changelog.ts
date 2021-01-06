@@ -51,8 +51,8 @@ function getWebviewContent() {
 	<li>
 		<p>Templates are now configurable <a href="https://github.com/BrenekH/kotlin-for-frc/issues/30">#30</a></p>
 	</li>
-	<li>Check the <a href="https://github.com/BrenekH/kotlin-for-frc/wiki">Wiki</a> for more information on how to use
-		(Wiki page will be available soon, but is not yet up)</li>
+	<li>Check the <a href="https://github.com/BrenekH/kotlin-for-frc/wiki/Custom-Templates">wiki page</a> for more
+		information on how to use them.</li>
 </ul>
 <p><strong>Fixed bugs:</strong></p>
 <ul>

@@ -18,7 +18,7 @@
   * This command just calls the `simulateJava` gradle task but is necessary because the WPILib extension also attempts to attach a debugger, but fails because there is no Java code to attach to.
 
 * Templates are now configurable [\#30](https://github.com/BrenekH/kotlin-for-frc/issues/30)
-  * Check the [Wiki](https://github.com/BrenekH/kotlin-for-frc/wiki) for more information on how to use (Wiki page will be available soon, but is not yet up)
+  * Check the [wiki page](https://github.com/BrenekH/kotlin-for-frc/wiki/Custom-Templates) for more information on how to use them.
 
 **Fixed bugs:**
 
