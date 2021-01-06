@@ -1,6 +1,6 @@
 # Kotlin for FIRST Robotics Competition
 
-[![Node.js CI](https://github.com/zPaw/kotlin-for-frc/workflows/Node.js%20CI/badge.svg?branch=master&event=push)](https://github.com/zPaw/kotlin-for-frc/actions)
+[![Node.js CI](https://github.com/BrenekH/kotlin-for-frc/workflows/Node.js%20CI/badge.svg?branch=master&event=push)](https://github.com/BrenekH/kotlin-for-frc/actions)
 [![Ratings](https://vsmarketplacebadge.apphb.com/rating/brenek.kotlin-for-frc.svg)](https://marketplace.visualstudio.com/items?itemName=brenek.kotlin-for-frc)
 
 Kotlin for FRC is an unofficial companion extension to the WPILib extension. It adds various support features so that FRC teams can program effectively in Kotlin using Visual Studio Code.
@@ -9,15 +9,15 @@ Kotlin for FRC is an unofficial companion extension to the WPILib extension. It 
 
 * Easily convert new Java projects created by WPILib to Kotlin ones
 
-![Convert Demo](images/convertDemo.gif)
+![Convert Demo](https://raw.githubusercontent.com/BrenekH/kotlin-for-frc/master/images/convertDemo.gif)
 
 * Quickly generate code files from templates just like WPILib does for C++ and Java
 
-![New Command Demo](images/newCommandDemo.gif)
+![New Command Demo](https://raw.githubusercontent.com/BrenekH/kotlin-for-frc/master/images/newCommandDemo.gif)
 
 * Simulate Kotlin code in the FRC Sim GUI
 
-![Simulate Kotlin Code Demo](images/simulateDemo.gif)
+![Simulate Kotlin Code Demo](https://raw.githubusercontent.com/BrenekH/kotlin-for-frc/master/images/simulateDemo.gif)
 
 ## Known Issues
 
@@ -26,6 +26,6 @@ Kotlin for FRC is an unofficial companion extension to the WPILib extension. It 
 
 ## Contributing
 
-Kotlin for FRC uses [GitHub Discussions](https://github.com/zPaw/kotlin-for-frc/discussions) to talk and ask questions and [GitHub Issues](https://github.com/zPaw/kotlin-for-frc/issues) to track bugs and features.
+Kotlin for FRC uses [GitHub Discussions](https://github.com/BrenekH/kotlin-for-frc/discussions) to talk and ask questions and [GitHub Issues](https://github.com/BrenekH/kotlin-for-frc/issues) to track bugs and features.
 
-Developer information, including project structure and dependencies, can be found in [CONTRIBUTING.md](https://github.com/zPaw/kotlin-for-frc/blob/master/CONTRIBUTING.md).
+Developer information, including project structure and dependencies, can be found in [CONTRIBUTING.md](https://github.com/BrenekH/kotlin-for-frc/blob/master/CONTRIBUTING.md).

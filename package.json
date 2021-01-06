@@ -2,7 +2,7 @@
     "name": "kotlin-for-frc",
     "displayName": "Kotlin for FRC",
     "description": "Kotlin for FRC is an unofficial companion extension to the WPILib extension which adds support for Kotlin",
-    "version": "2021.1.1-beta.5",
+    "version": "2021.1.1",
     "publisher": "Brenek",
     "engines": {
         "vscode": "^1.37.0"
@@ -163,7 +163,7 @@
     ],
     "repository": {
         "type": "git",
-        "url": "https://github.com/zPaw/kotlin-for-frc.git"
+        "url": "https://github.com/BrenekH/kotlin-for-frc.git"
     },
     "license": "MIT"
 }

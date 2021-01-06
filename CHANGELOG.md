@@ -1,39 +1,57 @@
 # Kotlin for FRC Changelog
 
-## [2020.2.1](https://github.com/zPaw/kotlin-for-frc/tree/2020.2.1) (2020-02-22)
+## [2021.1.1](https://github.com/BrenekH/kotlin-for-frc/tree/2021.1.1) (2020-01-06)
+
+**Implemented enhancements:**
+
+* Updated templates for the 2021 FRC season [\#60](https://github.com/BrenekH/kotlin-for-frc/issues/60)
+
+* GradleRIO version is now pulled from plugins.gradle.org, ensuring robot code is up-to-date without a new extension release [\#41](https://github.com/BrenekH/kotlin-for-frc/issues/41)
+
+* Kotlin for FRC settings are now handled through the native VSCode API instead of a custom JSON file \(`.kotlin-for-frc/kotlin-frc-preferences.json`\) [\#55](https://github.com/BrenekH/kotlin-for-frc/issues/55)
+
+* Added new command: `Kotlin-FRC: Simulate FRC Kotlin Code` [\#63](https://github.com/BrenekH/kotlin-for-frc/issues/63)
+
+* Templates are now configurable [\#30](https://github.com/BrenekH/kotlin-for-frc/issues/30)
+
+**Fixed bugs:**
+
+* PIDCommand needs a wrapper in order to operate properly [\#35](https://github.com/BrenekH/kotlin-for-frc/issues/35)
+
+## [2020.2.1](https://github.com/BrenekH/kotlin-for-frc/tree/2020.2.1) (2020-02-22)
 
 **Implemented enhancements:**
 
 * Update to GradleRIO 2020.3.2
 
-## [2020.1.1](https://github.com/zPaw/kotlin-for-frc/tree/2020.1.1) (2020-01-06)
+## [2020.1.1](https://github.com/BrenekH/kotlin-for-frc/tree/2020.1.1) (2020-01-06)
 
 **Implemented enhancements:**
 
-* New Command API [\#19](https://github.com/zPaw/kotlin-for-frc/issues/19)
-* Use github-changelog-generator for CHANGELOG.md [\#16](https://github.com/zPaw/kotlin-for-frc/issues/16)
+* New Command API [\#19](https://github.com/BrenekH/kotlin-for-frc/issues/19)
+* Use github-changelog-generator for CHANGELOG.md [\#16](https://github.com/BrenekH/kotlin-for-frc/issues/16)
 
 **Fixed bugs:**
 
-* .kotlin-for-frc appears even when it's not needed [\#24](https://github.com/zPaw/kotlin-for-frc/issues/24)
+* .kotlin-for-frc appears even when it's not needed [\#24](https://github.com/BrenekH/kotlin-for-frc/issues/24)
 
 **Merged pull requests:**
 
-* Development into release-2020.1.1 [\#32](https://github.com/zPaw/kotlin-for-frc/pull/32) ([zPaw](https://github.com/zPaw))
-* 2020 to development [\#31](https://github.com/zPaw/kotlin-for-frc/pull/31) ([zPaw](https://github.com/zPaw))
+* Development into release-2020.1.1 [\#32](https://github.com/BrenekH/kotlin-for-frc/pull/32) ([BrenekH](https://github.com/BrenekH))
+* 2020 to development [\#31](https://github.com/BrenekH/kotlin-for-frc/pull/31) ([BrenekH](https://github.com/BrenekH))
 
-## [1.5.0](https://github.com/zPaw/kotlin-for-frc/tree/1.5.0) (2019-11-20)
+## [1.5.0](https://github.com/BrenekH/kotlin-for-frc/tree/1.5.0) (2019-11-20)
 
 **Implemented enhancements:**
 
-* Update extension to use vscode.workspace.fs [\#17](https://github.com/zPaw/kotlin-for-frc/issues/17)
-* Remove Main.java to Main.kt [\#14](https://github.com/zPaw/kotlin-for-frc/issues/14)
+* Update extension to use vscode.workspace.fs [\#17](https://github.com/BrenekH/kotlin-for-frc/issues/17)
+* Remove Main.java to Main.kt [\#14](https://github.com/BrenekH/kotlin-for-frc/issues/14)
 
 **Merged pull requests:**
 
-* Release 1.5.0 into master [\#25](https://github.com/zPaw/kotlin-for-frc/pull/25) ([zPaw](https://github.com/zPaw))
-* Create CONTRIBUTING.md [\#21](https://github.com/zPaw/kotlin-for-frc/pull/21) ([zPaw](https://github.com/zPaw))
-* 2019 changelog merge into development branch [\#20](https://github.com/zPaw/kotlin-for-frc/pull/20) ([zPaw](https://github.com/zPaw))
+* Release 1.5.0 into master [\#25](https://github.com/BrenekH/kotlin-for-frc/pull/25) ([BrenekH](https://github.com/BrenekH))
+* Create CONTRIBUTING.md [\#21](https://github.com/BrenekH/kotlin-for-frc/pull/21) ([BrenekH](https://github.com/BrenekH))
+* 2019 changelog merge into development branch [\#20](https://github.com/BrenekH/kotlin-for-frc/pull/20) ([BrenekH](https://github.com/BrenekH))
 
 ## 1.4.0 - 2019-06-30
 
