@@ -1,5 +1,23 @@
 # Kotlin for FRC Changelog
 
+## [2021.1.1](https://github.com/BrenekH/kotlin-for-frc/tree/2021.1.1) (2020-01-06)
+
+**Implemented enhancements:**
+
+* Updated templates for the 2021 FRC season [\#60](https://github.com/BrenekH/kotlin-for-frc/issues/60)
+
+* GradleRIO version is now pulled from plugins.gradle.org, ensuring robot code is up-to-date without a new extension release [\#41](https://github.com/BrenekH/kotlin-for-frc/issues/41)
+
+* Kotlin for FRC settings are now handled through the native VSCode API instead of a custom JSON file \(`.kotlin-for-frc/kotlin-frc-preferences.json`\) [\#55](https://github.com/BrenekH/kotlin-for-frc/issues/55)
+
+* Added new command: `Kotlin-FRC: Simulate FRC Kotlin Code` [\#63](https://github.com/BrenekH/kotlin-for-frc/issues/63)
+
+* Templates are now configurable [\#30](https://github.com/BrenekH/kotlin-for-frc/issues/30)
+
+**Fixed bugs:**
+
+* PIDCommand needs a wrapper in order to operate properly [\#35](https://github.com/BrenekH/kotlin-for-frc/issues/35)
+
 ## [2020.2.1](https://github.com/BrenekH/kotlin-for-frc/tree/2020.2.1) (2020-02-22)
 
 **Implemented enhancements:**
