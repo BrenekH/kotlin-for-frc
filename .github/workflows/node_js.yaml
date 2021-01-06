@@ -1,0 +1,156 @@
+name: Node.js CI
+
+on: [push, pull_request]
+
+jobs:
+  test:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [12.x, 14.x]
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Cache Node Modules
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node${{ matrix.node-version }}-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+
+      - name: Install Frozen Dependencies
+        run: npm ci
+
+      - run: xvfb-run -a npm test
+
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [12.x, 14.x]
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Cache Node Modules
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node${{ matrix.node-version }}-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+
+      - name: Globally Install VSCE
+        run: npm install -g vsce
+
+      - name: Install Frozen Dependencies
+        run: npm ci
+
+      - run: vsce package
+
+      - name: Upload .vsix artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: vsix-file
+          path: "*.vsix"
+        if: startsWith(github.ref, 'refs/tags/')
+
+  deploy-github-releases:
+    runs-on: ubuntu-latest
+
+    needs: [build, test]
+    if: success() && startsWith(github.ref, 'refs/tags/')
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Download .vsix artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: vsix-file
+
+      - name: Set PREREL environment variable
+        env:
+          TAG: ${{ github.ref }}
+        run: echo "PREREL=$(if [[ $TAG =~ "alpha" ]] || [[ $TAG =~ "beta" ]] || [[ $TAG =~ "rc" ]]; then echo "true"; else echo "false"; fi;)" >> $GITHUB_ENV
+
+      - name: Create Modified Release Notes
+        run: sed '1,4d' RELEASE_NOTES.md > modded_release_notes.md
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Version ${{ github.ref }}
+          body_path: ./modded_release_notes.md
+          draft: false
+          prerelease: ${{ env.PREREL }}
+
+      - name: Create sanitized github.ref
+        run: echo "TAG_USED=$(echo ${GITHUB_REF:10})" >> $GITHUB_ENV
+
+      - name: Upload VSIX Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./kotlin-for-frc-${{ env.TAG_USED }}.vsix
+          asset_name: kotlin-for-frc-${{ env.TAG_USED }}.vsix
+          asset_content_type: application/octet-stream
+
+  deploy-vscode-marketplace:
+    runs-on: ubuntu-latest
+
+    needs: [build, test]
+    if: success() && startsWith(github.ref, 'refs/tags/')
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup Node.js v14.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+
+      - name: Set PACKAGE_TAG environment variable
+        run: echo "PACKAGE_TAG=$(node -p "require('./package.json').version")" >> $GITHUB_ENV
+
+      - name: Cache Node Modules
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node14.x-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+        if: "!(contains(env.PACKAGE_TAG, 'alpha') || contains(env.PACKAGE_TAG, 'beta') || contains(env.PACKAGE_TAG, 'rc'))"
+
+      - name: Globally Install VSCE
+        run: npm install -g vsce
+        if: "!(contains(env.PACKAGE_TAG, 'alpha') || contains(env.PACKAGE_TAG, 'beta') || contains(env.PACKAGE_TAG, 'rc'))"
+
+      - name: Install Frozen Dependencies
+        run: npm ci
+        if: "!(contains(env.PACKAGE_TAG, 'alpha') || contains(env.PACKAGE_TAG, 'beta') || contains(env.PACKAGE_TAG, 'rc'))"
+
+      - name: Publish to VSCode Marketplace
+        run: vsce publish -p ${{ secrets.VSCE_PUBLISHER_TOKEN }}
+        if: "!(contains(env.PACKAGE_TAG, 'alpha') || contains(env.PACKAGE_TAG, 'beta') || contains(env.PACKAGE_TAG, 'rc'))"

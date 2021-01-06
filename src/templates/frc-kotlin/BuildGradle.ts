@@ -1,12 +1,8 @@
 export class BuildGradleTemplate {
-  private useAtProjectConversion: boolean;
-  private text: string;
-  constructor() {
-    this.useAtProjectConversion = true;
-    this.text = `plugins {
+    text: string = `plugins {
     id "java"
     id "edu.wpi.first.GradleRIO" version "#{GRADLE_RIO_VERSION}"
-    id "org.jetbrains.kotlin.jvm" version "1.3.50"
+    id 'org.jetbrains.kotlin.jvm' version '1.4.21'
 }
 
 sourceCompatibility = JavaVersion.VERSION_11
@@ -46,16 +42,9 @@ deploy {
 // Set this to true to enable desktop support.
 def includeDesktopSupport = false
 
-// Maven central needed for JUnit and Kotlin
-repositories {
-    mavenCentral()
-}
-
 // Defining my dependencies. In this case, WPILib (+ friends), and vendor libraries.
 // Also defines JUnit 4.
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib"
-
     implementation wpi.deps.wpilib()
     nativeZip wpi.deps.wpilibJni(wpi.platforms.roborio)
     nativeDesktopZip wpi.deps.wpilibJni(wpi.platforms.desktop)
@@ -70,6 +59,12 @@ dependencies {
     // Enable simulation gui support. Must check the box in vscode to enable support
     // upon debugging
     simulation wpi.deps.sim.gui(wpi.platforms.desktop, false)
+    simulation wpi.deps.sim.driverstation(wpi.platforms.desktop, false)
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+
+    // Websocket extensions require additional configuration.
+    // simulation wpi.deps.sim.ws_server(wpi.platforms.desktop, false)
+    // simulation wpi.deps.sim.ws_client(wpi.platforms.desktop, false)
 }
 
 // Setting up my Jar File. In this case, adding all libraries into the main jar ('fat jar')
@@ -79,12 +74,18 @@ jar {
     from { configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
     manifest edu.wpi.first.gradlerio.GradleRIOPlugin.javaManifest(ROBOT_MAIN_CLASS)
 }
+repositories {
+    mavenCentral()
+}
+compileKotlin {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+compileTestKotlin {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
 `;
-  }
-  public getText(): string {
-    return this.text;
-  }
-  public useAtConversion(): boolean {
-    return this.useAtProjectConversion;
-  }
 }

@@ -1,8 +1,8 @@
 {
     "name": "kotlin-for-frc",
-    "displayName": "Kotlin For FRC",
-    "description": "Kotlin for FRC is an unofficial companion extension to the official WPILib extension which adds support for Kotlin",
-    "version": "2020.2.1",
+    "displayName": "Kotlin for FRC",
+    "description": "Kotlin for FRC is an unofficial companion extension to the WPILib extension which adds support for Kotlin",
+    "version": "2021.1.1",
     "publisher": "Brenek",
     "engines": {
         "vscode": "^1.37.0"
@@ -13,79 +13,110 @@
     "icon": "images/wpilib-with-kotlin_K-128x128.png",
     "activationEvents": [
         "workspaceContains:.wpilib/wpilib_preferences.json",
-        "onCommand:kotlinforfrc.createNew",
-        "onCommand:kotlinforfrc.convertJavaProject",
-        "onCommand:kotlinforfrc.forceCompliance",
-        "onCommand:kotlinforfrc.changeComplianceTestPref",
-        "onCommand:kotlinforfrc.toggleChangelog",
-        "onCommand:kotlinforfrc.showChangelog",
-        "onCommand:kotlinforfrc.resetAutoShowChangelog"
+        "onCommand:kotlinForFRC.createNew",
+        "onCommand:kotlinForFRC.convertJavaProject",
+        "onCommand:kotlinForFRC.showChangelog",
+        "onCommand:kotlinForFRC.resetAutoShowChangelog",
+        "onCommand:kotlinForFRC.updateGradleRIOVersion",
+        "onCommand:kotlinForFRC.resetGradleRIOCache",
+        "onCommand:kotlinForFRC.simulateFRCKotlinCode"
     ],
     "main": "./dist/extension",
     "contributes": {
+        "configuration": {
+            "title": "Kotlin for FRC",
+            "properties": {
+                "kotlinForFRC.gradleRioVersion.autoUpdate": {
+                    "type": "boolean",
+                    "default": true,
+                    "scope": "window",
+                    "description": "Whether or not to automatically update the Gradle RIO Version when the Kotlin for FRC extension is loaded."
+                },
+                "kotlinForFRC.changelog.showOnUpdate": {
+                    "type": "boolean",
+                    "default": true,
+                    "scope": "application",
+                    "description": "Whether or not to show the changelog when Kotlin for FRC has been updated."
+                },
+                "kotlinForFRC.simulate.javaHome": {
+                    "type": "string",
+                    "default": null,
+                    "scope": "window",
+                    "description": "Defines a custom JAVA_HOME for Kotlin for FRC to use when simulating FRC Kotlin code."
+                }
+            }
+        },
         "commands": [
             {
-                "command": "kotlinforfrc.convertJavaProject",
-                "title": "Kotlin-FRC: Convert Java Project to Kotlin"
+                "command": "kotlinForFRC.convertJavaProject",
+                "title": "Convert Java Project to Kotlin",
+                "category": "Kotlin-FRC"
             },
             {
-                "command": "kotlinforfrc.createNew",
-                "title": "Kotlin-FRC: Create new class/command here"
+                "command": "kotlinForFRC.createNew",
+                "title": "Create new Kotlin class/command here",
+                "category": "Kotlin-FRC"
             },
             {
-                "command": "kotlinforfrc.forceCompliance",
-                "title": "Kotlin-FRC: Update GradleRio and check for Main.kt"
+                "command": "kotlinForFRC.showChangelog",
+                "title": "Show Changelog",
+                "category": "Kotlin-FRC"
             },
             {
-                "command": "kotlinforfrc.changeComplianceTestPref",
-                "title": "Kotlin-FRC: Change GradleRio Checks"
+                "command": "kotlinForFRC.resetAutoShowChangelog",
+                "title": "Reset Auto-Show Changelog Cache",
+                "category": "Kotlin-FRC"
             },
             {
-                "command": "kotlinforfrc.showChangelog",
-                "title": "Kotlin-FRC: Show Changelog"
+                "command": "kotlinForFRC.updateGradleRIOVersion",
+                "title": "Update GradleRIO Version",
+                "category": "Kotlin-FRC"
             },
             {
-                "command": "kotlinforfrc.toggleChangelog",
-                "title": "Kotlin-FRC: Toggle Auto-Show Changelog"
+                "command": "kotlinForFRC.resetGradleRIOCache",
+                "title": "Reset GradleRIO Version Cache",
+                "category": "Kotlin-FRC"
             },
             {
-                "command": "kotlinforfrc.resetAutoShowChangelog",
-                "title": "Kotlin-FRC: Reset Auto-Show Changelog"
+                "command": "kotlinForFRC.simulateFRCKotlinCode",
+                "title": "Simulate FRC Kotlin Code",
+                "category": "Kotlin-FRC"
             }
         ],
         "menus": {
             "explorer/context": [
                 {
                     "when": "explorerResourceIsFolder && isWPILibProject",
-                    "command": "kotlinforfrc.createNew",
+                    "command": "kotlinForFRC.createNew",
                     "group": "frc-kotlin"
                 }
             ],
             "commandPalette": [
                 {
-                    "command": "kotlinforfrc.convertJavaProject",
+                    "command": "kotlinForFRC.convertJavaProject",
                     "when": "isWPILibProject"
                 },
                 {
-                    "command": "kotlinforfrc.createNew",
+                    "command": "kotlinForFRC.createNew",
                     "when": "isWPILibProject && !isWPILibProject"
                 },
                 {
-                    "command": "kotlinforfrc.forceCompliance",
+                    "command": "kotlinForFRC.showChangelog"
+                },
+                {
+                    "command": "kotlinForFRC.resetAutoShowChangelog",
                     "when": "isWPILibProject"
                 },
                 {
-                    "command": "kotlinforfrc.changeComplianceTestPref",
+                    "command": "kotlinForFRC.updateGradleRIOVersion",
                     "when": "isWPILibProject"
                 },
                 {
-                    "command": "kotlinforfrc.showChangelog"
+                    "command": "kotlinForFRC.simulateFRCKotlinCode",
+                    "when": "isWPILibProject"
                 },
                 {
-                    "command": "kotlinforfrc.toggleChangelog"
-                },
-                {
-                    "command": "kotlinforfrc.resetAutoShowChangelog"
+                    "command": "kotlinForFRC.resetGradleRIOCache"
                 }
             ]
         }
@@ -123,16 +154,16 @@
     "dependencies": {
         "@types/rimraf": "^3.0.0",
         "@types/semver": "^7.1.0",
+        "axios": "^0.21.1",
         "rimraf": "^3.0.2",
-        "semver": "^7.2.2",
-        "vscode-extension-telemetry": "^0.1.2"
+        "semver": "^7.2.2"
     },
     "extensionDependencies": [
         "wpilibsuite.vscode-wpilib"
     ],
     "repository": {
         "type": "git",
-        "url": "https://github.com/zPaw/kotlin-for-frc.git"
+        "url": "https://github.com/BrenekH/kotlin-for-frc.git"
     },
     "license": "MIT"
 }
