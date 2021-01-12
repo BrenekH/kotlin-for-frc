@@ -13,6 +13,11 @@ function getWebviewContent() {
 </head>
 <body>
 <h1>Kotlin for FRC Changelog</h1>
+<h2><a href="https://github.com/BrenekH/kotlin-for-frc/tree/2021.1.2">2021.1.2</a> (2020-01-11)</h2>
+<p><strong>Implemented enhancements:</strong></p>
+<ul>
+	<li>Much smaller .vsix by removing README GIFs that link to the online version anyway</li>
+</ul>
 <h2><a href="https://github.com/BrenekH/kotlin-for-frc/tree/2021.1.1">2021.1.1</a> (2020-01-06)</h2>
 <p><strong>Implemented enhancements:</strong></p>
 <ul>
