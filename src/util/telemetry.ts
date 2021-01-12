@@ -42,6 +42,9 @@ export class TelemetryReporter {
 	}
 
 	sendEvent(eventId: number, eventData: object) {
+		if (!(vscode.workspace.getConfiguration("kotlinForFRC.telemetry").get<boolean>("enable"))) {
+			return;
+		}
 		let payloadJSON: object = {"machine_id": vscode.env.machineId,
 									"session_id": vscode.env.sessionId,
 									"extension_version": this.extensionVersion,
