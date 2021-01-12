@@ -1,6 +1,14 @@
 # Kotlin for FRC Changelog
 
-## [2021.1.1](https://github.com/BrenekH/kotlin-for-frc/tree/2021.1.1) (2020-01-06)
+
+## [2021.1.2](https://github.com/BrenekH/kotlin-for-frc/tree/2021.1.2) (2021-01-11)
+
+**Implemented enhancements:**
+
+* Much smaller .vsix by removing README GIFs that link to the online version anyway
+
+
+## [2021.1.1](https://github.com/BrenekH/kotlin-for-frc/tree/2021.1.1) (2021-01-06)
 
 **Implemented enhancements:**
 

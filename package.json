@@ -2,7 +2,7 @@
     "name": "kotlin-for-frc",
     "displayName": "Kotlin for FRC",
     "description": "Kotlin for FRC is an unofficial companion extension to the WPILib extension which adds support for Kotlin",
-    "version": "2021.1.1",
+    "version": "2021.1.2",
     "publisher": "Brenek",
     "engines": {
         "vscode": "^1.37.0"
@@ -43,6 +43,12 @@
                     "default": null,
                     "scope": "window",
                     "description": "Defines a custom JAVA_HOME for Kotlin for FRC to use when simulating FRC Kotlin code."
+                },
+                "kotlinForFRC.telemetry.enable": {
+                    "type": "boolean",
+                    "default": true,
+                    "scope": "window",
+                    "description": "Whether or not to send anonymous telemetry."
                 }
             }
         },

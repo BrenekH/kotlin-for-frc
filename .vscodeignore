@@ -24,7 +24,8 @@ reset-testing-workspace.sh
 generate_changelog_html.bat
 RELEASE_NOTES.md
 
-*.vsix
+**/*.vsix
+**/*.gif
 
 **/tsconfig.json
 **/.eslintrc.json
