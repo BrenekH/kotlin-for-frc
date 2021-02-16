@@ -83,6 +83,7 @@ export async function registerCommands(context: vscode.ExtensionContext) {
     context.subscriptions.push(disposable);
 
     disposable = vscode.commands.registerCommand("kotlinForFRC.simulateFRCKotlinCode", () => {
+        kotlinExt.telemetry.recordCommandRan("simulateFRCKotlinCode");
         const terminals = <vscode.Terminal[]>(<any>vscode.window).terminals;
         let searchTerminal;
         for (let t of terminals) {
