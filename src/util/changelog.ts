@@ -13,15 +13,10 @@ function getWebviewContent() {
 </head>
 <body>
 <h1>Kotlin for FRC Changelog</h1>
-<h2><a href="https://github.com/BrenekH/kotlin-for-frc/tree/2021.2.1">2021.2.1</a> (2021-02-16)</h2>
+<h2><a href="https://github.com/BrenekH/kotlin-for-frc/tree/2021.4.1">2021.4.1</a> (2021-04-24)</h2>
 <p><strong>Implemented enhancements:</strong></p>
 <ul>
-<li>
-<p>Upgraded internal GradleRIO version to 2021.2.2</p>
-</li>
-<li>
-<p>Added the Scheduled Tags bot to GitHub repository for an enhanced deployment workflow <a href="https://github.com/BrenekH/kotlin-for-frc/issues/67">#67</a></p>
-</li>
+<li>Just some various dependency upgrades to mitigate potential security issues</li>
 </ul>
 </body>
 </html>`;
