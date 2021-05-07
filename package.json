@@ -92,7 +92,8 @@
             {
                 "command": "kotlinForFRC.simulateFRCKotlinCode",
                 "title": "Simulate FRC Kotlin Code",
-                "category": "Kotlin-FRC"
+                "category": "Kotlin-FRC",
+                "when": "isWorkspaceTrusted"
             }
         ],
         "menus": {
