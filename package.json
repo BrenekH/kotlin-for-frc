@@ -92,14 +92,13 @@
             {
                 "command": "kotlinForFRC.simulateFRCKotlinCode",
                 "title": "Simulate FRC Kotlin Code",
-                "category": "Kotlin-FRC",
-                "when": "isWorkspaceTrusted"
+                "category": "Kotlin-FRC"
             }
         ],
         "menus": {
             "explorer/context": [
                 {
-                    "when": "explorerResourceIsFolder && isWPILibProject",
+                    "when": "explorerResourceIsFolder && isKFFProject",
                     "command": "kotlinForFRC.createNew",
                     "group": "frc-kotlin"
                 }
@@ -107,26 +106,26 @@
             "commandPalette": [
                 {
                     "command": "kotlinForFRC.convertJavaProject",
-                    "when": "isWPILibProject"
+                    "when": "isKFFProject"
                 },
                 {
                     "command": "kotlinForFRC.createNew",
-                    "when": "isWPILibProject && !isWPILibProject"
+                    "when": "isKFFProject && !isKFFProject"
                 },
                 {
                     "command": "kotlinForFRC.showChangelog"
                 },
                 {
                     "command": "kotlinForFRC.resetAutoShowChangelog",
-                    "when": "isWPILibProject"
+                    "when": "isKFFProject"
                 },
                 {
                     "command": "kotlinForFRC.updateGradleRIOVersion",
-                    "when": "isWPILibProject"
+                    "when": "isKFFProject"
                 },
                 {
                     "command": "kotlinForFRC.simulateFRCKotlinCode",
-                    "when": "isWPILibProject"
+                    "when": "isWorkspaceTrusted && isKFFProject"
                 },
                 {
                     "command": "kotlinForFRC.resetGradleRIOCache"

@@ -33,6 +33,9 @@ export async function activate(context: vscode.ExtensionContext) {
     // Setting up current workspace
     resetWorkspaceFolderPaths();
 
+    // Set custom isKFFProject context
+    setIsKFFProject();
+
     // Registering commands
     console.log("Registering commands");
     await registerCommands(context);
@@ -126,4 +129,10 @@ export async function isGradleRioVersionUpToDate(): Promise<boolean> {
         return true;
     }
     return false;
+}
+
+function setIsKFFProject() {
+    customfs.exists(currentWorkspacePath + "/.wpilib/wpilib_preferences.json").then((wpilibPrefExists: Boolean) => {
+        vscode.commands.executeCommand("setContext", "isKFFProject", wpilibPrefExists);
+    });
 }
