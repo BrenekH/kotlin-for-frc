@@ -33,6 +33,12 @@ export async function activate(context: vscode.ExtensionContext) {
     // Setting up current workspace
     resetWorkspaceFolderPaths();
 
+    // Set custom isKFFProject context
+    setIsKFFProject();
+
+    // Notify user if the WPILib VSCode extension is not installed
+    alertForMissingWPILibExt();
+
     // Registering commands
     console.log("Registering commands");
     await registerCommands(context);
@@ -126,4 +132,18 @@ export async function isGradleRioVersionUpToDate(): Promise<boolean> {
         return true;
     }
     return false;
+}
+
+function setIsKFFProject() {
+    customfs.exists(currentWorkspacePath + "/.wpilib/wpilib_preferences.json").then((wpilibPrefExists: Boolean) => {
+        vscode.commands.executeCommand("setContext", "isKFFProject", wpilibPrefExists);
+    });
+}
+
+function alertForMissingWPILibExt() {
+    const wpilibExt = vscode.extensions.getExtension("wpilibsuite.vscode-wpilib");
+
+    if (wpilibExt === undefined) {
+        vscode.window.showWarningMessage("Kotlin for FRC is meant to be a companion to the official WPILib extension, but it is not installed or you are in a restricted workspace.");
+    }
 }
