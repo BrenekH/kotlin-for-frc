@@ -26,7 +26,8 @@
         "untrustedWorkspaces": {
             "supported": "limited",
             "description": "While most of Kotlin for FRC's functionality is essentially text manipulation, it does provide a convenience feature for running the FRC simulation against Kotlin code which requires the workspace to be trusted."
-        }
+        },
+        "virtualWorkspaces": false
     },
     "contributes": {
         "configuration": {
