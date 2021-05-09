@@ -13,10 +13,18 @@ function getWebviewContent() {
 </head>
 <body>
 <h1>Kotlin for FRC Changelog</h1>
-<h2><a href="https://github.com/BrenekH/kotlin-for-frc/tree/2021.4.1">2021.4.1</a> (2021-04-24)</h2>
+<h2><a href="https://github.com/BrenekH/kotlin-for-frc/tree/2021.5.1">2021.5.1</a> (2021-05-09)</h2>
 <p><strong>Implemented enhancements:</strong></p>
 <ul>
-<li>Just some various dependency upgrades to mitigate potential security issues</li>
+<li>
+<p>Limited functionality in Untrusted Workspaces</p>
+</li>
+<li>
+<p>Disable KfF in Virtual Workspaces</p>
+</li>
+<li>
+<p>Upgrade <code>lodash</code> to mitigate possible security issue</p>
+</li>
 </ul>
 </body>
 </html>`;

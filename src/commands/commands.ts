@@ -3,6 +3,7 @@ import * as vscode from "vscode";
 import * as chnglog from "../util/changelog";
 import * as customfs from "../fileManipulation/fileSystem";
 import * as kotlinExt from "../extension";
+import * as semver from "semver";
 import { createNew } from "./create_new";
 import { simulateCodeTerminalName } from "../constants";
 import { updateGradleRioVersion } from "../util/gradlerioversion";
@@ -84,6 +85,14 @@ export async function registerCommands(context: vscode.ExtensionContext) {
 
     disposable = vscode.commands.registerCommand("kotlinForFRC.simulateFRCKotlinCode", () => {
         kotlinExt.telemetry.recordCommandRan("simulateFRCKotlinCode");
+
+        // Since we want to support older versions of VSCode, check if workspace trust is available before using it to disable simulateFRCKotlinCode
+        let isTrustedWorkspaceAvailable = semver.satisfies(vscode.version, ">=1.56.0");
+        if (isTrustedWorkspaceAvailable && !vscode.workspace.isTrusted) {
+            vscode.window.showErrorMessage("Cannot simulate code while the workspace is untrusted.");
+            return;
+        }
+
         const terminals = <vscode.Terminal[]>(<any>vscode.window).terminals;
         let searchTerminal;
         for (let t of terminals) {
