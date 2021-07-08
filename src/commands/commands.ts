@@ -5,9 +5,9 @@ import * as customfs from "../fileManipulation/fileSystem";
 import * as kotlinExt from "../extension";
 import * as semver from "semver";
 import { createNew } from "./create_new";
-import { simulateCodeTerminalName } from "../constants";
 import { updateGradleRioVersion } from "../util/gradlerioversion";
 import { convertJavaProject, determineRobotType } from "./conversion";
+import { executeCommand } from "../tasks/cmdExecution";
 import { getPlatformGradlew, getJavaHomeGradleArg } from "../util/gradle";
 
 function showChangelog() { chnglog.showChangelog(); }
@@ -93,17 +93,7 @@ export async function registerCommands(context: vscode.ExtensionContext) {
             return;
         }
 
-        const terminals = <vscode.Terminal[]>(<any>vscode.window).terminals;
-        let searchTerminal;
-        for (let t of terminals) {
-            if (t.name === simulateCodeTerminalName) {
-                searchTerminal = t;
-            }
-        }
-
-        let terminal: vscode.Terminal = (searchTerminal === undefined) ? vscode.window.createTerminal(simulateCodeTerminalName) : searchTerminal;
-		terminal.show();
-		terminal.sendText(`${getPlatformGradlew()} simulateJava ${getJavaHomeGradleArg()}`);
+        executeCommand(`${getPlatformGradlew()} simulateJava ${getJavaHomeGradleArg()}`, "SImulate FRC Kotlin Code");
     });
 
     context.subscriptions.push(disposable);

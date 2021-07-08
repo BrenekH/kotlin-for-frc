@@ -19,7 +19,8 @@
         "onCommand:kotlinForFRC.resetAutoShowChangelog",
         "onCommand:kotlinForFRC.updateGradleRIOVersion",
         "onCommand:kotlinForFRC.resetGradleRIOCache",
-        "onCommand:kotlinForFRC.simulateFRCKotlinCode"
+        "onCommand:kotlinForFRC.simulateFRCKotlinCode",
+        "onCommand:workbench.action.tasks.runTask"
     ],
     "main": "./dist/extension",
     "capabilities": {
@@ -132,7 +133,12 @@
                     "command": "kotlinForFRC.resetGradleRIOCache"
                 }
             ]
-        }
+        },
+        "taskDefinitions": [
+            {
+                "type": "kffshell"
+            }
+        ]
     },
     "scripts": {
         "vscode:prepublish": "webpack --mode production",
