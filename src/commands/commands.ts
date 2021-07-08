@@ -7,6 +7,8 @@ import * as semver from "semver";
 import { createNew } from "./create_new";
 import { updateGradleRioVersion } from "../util/gradlerioversion";
 import { convertJavaProject, determineRobotType } from "./conversion";
+import { executeCommand } from "../tasks/cmdExecution";
+import { getPlatformGradlew, getJavaHomeGradleArg } from "../util/gradle";
 
 function showChangelog() { chnglog.showChangelog(); }
 
@@ -91,10 +93,7 @@ export async function registerCommands(context: vscode.ExtensionContext) {
             return;
         }
 
-        vscode.tasks.fetchTasks({type: "simulateFRCKotlinCode"}).then(tasks => {
-            if (tasks.length !== 1) { return; }
-            vscode.tasks.executeTask(tasks[0]);
-        });
+        executeCommand(`${getPlatformGradlew()} simulateJava ${getJavaHomeGradleArg()}`, "SImulate FRC Kotlin Code");
     });
 
     context.subscriptions.push(disposable);

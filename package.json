@@ -136,7 +136,7 @@
         },
         "taskDefinitions": [
             {
-                "type": "simulateFRCKotlinCode"
+                "type": "kffshell"
             }
         ]
     },
