@@ -93,17 +93,10 @@ export async function registerCommands(context: vscode.ExtensionContext) {
             return;
         }
 
-        const terminals = <vscode.Terminal[]>(<any>vscode.window).terminals;
-        let searchTerminal;
-        for (let t of terminals) {
-            if (t.name === simulateCodeTerminalName) {
-                searchTerminal = t;
-            }
-        }
-
-        let terminal: vscode.Terminal = (searchTerminal === undefined) ? vscode.window.createTerminal(simulateCodeTerminalName) : searchTerminal;
-		terminal.show();
-		terminal.sendText(`${getPlatformGradlew()} simulateJava ${getJavaHomeGradleArg()}`);
+        vscode.tasks.fetchTasks({type: "simulateFRCKotlinCode"}).then(tasks => {
+            if (tasks.length !== 1) { return; }
+            vscode.tasks.executeTask(tasks[0]);
+        });
     });
 
     context.subscriptions.push(disposable);

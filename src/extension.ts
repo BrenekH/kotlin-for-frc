@@ -9,6 +9,7 @@ import { displayChangelog } from './util/changelog';
 import { registerCommands } from "./commands/commands";
 import { TelemetryReporter } from "./util/telemetry";
 import { ITemplateProvider, IntegratedTemplateProvider, FileSystemTemplateProvider } from "./templates/templateProvider";
+import { getTaskProvider } from "./tasks/provider";
 
 var currentWorkspacePath: string;
 var currentWorkspaceFsPath: string;
@@ -38,6 +39,9 @@ export async function activate(context: vscode.ExtensionContext) {
 
     // Notify user if the WPILib VSCode extension is not installed
     alertForMissingWPILibExt();
+
+    // Registering task provider
+    context.subscriptions.push(vscode.tasks.registerTaskProvider("simulateFRCKotlinCode", getTaskProvider()));
 
     // Registering commands
     console.log("Registering commands");
