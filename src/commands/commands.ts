@@ -5,10 +5,8 @@ import * as customfs from "../fileManipulation/fileSystem";
 import * as kotlinExt from "../extension";
 import * as semver from "semver";
 import { createNew } from "./create_new";
-import { simulateCodeTerminalName } from "../constants";
 import { updateGradleRioVersion } from "../util/gradlerioversion";
 import { convertJavaProject, determineRobotType } from "./conversion";
-import { getPlatformGradlew, getJavaHomeGradleArg } from "../util/gradle";
 
 function showChangelog() { chnglog.showChangelog(); }
 
