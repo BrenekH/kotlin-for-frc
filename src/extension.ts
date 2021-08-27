@@ -1,9 +1,12 @@
 "use strict";
 import * as vscode from "vscode";
 import { TelemetryReporter } from "./util/telemetry"
+import { setIsKFFProject } from "./util/util";
 
 export async function activate(context: vscode.ExtensionContext) {
 	// TODO: Setup (telemetry, template providers, set isKFFProject variable, is workspace KfF project)
+	setIsKFFProject()
+
 	const telemetry = new TelemetryReporter()
 
 	// Read updateGradleRIOVer and showChangelogOnUpdate from vscode settings, taking care to set them to default values in case of an undefined value.

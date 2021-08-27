@@ -111,10 +111,6 @@
                     "when": "isKFFProject"
                 },
                 {
-                    "command": "kotlinForFRC.createNew",
-                    "when": "isKFFProject && !isKFFProject"
-                },
-                {
                     "command": "kotlinForFRC.showChangelog"
                 },
                 {
