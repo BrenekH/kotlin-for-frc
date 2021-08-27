@@ -25,6 +25,7 @@ export async function activate(context: vscode.ExtensionContext) {
 
 	// TODO: GradleRIO auto-update
 	// TODO: Display changelog
+	// TODO: Unpack templates
 
 	// Register handlers
 	registerCommands(context, telemetry)
