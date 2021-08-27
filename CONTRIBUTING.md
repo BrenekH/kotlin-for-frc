@@ -7,10 +7,10 @@ This document contains most everything any developer would need to know to start
 To develop Kotlin for FRC, you will need:
 
 * [Node.js](https://nodejs.org/en/download)
-* NPM \(Included with default Node.js install\)
+* [pnpm](https://www.npmjs.com/package/pnpm)
 * [Visual Studio Code](https://code.visualstudio.com/download)
 
-After installing the above programs, clone the repo and run `npm install` inside the kotlin-for-frc directory.
+After installing the above software, clone the repo and run `pnpm install` inside the kotlin-for-frc directory.
 
 It is recommended to use Visual Studio Code to develop Kotlin for FRC, because of the deep integration built into VSCode for developing extensions.
 
