@@ -1,7 +1,7 @@
 "use strict";
 import * as vscode from "vscode";
 import { TelemetryReporter } from "./util/telemetry"
-import { setIsKFFProject } from "./util/util";
+import { alertForMissingWPILibExt, setIsKFFProject } from "./util/util";
 
 export async function activate(context: vscode.ExtensionContext) {
 	// TODO: Setup (telemetry, template providers, set isKFFProject variable, is workspace KfF project)
@@ -16,6 +16,7 @@ export async function activate(context: vscode.ExtensionContext) {
 	const showChangelogOnUpdate: boolean = temp !== undefined ? temp : true
 
 	// TODO: Startup (GradleRIO updates, check for WPILib extension, display changelog after update, send telemetry startup event)
+	alertForMissingWPILibExt()
 	telemetry.recordActivationEvent(showChangelogOnUpdate, updateGradleRIOVer)
 
 	// TODO: Register commands and other on demand stuff

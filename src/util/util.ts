@@ -10,3 +10,14 @@ export async function setIsKFFProject() {
 		}).then(undefined, _ => {})
 	})
 }
+
+/**
+ * Checks to see if the WPILib extension is activated and alert the user if it's not.
+ */
+export async function alertForMissingWPILibExt() {
+    const wpilibExt = vscode.extensions.getExtension("wpilibsuite.vscode-wpilib");
+
+    if (wpilibExt === undefined) {
+        vscode.window.showWarningMessage("Kotlin for FRC is meant to be a companion to the official WPILib extension, but it is not installed or you are in a restricted workspace.");
+    }
+}
