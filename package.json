@@ -172,6 +172,7 @@
         "webpack-cli": "^4.6.0"
     },
     "dependencies": {
+        "axios": "^0.21.1"
     },
     "extensionDependencies": [],
     "repository": {
