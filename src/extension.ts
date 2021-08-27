@@ -1,5 +1,6 @@
 "use strict";
 import * as vscode from "vscode";
+import { registerCommands } from "./commands/commands";
 import { TelemetryReporter } from "./util/telemetry"
 import { alertForMissingWPILibExt, setIsKFFProject } from "./util/util";
 
@@ -20,6 +21,7 @@ export async function activate(context: vscode.ExtensionContext) {
 	telemetry.recordActivationEvent(showChangelogOnUpdate, updateGradleRIOVer)
 
 	// TODO: Register commands and other on demand stuff
+	registerCommands(context, telemetry)
 }
 
 export function deactivate() {}
