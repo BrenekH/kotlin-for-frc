@@ -22,6 +22,11 @@ export async function alertForMissingWPILibExt() {
     }
 }
 
+/**
+ * Return the correct Gradle wrapper for the current platform
+ *
+ * @returns string file path to the wrapper script
+ */
 export function getPlatformGradlew(): string {
     if (process.platform === "win32") {
         return ".\\gradlew.bat";
@@ -29,6 +34,11 @@ export function getPlatformGradlew(): string {
     return "./gradlew";
 }
 
+/**
+ * Get the currently set java home with the gradle syntax prepended.
+ *
+ * @returns
+ */
 export function getJavaHomeGradleArg(): string {
     let javaHomeConfig = vscode.workspace.getConfiguration("java").get<string | undefined | null>("home");
     let kffJavaHomeConfig = vscode.workspace.getConfiguration("kotlinForFRC.simulate").get<string | undefined | null>("javaHome");
