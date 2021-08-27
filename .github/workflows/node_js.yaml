@@ -1,3 +1,5 @@
+# TODO: Change workflow to use pnpm instead of npm. This may be a challenge because the npm cache location is saved between workflow runs, but leaving this as npm introduces the ability for package versions to change.
+
 name: Node.js CI
 
 on: [push, pull_request]
