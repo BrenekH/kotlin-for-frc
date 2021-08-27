@@ -18,11 +18,11 @@ export class TelemetryReporter {
 	}
 
 	recordActivationEvent(autoShowChangelogEnabled: boolean, autoUpdateGradleRioEnabled: boolean) {
-		this.sendEvent(100, {autoShowChangelog: autoShowChangelogEnabled, autoUpdateGradleRio: autoUpdateGradleRioEnabled})
+		this.sendEvent(100, { autoShowChangelog: autoShowChangelogEnabled, autoUpdateGradleRio: autoUpdateGradleRioEnabled })
 	}
 
 	recordCommandRan(commandId: string) {
-		this.sendEvent(110, {commandId})
+		this.sendEvent(110, { commandId })
 	}
 
 	// recordConversionEvent(type: robotType) {
@@ -37,14 +37,16 @@ export class TelemetryReporter {
 		if (!(vscode.workspace.getConfiguration("kotlinForFRC.telemetry").get<boolean>("enable")) || this.inDebugExtensionHost) {
 			return
 		}
-		let payloadJSON: object = {"machine_id": vscode.env.machineId,
-									"session_id": vscode.env.sessionId,
-									"extension_version": this.extensionVersion,
-									"vscode_version": vscode.version,
-									"event_id": eventId,
-									"event": eventData,
-									"os": os.platform(),
-									"os_version": os.release()}
+		let payloadJSON: object = {
+			"machine_id": vscode.env.machineId,
+			"session_id": vscode.env.sessionId,
+			"extension_version": this.extensionVersion,
+			"vscode_version": vscode.version,
+			"event_id": eventId,
+			"event": eventData,
+			"os": os.platform(),
+			"os_version": os.release()
+		}
 		axios({
 			method: "post",
 			url: this.postUrl,

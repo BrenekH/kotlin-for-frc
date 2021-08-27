@@ -4,11 +4,11 @@ import * as vscode from "vscode"
  * Sets the isKFFProject context variable which is used for determining if commands should be available or not.
  */
 export async function setIsKFFProject() {
-	vscode.workspace.workspaceFolders?.forEach((workspace: vscode.WorkspaceFolder) => {
-		vscode.workspace.fs.stat(vscode.Uri.joinPath(workspace.uri, ".wpilib", "wpilib_preferences.json")).then(() => {
-			vscode.commands.executeCommand("setContext", "isKFFProject", true)
-		}).then(undefined, _ => {})
-	})
+    vscode.workspace.workspaceFolders?.forEach((workspace: vscode.WorkspaceFolder) => {
+        vscode.workspace.fs.stat(vscode.Uri.joinPath(workspace.uri, ".wpilib", "wpilib_preferences.json")).then(() => {
+            vscode.commands.executeCommand("setContext", "isKFFProject", true)
+        }).then(undefined, _ => { })
+    })
 }
 
 /**
@@ -47,7 +47,7 @@ export function getJavaHomeGradleArg(): string {
         return "";
     }
 
-	let javaHome = "";
+    let javaHome = "";
     if (kffJavaHomeConfig !== null && kffJavaHomeConfig !== undefined) {
         javaHome = kffJavaHomeConfig;
     } else if (javaHomeConfig !== null && javaHomeConfig !== undefined) {
@@ -55,5 +55,5 @@ export function getJavaHomeGradleArg(): string {
         javaHome = javaHomeConfig;
     }
 
-	return `-Dorg.gradle.java.home="${javaHome}"`;
+    return `-Dorg.gradle.java.home="${javaHome}"`;
 }

@@ -32,7 +32,7 @@ export async function registerCommands(context: vscode.ExtensionContext, telemet
 		// TODO: Implement
 	}))
 
-	context.subscriptions.push(vscode.commands.registerCommand("kotlinForFRC.resetGradleRIOCache", async() => {
+	context.subscriptions.push(vscode.commands.registerCommand("kotlinForFRC.resetGradleRIOCache", async () => {
 		telemetry.recordCommandRan("resetGradleRIOCache")
 		// TODO: Implement
 	}))

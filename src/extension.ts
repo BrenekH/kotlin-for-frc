@@ -31,4 +31,4 @@ export async function activate(context: vscode.ExtensionContext) {
 	registerCommands(context, telemetry)
 }
 
-export function deactivate() {}
+export function deactivate() { }

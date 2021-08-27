@@ -2,23 +2,23 @@ import * as vscode from "vscode"
 import { ITemplateProvider, TemplateType } from "./models";
 
 export class FileSystemTemplateProvider implements ITemplateProvider {
-	topLevelUri: vscode.Uri
+    topLevelUri: vscode.Uri
 
-	constructor(topLevelUri: vscode.Uri) {
-		this.topLevelUri = topLevelUri
-	}
+    constructor(topLevelUri: vscode.Uri) {
+        this.topLevelUri = topLevelUri
+    }
 
-	async getTemplate(t: TemplateType): Promise<string | null> {
-		// TODO: Return null if readFile call fails
-		const readData = await vscode.workspace.fs.readFile(vscode.Uri.joinPath(this.topLevelUri, `${templateTypeToString(t)}.kfftemplate`))
-		const templateString = Buffer.from(readData).toString("utf8")
+    async getTemplate(t: TemplateType): Promise<string | null> {
+        // TODO: Return null if readFile call fails
+        const readData = await vscode.workspace.fs.readFile(vscode.Uri.joinPath(this.topLevelUri, `${templateTypeToString(t)}.kfftemplate`))
+        const templateString = Buffer.from(readData).toString("utf8")
 
-		return templateString
-	}
+        return templateString
+    }
 }
 
 function templateTypeToString(t: TemplateType): string {
-	switch(t) {
+    switch (t) {
         // Old Command Based
         case TemplateType.oldCommandRobot:
             return "oldCommandRobot";

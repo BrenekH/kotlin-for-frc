@@ -1,9 +1,9 @@
 export interface ITemplateProvider {
-	getTemplate(t: TemplateType): Promise<string | null>
+    getTemplate(t: TemplateType): Promise<string | null>
 }
 
 export enum TemplateType {
-	// Old command based templates
+    // Old command based templates
     oldSubsystem = "Old Subsystem",
     oldCommand = "Old Command",
     oldCommandGroup = "Old Command Group",
@@ -50,7 +50,7 @@ export enum TemplateType {
 }
 
 export function parseStringToTemplateType(input: string): TemplateType {
-    switch(input) {
+    switch (input) {
         // Old Command Based
         case "oldCommandRobot":
             return TemplateType.oldCommandRobot;
