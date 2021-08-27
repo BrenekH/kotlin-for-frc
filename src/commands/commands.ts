@@ -1,4 +1,6 @@
 import * as vscode from "vscode"
+import { simulateCodeTerminalName } from "../constants"
+import { getJavaHomeGradleArg, getPlatformGradlew } from "../util/util"
 
 interface ITelemetry {
 	recordCommandRan(commandId: string): void
@@ -35,8 +37,37 @@ export async function registerCommands(context: vscode.ExtensionContext, telemet
 		// TODO: Implement
 	}))
 
-	context.subscriptions.push(vscode.commands.registerCommand("kotlinForFRC.simulateFRCKotlinCode", async () => {
+	context.subscriptions.push(vscode.commands.registerCommand("kotlinForFRC.simulateFRCKotlinCode", simulateFRCKotlinCode(telemetry)))
+}
+
+/**
+ * simulateFRCKotlinCode builds and returns a function that can be used as a callback for vscode.commands.registerCommand.
+ * This should not be used outside of its original file. It is only exported for testing purposes.
+ *
+ * @param telemetry Object that satisfies the ITelemetry interface
+ * @returns Function that is callable by vscode as a command
+ */
+export function simulateFRCKotlinCode(telemetry: ITelemetry): (...args: any[]) => any {
+	// TODO: Change to tasks system
+	return () => {
 		telemetry.recordCommandRan("simulateFRCKotlinCode")
-		// TODO: Implement
-	}))
+
+		if (!vscode.workspace.isTrusted) {
+			vscode.window.showErrorMessage("Cannot simulate code while the workspace is untrusted.");
+			return;
+		}
+
+		const terminals = <vscode.Terminal[]>(<any>vscode.window).terminals;
+		let searchTerminal;
+		for (let t of terminals) {
+			if (t.name === simulateCodeTerminalName) {
+				searchTerminal = t;
+			}
+		}
+
+		let terminal: vscode.Terminal = searchTerminal === undefined ? vscode.window.createTerminal(simulateCodeTerminalName) : searchTerminal;
+		terminal.show();
+		// TODO: Find a way to mock this out for testing (it probably won't break anything but why take the chance)
+		terminal.sendText(`${getPlatformGradlew()} simulateJava ${getJavaHomeGradleArg()}`);
+	}
 }
