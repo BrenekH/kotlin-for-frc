@@ -5,7 +5,7 @@ import { TelemetryReporter } from "./util/telemetry"
 import { alertForMissingWPILibExt, setIsKFFProject } from "./util/util";
 
 export async function activate(context: vscode.ExtensionContext) {
-	// TODO: Setup (telemetry, template providers, set isKFFProject variable, is workspace KfF project)
+	// Setup
 	setIsKFFProject()
 
 	const telemetry = new TelemetryReporter()
@@ -16,11 +16,17 @@ export async function activate(context: vscode.ExtensionContext) {
 	temp = vscode.workspace.getConfiguration("kotlinForFRC.changelog").get<boolean>("showOnUpdate")
 	const showChangelogOnUpdate: boolean = temp !== undefined ? temp : true
 
-	// TODO: Startup (GradleRIO updates, check for WPILib extension, display changelog after update, send telemetry startup event)
+	// TODO: Setup template providers
+	// TODO: Set is workspace KfF project
+
+	// Startup
 	alertForMissingWPILibExt()
 	telemetry.recordActivationEvent(showChangelogOnUpdate, updateGradleRIOVer)
 
-	// TODO: Register commands and other on demand stuff
+	// TODO: GradleRIO auto-update
+	// TODO: Display changelog
+
+	// Register handlers
 	registerCommands(context, telemetry)
 }
 
