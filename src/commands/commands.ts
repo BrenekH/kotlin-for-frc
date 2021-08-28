@@ -36,7 +36,8 @@ export async function registerCommands(context: vscode.ExtensionContext, telemet
 
 	context.subscriptions.push(vscode.commands.registerCommand("kotlinForFRC.resetGradleRIOCache", async () => {
 		telemetry.recordCommandRan("resetGradleRIOCache")
-		// TODO: Implement
+		context.globalState.update("grvCache", "");
+		context.globalState.update("lastGradleRioVersionUpdateTime", 0);
 	}))
 
 	context.subscriptions.push(vscode.commands.registerCommand("kotlinForFRC.simulateFRCKotlinCode", simulateFRCKotlinCode(telemetry)))
