@@ -1,5 +1,6 @@
 import * as vscode from "vscode"
 import { simulateCodeTerminalName } from "../constants"
+import { executeCommand } from "../tasks/cmdExecution"
 import { showChangelog } from "../util/changelog"
 import updateGradleRioVersion from "../util/gradleRioUpdate"
 import { getJavaHomeGradleArg, getPlatformGradlew } from "../util/util"
@@ -36,8 +37,8 @@ export async function registerCommands(context: vscode.ExtensionContext, telemet
 
 	context.subscriptions.push(vscode.commands.registerCommand("kotlinForFRC.resetGradleRIOCache", async () => {
 		telemetry.recordCommandRan("resetGradleRIOCache")
-		context.globalState.update("grvCache", "");
-		context.globalState.update("lastGradleRioVersionUpdateTime", 0);
+		context.globalState.update("grvCache", "")
+		context.globalState.update("lastGradleRioVersionUpdateTime", 0)
 	}))
 
 	context.subscriptions.push(vscode.commands.registerCommand("kotlinForFRC.simulateFRCKotlinCode", simulateFRCKotlinCode(telemetry)))
@@ -51,26 +52,28 @@ export async function registerCommands(context: vscode.ExtensionContext, telemet
  * @returns Function that is callable by vscode as a command
  */
 export function simulateFRCKotlinCode(telemetry: ITelemetry): (...args: any[]) => any {
-	// TODO: Change to tasks system
-	return () => {
+	return async () => {
 		telemetry.recordCommandRan("simulateFRCKotlinCode")
 
 		if (!vscode.workspace.isTrusted) {
-			vscode.window.showErrorMessage("Cannot simulate code while the workspace is untrusted.");
-			return;
+			vscode.window.showErrorMessage("Cannot simulate code while the workspace is untrusted.")
+			return
 		}
 
-		const terminals = <vscode.Terminal[]>(<any>vscode.window).terminals;
-		let searchTerminal;
-		for (let t of terminals) {
-			if (t.name === simulateCodeTerminalName) {
-				searchTerminal = t;
+		if (vscode.workspace.workspaceFolders === undefined) {
+			vscode.window.showErrorMessage("Cannot simulate code without an open workspace.")
+			return
+		}
+
+		let workspaceDir = vscode.workspace.workspaceFolders[0]
+		if (vscode.workspace.workspaceFolders.length > 1) {
+			const temp = await vscode.window.showWorkspaceFolderPick()
+			if (temp === undefined) {
+				return
 			}
+			workspaceDir = temp
 		}
 
-		let terminal: vscode.Terminal = searchTerminal === undefined ? vscode.window.createTerminal(simulateCodeTerminalName) : searchTerminal;
-		terminal.show();
-		// TODO: Find a way to mock this out for testing (it probably won't break anything but why take the chance)
-		terminal.sendText(`${getPlatformGradlew()} simulateJava ${getJavaHomeGradleArg()}`);
+		executeCommand(`${getPlatformGradlew()} simulateJava ${getJavaHomeGradleArg()}`, "Simulate FRC Code", workspaceDir)
 	}
 }
