@@ -66,6 +66,20 @@ export class FileSystemTemplateProvider implements ITemplateProvider {
     }
 }
 
+export class IntegratedTemplateProvider implements ITemplateProvider {
+    templates: TemplateStrings
+
+    constructor() {
+        this.templates = new TemplateStrings()
+    }
+
+    async getTemplate(t: TemplateType, _: vscode.Uri): Promise<string | null> {
+        const tStr = this.templates[templateTypeToString(t) as keyof TemplateStrings] // Cast result from templateTypeToString to a key of TemplateStrings. StackOverflow: https://stackoverflow.com/a/62438434
+
+        return tStr
+    }
+}
+
 function templateTypeToString(t: TemplateType): string {
     switch (t) {
         // Old Command Based
