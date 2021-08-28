@@ -1,6 +1,8 @@
 "use strict";
+import { homedir } from "os";
 import * as vscode from "vscode";
 import { registerCommands } from "./commands/commands";
+import { FileSystemTemplateProvider, IntegratedTemplateProvider, TemplateProviderAggregator } from "./template/providers";
 import { TelemetryReporter } from "./util/telemetry"
 import { alertForMissingWPILibExt, setIsKFFProject } from "./util/util";
 
@@ -16,7 +18,12 @@ export async function activate(context: vscode.ExtensionContext) {
 	temp = vscode.workspace.getConfiguration("kotlinForFRC.changelog").get<boolean>("showOnUpdate")
 	const showChangelogOnUpdate: boolean = temp !== undefined ? temp : true
 
-	// TODO: Setup template providers
+	// Setup template providers
+	const integratedTemplateProv = new IntegratedTemplateProvider()
+	const userTemplateProv = new FileSystemTemplateProvider(vscode.Uri.joinPath(vscode.Uri.file(homedir()), ".kfftemplates"))
+	const templateProvAgg = new TemplateProviderAggregator(integratedTemplateProv, userTemplateProv)
+	// TODO: Add workspace template providers to templateProvAgg
+
 	// TODO: Set is workspace KfF project
 
 	// Startup
