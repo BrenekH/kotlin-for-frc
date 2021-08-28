@@ -29,15 +29,17 @@ export async function activate(context: vscode.ExtensionContext) {
 	// TODO: Set is workspace KfF project
 	//? Does this even need to be a thing? I find it hard to believe that detecting if a workspace is a KfF project is super useful.
 
+	// Register handlers
+	registerCommands(context, telemetry)
+
+	// TODO: Register workspace change handlers for adding/removing template providers
+
 	// Startup
 	alertForMissingWPILibExt()
 	updateGradleRioVersion(updateGradleRIOVer, context)
 	displayChangelog(showChangelogOnUpdate, context)
 
 	telemetry.recordActivationEvent(showChangelogOnUpdate, updateGradleRIOVer)
-
-	// Register handlers
-	registerCommands(context, telemetry)
 }
 
 export function deactivate() { }
