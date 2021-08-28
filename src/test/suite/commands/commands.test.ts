@@ -1,4 +1,4 @@
-import * as assert from 'assert'
+import * as assert from "assert"
 import { simulateFRCKotlinCode } from "../../../commands/commands"
 
 suite("Simulate FRC Kotlin Code", function () {

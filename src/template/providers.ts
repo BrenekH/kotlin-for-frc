@@ -4,7 +4,7 @@ import { ITemplateProvider, TemplateType } from "./models";
 export class TemplateProviderAggregator implements ITemplateProvider {
     integratedProvider: ITemplateProvider
     userProvider: ITemplateProvider
-    workspaceProviders: Map<vscode.Uri, ITemplateProvider>
+    workspaceProviders: Map<string, ITemplateProvider>
 
     constructor(integratedProvider: ITemplateProvider, userProvider: ITemplateProvider) {
         this.workspaceProviders = new Map()
@@ -13,20 +13,32 @@ export class TemplateProviderAggregator implements ITemplateProvider {
         this.userProvider = userProvider
     }
 
+    setWorkspaceProvider(uri: vscode.Uri, provider: ITemplateProvider) {
+        this.workspaceProviders.set(uri.toString(), provider)
+    }
+
+    getWorkspaceProvider(uri: vscode.Uri): ITemplateProvider | undefined {
+        return this.workspaceProviders.get(uri.toString())
+    }
+
+    deleteWorkspaceProvider(uri: vscode.Uri) {
+        this.workspaceProviders.delete(uri.toString())
+    }
+
     async getTemplate(t: TemplateType, workspaceFolder: vscode.Uri): Promise<string | null> {
-        const workspaceProvider = this.workspaceProviders.get(workspaceFolder)
-        if (workspaceFolder === undefined) {
+        const workspaceProvider = this.getWorkspaceProvider(workspaceFolder)
+        if (workspaceProvider === undefined) {
             const userResult = await this.userProvider.getTemplate(t, workspaceFolder)
             if (userResult !== null) {
                 return userResult
             }
-            return this.integratedProvider.getTemplate(t, workspaceFolder)
+            return await this.integratedProvider.getTemplate(t, workspaceFolder)
         }
 
-        const workspaceResult = await workspaceProvider?.getTemplate(t, workspaceFolder)
+        // const workspaceResult = await workspaceProvider?.getTemplate(t, workspaceFolder)
+        const workspaceResult = await workspaceProvider.getTemplate(t, workspaceFolder)
         if (workspaceResult !== null) {
-            // Cast workspaceResult to a string because Typescript is not smart enough to recognize that workspaceProvider is not undefined
-            return workspaceResult as string
+            return workspaceResult
         }
 
         const userResult = await this.userProvider.getTemplate(t, workspaceFolder)
@@ -34,7 +46,7 @@ export class TemplateProviderAggregator implements ITemplateProvider {
             return userResult
         }
 
-        return this.integratedProvider.getTemplate(t, workspaceFolder)
+        return await this.integratedProvider.getTemplate(t, workspaceFolder)
     }
 }
 
