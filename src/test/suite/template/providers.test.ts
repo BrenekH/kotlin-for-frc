@@ -40,18 +40,44 @@ suite("TemplateProviderAggregator", function () {
 		assert.strictEqual(workspace.workspaceFolderArg, wrkspceFolder, "Workspace template provider called with incorrect workspaceFolderArg.")
 	})
 
-	test("getTemplate returns early when a provider gives a non-null value", async function () { })
+	test("getTemplate returns early when a provider gives a non-null value", async function () {
+		const integrated = new TestTemplateProvider()
+		const user = new TestTemplateProvider()
+		const workspace = new TestTemplateProvider("")
+
+		const aggregator = new TemplateProviderAggregator(integrated, user)
+		aggregator.setWorkspaceProvider(Uri.file("/test/file"), workspace)
+
+		await aggregator.getTemplate(TemplateType.emptyClass, Uri.file("/test/file"))
+
+		assert.strictEqual(workspace.getTemplateCalled, true)
+		assert.strictEqual(user.getTemplateCalled, false)
+		assert.strictEqual(integrated.getTemplateCalled, false)
+
+		workspace.returnValue = null
+		user.returnValue = ""
+		await aggregator.getTemplate(TemplateType.emptyClass, Uri.file("/test/file"))
+
+		assert.strictEqual(workspace.getTemplateCalled, true)
+		assert.strictEqual(user.getTemplateCalled, true)
+		assert.strictEqual(integrated.getTemplateCalled, false)
+	})
 })
 
 class TestTemplateProvider implements ITemplateProvider {
 	getTemplateCalled = false
 	templateTypeArg: TemplateType | undefined = undefined
 	workspaceFolderArg: Uri | undefined = undefined
+	returnValue: string | null
+
+	constructor(returnValue?: string | null) {
+		this.returnValue = returnValue !== undefined ? returnValue : null
+	}
 
 	async getTemplate(t: TemplateType, workspaceFolder: Uri): Promise<string | null> {
 		this.getTemplateCalled = true
 		this.templateTypeArg = t
 		this.workspaceFolderArg = workspaceFolder
-		return null
+		return this.returnValue
 	}
 }
