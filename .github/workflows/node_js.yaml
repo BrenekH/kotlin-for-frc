@@ -1,12 +1,9 @@
-# TODO: Change workflow to use pnpm instead of npm. This may be a challenge because the npm cache location is saved between workflow runs, but leaving this as npm introduces the ability for package versions to change.
-
 name: Node.js CI
 
 on: [push, pull_request]
 
 jobs:
   test:
-
     runs-on: ubuntu-latest
 
     strategy:
@@ -21,16 +18,19 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: Cache Node Modules
-        uses: actions/cache@v2
-        env:
-          cache-name: cache-node-modules
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node${{ matrix.node-version }}-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+      # - name: Cache Node Modules
+      #   uses: actions/cache@v2
+      #   env:
+      #     cache-name: cache-node-modules
+      #   with:
+      #     path: ~/.npm
+      #     key: ${{ runner.os }}-node${{ matrix.node-version }}-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+
+      - name: Install pnpm
+        run: npm i -g pnpm
 
       - name: Install Frozen Dependencies
-        run: npm ci
+        run: pnpm install
 
       - run: xvfb-run -a npm test
 
@@ -48,19 +48,19 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: Cache Node Modules
-        uses: actions/cache@v2
-        env:
-          cache-name: cache-node-modules
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node${{ matrix.node-version }}-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+      # - name: Cache Node Modules
+      #   uses: actions/cache@v2
+      #   env:
+      #     cache-name: cache-node-modules
+      #   with:
+      #     path: ~/.npm
+      #     key: ${{ runner.os }}-node${{ matrix.node-version }}-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
 
-      - name: Globally Install VSCE
-        run: npm install -g vsce
+      - name: Globally Install VSCE and pnpm
+        run: npm install -g vsce pnpm
 
       - name: Install Frozen Dependencies
-        run: npm ci
+        run: pnpm install
 
       - run: vsce package
 
@@ -136,21 +136,21 @@ jobs:
       - name: Set PACKAGE_TAG environment variable
         run: echo "PACKAGE_TAG=$(node -p "require('./package.json').version")" >> $GITHUB_ENV
 
-      - name: Cache Node Modules
-        uses: actions/cache@v2
-        env:
-          cache-name: cache-node-modules
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node14.x-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-        if: "!(contains(env.PACKAGE_TAG, 'alpha') && !contains(env.PACKAGE_TAG, 'beta') && !contains(env.PACKAGE_TAG, 'rc'))"
+      # - name: Cache Node Modules
+      #   uses: actions/cache@v2
+      #   env:
+      #     cache-name: cache-node-modules
+      #   with:
+      #     path: ~/.npm
+      #     key: ${{ runner.os }}-node14.x-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+      #   if: "!(contains(env.PACKAGE_TAG, 'alpha') && !contains(env.PACKAGE_TAG, 'beta') && !contains(env.PACKAGE_TAG, 'rc'))"
 
-      - name: Globally Install VSCE
-        run: npm install -g vsce
+      - name: Globally Install VSCE and pnpm
+        run: npm install -g vsce pnpm
         if: "!(contains(env.PACKAGE_TAG, 'alpha') && !contains(env.PACKAGE_TAG, 'beta') && !contains(env.PACKAGE_TAG, 'rc'))"
 
       - name: Install Frozen Dependencies
-        run: npm ci
+        run: pnpm install
         if: "!(contains(env.PACKAGE_TAG, 'alpha') && !contains(env.PACKAGE_TAG, 'beta') && !contains(env.PACKAGE_TAG, 'rc'))"
 
       - name: Publish to VSCode Marketplace
