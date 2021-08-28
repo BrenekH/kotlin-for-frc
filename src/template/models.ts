@@ -32,6 +32,7 @@ export enum TemplateType {
     profiledPIDCommand = "Profiled PID Command",
     sequentialCommandGroup = "Sequential Command Group",
     trapezoidProfileCommand = "Trapezoid Profile Command",
+    commandExampleCommand = "Example Command",
     // Subsystems
     subsystem = "Subsystem",
     PIDSubsystem = "PID Subsystem",
@@ -39,13 +40,20 @@ export enum TemplateType {
     trapezoidProfileSubsystem = "Trapezoid Profile Subsystem",
 
     // Romi
+    romiTimedRobot = "Romi Timed Robot",
     romiTimedDrivetrain = "Romi Timed Drivetrain",
     romiCommandRobotContainer = "Romi Command Robot Container",
     romiCommandConstants = "Romi Command Constants",
     romiCommandExampleCommand = "Romi Command Example Command",
     romiCommandDrivetrainSubsystem = "Romi Command Drivetrain Subsystem",
 
+    // Robot.kt files
+    robotBaseRobot = "Robot Base",
+    timedRobot = "Timed Robot",
+    timedSkeleton = "Timed Skeleton",
+
     // Misc templates
+    main = "Main.kt",
     emptyClass = "Empty Class",
     buildGradle = "build.gradle",
     romiBuildGradle = "Romi-specific build.gradle",

@@ -117,6 +117,8 @@ function templateTypeToString(t: TemplateType): string {
             return "sequentialCommandGroup"
         case TemplateType.trapezoidProfileCommand:
             return "trapezoidProfileCommand"
+        case TemplateType.commandExampleCommand:
+            return "commandExampleCommand"
         // Subsystems
         case TemplateType.subsystem:
             return "subsystem"
@@ -128,6 +130,10 @@ function templateTypeToString(t: TemplateType): string {
             return "trapezoidProfileSubsystem"
 
         // Romi
+        case TemplateType.romiBuildGradle:
+            return "romiBuildGradle"
+        case TemplateType.romiTimedRobot:
+            return "romiTimedRobot"
         case TemplateType.romiTimedDrivetrain:
             return "romiTimedDrivetrain"
         case TemplateType.romiCommandRobotContainer:
@@ -139,7 +145,17 @@ function templateTypeToString(t: TemplateType): string {
         case TemplateType.romiCommandDrivetrainSubsystem:
             return "romiCommandDrivetrainSubsystem"
 
+        // Robot.kt files
+        case TemplateType.robotBaseRobot:
+            return "robotBaseRobot"
+        case TemplateType.timedRobot:
+            return "timedRobot"
+        case TemplateType.timedSkeleton:
+            return "timedSkeleton"
+
         // Misc
+        case TemplateType.main:
+            return "main"
         case TemplateType.buildGradle:
             return "buildGradle"
         case TemplateType.emptyClass:
