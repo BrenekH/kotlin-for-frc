@@ -14,7 +14,27 @@ export class TemplateProviderAggregator implements ITemplateProvider {
     }
 
     async getTemplate(t: TemplateType, workspaceFolder: vscode.Uri): Promise<string | null> {
-        return null
+        const workspaceProvider = this.workspaceProviders.get(workspaceFolder)
+        if (workspaceFolder === undefined) {
+            const userResult = await this.userProvider.getTemplate(t, workspaceFolder)
+            if (userResult !== null) {
+                return userResult
+            }
+            return this.integratedProvider.getTemplate(t, workspaceFolder)
+        }
+
+        const workspaceResult = await workspaceProvider?.getTemplate(t, workspaceFolder)
+        if (workspaceResult !== null) {
+            // Cast workspaceResult to a string because Typescript is not smart enough to recognize that workspaceProvider is not undefined
+            return workspaceResult as string
+        }
+
+        const userResult = await this.userProvider.getTemplate(t, workspaceFolder)
+        if (userResult !== null) {
+            return userResult
+        }
+
+        return this.integratedProvider.getTemplate(t, workspaceFolder)
     }
 }
 
