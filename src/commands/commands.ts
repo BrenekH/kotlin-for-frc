@@ -25,12 +25,11 @@ export async function registerCommands(context: vscode.ExtensionContext, telemet
 
 	context.subscriptions.push(vscode.commands.registerCommand("kotlinForFRC.resetAutoShowChangelog", async () => {
 		telemetry.recordCommandRan("resetAutoShowChangelog")
-		// TODO: Implement
+		context.globalState.update("lastInitVersion", "0.0.0")
 	}))
 
 	context.subscriptions.push(vscode.commands.registerCommand("kotlinForFRC.updateGradleRIOVersion", async () => {
 		telemetry.recordCommandRan("updateGradleRIOVersion")
-
 		updateGradleRioVersion(true, context)
 	}))
 
