@@ -1,4 +1,5 @@
 import * as vscode from "vscode"
+import { TemplateProviderAggregator, FileSystemTemplateProvider } from "../template/providers";
 
 /**
  * Sets the isKFFProject context variable which is used for determining if commands should be available or not.
@@ -56,4 +57,10 @@ export function getJavaHomeGradleArg(): string {
     }
 
     return `-Dorg.gradle.java.home="${javaHome}"`;
+}
+
+export function addCurrentWorkspaceDirsToAggregator(templateProvAgg: TemplateProviderAggregator) {
+    vscode.workspace.workspaceFolders?.forEach((workspaceDir: vscode.WorkspaceFolder) => {
+        templateProvAgg.setWorkspaceProvider(workspaceDir.uri, new FileSystemTemplateProvider(vscode.Uri.joinPath(workspaceDir.uri, ".kfftemplates")))
+    })
 }
