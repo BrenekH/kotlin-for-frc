@@ -1,38 +1,39 @@
 // Place your settings in this file to overwrite default and user settings.
 {
-    "files.exclude": {
-        "out": false // set this to true to hide the "out" folder with the compiled JS files
-    },
-    "search.exclude": {
-        "out": true // set this to false to include "out" folder in search results
-    },
-    // Turn off tsc task auto detection since we have the necessary tasks as npm scripts
-    "typescript.tsc.autoDetect": "off",
-    "todo.timekeeping.started.format": "YY-MM-DD HH:mm:ss",
-    "todo.timekeeping.finished.format": "YY-MM-DD HH:mm:ss",
-    "cSpell.words": [
-        "brenek",
-        "chnglog",
-        "customfs",
-        "deployable",
-        "filegenerator",
-        "gradlerio",
-        "jetbrains",
-        "junit",
-        "kffshell",
-        "kotlinforfrc",
-        "lvuser",
-        "resettestfolder",
-        "resettestwindows",
-        "rio",
-        "robo",
-        "roborio",
-        "smartdashboard",
-        "stdlib",
-        "templateinterpreter",
-        "templatetype",
-        "wpilib",
-        "wpilibj",
-        "wpilibsuite"
-    ]
+  "files.exclude": {
+    "out": false // set this to true to hide the "out" folder with the compiled JS files
+  },
+  "search.exclude": {
+    "out": true // set this to false to include "out" folder in search results
+  },
+  // Turn off tsc task auto detection since we have the necessary tasks as npm scripts
+  "typescript.tsc.autoDetect": "off",
+  "todo.timekeeping.started.format": "YY-MM-DD HH:mm:ss",
+  "todo.timekeeping.finished.format": "YY-MM-DD HH:mm:ss",
+  "cSpell.words": [
+    "brenek",
+    "chnglog",
+    "customfs",
+    "deployable",
+    "filegenerator",
+    "gradlerio",
+    "jetbrains",
+    "junit",
+    "kffshell",
+    "kotlinforfrc",
+    "lvuser",
+    "resettestfolder",
+    "resettestwindows",
+    "rio",
+    "robo",
+    "roborio",
+    "smartdashboard",
+    "stdlib",
+    "templateinterpreter",
+    "templatetype",
+    "wpilib",
+    "wpilibj",
+    "wpilibsuite"
+  ],
+  "python.formatting.provider": "black"
 }
