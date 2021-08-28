@@ -26,6 +26,7 @@ export async function activate(context: vscode.ExtensionContext) {
 	// TODO: Add workspace template providers to templateProvAgg
 
 	// TODO: Set is workspace KfF project
+	//? Does this even need to be a thing? I find it hard to believe that detecting if a workspace is a KfF project is super useful.
 
 	// Startup
 	alertForMissingWPILibExt()
