@@ -1,5 +1,6 @@
 import * as vscode from "vscode"
 import { simulateCodeTerminalName } from "../constants"
+import updateGradleRioVersion from "../util/gradleRioUpdate"
 import { getJavaHomeGradleArg, getPlatformGradlew } from "../util/util"
 
 interface ITelemetry {
@@ -29,7 +30,8 @@ export async function registerCommands(context: vscode.ExtensionContext, telemet
 
 	context.subscriptions.push(vscode.commands.registerCommand("kotlinForFRC.updateGradleRIOVersion", async () => {
 		telemetry.recordCommandRan("updateGradleRIOVersion")
-		// TODO: Implement
+
+		updateGradleRioVersion(true, context)
 	}))
 
 	context.subscriptions.push(vscode.commands.registerCommand("kotlinForFRC.resetGradleRIOCache", async () => {
