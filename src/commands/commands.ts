@@ -12,12 +12,16 @@ interface ITelemetry {
 export async function registerCommands(context: vscode.ExtensionContext, telemetry: ITelemetry) {
 	context.subscriptions.push(vscode.commands.registerCommand("kotlinForFRC.convertJavaProject", async () => {
 		telemetry.recordCommandRan("convertJavaProject")
-		// TODO: Implement
+		// TODO: Identify robot type (fun stuff here)
+		// TODO: Delete existing files
+		// TODO: Add new files with parsed template contents
 	}))
 
 	context.subscriptions.push(vscode.commands.registerCommand("kotlinForFRC.createNew", async () => {
 		telemetry.recordCommandRan("createNew")
-		// TODO: Implement
+		// TODO: Get user choice of template from quick pick
+		// TODO: Get user name for class/file
+		// TODO: Create new file with parsed template contents
 	}))
 
 	context.subscriptions.push(vscode.commands.registerCommand("kotlinForFRC.showChangelog", async () => {
