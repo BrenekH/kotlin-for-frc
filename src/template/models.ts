@@ -1,5 +1,7 @@
+import * as vscode from "vscode"
+
 export interface ITemplateProvider {
-    getTemplate(t: TemplateType): Promise<string | null>
+    getTemplate(t: TemplateType, workspaceFolder: vscode.Uri): Promise<string | null>
 }
 
 export enum TemplateType {

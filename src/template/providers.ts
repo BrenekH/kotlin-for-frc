@@ -13,7 +13,7 @@ export class TemplateProviderAggregator implements ITemplateProvider {
         this.userProvider = userProvider
     }
 
-    async getTemplate(t: TemplateType): Promise<string | null> {
+    async getTemplate(t: TemplateType, workspaceFolder: vscode.Uri): Promise<string | null> {
         return null
     }
 }
@@ -25,7 +25,7 @@ export class FileSystemTemplateProvider implements ITemplateProvider {
         this.topLevelUri = topLevelUri
     }
 
-    async getTemplate(t: TemplateType): Promise<string | null> {
+    async getTemplate(t: TemplateType, _: vscode.Uri): Promise<string | null> {
         // TODO: Return null if readFile call fails
         const readData = await vscode.workspace.fs.readFile(vscode.Uri.joinPath(this.topLevelUri, `${templateTypeToString(t)}.kfftemplate`))
         const templateString = Buffer.from(readData).toString("utf8")
