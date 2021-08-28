@@ -32,7 +32,16 @@ export async function activate(context: vscode.ExtensionContext) {
 	// Register handlers
 	registerCommands(context, telemetry)
 
-	// TODO: Register workspace change handlers for adding/removing template providers
+	// Register workspace change handler for adding/removing template providers
+	vscode.workspace.onDidChangeWorkspaceFolders((e: vscode.WorkspaceFoldersChangeEvent) => {
+		e.added.forEach((workspaceDir: vscode.WorkspaceFolder) => {
+			templateProvAgg.setWorkspaceProvider(workspaceDir.uri, new FileSystemTemplateProvider(vscode.Uri.joinPath(workspaceDir.uri, ".kfftemplates")))
+		})
+
+		e.removed.forEach((workspaceDir: vscode.WorkspaceFolder) => {
+			templateProvAgg.deleteWorkspaceProvider(workspaceDir.uri)
+		})
+	})
 
 	// Startup
 	alertForMissingWPILibExt()

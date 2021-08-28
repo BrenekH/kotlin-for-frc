@@ -1,5 +1,5 @@
-class TemplateStrings {
-	buildGradle = `plugins {
+export class TemplateStrings {
+    buildGradle = `plugins {
     id "java"
     id "edu.wpi.first.GradleRIO" version "#{GRADLE_RIO_VERSION}"
     id 'org.jetbrains.kotlin.jvm' version '1.4.21'
@@ -88,7 +88,7 @@ compileTestKotlin {
     }
 }
 `
-	command = `package #{PACKAGE}
+    command = `package #{PACKAGE}
 
 import edu.wpi.first.wpilibj2.command.CommandBase
 
@@ -115,7 +115,7 @@ class #{NAME} (): CommandBase() {
     }
 }
 `
-	commandConstants = `package frc.robot
+    commandConstants = `package frc.robot
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
@@ -133,7 +133,7 @@ class Constants {
 }
 }
 `
-	commandExampleCommand = `package frc.robot.commands
+    commandExampleCommand = `package frc.robot.commands
 
 import edu.wpi.first.wpilibj2.command.CommandBase
 import frc.robot.subsystems.ExampleSubsystem
@@ -165,7 +165,7 @@ class ExampleCommand(private val subsystem: ExampleSubsystem) : CommandBase() {
     }
 }
 `
-	commandRobot = `package frc.robot
+    commandRobot = `package frc.robot
 
 import edu.wpi.first.wpilibj.TimedRobot
 import edu.wpi.first.wpilibj2.command.Command
@@ -264,7 +264,7 @@ class Robot : TimedRobot() {
     override fun testPeriodic() { }
 }
 `
-	emptyClass = `package #{PACKAGE}
+    emptyClass = `package #{PACKAGE}
 
 /**
  * Add your docs here.
@@ -272,7 +272,7 @@ class Robot : TimedRobot() {
 class #{NAME} {
 }
 `
-	main = `package frc.robot
+    main = `package frc.robot
 
 import edu.wpi.first.wpilibj.RobotBase
 
@@ -294,7 +294,7 @@ object Main {
     }
 }
 `
-	nstantCommand = `package #{PACKAGE}
+    nstantCommand = `package #{PACKAGE}
 
 import edu.wpi.first.wpilibj2.command.InstantCommand
 
@@ -307,7 +307,7 @@ class #{NAME} : InstantCommand() {
     }
 }
 `
-	oldCommand = `package #{PACKAGE}
+    oldCommand = `package #{PACKAGE}
 
 import edu.wpi.first.wpilibj.command.Command
 import frc.robot.Robot
@@ -337,7 +337,7 @@ class #{NAME} : Command() {
     override fun interrupted() {}
 }
 `
-	oldCommandGroup = `package frc.robot.commands
+    oldCommandGroup = `package frc.robot.commands
 
 import edu.wpi.first.wpilibj.command.CommandGroup
 
@@ -362,7 +362,7 @@ class MyCommandGroup : CommandGroup() {
     }
 }
 `
-	oldCommandRobot = `package frc.robot
+    oldCommandRobot = `package frc.robot
 
 import edu.wpi.first.wpilibj.TimedRobot
 import edu.wpi.first.wpilibj.command.Command
@@ -486,7 +486,7 @@ class Robot : TimedRobot() {
     override fun testPeriodic() {}
 }
 `
-	oldInstantCommand = `package #{PACKAGE}
+    oldInstantCommand = `package #{PACKAGE}
 export class OldCommandInstantCommandTemplate {
 
 import edu.wpi.first.wpilibj.command.InstantCommand
@@ -499,7 +499,7 @@ class #{NAME} : InstantCommand() {
     override fun initialize() {}
 }
 `
-	oldOI = `package frc.robot
+    oldOI = `package frc.robot
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -537,7 +537,7 @@ class OI {
     }
 }
 `
-	oldPIDSubsystem = `package #{PACKAGE}
+    oldPIDSubsystem = `package #{PACKAGE}
 
 import edu.wpi.first.wpilibj.command.PIDSubsystem
 
@@ -563,7 +563,7 @@ class #{NAME} : PIDSubsystem("#{NAME}", 1.0, 2.0, 3.0) {
     }
 }
 `
-	oldRobotMap = `package frc.robot
+    oldRobotMap = `package frc.robot
 
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
@@ -585,7 +585,7 @@ class RobotMap {
     }
 }
 `
-	oldSubsystem = `package #{PACKAGE}
+    oldSubsystem = `package #{PACKAGE}
 
 import edu.wpi.first.wpilibj.command.Subsystem
 
@@ -598,7 +598,7 @@ class #{NAME} : Subsystem() {
     }
 }
 `
-	oldTimedCommand = `package #{PACKAGE}
+    oldTimedCommand = `package #{PACKAGE}
 
 import edu.wpi.first.wpilibj.command.TimedCommand
 
@@ -622,7 +622,7 @@ class #{NAME}(timeout: Double) : TimedCommand(timeout) {
     override fun interrupted() {}
 }
 `
-	oldTrigger = `package #{PACKAGE}
+    oldTrigger = `package #{PACKAGE}
 
 import edu.wpi.first.wpilibj.buttons.Trigger
 
@@ -635,7 +635,7 @@ class #{NAME} : Trigger() {
     }
 }
 `
-	parallelCommandGroup = `package #{PACKAGE}
+    parallelCommandGroup = `package #{PACKAGE}
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup
 
@@ -653,7 +653,7 @@ class #{NAME} : ParallelCommandGroup() {
     }
 }
 `
-	parallelDeadlineGroup = `package #{PACKAGE}
+    parallelDeadlineGroup = `package #{PACKAGE}
 
 import edu.wpi.first.wpilibj2.command.InstantCommand
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup
@@ -670,7 +670,7 @@ class #{NAME} : ParallelDeadlineGroup(InstantCommand()) {
     }
 }
 `
-	parallelRaceGroup = `package #{PACKAGE}
+    parallelRaceGroup = `package #{PACKAGE}
 
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup
 
@@ -688,7 +688,7 @@ class #{NAME} : ParallelRaceGroup() {
     }
 }
 `
-	PIDCommand = `package #{PACKAGE}
+    PIDCommand = `package #{PACKAGE}
 
 import edu.wpi.first.wpilibj.controller.PIDController
 import edu.wpi.first.wpilibj2.command.PIDCommand
@@ -717,7 +717,7 @@ class #{NAME} : PIDCommand(
     }
 }
 `
-	PIDSubsystem = `package #{PACKAGE}
+    PIDSubsystem = `package #{PACKAGE}
 
 import edu.wpi.first.wpilibj.controller.PIDController
 import edu.wpi.first.wpilibj2.command.PIDSubsystem
@@ -737,7 +737,7 @@ class #{NAME} : PIDSubsystem(
     }
 }
 `
-	profiledPIDCommand = `package #{PACKAGE}
+    profiledPIDCommand = `package #{PACKAGE}
 
 import edu.wpi.first.wpilibj.controller.ProfiledPIDController
 import edu.wpi.first.wpilibj.trajectory.TrapezoidProfile
@@ -772,7 +772,7 @@ class #{NAME} : ProfiledPIDCommand(
     }
 }
 `
-	profiledPIDSubsystem = `package #{PACKAGE}
+    profiledPIDSubsystem = `package #{PACKAGE}
 
 import edu.wpi.first.wpilibj.controller.ProfiledPIDController
 import edu.wpi.first.wpilibj.trajectory.TrapezoidProfile
@@ -796,7 +796,7 @@ class #{NAME} : ProfiledPIDSubsystem(
     }
 }
 `
-	robotBaseRobot = `package frc.robot
+    robotBaseRobot = `package frc.robot
 
 import edu.wpi.first.hal.HAL
 import edu.wpi.first.wpilibj.RobotBase
@@ -873,7 +873,7 @@ class Robot : RobotBase() {
     }
 }
 `
-	robotContainer = `package frc.robot
+    robotContainer = `package frc.robot
 
 import edu.wpi.first.wpilibj2.command.Command
 import frc.robot.commands.ExampleCommand
@@ -917,7 +917,7 @@ class RobotContainer {
         }
 }
 `
-	romiBuildGradle = `plugins {
+    romiBuildGradle = `plugins {
     id "java"
     id "edu.wpi.first.GradleRIO" version "#{GRADLE_RIO_VERSION}"
     id 'org.jetbrains.kotlin.jvm' version '1.4.21'
@@ -980,7 +980,7 @@ compileTestKotlin {
     }
 }
 `
-	romiCommandConstants = `package frc.robot
+    romiCommandConstants = `package frc.robot
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
@@ -1014,7 +1014,7 @@ class Constants {
     }
 }
 `
-	romiCommandDrivetrainSubsystem = `package frc.robot.subsystems
+    romiCommandDrivetrainSubsystem = `package frc.robot.subsystems
 
 import edu.wpi.first.wpilibj.Encoder
 import edu.wpi.first.wpilibj.Spark
@@ -1074,7 +1074,7 @@ class RomiDrivetrain : SubsystemBase() {
     }
 }
 `
-	romiCommandExampleCommand = `package frc.robot.commands
+    romiCommandExampleCommand = `package frc.robot.commands
 
 import edu.wpi.first.wpilibj2.command.CommandBase
 import frc.robot.subsystems.RomiDrivetrain
@@ -1105,7 +1105,7 @@ class ExampleCommand(private val subsystem: RomiDrivetrain) : CommandBase() {
     }
 }
 `
-	romiCommandRobotContainer = `package frc.robot
+    romiCommandRobotContainer = `package frc.robot
 
 import edu.wpi.first.wpilibj2.command.Command
 import frc.robot.commands.ExampleCommand
@@ -1149,7 +1149,7 @@ class RobotContainer {
         }
 }
 `
-	romiTimedDrivetrain = `package frc.robot
+    romiTimedDrivetrain = `package frc.robot
 
 import edu.wpi.first.wpilibj.Encoder
 import edu.wpi.first.wpilibj.Spark
@@ -1205,7 +1205,7 @@ class RomiDrivetrain {
         get() = Math.PI * WHEEL_DIAMETER_INCH * (rightEncoderCount / COUNTS_PER_REVOLUTION)
 }
 `
-	romiTimedRobot = `package frc.robot
+    romiTimedRobot = `package frc.robot
 
 import edu.wpi.first.wpilibj.TimedRobot
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser
@@ -1313,7 +1313,7 @@ class Robot : TimedRobot() {
     override fun testPeriodic() {}
 }
 `
-	sequentialCommandGroup = `package #{PACKAGE}
+    sequentialCommandGroup = `package #{PACKAGE}
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup
 
@@ -1331,7 +1331,7 @@ class #{NAME} : SequentialCommandGroup() {
     }
 }
 `
-	subsystem = `package #{PACKAGE}
+    subsystem = `package #{PACKAGE}
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase
 
@@ -1345,7 +1345,7 @@ class #{NAME} : SubsystemBase() {
     }
 }
 `
-	timedRobot = `package frc.robot
+    timedRobot = `package frc.robot
 
 import edu.wpi.first.wpilibj.TimedRobot
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser
@@ -1451,7 +1451,7 @@ class Robot : TimedRobot() {
     override fun testPeriodic() {}
 }
 `
-	timedSkeletonRobot = `package frc.robot
+    timedSkeletonRobot = `package frc.robot
 
 import edu.wpi.first.wpilibj.TimedRobot
 
@@ -1488,7 +1488,7 @@ class Robot : TimedRobot() {
     override fun testPeriodic() {}
 }
 `
-	trapezoidProfileCommand = `package #{PACKAGE}
+    trapezoidProfileCommand = `package #{PACKAGE}
 
 import edu.wpi.first.wpilibj.trajectory.TrapezoidProfile
 import edu.wpi.first.wpilibj2.command.TrapezoidProfileCommand
@@ -1511,7 +1511,7 @@ class #{NAME} : TrapezoidProfileCommand(
         }}
     )
 `
-	trapezoidProfileSubsystem = `package #{PACKAGE}
+    trapezoidProfileSubsystem = `package #{PACKAGE}
 
 import edu.wpi.first.wpilibj.trajectory.TrapezoidProfile
 import edu.wpi.first.wpilibj2.command.TrapezoidProfileSubsystem

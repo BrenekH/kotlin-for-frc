@@ -13,7 +13,7 @@ def main():
         with p.open("r") as f:
             found_files[p.name.replace(".kfftemplate", "")] = f.read()
 
-    templates_ts_contents = "class TemplateStrings {\n"
+    templates_ts_contents = "export class TemplateStrings {\n"
 
     for key in found_files:
         value: str = found_files[key]

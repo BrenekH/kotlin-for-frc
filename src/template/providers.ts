@@ -1,4 +1,5 @@
 import * as vscode from "vscode"
+import { TemplateStrings } from "./templates"
 import { ITemplateProvider, TemplateType } from "./models"
 
 export class TemplateProviderAggregator implements ITemplateProvider {

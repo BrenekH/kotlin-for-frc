@@ -9,6 +9,11 @@ export default async function updateGradleRioVersion(autoUpdateEnabled: boolean,
 	vscode.workspace.workspaceFolders?.forEach(async (workspaceDir: vscode.WorkspaceFolder) => {
 		// Get current version from workspaceDir/build.gradle
 		const localVer = await getGradleRIOVersionFromWorkspace(workspaceDir)
+		if (localVer === null) {
+			vscode.window.showErrorMessage(`Unable to determine current GradleRIO version in ${workspaceDir.uri.toString()} workspace folder`)
+			return
+		}
+
 		const currentYear = semver.parse(localVer)?.major as string | undefined
 
 		// Get latest version from plugins.gradle.org
@@ -39,8 +44,13 @@ async function updateWorkspaceGradleRIOVersion(newVersion: string, workspaceDir:
 	await vscode.workspace.fs.writeFile(buildGradle, Buffer.from(newContents, "utf8"))
 }
 
-async function getGradleRIOVersionFromWorkspace(workspaceDir: vscode.WorkspaceFolder): Promise<string> {
-	const data = await vscode.workspace.fs.readFile(vscode.Uri.joinPath(workspaceDir.uri, "build.gradle"))
+async function getGradleRIOVersionFromWorkspace(workspaceDir: vscode.WorkspaceFolder): Promise<string | null> {
+	let data: Uint8Array
+	try {
+		data = await vscode.workspace.fs.readFile(vscode.Uri.joinPath(workspaceDir.uri, "build.gradle"))
+	} catch (_) {
+		return null
+	}
 	const contents = Buffer.from(data).toString("utf8")
 
 	const currentVerArray = contents.match(/id\ "edu\.wpi\.first\.GradleRIO"\ version\ "(.*)"/)
