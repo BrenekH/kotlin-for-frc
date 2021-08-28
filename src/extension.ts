@@ -3,6 +3,7 @@ import { homedir } from "os";
 import * as vscode from "vscode";
 import { registerCommands } from "./commands/commands";
 import { FileSystemTemplateProvider, IntegratedTemplateProvider, TemplateProviderAggregator } from "./template/providers";
+import { displayChangelog } from "./util/changelog";
 import updateGradleRioVersion from "./util/gradleRioUpdate";
 import { TelemetryReporter } from "./util/telemetry"
 import { alertForMissingWPILibExt, setIsKFFProject } from "./util/util";
@@ -30,12 +31,10 @@ export async function activate(context: vscode.ExtensionContext) {
 
 	// Startup
 	alertForMissingWPILibExt()
-	telemetry.recordActivationEvent(showChangelogOnUpdate, updateGradleRIOVer)
-
-	// GradleRIO auto-update
 	updateGradleRioVersion(updateGradleRIOVer, context)
+	displayChangelog(showChangelogOnUpdate, context)
 
-	// TODO: Display changelog
+	telemetry.recordActivationEvent(showChangelogOnUpdate, updateGradleRIOVer)
 
 	// Register handlers
 	registerCommands(context, telemetry)

@@ -1,30 +1,29 @@
 import * as vscode from "vscode"
 import * as semver from "semver"
 
-export function displayChangelog(context: vscode.ExtensionContext) {
-    if (extensionWasUpdated(context)) {
-        showChangelog();
+export function displayChangelog(showChangelogOnUpdate: boolean, context: vscode.ExtensionContext) {
+    if (extensionWasUpdated(showChangelogOnUpdate, context)) {
+        showChangelog()
     }
 }
 
-function extensionWasUpdated(context: vscode.ExtensionContext): boolean {
-    const thisExtension = vscode.extensions.getExtension('brenek.kotlin-for-frc');
+function extensionWasUpdated(showChangelogOnUpdate: boolean, context: vscode.ExtensionContext): boolean {
+    const thisExtension = vscode.extensions.getExtension('brenek.kotlin-for-frc')
     if (thisExtension === undefined) {
-        console.error("thisExtension was undefined, the changelog will not be displayed.");
-        return false;
+        console.error("thisExtension was undefined, the changelog will not be displayed.")
+        return false
     }
 
-    const currentVersion = thisExtension.packageJSON["version"];
-    const storedVersion = context.globalState.get("lastInitVersion", "0.0.0");
+    const currentVersion = thisExtension.packageJSON["version"]
+    const storedVersion = context.globalState.get("lastInitVersion", "0.0.0")
 
-    context.globalState.update("lastInitVersion", currentVersion);
+    context.globalState.update("lastInitVersion", currentVersion)
 
-    // @ts-ignore Note: This shouldn't be needed because true is a default value but it's here anyways
-    if (vscode.workspace.getConfiguration("kotlinForFRC.changelog").get("showOnUpdate") === false) {
-        return false;
+    if (!showChangelogOnUpdate) {
+        return false
     }
 
-    return semver.satisfies(currentVersion, `>${storedVersion}`);
+    return semver.satisfies(currentVersion, `>${storedVersion}`)
 }
 
 export function showChangelog() {
