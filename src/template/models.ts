@@ -55,70 +55,70 @@ export function parseStringToTemplateType(input: string): TemplateType {
     switch (input) {
         // Old Command Based
         case "oldCommandRobot":
-            return TemplateType.oldCommandRobot;
+            return TemplateType.oldCommandRobot
         case "oldOI":
-            return TemplateType.oldOI;
+            return TemplateType.oldOI
         case "oldRobotMap":
-            return TemplateType.oldRobotMap;
+            return TemplateType.oldRobotMap
         case "oldSubsystem":
-            return TemplateType.oldSubsystem;
+            return TemplateType.oldSubsystem
         case "oldCommand":
-            return TemplateType.oldCommand;
+            return TemplateType.oldCommand
         case "oldCommandGroup":
-            return TemplateType.oldCommandGroup;
+            return TemplateType.oldCommandGroup
         case "oldPIDSubsystem":
-            return TemplateType.oldPIDSubsystem;
+            return TemplateType.oldPIDSubsystem
         case "oldInstantCommand":
-            return TemplateType.oldInstantCommand;
+            return TemplateType.oldInstantCommand
         case "oldTimedCommand":
-            return TemplateType.oldTimedCommand;
+            return TemplateType.oldTimedCommand
         case "oldTrigger":
-            return TemplateType.oldTrigger;
+            return TemplateType.oldTrigger
 
         // Command based
         // General
         case "commandRobot":
-            return TemplateType.commandRobot;
+            return TemplateType.commandRobot
         case "robotContainer":
-            return TemplateType.robotContainer;
+            return TemplateType.robotContainer
         case "commandConstants":
-            return TemplateType.commandConstants;
+            return TemplateType.commandConstants
         // Commands
         case "command":
-            return TemplateType.command;
+            return TemplateType.command
         case "instantCommand":
-            return TemplateType.instantCommand;
+            return TemplateType.instantCommand
         case "parallelCommandGroup":
-            return TemplateType.parallelCommandGroup;
+            return TemplateType.parallelCommandGroup
         case "parallelDeadlineGroup":
-            return TemplateType.parallelDeadlineGroup;
+            return TemplateType.parallelDeadlineGroup
         case "parallelRaceGroup":
-            return TemplateType.parallelRaceGroup;
+            return TemplateType.parallelRaceGroup
         case "PIDCommand":
-            return TemplateType.PIDCommand;
+            return TemplateType.PIDCommand
         case "profiledPIDCommand":
-            return TemplateType.profiledPIDCommand;
+            return TemplateType.profiledPIDCommand
         case "sequentialCommandGroup":
-            return TemplateType.sequentialCommandGroup;
+            return TemplateType.sequentialCommandGroup
         case "trapezoidProfileCommand":
-            return TemplateType.trapezoidProfileCommand;
+            return TemplateType.trapezoidProfileCommand
         // Subsystems
         case "subsystem":
-            return TemplateType.subsystem;
+            return TemplateType.subsystem
         case "PIDSubsystem":
-            return TemplateType.PIDSubsystem;
+            return TemplateType.PIDSubsystem
         case "profiledPIDSubsystem":
-            return TemplateType.profiledPIDSubsystem;
+            return TemplateType.profiledPIDSubsystem
         case "trapezoidProfileSubsystem":
-            return TemplateType.trapezoidProfileSubsystem;
+            return TemplateType.trapezoidProfileSubsystem
 
         // Misc
         case "buildGradle":
-            return TemplateType.buildGradle;
+            return TemplateType.buildGradle
         case "emptyClass":
-            return TemplateType.emptyClass;
+            return TemplateType.emptyClass
 
         default:
-            throw new Error("Invalid string passed to parseStringToTemplateType");
+            throw new Error("Invalid string passed to parseStringToTemplateType")
     }
 }

@@ -1,5 +1,5 @@
 import * as vscode from "vscode"
-import { ITemplateProvider, TemplateType } from "./models";
+import { ITemplateProvider, TemplateType } from "./models"
 
 export class TemplateProviderAggregator implements ITemplateProvider {
     integratedProvider: ITemplateProvider
@@ -70,70 +70,82 @@ function templateTypeToString(t: TemplateType): string {
     switch (t) {
         // Old Command Based
         case TemplateType.oldCommandRobot:
-            return "oldCommandRobot";
+            return "oldCommandRobot"
         case TemplateType.oldOI:
-            return "oldOI";
+            return "oldOI"
         case TemplateType.oldRobotMap:
-            return "oldRobotMap";
+            return "oldRobotMap"
         case TemplateType.oldSubsystem:
-            return "oldSubsystem";
+            return "oldSubsystem"
         case TemplateType.oldCommand:
-            return "oldCommand";
+            return "oldCommand"
         case TemplateType.oldCommandGroup:
-            return "oldCommandGroup";
+            return "oldCommandGroup"
         case TemplateType.oldPIDSubsystem:
-            return "oldPIDSubsystem";
+            return "oldPIDSubsystem"
         case TemplateType.oldInstantCommand:
-            return "oldInstantCommand";
+            return "oldInstantCommand"
         case TemplateType.oldTimedCommand:
-            return "oldTimedCommand";
+            return "oldTimedCommand"
         case TemplateType.oldTrigger:
-            return "oldTrigger";
+            return "oldTrigger"
 
         // Command based
         // General
         case TemplateType.commandRobot:
-            return "commandRobot";
+            return "commandRobot"
         case TemplateType.robotContainer:
-            return "robotContainer";
+            return "robotContainer"
         case TemplateType.commandConstants:
-            return "commandConstants";
+            return "commandConstants"
         // Commands
         case TemplateType.command:
-            return "command";
+            return "command"
         case TemplateType.instantCommand:
-            return "instantCommand";
+            return "instantCommand"
         case TemplateType.parallelCommandGroup:
-            return "parallelCommandGroup";
+            return "parallelCommandGroup"
         case TemplateType.parallelDeadlineGroup:
-            return "parallelDeadlineGroup";
+            return "parallelDeadlineGroup"
         case TemplateType.parallelRaceGroup:
-            return "parallelRaceGroup";
+            return "parallelRaceGroup"
         case TemplateType.PIDCommand:
-            return "PIDCommand";
+            return "PIDCommand"
         case TemplateType.profiledPIDCommand:
-            return "profiledPIDCommand";
+            return "profiledPIDCommand"
         case TemplateType.sequentialCommandGroup:
-            return "sequentialCommandGroup";
+            return "sequentialCommandGroup"
         case TemplateType.trapezoidProfileCommand:
-            return "trapezoidProfileCommand";
+            return "trapezoidProfileCommand"
         // Subsystems
         case TemplateType.subsystem:
-            return "subsystem";
+            return "subsystem"
         case TemplateType.PIDSubsystem:
-            return "PIDSubsystem";
+            return "PIDSubsystem"
         case TemplateType.profiledPIDSubsystem:
-            return "profiledPIDSubsystem";
+            return "profiledPIDSubsystem"
         case TemplateType.trapezoidProfileSubsystem:
-            return "trapezoidProfileSubsystem";
+            return "trapezoidProfileSubsystem"
+
+        // Romi
+        case TemplateType.romiTimedDrivetrain:
+            return "romiTimedDrivetrain"
+        case TemplateType.romiCommandRobotContainer:
+            return "romiCommandRobotContainer"
+        case TemplateType.romiCommandConstants:
+            return "romiCommandConstants"
+        case TemplateType.romiCommandExampleCommand:
+            return "romiCommandExampleCommand"
+        case TemplateType.romiCommandDrivetrainSubsystem:
+            return "romiCommandDrivetrainSubsystem"
 
         // Misc
         case TemplateType.buildGradle:
-            return "buildGradle";
+            return "buildGradle"
         case TemplateType.emptyClass:
-            return "emptyClass";
+            return "emptyClass"
 
         default:
-            throw new Error("Invalid TemplateType passed to templateTypeToString");
+            throw new Error("Invalid TemplateType passed to templateTypeToString")
     }
 }
