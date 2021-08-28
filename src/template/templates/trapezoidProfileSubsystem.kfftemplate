@@ -1,0 +1,16 @@
+package #{PACKAGE}
+
+import edu.wpi.first.wpilibj.trajectory.TrapezoidProfile
+import edu.wpi.first.wpilibj2.command.TrapezoidProfileSubsystem
+
+class #{NAME} : TrapezoidProfileSubsystem(
+        // The constraints for the generated profiles
+        TrapezoidProfile.Constraints(0.0, 0.0),
+        // Initial position
+        0.0
+    ) {
+
+    override fun useState(state: TrapezoidProfile.State) {
+        // Use the computed profile state here.
+    }
+}
