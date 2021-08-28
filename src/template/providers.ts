@@ -1,6 +1,23 @@
 import * as vscode from "vscode"
 import { ITemplateProvider, TemplateType } from "./models";
 
+export class TemplateProviderAggregator implements ITemplateProvider {
+    integratedProvider: ITemplateProvider
+    userProvider: ITemplateProvider
+    workspaceProviders: Map<vscode.Uri, ITemplateProvider>
+
+    constructor(integratedProvider: ITemplateProvider, userProvider: ITemplateProvider) {
+        this.workspaceProviders = new Map()
+
+        this.integratedProvider = integratedProvider
+        this.userProvider = userProvider
+    }
+
+    async getTemplate(t: TemplateType): Promise<string | null> {
+        return null
+    }
+}
+
 export class FileSystemTemplateProvider implements ITemplateProvider {
     topLevelUri: vscode.Uri
 
