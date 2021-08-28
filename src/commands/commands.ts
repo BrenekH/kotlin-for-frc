@@ -1,5 +1,6 @@
 import * as vscode from "vscode"
 import { simulateCodeTerminalName } from "../constants"
+import { showChangelog } from "../util/changelog"
 import updateGradleRioVersion from "../util/gradleRioUpdate"
 import { getJavaHomeGradleArg, getPlatformGradlew } from "../util/util"
 
@@ -20,7 +21,7 @@ export async function registerCommands(context: vscode.ExtensionContext, telemet
 
 	context.subscriptions.push(vscode.commands.registerCommand("kotlinForFRC.showChangelog", async () => {
 		telemetry.recordCommandRan("showChangelog")
-		// TODO: Implement
+		showChangelog()
 	}))
 
 	context.subscriptions.push(vscode.commands.registerCommand("kotlinForFRC.resetAutoShowChangelog", async () => {
