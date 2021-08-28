@@ -74,6 +74,7 @@ export function simulateFRCKotlinCode(telemetry: ITelemetry): (...args: any[]) =
 			workspaceDir = temp
 		}
 
+		// TODO: Change this to an object that gets passed into the function builder. This is not very testable.
 		executeCommand(`${getPlatformGradlew()} simulateJava ${getJavaHomeGradleArg()}`, "Simulate FRC Code", workspaceDir)
 	}
 }
