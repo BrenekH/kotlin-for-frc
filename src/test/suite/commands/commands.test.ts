@@ -2,6 +2,15 @@ import * as assert from "assert"
 import { simulateFRCKotlinCode } from "../../../commands/commands"
 
 suite("Simulate FRC Kotlin Code", function () {
+	test("Returns a function", function () {
+		let mockTelemetry = {
+			recordCommandRan: (commandId: string) => { }
+		}
+
+		const result = simulateFRCKotlinCode(mockTelemetry)
+		assert.strictEqual(typeof result, typeof ((...args: any[]) => { }))
+	})
+
 	test("Telemetry is sent", function () {
 		let recordCommandRanCalled = false
 		let mockTelemetry = {
