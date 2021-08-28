@@ -59,8 +59,13 @@ export class FileSystemTemplateProvider implements ITemplateProvider {
     }
 
     async getTemplate(t: TemplateType, _: vscode.Uri): Promise<string | null> {
-        // TODO: Return null if readFile call fails
-        const readData = await vscode.workspace.fs.readFile(vscode.Uri.joinPath(this.topLevelUri, `${templateTypeToString(t)}.kfftemplate`))
+        let readData: Uint8Array
+        try {
+            readData = await vscode.workspace.fs.readFile(vscode.Uri.joinPath(this.topLevelUri, `${templateTypeToString(t)}.kfftemplate`))
+        } catch (_) {
+            return null
+        }
+
         const templateString = Buffer.from(readData).toString("utf8")
 
         return templateString
