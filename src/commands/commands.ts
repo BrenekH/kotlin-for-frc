@@ -88,7 +88,7 @@ export async function registerCommands(context: vscode.ExtensionContext, telemet
 				return
 		}
 
-		vscode.window.showInformationMessage("Kotlin-FRC: Converted Java project to Kotlin")
+		vscode.window.showInformationMessage("Kotlin-FRC: Conversion complete!")
 	}))
 
 	context.subscriptions.push(vscode.commands.registerCommand("kotlinForFRC.createNew", async () => {

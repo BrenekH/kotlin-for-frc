@@ -30,7 +30,7 @@ export async function activate(context: vscode.ExtensionContext) {
 	//? Does this even need to be a thing? I find it hard to believe that detecting if a workspace is a KfF project is super useful.
 
 	// Register handlers
-	registerCommands(context, telemetry)
+	registerCommands(context, telemetry, templateProvAgg)
 
 	// Register workspace change handler for adding/removing template providers
 	vscode.workspace.onDidChangeWorkspaceFolders((e: vscode.WorkspaceFoldersChangeEvent) => {
