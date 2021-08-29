@@ -78,6 +78,36 @@ export async function writeRobotBaseSkeleton(workspaceDir: vscode.WorkspaceFolde
 export async function writeRomiCommand(workspaceDir: vscode.WorkspaceFolder, templateProvider: ITemplateProvider) {
     await vscode.workspace.fs.createDirectory(vscode.Uri.joinPath(workspaceDir.uri, "src", "main", "kotlin", "frc", "robot", "commands"))
     await vscode.workspace.fs.createDirectory(vscode.Uri.joinPath(workspaceDir.uri, "src", "main", "kotlin", "frc", "robot", "subsystems"))
+
+    const buildGradle = await templateProvider.getTemplate(TemplateType.romiBuildGradle, workspaceDir.uri) as string
+    nullTemplateCheck(buildGradle)
+
+    const main = await templateProvider.getTemplate(TemplateType.main, workspaceDir.uri) as string
+    nullTemplateCheck(main)
+
+    // TODO: Figure out if this is ok. It's likely that the romiCommandRobot template didn't get carried over for some reason.
+    const robot = await templateProvider.getTemplate(TemplateType.commandRobot, workspaceDir.uri) as string
+    nullTemplateCheck(robot)
+
+    const constants = await templateProvider.getTemplate(TemplateType.romiCommandConstants, workspaceDir.uri) as string
+    nullTemplateCheck(constants)
+
+    const robotContainer = await templateProvider.getTemplate(TemplateType.romiCommandRobotContainer, workspaceDir.uri) as string
+    nullTemplateCheck(robotContainer)
+
+    const subsystem = await templateProvider.getTemplate(TemplateType.romiCommandDrivetrainSubsystem, workspaceDir.uri) as string
+    nullTemplateCheck(subsystem)
+
+    const exampleCmd = await templateProvider.getTemplate(TemplateType.romiCommandExampleCommand, workspaceDir.uri) as string
+    nullTemplateCheck(exampleCmd)
+
+    createFileWithContent(vscode.Uri.joinPath(workspaceDir.uri, "build.gradle"), parseTemplate(buildGradle, "", "", targetGradleRioVersion))
+    createFileWithContent(vscode.Uri.joinPath(workspaceDir.uri, "src", "main", "kotlin", "frc", "robot", "Main.kt"), parseTemplate(main, "Main", "frc.robot", targetGradleRioVersion))
+    createFileWithContent(vscode.Uri.joinPath(workspaceDir.uri, "src", "main", "kotlin", "frc", "robot", "Robot.kt"), parseTemplate(robot, "Robot", "frc.robot", targetGradleRioVersion))
+    createFileWithContent(vscode.Uri.joinPath(workspaceDir.uri, "src", "main", "kotlin", "frc", "robot", "Constants.kt"), parseTemplate(constants, "Constants", "frc.robot", targetGradleRioVersion))
+    createFileWithContent(vscode.Uri.joinPath(workspaceDir.uri, "src", "main", "kotlin", "frc", "robot", "RobotContainer.kt"), parseTemplate(robotContainer, "RobotContainer", "frc.robot", targetGradleRioVersion))
+    createFileWithContent(vscode.Uri.joinPath(workspaceDir.uri, "src", "main", "kotlin", "frc", "robot", "subsystems", "RomiDrivetrain.kt"), parseTemplate(subsystem, "RomiDrivetrain", "frc.robot.subsystems", targetGradleRioVersion))
+    createFileWithContent(vscode.Uri.joinPath(workspaceDir.uri, "src", "main", "kotlin", "frc", "robot", "commands", "ExampleCommand.kt"), parseTemplate(exampleCmd, "ExampleCommand", "frc.robot.commands", targetGradleRioVersion))
 }
 
 export async function writeRomiTimed(workspaceDir: vscode.WorkspaceFolder, templateProvider: ITemplateProvider) {
