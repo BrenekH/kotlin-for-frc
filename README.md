@@ -7,22 +7,22 @@ Kotlin for FRC is an unofficial companion extension to the WPILib extension. It 
 
 ## Features
 
-* Easily convert new Java projects created by WPILib to Kotlin ones
+- Easily convert new Java projects created by WPILib to Kotlin ones
 
 ![Convert Demo](https://raw.githubusercontent.com/BrenekH/kotlin-for-frc/master/images/convertDemo.gif)
 
-* Quickly generate code files from templates just like WPILib does for C++ and Java
+- Quickly generate code files from templates just like WPILib does for C++ and Java
 
 ![New Command Demo](https://raw.githubusercontent.com/BrenekH/kotlin-for-frc/master/images/newCommandDemo.gif)
 
-* Simulate Kotlin code in the FRC Sim GUI
+- Simulate Kotlin code in the FRC Sim GUI
 
 ![Simulate Kotlin Code Demo](https://raw.githubusercontent.com/BrenekH/kotlin-for-frc/master/images/simulateDemo.gif)
 
 ## Known Issues
 
-* Any existing code in the project gets deleted when converting to a Kotlin project
-  * This will never be fixed because Kotlin for FRC's conversion tool is meant to be used on a fresh project, not one already worked in.
+- Any existing code in the project gets deleted when converting to a Kotlin project
+  - This will never be fixed because Kotlin for FRC's conversion tool is meant to be used on a fresh project, not one already worked in.
 
 ## Contributing
 
