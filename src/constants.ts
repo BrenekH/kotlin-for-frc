@@ -1,2 +1,2 @@
-export const simulateCodeTerminalName = "KfF: Simulate Code"
+export const simulateCodeTaskName = "Simulate FRC Code"
 export const targetGradleRIOYear = "2021"

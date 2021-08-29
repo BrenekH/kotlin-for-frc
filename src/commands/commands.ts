@@ -1,20 +1,94 @@
 import * as vscode from "vscode"
-import { simulateCodeTerminalName } from "../constants"
+import { simulateCodeTaskName } from "../constants"
 import { executeCommand } from "../tasks/cmdExecution"
+import { ITemplateProvider } from "../template/models"
 import { showChangelog } from "../util/changelog"
 import updateGradleRioVersion from "../util/gradleRioUpdate"
 import { getJavaHomeGradleArg, getPlatformGradlew } from "../util/util"
+import { writeCommandTemplate, writeOldCommandTemplate, writeRobotBaseSkeleton, writeRomiCommand, writeRomiTimed, writeTimed, writeTimedSkeleton } from "./conversion"
+import { RobotType } from "./models"
+import { determineRobotType } from "./util"
 
 interface ITelemetry {
 	recordCommandRan(commandId: string): void
 }
 
-export async function registerCommands(context: vscode.ExtensionContext, telemetry: ITelemetry) {
+export async function registerCommands(context: vscode.ExtensionContext, telemetry: ITelemetry, templateProvider: ITemplateProvider) {
 	context.subscriptions.push(vscode.commands.registerCommand("kotlinForFRC.convertJavaProject", async () => {
 		telemetry.recordCommandRan("convertJavaProject")
-		// TODO: Identify robot type (fun stuff here)
-		// TODO: Delete existing files
-		// TODO: Add new files with parsed template contents
+
+		if (vscode.workspace.workspaceFolders === undefined) {
+			vscode.window.showErrorMessage("Kotlin-FRC: Cannot convert project without an open workspace.")
+			return
+		}
+
+		let workspaceDir = vscode.workspace.workspaceFolders[0]
+		if (vscode.workspace.workspaceFolders.length > 1) {
+			const temp = await vscode.window.showWorkspaceFolderPick()
+			if (temp === undefined) {
+				return
+			}
+			workspaceDir = temp
+		}
+
+		const robotJavaUri = vscode.Uri.joinPath(workspaceDir.uri, "src", "main", "java", "frc", "robot", "Robot.java")
+		let robotJava: string
+		try {
+			const robotJavaData = await vscode.workspace.fs.readFile(robotJavaUri)
+			robotJava = Buffer.from(robotJavaData).toString("utf8")
+		} catch (e) {
+			console.error(e)
+			vscode.window.showErrorMessage(`Kotlin-FRC: Could not read ${robotJavaUri.toString()}. Cancelling project conversion.`)
+			return
+		}
+
+		const buildGradleUri = vscode.Uri.joinPath(workspaceDir.uri, "build.gradle")
+		let buildGradle: string
+		try {
+			const buildGradleData = await vscode.workspace.fs.readFile(buildGradleUri)
+			buildGradle = Buffer.from(buildGradleData).toString("utf8")
+		} catch (e) {
+			console.error(e)
+			vscode.window.showErrorMessage(`Kotlin-FRC: Could not read ${buildGradleUri.toString()}. Cancelling project conversion.`)
+			return
+		}
+
+		const projectRobotType = determineRobotType(robotJava, buildGradle)
+
+		// Delete existing files
+		const toDelete = vscode.Uri.joinPath(workspaceDir.uri, "src", "main", "java")
+		await vscode.workspace.fs.delete(toDelete, { recursive: true })
+
+		// Add new files with parsed template contents
+		switch (projectRobotType) {
+			case RobotType.command:
+				writeCommandTemplate(workspaceDir, templateProvider)
+				break
+			case RobotType.oldCommand:
+				writeOldCommandTemplate(workspaceDir, templateProvider)
+				break
+			case RobotType.robotBaseSkeleton:
+				writeRobotBaseSkeleton(workspaceDir, templateProvider)
+				break
+			case RobotType.romiCommand:
+				writeRomiCommand(workspaceDir, templateProvider)
+				break
+			case RobotType.romiTimed:
+				writeRomiTimed(workspaceDir, templateProvider)
+				break
+			case RobotType.timed:
+				writeTimed(workspaceDir, templateProvider)
+				break
+			case RobotType.timedSkeleton:
+				writeTimedSkeleton(workspaceDir, templateProvider)
+				break
+
+			default:
+				vscode.window.showErrorMessage("Kotlin-FRC: Unknown RobotType for conversion. Cancelling...")
+				return
+		}
+
+		vscode.window.showInformationMessage("Kotlin-FRC: Converted Java project to Kotlin")
 	}))
 
 	context.subscriptions.push(vscode.commands.registerCommand("kotlinForFRC.createNew", async () => {
@@ -60,12 +134,12 @@ export function simulateFRCKotlinCode(telemetry: ITelemetry): (...args: any[]) =
 		telemetry.recordCommandRan("simulateFRCKotlinCode")
 
 		if (!vscode.workspace.isTrusted) {
-			vscode.window.showErrorMessage("Cannot simulate code while the workspace is untrusted.")
+			vscode.window.showErrorMessage("Kotlin-FRC: Cannot simulate code while the workspace is untrusted.")
 			return
 		}
 
 		if (vscode.workspace.workspaceFolders === undefined) {
-			vscode.window.showErrorMessage("Cannot simulate code without an open workspace.")
+			vscode.window.showErrorMessage("Kotlin-FRC: Cannot simulate code without an open workspace.")
 			return
 		}
 
@@ -79,6 +153,6 @@ export function simulateFRCKotlinCode(telemetry: ITelemetry): (...args: any[]) =
 		}
 
 		// TODO: Change this to an object that gets passed into the function builder. This is not very testable.
-		executeCommand(`${getPlatformGradlew()} simulateJava ${getJavaHomeGradleArg()}`, "Simulate FRC Code", workspaceDir)
+		executeCommand(`${getPlatformGradlew()} simulateJava ${getJavaHomeGradleArg()}`, simulateCodeTaskName, workspaceDir)
 	}
 }
