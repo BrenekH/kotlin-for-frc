@@ -191,5 +191,5 @@ function nullTemplateCheck(target: string | null) {
 
 function parseTemplate(template: string, name: string, packageName: string, gradleRioVersion: string): string {
     // TODO: Test
-    return template.replace(/#{NAME}/gi, name).replace(/#PACKAGE/gi, packageName).replace(/#{GRADLE_RIO_VERSION}/gi, gradleRioVersion)
+    return template.replace(/#{NAME}/gi, name).replace(/#{PACKAGE}/gi, packageName).replace(/#{GRADLE_RIO_VERSION}/gi, gradleRioVersion)
 }

@@ -36,7 +36,6 @@ export class TemplateProviderAggregator implements ITemplateProvider {
             return await this.integratedProvider.getTemplate(t, workspaceFolder)
         }
 
-        // const workspaceResult = await workspaceProvider?.getTemplate(t, workspaceFolder)
         const workspaceResult = await workspaceProvider.getTemplate(t, workspaceFolder)
         if (workspaceResult !== null) {
             return workspaceResult
@@ -171,7 +170,7 @@ function templateTypeToString(t: TemplateType): string {
         case TemplateType.timedRobot:
             return "timedRobot"
         case TemplateType.timedSkeleton:
-            return "timedSkeleton"
+            return "timedSkeletonRobot"
 
         // Misc
         case TemplateType.main:
