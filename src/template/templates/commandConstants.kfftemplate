@@ -11,7 +11,7 @@ package frc.robot
  */
 class Constants {
     companion object {
-    // Put constant values inside the companion object to make them globally accessible.
-    // ex. val motorPort: Int = 0
-}
+        // Put constant values inside the companion object to make them globally accessible.
+        // ex. val motorPort: Int = 0
+    }
 }
