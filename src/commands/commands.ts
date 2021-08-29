@@ -94,21 +94,36 @@ export async function registerCommands(context: vscode.ExtensionContext, telemet
 
 	context.subscriptions.push(vscode.commands.registerCommand("kotlinForFRC.createNew", async (filePath: vscode.Uri) => {
 		telemetry.recordCommandRan("createNew")
-		// TODO: Get user choice of template from quick pick
+
 		vscode.window.showQuickPick(["Command-Based", "Old Command-Based", "Empty Class"]).then((result: string | undefined) => {
 			switch (result) {
 				case "Command-Based":
 					vscode.window.showQuickPick(["Command", "Subsystem"]).then((result: string | undefined) => {
 						switch (result) {
 							case "Command":
-								vscode.window.showQuickPick([TemplateType.command, TemplateType.instantCommand]).then((result: string | undefined) => {
+								vscode.window.showQuickPick([
+									TemplateType.command,
+									TemplateType.instantCommand,
+									TemplateType.parallelCommandGroup,
+									TemplateType.parallelDeadlineGroup,
+									TemplateType.parallelRaceGroup,
+									TemplateType.PIDCommand,
+									TemplateType.profiledPIDCommand,
+									TemplateType.sequentialCommandGroup,
+									TemplateType.trapezoidProfileCommand,
+								]).then((result: string | undefined) => {
 									if (result === undefined) { return }
 
 									createNewFromTemplate((<any>TemplateType)[result], templateProvider, filePath)
 								})
 								break
 							case "Subsystem":
-								vscode.window.showQuickPick([TemplateType.subsystem, TemplateType.PIDSubsystem]).then((result: string | undefined) => {
+								vscode.window.showQuickPick([
+									TemplateType.subsystem,
+									TemplateType.PIDSubsystem,
+									TemplateType.profiledPIDSubsystem,
+									TemplateType.trapezoidProfileSubsystem,
+								]).then((result: string | undefined) => {
 									if (result === undefined) { return }
 
 									createNewFromTemplate((<any>TemplateType)[result], templateProvider, filePath)
@@ -120,7 +135,36 @@ export async function registerCommands(context: vscode.ExtensionContext, telemet
 					})
 					break
 				case "Old Command-Based":
-					vscode.window.showQuickPick(["Command", "Subsystem"]).then((result: string | undefined) => { })
+					vscode.window.showQuickPick(["Command", "Subsystem", "Trigger"]).then((result: string | undefined) => {
+						switch (result) {
+							case "Command":
+								vscode.window.showQuickPick([
+									TemplateType.oldCommand,
+									TemplateType.oldInstantCommand,
+									TemplateType.oldCommandGroup,
+									TemplateType.oldTimedCommand,
+								]).then((result: string | undefined) => {
+									if (result === undefined) { return }
+
+									createNewFromTemplate((<any>TemplateType)[result], templateProvider, filePath)
+								})
+								break
+							case "Subsystem":
+								vscode.window.showQuickPick([
+									TemplateType.oldSubsystem,
+									TemplateType.oldPIDSubsystem,
+								]).then((result: string | undefined) => {
+									if (result === undefined) { return }
+
+									createNewFromTemplate((<any>TemplateType)[result], templateProvider, filePath)
+								})
+								break
+							case "Trigger":
+								createNewFromTemplate(TemplateType.oldTrigger, templateProvider, filePath)
+							default:
+								return
+						}
+					})
 					break
 				case "Empty Class":
 					createNewFromTemplate(TemplateType.emptyClass, templateProvider, filePath)
@@ -129,9 +173,6 @@ export async function registerCommands(context: vscode.ExtensionContext, telemet
 					return
 			}
 		})
-
-		// TODO: Get user name for class/file
-		// TODO: Create new file with parsed template contents
 	}))
 
 	context.subscriptions.push(vscode.commands.registerCommand("kotlinForFRC.showChangelog", async () => {
