@@ -1,6 +1,7 @@
 import * as vscode from "vscode"
 import { targetGradleRioVersion } from "../constants";
 import { ITemplateProvider, TemplateType } from "../template/models";
+import { createFileWithContent, parseTemplate } from "./util";
 
 export async function writeCommandTemplate(workspaceDir: vscode.WorkspaceFolder, templateProvider: ITemplateProvider) {
     await vscode.workspace.fs.createDirectory(vscode.Uri.joinPath(workspaceDir.uri, "src", "main", "kotlin", "frc", "robot", "commands"))
@@ -177,19 +178,9 @@ export async function writeTimedSkeleton(workspaceDir: vscode.WorkspaceFolder, t
     createFileWithContent(vscode.Uri.joinPath(workspaceDir.uri, "src", "main", "kotlin", "frc", "robot", "Robot.kt"), parseTemplate(robot, "Robot", "frc.robot", targetGradleRioVersion))
 }
 
-async function createFileWithContent(file: vscode.Uri, content: string): Promise<void> {
-    const data = Buffer.from(content, "utf8")
-    return vscode.workspace.fs.writeFile(file, data)
-}
-
 function nullTemplateCheck(target: string | null) {
     if (target === null) {
         vscode.window.showErrorMessage("Kotlin-FRC: Received a null template. Cancelling...")
         throw new Error("Got null template")
     }
-}
-
-function parseTemplate(template: string, name: string, packageName: string, gradleRioVersion: string): string {
-    // TODO: Test
-    return template.replace(/#{NAME}/gi, name).replace(/#{PACKAGE}/gi, packageName).replace(/#{GRADLE_RIO_VERSION}/gi, gradleRioVersion)
 }

@@ -1,13 +1,14 @@
 import * as vscode from "vscode"
-import { simulateCodeTaskName } from "../constants"
+import { simulateCodeTaskName, targetGradleRioVersion } from "../constants"
 import { executeCommand } from "../tasks/cmdExecution"
-import { ITemplateProvider } from "../template/models"
+import { ITemplateProvider, parseStringToTemplateType } from "../template/models"
 import { showChangelog } from "../util/changelog"
 import updateGradleRioVersion from "../util/gradleRioUpdate"
 import { getJavaHomeGradleArg, getPlatformGradlew } from "../util/util"
 import { writeCommandTemplate, writeOldCommandTemplate, writeRobotBaseSkeleton, writeRomiCommand, writeRomiTimed, writeTimed, writeTimedSkeleton } from "./conversion"
 import { RobotType } from "./models"
-import { determineRobotType } from "./util"
+import { createFileWithContent, determineRobotType, parseTemplate } from "./util"
+import { TemplateType } from "../template/models"
 
 interface ITelemetry {
 	recordCommandRan(commandId: string): void
@@ -91,9 +92,44 @@ export async function registerCommands(context: vscode.ExtensionContext, telemet
 		vscode.window.showInformationMessage("Kotlin-FRC: Conversion complete!")
 	}))
 
-	context.subscriptions.push(vscode.commands.registerCommand("kotlinForFRC.createNew", async () => {
+	context.subscriptions.push(vscode.commands.registerCommand("kotlinForFRC.createNew", async (filePath: vscode.Uri) => {
 		telemetry.recordCommandRan("createNew")
 		// TODO: Get user choice of template from quick pick
+		vscode.window.showQuickPick(["Command-Based", "Old Command-Based", "Empty Class"]).then((result: string | undefined) => {
+			switch (result) {
+				case "Command-Based":
+					vscode.window.showQuickPick(["Command", "Subsystem"]).then((result: string | undefined) => {
+						switch (result) {
+							case "Command":
+								vscode.window.showQuickPick([TemplateType.command, TemplateType.instantCommand]).then((result: string | undefined) => {
+									if (result === undefined) { return }
+
+									createNewFromTemplate((<any>TemplateType)[result], templateProvider, filePath)
+								})
+								break
+							case "Subsystem":
+								vscode.window.showQuickPick([TemplateType.subsystem, TemplateType.PIDSubsystem]).then((result: string | undefined) => {
+									if (result === undefined) { return }
+
+									createNewFromTemplate((<any>TemplateType)[result], templateProvider, filePath)
+								})
+								break
+							default:
+								return
+						}
+					})
+					break
+				case "Old Command-Based":
+					vscode.window.showQuickPick(["Command", "Subsystem"]).then((result: string | undefined) => { })
+					break
+				case "Empty Class":
+					createNewFromTemplate(TemplateType.emptyClass, templateProvider, filePath)
+					break
+				default:
+					return
+			}
+		})
+
 		// TODO: Get user name for class/file
 		// TODO: Create new file with parsed template contents
 	}))
@@ -155,4 +191,28 @@ export function simulateFRCKotlinCode(telemetry: ITelemetry): (...args: any[]) =
 		// TODO: Change this to an object that gets passed into the function builder. This is not very testable.
 		executeCommand(`${getPlatformGradlew()} simulateJava ${getJavaHomeGradleArg()}`, simulateCodeTaskName, workspaceDir)
 	}
+}
+
+async function createNewFromTemplate(templateType: TemplateType, templateProvider: ITemplateProvider, dirPath: vscode.Uri): Promise<void> {
+	const workspaceDir = vscode.workspace.getWorkspaceFolder(dirPath)
+	if (workspaceDir === undefined) { return }
+
+	const templateContents = await templateProvider.getTemplate(templateType, workspaceDir.uri)
+	if (templateContents === null) { return }
+
+	const className = await vscode.window.showInputBox({ placeHolder: `Name your ${templateType.toString()}` })
+	if (className === undefined) { return }
+
+	createFileWithContent(vscode.Uri.joinPath(dirPath, `${className}.kt`), parseTemplate(templateContents, className, determinePackage(dirPath), targetGradleRioVersion))
+}
+
+function determinePackage(filePath: vscode.Uri): string {
+	// TODO: Test
+	const workspaceDir = vscode.workspace.getWorkspaceFolder(filePath)
+	if (workspaceDir === undefined) { return "frc.robot" }
+
+	const mainFolderUri = vscode.Uri.joinPath(workspaceDir.uri, "src", "main", "kotlin")
+
+	// mainFolderUri.path + "/" is required because just the path leaves behind a leading /
+	return filePath.path.replace(mainFolderUri.path + "/", "").replace(/\//g, ".")
 }

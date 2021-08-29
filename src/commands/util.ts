@@ -1,3 +1,4 @@
+import * as vscode from "vscode"
 import { RobotType } from "./models"
 
 export function determineRobotType(robotJava: string, buildGradle: string): RobotType {
@@ -31,4 +32,14 @@ export function determineRobotType(robotJava: string, buildGradle: string): Robo
 	}
 
 	return currentRobotType
+}
+
+export function parseTemplate(template: string, name: string, packageName: string, gradleRioVersion: string): string {
+	// TODO: Test
+	return template.replace(/#{NAME}/gi, name).replace(/#{PACKAGE}/gi, packageName).replace(/#{GRADLE_RIO_VERSION}/gi, gradleRioVersion)
+}
+
+export async function createFileWithContent(file: vscode.Uri, content: string): Promise<void> {
+	const data = Buffer.from(content, "utf8")
+	return vscode.workspace.fs.writeFile(file, data)
 }
