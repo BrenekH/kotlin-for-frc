@@ -98,7 +98,7 @@ export async function writeRomiCommand(workspaceDir: vscode.WorkspaceFolder, tem
     const main = await templateProvider.getTemplate(TemplateType.main, workspaceDir.uri) as string
     nullTemplateCheck(main)
 
-    // TODO: Figure out if this is ok. It's likely that the romiCommandRobot template didn't get carried over for some reason.
+    // The Romi command template uses the exact same Robot class file as normal command-based, so just use that.
     const robot = await templateProvider.getTemplate(TemplateType.commandRobot, workspaceDir.uri) as string
     nullTemplateCheck(robot)
 
