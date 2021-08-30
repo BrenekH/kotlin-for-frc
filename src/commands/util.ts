@@ -2,7 +2,6 @@ import * as vscode from "vscode"
 import { RobotType } from "./models"
 
 export function determineRobotType(robotJava: string, buildGradle: string): RobotType {
-	// TODO: Unit test this function
 	let currentRobotType: RobotType = RobotType.timed
 
 	if (robotJava.includes("edu.wpi.first.wpilibj2.command.Command")) {
