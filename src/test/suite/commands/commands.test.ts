@@ -1,11 +1,13 @@
 import * as assert from "assert"
 import * as vscode from "vscode"
 import { determinePackage, simulateFRCKotlinCode } from "../../../commands/commands"
+import { RobotType } from "../../../commands/models"
 
 suite("Simulate FRC Kotlin Code", function () {
 	test("Returns a function", function () {
 		let mockTelemetry = {
-			recordCommandRan: (commandId: string) => { }
+			recordCommandRan: (commandId: string) => { },
+			recordConversionEvent: (type: RobotType) => { },
 		}
 
 		let cmdExecutor = {
@@ -21,7 +23,8 @@ suite("Simulate FRC Kotlin Code", function () {
 		let mockTelemetry = {
 			recordCommandRan: (commandId: string) => {
 				recordCommandRanCalled = true
-			}
+			},
+			recordConversionEvent: (type: RobotType) => { },
 		}
 
 		let cmdExecutor = {
@@ -40,7 +43,8 @@ suite("Simulate FRC Kotlin Code", function () {
 		let mockTelemetry = {
 			recordCommandRan: (commandId: string) => {
 				usedCommandID = commandId
-			}
+			},
+			recordConversionEvent: (type: RobotType) => { },
 		}
 
 		let cmdExecutor = {
