@@ -2,7 +2,8 @@
 import * as vscode from "vscode"
 import * as os from "os"
 import axios from "axios"
-// import { robotType, templateType } from "../templates/templateInterpreter"
+import { RobotType } from "../commands/models"
+import { TemplateType } from "../template/models"
 
 export class TelemetryReporter {
 	private postUrl: string = "https://kff-data-server.herokuapp.com/postdata"
@@ -25,13 +26,13 @@ export class TelemetryReporter {
 		this.sendEvent(110, { commandId })
 	}
 
-	// recordConversionEvent(type: robotType) {
-	// 		this.sendEvent(120, {robotType: type.toString()})
-	// }
+	recordConversionEvent(type: RobotType) {
+		this.sendEvent(120, { robotType: type.toString() })
+	}
 
-	// recordTemplateProviderQuery(inTemplateProviderType: string, templateType: templateType) {
-	// 		this.sendEvent(130, {templateProviderType: inTemplateProviderType, templateType: templateType.toString()})
-	// }
+	recordTemplateProviderQuery(inTemplateProviderType: string, templateType: TemplateType) {
+		this.sendEvent(130, { templateProviderType: inTemplateProviderType, templateType: templateType.toString() })
+	}
 
 	private sendEvent(eventId: number, eventData: object) {
 		if (!(vscode.workspace.getConfiguration("kotlinForFRC.telemetry").get<boolean>("enable")) || this.inDebugExtensionHost) {
