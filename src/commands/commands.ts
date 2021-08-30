@@ -12,6 +12,7 @@ import { TemplateType } from "../template/models"
 
 interface ITelemetry {
 	recordCommandRan(commandId: string): void
+	recordConversionEvent(type: RobotType): void
 }
 
 interface ICommandExecutor {
@@ -59,6 +60,7 @@ export async function registerCommands(context: vscode.ExtensionContext, telemet
 		}
 
 		const projectRobotType = determineRobotType(robotJava, buildGradle)
+		telemetry.recordConversionEvent(projectRobotType)
 
 		// Delete existing files
 		const toDelete = vscode.Uri.joinPath(workspaceDir.uri, "src", "main", "java")
