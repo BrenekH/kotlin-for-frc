@@ -62,10 +62,10 @@ suite("Determine package", function () {
 
 	test("Non-\"root\" folder", function () {
 		const dir = vscode.Uri.file("/home/test/project/src/main/kotlin/frc/robot/subsystems")
-		vscode.workspace.updateWorkspaceFolders(0, null, { uri: vscode.Uri.file("/home/test/project") })
+		console.log(vscode.workspace.updateWorkspaceFolders(0, null, { uri: vscode.Uri.file("/home/test/project") }))
 
 		assert.strictEqual(determinePackage(dir), "frc.robot.subsystems")
 
-		vscode.workspace.updateWorkspaceFolders(1, 1)
+		console.log(vscode.workspace.updateWorkspaceFolders(1, 1))
 	})
 })
