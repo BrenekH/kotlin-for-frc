@@ -14,6 +14,10 @@ interface ITelemetry {
 	recordCommandRan(commandId: string): void
 }
 
+interface ICommandExecutor {
+	execute(cmd: string, name: string, workspaceFolder: vscode.WorkspaceFolder): void
+}
+
 export async function registerCommands(context: vscode.ExtensionContext, telemetry: ITelemetry, templateProvider: ITemplateProvider) {
 	context.subscriptions.push(vscode.commands.registerCommand("kotlinForFRC.convertJavaProject", async () => {
 		telemetry.recordCommandRan("convertJavaProject")
@@ -196,7 +200,11 @@ export async function registerCommands(context: vscode.ExtensionContext, telemet
 		context.globalState.update("lastGradleRioVersionUpdateTime", 0)
 	}))
 
-	context.subscriptions.push(vscode.commands.registerCommand("kotlinForFRC.simulateFRCKotlinCode", simulateFRCKotlinCode(telemetry)))
+	context.subscriptions.push(vscode.commands.registerCommand("kotlinForFRC.simulateFRCKotlinCode", simulateFRCKotlinCode(telemetry, {
+		execute: (cmd: string, name: string, workspaceFolder: vscode.WorkspaceFolder) => {
+			executeCommand(cmd, name, workspaceFolder)
+		}
+	})))
 }
 
 /**
@@ -206,7 +214,7 @@ export async function registerCommands(context: vscode.ExtensionContext, telemet
  * @param telemetry Object that satisfies the ITelemetry interface
  * @returns Function that is callable by vscode as a command
  */
-export function simulateFRCKotlinCode(telemetry: ITelemetry): (...args: any[]) => any {
+export function simulateFRCKotlinCode(telemetry: ITelemetry, cmdExecutor: ICommandExecutor): (...args: any[]) => any {
 	return async () => {
 		telemetry.recordCommandRan("simulateFRCKotlinCode")
 
@@ -229,8 +237,7 @@ export function simulateFRCKotlinCode(telemetry: ITelemetry): (...args: any[]) =
 			workspaceDir = temp
 		}
 
-		// TODO: Change this to an object that gets passed into the function builder. This is not very testable.
-		executeCommand(`${getPlatformGradlew()} simulateJava ${getJavaHomeGradleArg()}`, simulateCodeTaskName, workspaceDir)
+		cmdExecutor.execute(`${getPlatformGradlew()} simulateJava ${getJavaHomeGradleArg()}`, simulateCodeTaskName, workspaceDir)
 	}
 }
 
