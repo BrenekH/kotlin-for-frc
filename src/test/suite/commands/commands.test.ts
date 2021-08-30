@@ -61,11 +61,14 @@ suite("Determine package", function () {
 	})
 
 	test("Non-\"root\" folder", function () {
-		const dir = vscode.Uri.file("/home/test/project/src/main/kotlin/frc/robot/subsystems")
-		console.log(vscode.workspace.updateWorkspaceFolders(0, null, { uri: vscode.Uri.file("/home/test/project") }))
+		const workDir = vscode.workspace.workspaceFolders
+		if (workDir === undefined) {
+			assert.strictEqual(false, true, "No open workspaces")
+			return
+		}
+
+		const dir = vscode.Uri.joinPath(workDir[0].uri, "src", "main", "kotlin", "frc", "robot", "subsystems")
 
 		assert.strictEqual(determinePackage(dir), "frc.robot.subsystems")
-
-		console.log(vscode.workspace.updateWorkspaceFolders(1, 1))
 	})
 })
