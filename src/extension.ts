@@ -26,9 +26,6 @@ export async function activate(context: vscode.ExtensionContext) {
 	const templateProvAgg = new TemplateProviderAggregator(integratedTemplateProv, userTemplateProv)
 	addCurrentWorkspaceDirsToAggregator(templateProvAgg)
 
-	// TODO: Set is workspace KfF project
-	//? Does this even need to be a thing? I find it hard to believe that detecting if a workspace is a KfF project is super useful.
-
 	// Register handlers
 	registerCommands(context, telemetry, templateProvAgg)
 

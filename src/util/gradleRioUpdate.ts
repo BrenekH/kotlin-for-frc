@@ -5,9 +5,16 @@ import { targetGradleRIOYear } from "../constants"
 
 export default async function updateGradleRioVersion(autoUpdateEnabled: boolean, context: vscode.ExtensionContext) {
 	if (!autoUpdateEnabled) { return }
-	// TODO: Check for Robot.kt file before running.
 
 	vscode.workspace.workspaceFolders?.forEach(async (workspaceDir: vscode.WorkspaceFolder) => {
+		// Ignore workspace folder if it doesn't have a Robot.kt file
+		const robotKt = vscode.Uri.joinPath(workspaceDir.uri, "src", "main", "kotlin", "frc", "robot", "Robot.kt")
+		try {
+			await vscode.workspace.fs.stat(robotKt)
+		} catch (_) {
+			return
+		}
+
 		// Get current version from workspaceDir/build.gradle
 		const localVer = await getGradleRIOVersionFromWorkspace(workspaceDir)
 		if (localVer === null) {
