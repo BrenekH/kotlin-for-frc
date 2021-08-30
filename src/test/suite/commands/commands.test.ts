@@ -1,5 +1,6 @@
 import * as assert from "assert"
-import { simulateFRCKotlinCode } from "../../../commands/commands"
+import * as vscode from "vscode"
+import { determinePackage, simulateFRCKotlinCode } from "../../../commands/commands"
 
 suite("Simulate FRC Kotlin Code", function () {
 	test("Returns a function", function () {
@@ -7,7 +8,11 @@ suite("Simulate FRC Kotlin Code", function () {
 			recordCommandRan: (commandId: string) => { }
 		}
 
-		const result = simulateFRCKotlinCode(mockTelemetry)
+		let cmdExecutor = {
+			execute: (cmd: string, name: string, workspaceFolder: vscode.WorkspaceFolder) => { }
+		}
+
+		const result = simulateFRCKotlinCode(mockTelemetry, cmdExecutor)
 		assert.strictEqual(typeof result, typeof ((...args: any[]) => { }))
 	})
 
@@ -19,7 +24,11 @@ suite("Simulate FRC Kotlin Code", function () {
 			}
 		}
 
-		simulateFRCKotlinCode(mockTelemetry)()
+		let cmdExecutor = {
+			execute: (cmd: string, name: string, workspaceFolder: vscode.WorkspaceFolder) => { }
+		}
+
+		simulateFRCKotlinCode(mockTelemetry, cmdExecutor)()
 
 		assert.strictEqual(recordCommandRanCalled, true)
 	})
@@ -34,8 +43,29 @@ suite("Simulate FRC Kotlin Code", function () {
 			}
 		}
 
-		simulateFRCKotlinCode(mockTelemetry)()
+		let cmdExecutor = {
+			execute: (cmd: string, name: string, workspaceFolder: vscode.WorkspaceFolder) => { }
+		}
+
+		simulateFRCKotlinCode(mockTelemetry, cmdExecutor)()
 
 		assert.strictEqual(usedCommandID, targetCmdID)
+	})
+})
+
+suite("Determine package", function () {
+	test("Basic usage", function () {
+		const dir = vscode.Uri.file("/home/test/project/src/main/kotlin/frc/robot")
+
+		assert.strictEqual(determinePackage(dir), "frc.robot")
+	})
+
+	test("Non-\"root\" folder", function () {
+		const dir = vscode.Uri.file("/home/test/project/src/main/kotlin/frc/robot/subsystems")
+		vscode.workspace.updateWorkspaceFolders(0, null, { uri: vscode.Uri.file("/home/test/project") })
+
+		assert.strictEqual(determinePackage(dir), "frc.robot.subsystems")
+
+		vscode.workspace.updateWorkspaceFolders(1, 1)
 	})
 })

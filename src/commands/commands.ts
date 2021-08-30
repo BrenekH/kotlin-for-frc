@@ -254,8 +254,7 @@ async function createNewFromTemplate(templateType: TemplateType, templateProvide
 	createFileWithContent(vscode.Uri.joinPath(dirPath, `${className}.kt`), parseTemplate(templateContents, className, determinePackage(dirPath), targetGradleRioVersion))
 }
 
-function determinePackage(filePath: vscode.Uri): string {
-	// TODO: Test
+export function determinePackage(filePath: vscode.Uri): string {
 	const workspaceDir = vscode.workspace.getWorkspaceFolder(filePath)
 	if (workspaceDir === undefined) { return "frc.robot" }
 
