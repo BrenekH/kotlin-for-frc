@@ -6,29 +6,29 @@ import { RobotType } from "../../../commands/models"
 suite("Simulate FRC Kotlin Code", function () {
 	test("Returns a function", function () {
 		let mockTelemetry = {
-			recordCommandRan: (commandId: string) => { },
-			recordConversionEvent: (type: RobotType) => { },
+			recordCommandRan: (_: string) => { },
+			recordConversionEvent: (_: RobotType) => { },
 		}
 
 		let cmdExecutor = {
-			execute: (cmd: string, name: string, workspaceFolder: vscode.WorkspaceFolder) => { }
+			execute: (_: string, __: string, ___: vscode.WorkspaceFolder) => { }
 		}
 
 		const result = simulateFRCKotlinCode(mockTelemetry, cmdExecutor)
-		assert.strictEqual(typeof result, typeof ((...args: any[]) => { }))
+		assert.strictEqual(typeof result, typeof ((..._: any[]) => { }))
 	})
 
 	test("Telemetry is sent", function () {
 		let recordCommandRanCalled = false
 		let mockTelemetry = {
-			recordCommandRan: (commandId: string) => {
+			recordCommandRan: (_: string) => {
 				recordCommandRanCalled = true
 			},
-			recordConversionEvent: (type: RobotType) => { },
+			recordConversionEvent: (_: RobotType) => { },
 		}
 
 		let cmdExecutor = {
-			execute: (cmd: string, name: string, workspaceFolder: vscode.WorkspaceFolder) => { }
+			execute: (_: string, __: string, ___: vscode.WorkspaceFolder) => { }
 		}
 
 		simulateFRCKotlinCode(mockTelemetry, cmdExecutor)()
@@ -44,11 +44,11 @@ suite("Simulate FRC Kotlin Code", function () {
 			recordCommandRan: (commandId: string) => {
 				usedCommandID = commandId
 			},
-			recordConversionEvent: (type: RobotType) => { },
+			recordConversionEvent: (_: RobotType) => { },
 		}
 
 		let cmdExecutor = {
-			execute: (cmd: string, name: string, workspaceFolder: vscode.WorkspaceFolder) => { }
+			execute: (_: string, __: string, ___: vscode.WorkspaceFolder) => { }
 		}
 
 		simulateFRCKotlinCode(mockTelemetry, cmdExecutor)()
