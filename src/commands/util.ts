@@ -33,6 +33,15 @@ export function determineRobotType(robotJava: string, buildGradle: string): Robo
 	return currentRobotType
 }
 
+/**
+ * Replace #{NAME}, #{PACKAGE}, and #{GRADLE_RIO_VERSION} with provided values
+ *
+ * @param template String to use as source
+ * @param name The class name or file name to use
+ * @param packageName Package of new file ('frc.robot')
+ * @param gradleRioVersion Latest GradleRIO version
+ * @returns Parsed string
+ */
 export function parseTemplate(template: string, name: string, packageName: string, gradleRioVersion: string): string {
 	return template.replace(/#{NAME}/gi, name).replace(/#{PACKAGE}/gi, packageName).replace(/#{GRADLE_RIO_VERSION}/gi, gradleRioVersion)
 }

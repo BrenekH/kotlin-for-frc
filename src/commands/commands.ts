@@ -1,7 +1,7 @@
 import * as vscode from "vscode"
 import { simulateCodeTaskName, targetGradleRioVersion } from "../constants"
 import { executeCommand } from "../tasks/cmdExecution"
-import { ITemplateProvider, parseStringToTemplateType } from "../template/models"
+import { ITemplateProvider } from "../template/models"
 import { showChangelog } from "../util/changelog"
 import updateGradleRioVersion from "../util/gradleRioUpdate"
 import { getJavaHomeGradleArg, getPlatformGradlew } from "../util/util"
@@ -167,6 +167,7 @@ export async function registerCommands(context: vscode.ExtensionContext, telemet
 								break
 							case "Trigger":
 								createNewFromTemplate(TemplateType.oldTrigger, templateProvider, filePath)
+								break
 							default:
 								return
 						}

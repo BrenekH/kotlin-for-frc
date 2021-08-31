@@ -3,7 +3,6 @@ import * as vscode from "vscode"
 import * as os from "os"
 import axios from "axios"
 import { RobotType } from "../commands/models"
-import { TemplateType } from "../template/models"
 
 export class TelemetryReporter {
 	private postUrl: string = "https://kff-data-server.herokuapp.com/postdata"
