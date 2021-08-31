@@ -1,0 +1,27 @@
+name: Release Checklist
+
+on:
+  pull_request:
+    types: [opened]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Ensure PR is a release PR
+        shell: bash
+        run: |
+          [[ ${{ github.head_ref }} =~ release-.* ]] && echo "IS_RELEASE=true" > $GITHUB_ENV || echo "IS_RELEASE=false" > $GITHUB_ENV
+
+      - name: Comment build results
+        uses: actions/github-script@v4
+        if: ${{ env.IS_RELEASE }} == 'true'
+        with:
+          script: |
+            github.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: "It looks like you've opened a release PR!\nHere's a handy checklist of things that need to be done before a release.\n\n- [ ] Update RELEASE_NOTES.md\n- [ ] Update CHANGELOG.md\n- [ ] Update Changelog Webview HTML\n- [ ] Update version"
+            })
