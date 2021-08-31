@@ -1,11 +1,13 @@
 # Kotlin for FRC Changelog
 
-## [2021.5.1](https://github.com/BrenekH/kotlin-for-frc/tree/2021.5.1) (2021-05-09)
+## [2021.8.1](https://github.com/BrenekH/kotlin-for-frc/releases/2021.8.1) (2021-08-30)
 
 **Implemented enhancements:**
 
-* Limited functionality in Untrusted Workspaces
+- Rewrote codebase to be more maintainable
 
-* Disable KfF in Virtual Workspaces
+- Use VS Code tasks for code simulation instead of a terminal.
 
-* Upgrade `lodash` to mitigate possible security issue
+- Better support for multiple workspace files
+
+- Better support for virtual file systems
