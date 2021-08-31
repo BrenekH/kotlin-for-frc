@@ -41,18 +41,21 @@ const webviewContent = `<!DOCTYPE html>
 </head>
 <body>
 <h1>Kotlin for FRC Changelog</h1>
-<h2><a href="https://github.com/BrenekH/kotlin-for-frc/tree/2021.5.1">2021.5.1</a> (2021-05-09)</h2>
+<h2><a href="https://github.com/BrenekH/kotlin-for-frc/releases/2021.8.1">2021.8.1</a> (2021-08-30)</h2>
 <p><strong>Implemented enhancements:</strong></p>
 <ul>
-<li>
-<p>Limited functionality in Untrusted Workspaces</p>
-</li>
-<li>
-<p>Disable KfF in Virtual Workspaces</p>
-</li>
-<li>
-<p>Upgrade <code>lodash</code> to mitigate possible security issue</p>
-</li>
+	<li>
+		<p>Rewrote codebase to be more maintainable</p>
+	</li>
+	<li>
+		<p>Use VS Code tasks for code simulation instead of a terminal.</p>
+	</li>
+	<li>
+		<p>Better support for multiple workspace files</p>
+	</li>
+	<li>
+		<p>Better support for virtual file systems</p>
+	</li>
 </ul>
 </body>
 </html>`
