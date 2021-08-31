@@ -3,7 +3,3 @@ Release Checklist:
     ☐ Update CHANGELOG.md
     ☐ Update Changelog Webview HTML
     ☐ Update version
-
-Enhancements:
-    Misc:
-        ☐ Add logger for in-production debugging

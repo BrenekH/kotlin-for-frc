@@ -1,0 +1,23 @@
+package #{PACKAGE}
+
+import edu.wpi.first.wpilibj.controller.ProfiledPIDController
+import edu.wpi.first.wpilibj.trajectory.TrapezoidProfile
+import edu.wpi.first.wpilibj2.command.ProfiledPIDSubsystem
+
+class #{NAME} : ProfiledPIDSubsystem(
+        // The ProfiledPIDController used by the subsystem
+        ProfiledPIDController(0.0, 0.0, 0.0,
+
+        // The motion profile constraints
+        TrapezoidProfile.Constraints(0.0, 0.0))
+    ) {
+
+    public override fun useOutput(output: Double, setpoint: TrapezoidProfile.State) {
+        // Use the output (and optionally the setpoint) here
+    }
+
+    public override fun getMeasurement(): Double {
+        // Return the process variable measurement here
+        return 0.0
+    }
+}

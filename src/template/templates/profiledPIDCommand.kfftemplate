@@ -1,0 +1,34 @@
+package #{PACKAGE}
+
+import edu.wpi.first.wpilibj.controller.ProfiledPIDController
+import edu.wpi.first.wpilibj.trajectory.TrapezoidProfile
+import edu.wpi.first.wpilibj2.command.ProfiledPIDCommand
+import java.util.function.BiConsumer
+import java.util.function.DoubleSupplier
+import java.util.function.Supplier
+
+// NOTE:  Consider using this command inline, rather than writing a subclass.  For more
+// information, see:
+// https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
+class #{NAME} : ProfiledPIDCommand(
+        // The ProfiledPIDController used by the command
+        ProfiledPIDController(
+                // The PID gains
+                0.0, 0.0, 0.0,
+                // The motion profile constraints
+                TrapezoidProfile.Constraints(0.0, 0.0)),
+        // This should return the measurement
+        DoubleSupplier { 0.0 },
+        // This should return the goal (can also be a constant)
+        Supplier { TrapezoidProfile.State() },
+        // This uses the output
+        BiConsumer { output: Double?, setpoint: TrapezoidProfile.State? -> {
+
+        }}
+    ) {
+
+    // Returns true when the command should end.
+    override fun isFinished(): Boolean {
+        return false
+    }
+}

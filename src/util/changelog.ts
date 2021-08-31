@@ -1,62 +1,61 @@
-import * as vscode from 'vscode';
-import * as semver from 'semver';
+import * as vscode from "vscode"
+import * as semver from "semver"
 
-function getWebviewContent() {
-	// Webview body content is generated using the batch file in the main directory.
-	// Only copy the latest release and add any special notes you want to send the end user.
-	return `<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Kotlin For FRC Changelog</title>
-</head>
-<body>
-<h1>Kotlin for FRC Changelog</h1>
-<h2><a href="https://github.com/BrenekH/kotlin-for-frc/tree/2021.5.1">2021.5.1</a> (2021-05-09)</h2>
-<p><strong>Implemented enhancements:</strong></p>
-<ul>
-<li>
-<p>Limited functionality in Untrusted Workspaces</p>
-</li>
-<li>
-<p>Disable KfF in Virtual Workspaces</p>
-</li>
-<li>
-<p>Upgrade <code>lodash</code> to mitigate possible security issue</p>
-</li>
-</ul>
-</body>
-</html>`;
+export function displayChangelog(showChangelogOnUpdate: boolean, context: vscode.ExtensionContext) {
+    if (extensionWasUpdated(showChangelogOnUpdate, context)) {
+        showChangelog()
+    }
+}
+
+function extensionWasUpdated(showChangelogOnUpdate: boolean, context: vscode.ExtensionContext): boolean {
+    const thisExtension = vscode.extensions.getExtension('brenek.kotlin-for-frc')
+    if (thisExtension === undefined) {
+        console.error("thisExtension was undefined, the changelog will not be displayed.")
+        return false
+    }
+
+    const currentVersion = thisExtension.packageJSON["version"]
+    const storedVersion = context.globalState.get("lastInitVersion", "0.0.0")
+
+    context.globalState.update("lastInitVersion", currentVersion)
+
+    if (!showChangelogOnUpdate) {
+        return false
+    }
+
+    return semver.satisfies(currentVersion, `>${storedVersion}`)
 }
 
 export function showChangelog() {
-	const panel = vscode.window.createWebviewPanel('kotlin-for-frcChangelog', 'Kotlin For FRC Changelog', vscode.ViewColumn.One, {});
+    const panel = vscode.window.createWebviewPanel('kotlin-for-frcChangelog', 'Kotlin For FRC Changelog', vscode.ViewColumn.One, {})
 
-	panel.webview.html = getWebviewContent();
+    panel.webview.html = webviewContent
 }
 
-function extensionWasUpdated(context: vscode.ExtensionContext): boolean {
-	let thisExtension = vscode.extensions.getExtension('brenek.kotlin-for-frc');
-	if (thisExtension === undefined) {
-		console.log("thisExtension was undefined, the changelog will not be displayed.");
-		return false;
-	}
-	let currentVersion = thisExtension.packageJSON["version"];
-	let storedVersion = context.globalState.get("lastInitVersion", "0.0.0");
-
-	context.globalState.update("lastInitVersion", currentVersion);
-
-	// @ts-ignore Note: This shouldn't be needed because true is a default value but it's here anyways
-	if (vscode.workspace.getConfiguration("kotlinForFRC.changelog").get("showOnUpdate") === false) {
-		return false;
-	}
-
-	return semver.satisfies(currentVersion, `>${storedVersion}`);
-}
-
-export function displayChangelog(context: vscode.ExtensionContext) {
-	if (extensionWasUpdated(context)) {
-		showChangelog();
-	}
-}
+const webviewContent = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kotlin For FRC Changelog</title>
+</head>
+<body>
+<h1>Kotlin for FRC Changelog</h1>
+<h2><a href="https://github.com/BrenekH/kotlin-for-frc/releases/2021.8.1">2021.8.1</a> (2021-08-30)</h2>
+<p><strong>Implemented enhancements:</strong></p>
+<ul>
+	<li>
+		<p>Rewrote codebase to be more maintainable</p>
+	</li>
+	<li>
+		<p>Use VS Code tasks for code simulation instead of a terminal.</p>
+	</li>
+	<li>
+		<p>Better support for multiple workspace files</p>
+	</li>
+	<li>
+		<p>Better support for virtual file systems</p>
+	</li>
+</ul>
+</body>
+</html>`

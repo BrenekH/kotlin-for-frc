@@ -2,10 +2,10 @@
     "name": "kotlin-for-frc",
     "displayName": "Kotlin for FRC",
     "description": "Kotlin for FRC is an unofficial companion extension to the WPILib extension which adds support for Kotlin",
-    "version": "2021.5.1",
+    "version": "2021.8.1",
     "publisher": "Brenek",
     "engines": {
-        "vscode": "^1.50.0"
+        "vscode": "^1.56.0"
     },
     "categories": [
         "Other"
@@ -19,14 +19,16 @@
         "onCommand:kotlinForFRC.resetAutoShowChangelog",
         "onCommand:kotlinForFRC.updateGradleRIOVersion",
         "onCommand:kotlinForFRC.resetGradleRIOCache",
-        "onCommand:kotlinForFRC.simulateFRCKotlinCode"
+        "onCommand:kotlinForFRC.simulateFRCKotlinCode",
+        "onCommand:workbench.action.tasks.runTask"
     ],
     "main": "./dist/extension",
     "capabilities": {
         "untrustedWorkspaces": {
             "supported": "limited",
             "description": "While most of Kotlin for FRC's functionality is essentially text manipulation, it does provide a convenience feature for running the FRC simulation against Kotlin code which requires the workspace to be trusted."
-        }
+        },
+        "virtualWorkspaces": false
     },
     "contributes": {
         "configuration": {
@@ -109,10 +111,6 @@
                     "when": "isKFFProject"
                 },
                 {
-                    "command": "kotlinForFRC.createNew",
-                    "when": "isKFFProject && !isKFFProject"
-                },
-                {
                     "command": "kotlinForFRC.showChangelog"
                 },
                 {
@@ -131,7 +129,12 @@
                     "command": "kotlinForFRC.resetGradleRIOCache"
                 }
             ]
-        }
+        },
+        "taskDefinitions": [
+            {
+                "type": "kffshell"
+            }
+        ]
     },
     "scripts": {
         "vscode:prepublish": "webpack --mode production",
@@ -140,36 +143,31 @@
         "test-compile": "tsc -p ./",
         "lint": "eslint src --ext ts",
         "pretest": "npm run test-compile && npm run lint",
-        "test": "npm run test-compile && node ./out/test/runTest.js && run-script-os",
-        "test:win32": "echo Resetting testing workspace && reset-testing-workspace.bat",
-        "test:linux:darwin": "chmod +x reset-testing-workspace.sh && echo Resetting testing workspace && ./reset-testing-workspace.sh"
+        "test": "npm run test-compile && node ./out/test/runTest.js"
     },
     "devDependencies": {
-        "@types/cross-spawn": "^6.0.1",
-        "@types/glob": "^7.1.1",
+        "@types/cross-spawn": "^6.0.2",
+        "@types/glob": "^7.1.4",
         "@types/mocha": "^7.0.2",
-        "@types/node": "^13.11.0",
-        "@types/vscode": "^1.50.0",
-        "@typescript-eslint/eslint-plugin": "^2.26.0",
-        "@typescript-eslint/parser": "^2.26.0",
-        "acorn": "^7.4.0",
-        "cross-spawn": "^7.0.2",
+        "@types/node": "^13.13.52",
+        "@types/semver": "^7.3.8",
+        "@types/vscode": "1.56.0",
+        "@typescript-eslint/eslint-plugin": "^2.34.0",
+        "@typescript-eslint/parser": "^2.34.0",
+        "acorn": "^7.4.1",
+        "cross-spawn": "^7.0.3",
         "eslint": "^6.8.0",
-        "glob": "^7.1.6",
-        "mocha": "^7.1.1",
-        "run-script-os": "^1.1.1",
-        "ts-loader": "^8.2.0",
-        "typescript": "^3.8.3",
-        "vscode-test": "^1.3.0",
-        "webpack": "^5.35.1",
-        "webpack-cli": "^4.6.0"
+        "glob": "^7.1.7",
+        "mocha": "^7.2.0",
+        "ts-loader": "^8.3.0",
+        "typescript": "^3.9.10",
+        "vscode-test": "^1.6.1",
+        "webpack": "^5.51.1",
+        "webpack-cli": "^4.8.0"
     },
     "dependencies": {
-        "@types/rimraf": "^3.0.0",
-        "@types/semver": "^7.1.0",
         "axios": "^0.21.1",
-        "rimraf": "^3.0.2",
-        "semver": "^7.2.2"
+        "semver": "^7.3.5"
     },
     "extensionDependencies": [],
     "repository": {

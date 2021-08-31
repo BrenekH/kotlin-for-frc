@@ -1,110 +1,268 @@
-"use strict";
-import * as vscode from "vscode";
-import * as chnglog from "../util/changelog";
-import * as customfs from "../fileManipulation/fileSystem";
-import * as kotlinExt from "../extension";
-import * as semver from "semver";
-import { createNew } from "./create_new";
-import { simulateCodeTerminalName } from "../constants";
-import { updateGradleRioVersion } from "../util/gradlerioversion";
-import { convertJavaProject, determineRobotType } from "./conversion";
-import { getPlatformGradlew, getJavaHomeGradleArg } from "../util/gradle";
+import * as vscode from "vscode"
+import { simulateCodeTaskName, targetGradleRioVersion } from "../constants"
+import { executeCommand } from "../tasks/cmdExecution"
+import { ITemplateProvider } from "../template/models"
+import { showChangelog } from "../util/changelog"
+import updateGradleRioVersion from "../util/gradleRioUpdate"
+import { getJavaHomeGradleArg, getPlatformGradlew } from "../util/util"
+import { writeCommandTemplate, writeOldCommandTemplate, writeRobotBaseSkeleton, writeRomiCommand, writeRomiTimed, writeTimed, writeTimedSkeleton } from "./conversion"
+import { RobotType } from "./models"
+import { createFileWithContent, determineRobotType, parseTemplate } from "./util"
+import { TemplateType } from "../template/models"
 
-function showChangelog() { chnglog.showChangelog(); }
-
-function resetAutoShowChangelog(context: vscode.ExtensionContext) {
-	context.globalState.update("lastInitVersion", "0.0.0");
-	vscode.window.showInformationMessage("Kotlin for FRC: Auto-Show changelog reset.");
+interface ITelemetry {
+	recordCommandRan(commandId: string): void
+	recordConversionEvent(type: RobotType): void
 }
 
-export async function registerCommands(context: vscode.ExtensionContext) {
-	let disposable = vscode.commands.registerCommand("kotlinForFRC.createNew", (filePath: any) => {
-        kotlinExt.telemetry.recordCommandRan("createNew");
-        createNew(filePath);
-    });
+interface ICommandExecutor {
+	execute(cmd: string, name: string, workspaceFolder: vscode.WorkspaceFolder): void
+}
 
-    context.subscriptions.push(disposable);
+export async function registerCommands(context: vscode.ExtensionContext, telemetry: ITelemetry, templateProvider: ITemplateProvider) {
+	context.subscriptions.push(vscode.commands.registerCommand("kotlinForFRC.convertJavaProject", async () => {
+		telemetry.recordCommandRan("convertJavaProject")
 
-    disposable = vscode.commands.registerCommand("kotlinForFRC.convertJavaProject", async () => {
-        kotlinExt.telemetry.recordCommandRan("convertJavaProject");
-        console.log("Reading Robot.java");
-        // Check to make sure file paths are even there
-        let robotJava: string = "";
-        try {
-            robotJava = await customfs.readFile(kotlinExt.getWorkspaceFolderFsPath() + "/src/main/java/frc/robot/Robot.java");
-        }
-        catch (e) {
-            console.log(e);
-            vscode.window.showErrorMessage("Kotlin for FRC: Could not find Robot.java. You may have already converted this project or the correct directories are missing.");
-            return;
-        }
+		if (vscode.workspace.workspaceFolders === undefined) {
+			vscode.window.showErrorMessage("Kotlin-FRC: Cannot convert project without an open workspace.")
+			return
+		}
 
-        let buildGradleContent: string = "";
+		let workspaceDir = vscode.workspace.workspaceFolders[0]
+		if (vscode.workspace.workspaceFolders.length > 1) {
+			const temp = await vscode.window.showWorkspaceFolderPick()
+			if (temp === undefined) {
+				return
+			}
+			workspaceDir = temp
+		}
+
+		const robotJavaUri = vscode.Uri.joinPath(workspaceDir.uri, "src", "main", "java", "frc", "robot", "Robot.java")
+		let robotJava: string
 		try {
-			buildGradleContent = await customfs.readFile(`${kotlinExt.getWorkspaceFolderPath()}/build.gradle`);
+			const robotJavaData = await vscode.workspace.fs.readFile(robotJavaUri)
+			robotJava = Buffer.from(robotJavaData).toString("utf8")
+		} catch (e) {
+			console.error(e)
+			vscode.window.showErrorMessage(`Kotlin-FRC: Could not read ${robotJavaUri.toString()}. Cancelling project conversion.`)
+			return
 		}
-		catch (e) {
-			console.error(e);
-			vscode.window.showWarningMessage("Kotlin For FRC: Could not read build.gradle to differentiate between a Romi Command project and a regular Command project. Defaulting to the regular version.");
+
+		const buildGradleUri = vscode.Uri.joinPath(workspaceDir.uri, "build.gradle")
+		let buildGradle: string
+		try {
+			const buildGradleData = await vscode.workspace.fs.readFile(buildGradleUri)
+			buildGradle = Buffer.from(buildGradleData).toString("utf8")
+		} catch (e) {
+			console.error(e)
+			vscode.window.showErrorMessage(`Kotlin-FRC: Could not read ${buildGradleUri.toString()}. Cancelling project conversion.`)
+			return
 		}
 
-        convertJavaProject(determineRobotType(robotJava, buildGradleContent));
-    });
+		const projectRobotType = determineRobotType(robotJava, buildGradle)
+		telemetry.recordConversionEvent(projectRobotType)
 
-    context.subscriptions.push(disposable);
+		// Delete existing files
+		const toDelete = vscode.Uri.joinPath(workspaceDir.uri, "src", "main", "java")
+		await vscode.workspace.fs.delete(toDelete, { recursive: true })
 
-    disposable = vscode.commands.registerCommand("kotlinForFRC.showChangelog", () => {
-        kotlinExt.telemetry.recordCommandRan("showChangelog");
-        showChangelog();
-    });
+		// Add new files with parsed template contents
+		switch (projectRobotType) {
+			case RobotType.command:
+				writeCommandTemplate(workspaceDir, templateProvider)
+				break
+			case RobotType.oldCommand:
+				writeOldCommandTemplate(workspaceDir, templateProvider)
+				break
+			case RobotType.robotBaseSkeleton:
+				writeRobotBaseSkeleton(workspaceDir, templateProvider)
+				break
+			case RobotType.romiCommand:
+				writeRomiCommand(workspaceDir, templateProvider)
+				break
+			case RobotType.romiTimed:
+				writeRomiTimed(workspaceDir, templateProvider)
+				break
+			case RobotType.timed:
+				writeTimed(workspaceDir, templateProvider)
+				break
+			case RobotType.timedSkeleton:
+				writeTimedSkeleton(workspaceDir, templateProvider)
+				break
 
-    context.subscriptions.push(disposable);
+			default:
+				vscode.window.showErrorMessage("Kotlin-FRC: Unknown RobotType for conversion. Cancelling...")
+				return
+		}
 
-    disposable = vscode.commands.registerCommand("kotlinForFRC.resetAutoShowChangelog", () => {
-        kotlinExt.telemetry.recordCommandRan("resetAutoShowChangelog");
-        resetAutoShowChangelog(context);
-    });
+		vscode.window.showInformationMessage("Kotlin-FRC: Conversion complete!")
+	}))
 
-    context.subscriptions.push(disposable);
+	context.subscriptions.push(vscode.commands.registerCommand("kotlinForFRC.createNew", async (filePath: vscode.Uri) => {
+		telemetry.recordCommandRan("createNew")
 
-    disposable = vscode.commands.registerCommand("kotlinForFRC.updateGradleRIOVersion", async () => {
-        kotlinExt.telemetry.recordCommandRan("updateGradleRIOVersion");
-        updateGradleRioVersion();
-    });
+		vscode.window.showQuickPick(["Command-Based", "Old Command-Based", "Empty Class"]).then((result: string | undefined) => {
+			switch (result) {
+				case "Command-Based":
+					vscode.window.showQuickPick(["Command", "Subsystem"]).then((result: string | undefined) => {
+						switch (result) {
+							case "Command":
+								vscode.window.showQuickPick([
+									TemplateType.command,
+									TemplateType.instantCommand,
+									TemplateType.parallelCommandGroup,
+									TemplateType.parallelDeadlineGroup,
+									TemplateType.parallelRaceGroup,
+									TemplateType.PIDCommand,
+									TemplateType.profiledPIDCommand,
+									TemplateType.sequentialCommandGroup,
+									TemplateType.trapezoidProfileCommand,
+								]).then((result: string | undefined) => {
+									if (result === undefined) { return }
 
-    context.subscriptions.push(disposable);
+									createNewFromTemplate((<any>TemplateType)[result], templateProvider, filePath)
+								})
+								break
+							case "Subsystem":
+								vscode.window.showQuickPick([
+									TemplateType.subsystem,
+									TemplateType.PIDSubsystem,
+									TemplateType.profiledPIDSubsystem,
+									TemplateType.trapezoidProfileSubsystem,
+								]).then((result: string | undefined) => {
+									if (result === undefined) { return }
 
-    disposable = vscode.commands.registerCommand("kotlinForFRC.resetGradleRIOCache", async () => {
-        kotlinExt.telemetry.recordCommandRan("resetGradleRIOCache");
-        await context.globalState.update("grvCache", "");
-        await context.globalState.update("lastGradleRioVersionUpdateTime", 0);
-        console.log("reset gradle rio cache");
-    });
+									createNewFromTemplate((<any>TemplateType)[result], templateProvider, filePath)
+								})
+								break
+							default:
+								return
+						}
+					})
+					break
+				case "Old Command-Based":
+					vscode.window.showQuickPick(["Command", "Subsystem", "Trigger"]).then((result: string | undefined) => {
+						switch (result) {
+							case "Command":
+								vscode.window.showQuickPick([
+									TemplateType.oldCommand,
+									TemplateType.oldInstantCommand,
+									TemplateType.oldCommandGroup,
+									TemplateType.oldTimedCommand,
+								]).then((result: string | undefined) => {
+									if (result === undefined) { return }
 
-    context.subscriptions.push(disposable);
+									createNewFromTemplate((<any>TemplateType)[result], templateProvider, filePath)
+								})
+								break
+							case "Subsystem":
+								vscode.window.showQuickPick([
+									TemplateType.oldSubsystem,
+									TemplateType.oldPIDSubsystem,
+								]).then((result: string | undefined) => {
+									if (result === undefined) { return }
 
-    disposable = vscode.commands.registerCommand("kotlinForFRC.simulateFRCKotlinCode", () => {
-        kotlinExt.telemetry.recordCommandRan("simulateFRCKotlinCode");
+									createNewFromTemplate((<any>TemplateType)[result], templateProvider, filePath)
+								})
+								break
+							case "Trigger":
+								createNewFromTemplate(TemplateType.oldTrigger, templateProvider, filePath)
+								break
+							default:
+								return
+						}
+					})
+					break
+				case "Empty Class":
+					createNewFromTemplate(TemplateType.emptyClass, templateProvider, filePath)
+					break
+				default:
+					return
+			}
+		})
+	}))
 
-        // Since we want to support older versions of VSCode, check if workspace trust is available before using it to disable simulateFRCKotlinCode
-        let isTrustedWorkspaceAvailable = semver.satisfies(vscode.version, ">=1.56.0");
-        if (isTrustedWorkspaceAvailable && !vscode.workspace.isTrusted) {
-            vscode.window.showErrorMessage("Cannot simulate code while the workspace is untrusted.");
-            return;
-        }
+	context.subscriptions.push(vscode.commands.registerCommand("kotlinForFRC.showChangelog", async () => {
+		telemetry.recordCommandRan("showChangelog")
+		showChangelog()
+	}))
 
-        const terminals = <vscode.Terminal[]>(<any>vscode.window).terminals;
-        let searchTerminal;
-        for (let t of terminals) {
-            if (t.name === simulateCodeTerminalName) {
-                searchTerminal = t;
-            }
-        }
+	context.subscriptions.push(vscode.commands.registerCommand("kotlinForFRC.resetAutoShowChangelog", async () => {
+		telemetry.recordCommandRan("resetAutoShowChangelog")
+		context.globalState.update("lastInitVersion", "0.0.0")
+	}))
 
-        let terminal: vscode.Terminal = (searchTerminal === undefined) ? vscode.window.createTerminal(simulateCodeTerminalName) : searchTerminal;
-		terminal.show();
-		terminal.sendText(`${getPlatformGradlew()} simulateJava ${getJavaHomeGradleArg()}`);
-    });
+	context.subscriptions.push(vscode.commands.registerCommand("kotlinForFRC.updateGradleRIOVersion", async () => {
+		telemetry.recordCommandRan("updateGradleRIOVersion")
+		updateGradleRioVersion(true, context)
+	}))
 
-    context.subscriptions.push(disposable);
+	context.subscriptions.push(vscode.commands.registerCommand("kotlinForFRC.resetGradleRIOCache", async () => {
+		telemetry.recordCommandRan("resetGradleRIOCache")
+		context.globalState.update("grvCache", "")
+		context.globalState.update("lastGradleRioVersionUpdateTime", 0)
+	}))
+
+	context.subscriptions.push(vscode.commands.registerCommand("kotlinForFRC.simulateFRCKotlinCode", simulateFRCKotlinCode(telemetry, {
+		execute: (cmd: string, name: string, workspaceFolder: vscode.WorkspaceFolder) => {
+			executeCommand(cmd, name, workspaceFolder)
+		}
+	})))
+}
+
+/**
+ * simulateFRCKotlinCode builds and returns a function that can be used as a callback for vscode.commands.registerCommand.
+ * This should not be used outside of its original file. It is only exported for testing purposes.
+ *
+ * @param telemetry Object that satisfies the ITelemetry interface
+ * @returns Function that is callable by vscode as a command
+ */
+export function simulateFRCKotlinCode(telemetry: ITelemetry, cmdExecutor: ICommandExecutor): (...args: any[]) => any {
+	return async () => {
+		telemetry.recordCommandRan("simulateFRCKotlinCode")
+
+		if (!vscode.workspace.isTrusted) {
+			vscode.window.showErrorMessage("Kotlin-FRC: Cannot simulate code while the workspace is untrusted.")
+			return
+		}
+
+		if (vscode.workspace.workspaceFolders === undefined) {
+			vscode.window.showErrorMessage("Kotlin-FRC: Cannot simulate code without an open workspace.")
+			return
+		}
+
+		let workspaceDir = vscode.workspace.workspaceFolders[0]
+		if (vscode.workspace.workspaceFolders.length > 1) {
+			const temp = await vscode.window.showWorkspaceFolderPick()
+			if (temp === undefined) {
+				return
+			}
+			workspaceDir = temp
+		}
+
+		cmdExecutor.execute(`${getPlatformGradlew()} simulateJava ${getJavaHomeGradleArg()}`, simulateCodeTaskName, workspaceDir)
+	}
+}
+
+async function createNewFromTemplate(templateType: TemplateType, templateProvider: ITemplateProvider, dirPath: vscode.Uri): Promise<void> {
+	const workspaceDir = vscode.workspace.getWorkspaceFolder(dirPath)
+	if (workspaceDir === undefined) { return }
+
+	const templateContents = await templateProvider.getTemplate(templateType, workspaceDir.uri)
+	if (templateContents === null) { return }
+
+	const className = await vscode.window.showInputBox({ placeHolder: `Name your ${templateType.toString()}` })
+	if (className === undefined) { return }
+
+	createFileWithContent(vscode.Uri.joinPath(dirPath, `${className}.kt`), parseTemplate(templateContents, className, determinePackage(dirPath), targetGradleRioVersion))
+}
+
+export function determinePackage(filePath: vscode.Uri): string {
+	const workspaceDir = vscode.workspace.getWorkspaceFolder(filePath)
+	if (workspaceDir === undefined) { return "frc.robot" }
+
+	const mainFolderUri = vscode.Uri.joinPath(workspaceDir.uri, "src", "main", "kotlin")
+
+	// mainFolderUri.path + "/" is required because just the path leaves behind a leading /
+	return filePath.path.replace(mainFolderUri.path + "/", "").replace(/\//g, ".")
 }
