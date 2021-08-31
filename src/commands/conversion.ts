@@ -1,185 +1,186 @@
-"use strict";
-import * as vscode from "vscode";
-import * as filegenerator from "../fileManipulation/fileGenerator";
-import * as customfs from "../fileManipulation/fileSystem";
-import * as rimraf from "rimraf";
-import * as kotlinExt from "../extension";
-import { templateType, robotType, getTemplateObjectFromRobotType,
-		getTemplateObjectFromTemplateType, parseTemplate,
-		getParsedGradle, getMainTemplateObject } from "../templates/templateInterpreter";
-import { ITemplate } from "../templates/templateProvider";
-import { ExampleCommand } from "../templates/frc-kotlin/command-based/commands/ExampleCommand";
+import * as vscode from "vscode"
+import { targetGradleRioVersion } from "../constants";
+import { ITemplateProvider, TemplateType } from "../template/models";
+import { createFileWithContent, parseTemplate } from "./util";
 
-export function determineRobotType(robotJava: string, buildGradle: string) {
-	// TODO: Unit test this function
-	let currentRobotType: robotType = robotType.timed;
+export async function writeCommandTemplate(workspaceDir: vscode.WorkspaceFolder, templateProvider: ITemplateProvider) {
+    await vscode.workspace.fs.createDirectory(vscode.Uri.joinPath(workspaceDir.uri, "src", "main", "kotlin", "frc", "robot", "commands"))
+    await vscode.workspace.fs.createDirectory(vscode.Uri.joinPath(workspaceDir.uri, "src", "main", "kotlin", "frc", "robot", "subsystems"))
 
-	if (robotJava.includes("edu.wpi.first.wpilibj2.command.Command")) {
-		if (buildGradle.includes("// Set the websocket remote host (the Romi IP address).")) {
-			currentRobotType = robotType.romiCommand;
-			console.log("RomiCommand");
-		}
-		else {
-			currentRobotType = robotType.command;
-			console.log("Command");
-		}
-	}
-	else if (robotJava.includes("edu.wpi.first.wpilibj.command.Command")) {
-		currentRobotType = robotType.oldCommand;
-		console.log("Old Command");
-	}
-	else if (robotJava.includes("edu.wpi.first.wpilibj.TimedRobot")) {
-		if (robotJava.includes("new RomiDrivetrain();")) {
-			currentRobotType = robotType.romiTimed;
-			console.log("RomiTimed");
-		}
-		else if (robotJava.includes("edu.wpi.first.wpilibj.smartdashboard.SendableChooser")) {
-			currentRobotType = robotType.timed;
-			console.log("Timed");
-		}
-		else {
-			currentRobotType = robotType.timedSkeleton;
-			console.log("Timed skeleton");
-		}
-	}
-	else if (robotJava.includes("edu.wpi.first.hal.HAL")) {
-		currentRobotType = robotType.robotBaseSkeleton;
-		console.log("Robot Base Skeleton");
-	}
+    const buildGradle = await templateProvider.getTemplate(TemplateType.buildGradle, workspaceDir.uri) as string
+    nullTemplateCheck(buildGradle)
 
-	return currentRobotType;
+    const main = await templateProvider.getTemplate(TemplateType.main, workspaceDir.uri) as string
+    nullTemplateCheck(main)
+
+    const robot = await templateProvider.getTemplate(TemplateType.commandRobot, workspaceDir.uri) as string
+    nullTemplateCheck(robot)
+
+    const constants = await templateProvider.getTemplate(TemplateType.commandConstants, workspaceDir.uri) as string
+    nullTemplateCheck(constants)
+
+    const robotContainer = await templateProvider.getTemplate(TemplateType.robotContainer, workspaceDir.uri) as string
+    nullTemplateCheck(robotContainer)
+
+    const subsystem = await templateProvider.getTemplate(TemplateType.subsystem, workspaceDir.uri) as string
+    nullTemplateCheck(subsystem)
+
+    const exampleCmd = await templateProvider.getTemplate(TemplateType.commandExampleCommand, workspaceDir.uri) as string
+    nullTemplateCheck(exampleCmd)
+
+    createFileWithContent(vscode.Uri.joinPath(workspaceDir.uri, "build.gradle"), parseTemplate(buildGradle, "", "", targetGradleRioVersion))
+    createFileWithContent(vscode.Uri.joinPath(workspaceDir.uri, "src", "main", "kotlin", "frc", "robot", "Main.kt"), parseTemplate(main, "Main", "frc.robot", targetGradleRioVersion))
+    createFileWithContent(vscode.Uri.joinPath(workspaceDir.uri, "src", "main", "kotlin", "frc", "robot", "Robot.kt"), parseTemplate(robot, "Robot", "frc.robot", targetGradleRioVersion))
+    createFileWithContent(vscode.Uri.joinPath(workspaceDir.uri, "src", "main", "kotlin", "frc", "robot", "Constants.kt"), parseTemplate(constants, "Constants", "frc.robot", targetGradleRioVersion))
+    createFileWithContent(vscode.Uri.joinPath(workspaceDir.uri, "src", "main", "kotlin", "frc", "robot", "RobotContainer.kt"), parseTemplate(robotContainer, "RobotContainer", "frc.robot", targetGradleRioVersion))
+    createFileWithContent(vscode.Uri.joinPath(workspaceDir.uri, "src", "main", "kotlin", "frc", "robot", "subsystems", "ExampleSubsystem.kt"), parseTemplate(subsystem, "ExampleSubsystem", "frc.robot.subsystems", targetGradleRioVersion))
+    createFileWithContent(vscode.Uri.joinPath(workspaceDir.uri, "src", "main", "kotlin", "frc", "robot", "commands", "ExampleCommand.kt"), parseTemplate(exampleCmd, "ExampleCommand", "frc.robot.commands", targetGradleRioVersion))
 }
 
-function createBuildGradle(useRomiBuildGradle: boolean) {
-	getParsedGradle(useRomiBuildGradle).then((value: string) => { filegenerator.createFileWithContent("build.gradle", value); });
+export async function writeOldCommandTemplate(workspaceDir: vscode.WorkspaceFolder, templateProvider: ITemplateProvider) {
+    await vscode.workspace.fs.createDirectory(vscode.Uri.joinPath(workspaceDir.uri, "src", "main", "kotlin", "frc", "robot", "commands"))
+    await vscode.workspace.fs.createDirectory(vscode.Uri.joinPath(workspaceDir.uri, "src", "main", "kotlin", "frc", "robot", "subsystems"))
+
+    const buildGradle = await templateProvider.getTemplate(TemplateType.buildGradle, workspaceDir.uri) as string
+    nullTemplateCheck(buildGradle)
+
+    const main = await templateProvider.getTemplate(TemplateType.main, workspaceDir.uri) as string
+    nullTemplateCheck(main)
+
+    const robot = await templateProvider.getTemplate(TemplateType.oldCommandRobot, workspaceDir.uri) as string
+    nullTemplateCheck(robot)
+
+    const oi = await templateProvider.getTemplate(TemplateType.oldOI, workspaceDir.uri) as string
+    nullTemplateCheck(oi)
+
+    const robotMap = await templateProvider.getTemplate(TemplateType.oldRobotMap, workspaceDir.uri) as string
+    nullTemplateCheck(robotMap)
+
+    const oldSubsystem = await templateProvider.getTemplate(TemplateType.oldSubsystem, workspaceDir.uri) as string
+    nullTemplateCheck(oldSubsystem)
+
+    const oldExampleCmd = await templateProvider.getTemplate(TemplateType.oldCommand, workspaceDir.uri) as string
+    nullTemplateCheck(oldExampleCmd)
+
+    createFileWithContent(vscode.Uri.joinPath(workspaceDir.uri, "build.gradle"), parseTemplate(buildGradle, "", "", targetGradleRioVersion))
+    createFileWithContent(vscode.Uri.joinPath(workspaceDir.uri, "src", "main", "kotlin", "frc", "robot", "Main.kt"), parseTemplate(main, "Main", "frc.robot", targetGradleRioVersion))
+    createFileWithContent(vscode.Uri.joinPath(workspaceDir.uri, "src", "main", "kotlin", "frc", "robot", "Robot.kt"), parseTemplate(robot, "Robot", "frc.robot", targetGradleRioVersion))
+    createFileWithContent(vscode.Uri.joinPath(workspaceDir.uri, "src", "main", "kotlin", "frc", "robot", "OI.kt"), parseTemplate(oi, "OI", "frc.robot", targetGradleRioVersion))
+    createFileWithContent(vscode.Uri.joinPath(workspaceDir.uri, "src", "main", "kotlin", "frc", "robot", "RobotMap.kt"), parseTemplate(robotMap, "RobotMap", "frc.robot", targetGradleRioVersion))
+    createFileWithContent(vscode.Uri.joinPath(workspaceDir.uri, "src", "main", "kotlin", "frc", "robot", "subsystems", "ExampleSubsystem.kt"), parseTemplate(oldSubsystem, "ExampleSubsystem", "frc.robot.subsystems", targetGradleRioVersion))
+    createFileWithContent(vscode.Uri.joinPath(workspaceDir.uri, "src", "main", "kotlin", "frc", "robot", "commands", "ExampleCommand.kt"), parseTemplate(oldExampleCmd, "ExampleCommand", "frc.robot.commands", targetGradleRioVersion))
 }
 
-function createMainKt() {
-	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/Main.kt", getMainTemplateObject().text);
+export async function writeRobotBaseSkeleton(workspaceDir: vscode.WorkspaceFolder, templateProvider: ITemplateProvider) {
+    await vscode.workspace.fs.createDirectory(vscode.Uri.joinPath(workspaceDir.uri, "src", "main", "kotlin", "frc", "robot"))
+
+    const buildGradle = await templateProvider.getTemplate(TemplateType.buildGradle, workspaceDir.uri) as string
+    nullTemplateCheck(buildGradle)
+
+    const main = await templateProvider.getTemplate(TemplateType.main, workspaceDir.uri) as string
+    nullTemplateCheck(main)
+
+    const robot = await templateProvider.getTemplate(TemplateType.robotBaseRobot, workspaceDir.uri) as string
+    nullTemplateCheck(robot)
+
+    createFileWithContent(vscode.Uri.joinPath(workspaceDir.uri, "build.gradle"), parseTemplate(buildGradle, "", "", targetGradleRioVersion))
+    createFileWithContent(vscode.Uri.joinPath(workspaceDir.uri, "src", "main", "kotlin", "frc", "robot", "Main.kt"), parseTemplate(main, "Main", "frc.robot", targetGradleRioVersion))
+    createFileWithContent(vscode.Uri.joinPath(workspaceDir.uri, "src", "main", "kotlin", "frc", "robot", "Robot.kt"), parseTemplate(robot, "Robot", "frc.robot", targetGradleRioVersion))
 }
 
-function createMainKtAndBuildGradle(useRomiBuildGradle: boolean) {
-	createMainKt();
-	createBuildGradle(useRomiBuildGradle);
+export async function writeRomiCommand(workspaceDir: vscode.WorkspaceFolder, templateProvider: ITemplateProvider) {
+    await vscode.workspace.fs.createDirectory(vscode.Uri.joinPath(workspaceDir.uri, "src", "main", "kotlin", "frc", "robot", "commands"))
+    await vscode.workspace.fs.createDirectory(vscode.Uri.joinPath(workspaceDir.uri, "src", "main", "kotlin", "frc", "robot", "subsystems"))
+
+    const buildGradle = await templateProvider.getTemplate(TemplateType.romiBuildGradle, workspaceDir.uri) as string
+    nullTemplateCheck(buildGradle)
+
+    const main = await templateProvider.getTemplate(TemplateType.main, workspaceDir.uri) as string
+    nullTemplateCheck(main)
+
+    // The Romi command template uses the exact same Robot class file as normal command-based, so just use that.
+    const robot = await templateProvider.getTemplate(TemplateType.commandRobot, workspaceDir.uri) as string
+    nullTemplateCheck(robot)
+
+    const constants = await templateProvider.getTemplate(TemplateType.romiCommandConstants, workspaceDir.uri) as string
+    nullTemplateCheck(constants)
+
+    const robotContainer = await templateProvider.getTemplate(TemplateType.romiCommandRobotContainer, workspaceDir.uri) as string
+    nullTemplateCheck(robotContainer)
+
+    const subsystem = await templateProvider.getTemplate(TemplateType.romiCommandDrivetrainSubsystem, workspaceDir.uri) as string
+    nullTemplateCheck(subsystem)
+
+    const exampleCmd = await templateProvider.getTemplate(TemplateType.romiCommandExampleCommand, workspaceDir.uri) as string
+    nullTemplateCheck(exampleCmd)
+
+    createFileWithContent(vscode.Uri.joinPath(workspaceDir.uri, "build.gradle"), parseTemplate(buildGradle, "", "", targetGradleRioVersion))
+    createFileWithContent(vscode.Uri.joinPath(workspaceDir.uri, "src", "main", "kotlin", "frc", "robot", "Main.kt"), parseTemplate(main, "Main", "frc.robot", targetGradleRioVersion))
+    createFileWithContent(vscode.Uri.joinPath(workspaceDir.uri, "src", "main", "kotlin", "frc", "robot", "Robot.kt"), parseTemplate(robot, "Robot", "frc.robot", targetGradleRioVersion))
+    createFileWithContent(vscode.Uri.joinPath(workspaceDir.uri, "src", "main", "kotlin", "frc", "robot", "Constants.kt"), parseTemplate(constants, "Constants", "frc.robot", targetGradleRioVersion))
+    createFileWithContent(vscode.Uri.joinPath(workspaceDir.uri, "src", "main", "kotlin", "frc", "robot", "RobotContainer.kt"), parseTemplate(robotContainer, "RobotContainer", "frc.robot", targetGradleRioVersion))
+    createFileWithContent(vscode.Uri.joinPath(workspaceDir.uri, "src", "main", "kotlin", "frc", "robot", "subsystems", "RomiDrivetrain.kt"), parseTemplate(subsystem, "RomiDrivetrain", "frc.robot.subsystems", targetGradleRioVersion))
+    createFileWithContent(vscode.Uri.joinPath(workspaceDir.uri, "src", "main", "kotlin", "frc", "robot", "commands", "ExampleCommand.kt"), parseTemplate(exampleCmd, "ExampleCommand", "frc.robot.commands", targetGradleRioVersion))
 }
 
-function convertTimed() {
-	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/Robot.kt", getTemplateObjectFromRobotType(robotType.timed).text);
-	createMainKtAndBuildGradle(false);
+export async function writeRomiTimed(workspaceDir: vscode.WorkspaceFolder, templateProvider: ITemplateProvider) {
+    await vscode.workspace.fs.createDirectory(vscode.Uri.joinPath(workspaceDir.uri, "src", "main", "kotlin", "frc", "robot"))
+
+    const buildGradle = await templateProvider.getTemplate(TemplateType.romiBuildGradle, workspaceDir.uri) as string
+    nullTemplateCheck(buildGradle)
+
+    const main = await templateProvider.getTemplate(TemplateType.main, workspaceDir.uri) as string
+    nullTemplateCheck(main)
+
+    const robot = await templateProvider.getTemplate(TemplateType.romiTimedRobot, workspaceDir.uri) as string
+    nullTemplateCheck(robot)
+
+    const romiDrivetrain = await templateProvider.getTemplate(TemplateType.romiTimedDrivetrain, workspaceDir.uri) as string
+    nullTemplateCheck(romiDrivetrain)
+
+    createFileWithContent(vscode.Uri.joinPath(workspaceDir.uri, "build.gradle"), parseTemplate(buildGradle, "", "", targetGradleRioVersion))
+    createFileWithContent(vscode.Uri.joinPath(workspaceDir.uri, "src", "main", "kotlin", "frc", "robot", "Main.kt"), parseTemplate(main, "Main", "frc.robot", targetGradleRioVersion))
+    createFileWithContent(vscode.Uri.joinPath(workspaceDir.uri, "src", "main", "kotlin", "frc", "robot", "Robot.kt"), parseTemplate(robot, "Robot", "frc.robot", targetGradleRioVersion))
+    createFileWithContent(vscode.Uri.joinPath(workspaceDir.uri, "src", "main", "kotlin", "frc", "robot", "RomiDrivetrain.kt"), parseTemplate(romiDrivetrain, "RomiDrivetrain", "frc.robot", targetGradleRioVersion))
 }
 
-function convertTimedSkeleton() {
-	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/Robot.kt", getTemplateObjectFromRobotType(robotType.timedSkeleton).text);
-	createMainKtAndBuildGradle(false);
+export async function writeTimed(workspaceDir: vscode.WorkspaceFolder, templateProvider: ITemplateProvider) {
+    await vscode.workspace.fs.createDirectory(vscode.Uri.joinPath(workspaceDir.uri, "src", "main", "kotlin", "frc", "robot"))
+
+    const buildGradle = await templateProvider.getTemplate(TemplateType.buildGradle, workspaceDir.uri) as string
+    nullTemplateCheck(buildGradle)
+
+    const main = await templateProvider.getTemplate(TemplateType.main, workspaceDir.uri) as string
+    nullTemplateCheck(main)
+
+    const robot = await templateProvider.getTemplate(TemplateType.timedRobot, workspaceDir.uri) as string
+    nullTemplateCheck(robot)
+
+    createFileWithContent(vscode.Uri.joinPath(workspaceDir.uri, "build.gradle"), parseTemplate(buildGradle, "", "", targetGradleRioVersion))
+    createFileWithContent(vscode.Uri.joinPath(workspaceDir.uri, "src", "main", "kotlin", "frc", "robot", "Main.kt"), parseTemplate(main, "Main", "frc.robot", targetGradleRioVersion))
+    createFileWithContent(vscode.Uri.joinPath(workspaceDir.uri, "src", "main", "kotlin", "frc", "robot", "Robot.kt"), parseTemplate(robot, "Robot", "frc.robot", targetGradleRioVersion))
 }
 
-function convertRobotBaseSkeleton() {
-	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/Robot.kt", getTemplateObjectFromRobotType(robotType.robotBaseSkeleton).text);
-	createMainKtAndBuildGradle(false);
+export async function writeTimedSkeleton(workspaceDir: vscode.WorkspaceFolder, templateProvider: ITemplateProvider) {
+    await vscode.workspace.fs.createDirectory(vscode.Uri.joinPath(workspaceDir.uri, "src", "main", "kotlin", "frc", "robot"))
+
+    const buildGradle = await templateProvider.getTemplate(TemplateType.buildGradle, workspaceDir.uri) as string
+    nullTemplateCheck(buildGradle)
+
+    const main = await templateProvider.getTemplate(TemplateType.main, workspaceDir.uri) as string
+    nullTemplateCheck(main)
+
+    const robot = await templateProvider.getTemplate(TemplateType.timedSkeleton, workspaceDir.uri) as string
+    nullTemplateCheck(robot)
+
+    createFileWithContent(vscode.Uri.joinPath(workspaceDir.uri, "build.gradle"), parseTemplate(buildGradle, "", "", targetGradleRioVersion))
+    createFileWithContent(vscode.Uri.joinPath(workspaceDir.uri, "src", "main", "kotlin", "frc", "robot", "Main.kt"), parseTemplate(main, "Main", "frc.robot", targetGradleRioVersion))
+    createFileWithContent(vscode.Uri.joinPath(workspaceDir.uri, "src", "main", "kotlin", "frc", "robot", "Robot.kt"), parseTemplate(robot, "Robot", "frc.robot", targetGradleRioVersion))
 }
 
-async function convertCommand() {
-	if (!await customfs.exists(kotlinExt.getWorkspaceFolderFsPath() + "/src/main/kotlin/frc/robot/commands")) {
-		await customfs.mkdir(kotlinExt.getWorkspaceFolderFsPath() + "/src/main/kotlin/frc/robot/commands");
-	}
-	if (!await customfs.exists(kotlinExt.getWorkspaceFolderFsPath() + "/src/main/kotlin/frc/robot/subsystems")) {
-		await customfs.mkdir(kotlinExt.getWorkspaceFolderFsPath() + "/src/main/kotlin/frc/robot/subsystems");
-	}
-
-	// Static files(don't need any name changes)
-	getTemplateObjectFromTemplateType(templateType.robot).then((value: ITemplate) => { filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/Robot.kt", value.text); });
-	getTemplateObjectFromTemplateType(templateType.constants).then((value: ITemplate) => { filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/Constants.kt", value.text); });
-	getTemplateObjectFromTemplateType(templateType.robotContainer).then((value: ITemplate) => { filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/RobotContainer.kt", value.text); });
-	createMainKtAndBuildGradle(false);
-
-	// Dynamic files(need name changes)
-	parseTemplate("ExampleSubsystem", "frc.robot.subsystems", templateType.subsystem).then((value: string) => {  filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/subsystems/ExampleSubsystem.kt", value); });
-	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/commands/ExampleCommand.kt", (new ExampleCommand()).text);
-}
-
-async function convertOldCommand() {
-	if (!await customfs.exists(kotlinExt.getWorkspaceFolderFsPath() + "/src/main/kotlin/frc/robot/commands")) {
-		await customfs.mkdir(kotlinExt.getWorkspaceFolderFsPath() + "/src/main/kotlin/frc/robot/commands");
-	}
-	if (!await customfs.exists(kotlinExt.getWorkspaceFolderFsPath() + "/src/main/kotlin/frc/robot/subsystems")) {
-		await customfs.mkdir(kotlinExt.getWorkspaceFolderFsPath() + "/src/main/kotlin/frc/robot/subsystems");
-	}
-
-	// Static files(don't need any name changes)
-	getTemplateObjectFromTemplateType(templateType.oldRobot).then((value: ITemplate) => { filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/Robot.kt", value.text); });
-	getTemplateObjectFromTemplateType(templateType.oldRobotMap).then((value: ITemplate) => { filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/RobotMap.kt", value.text); });
-	getTemplateObjectFromTemplateType(templateType.oldOI).then((value: ITemplate) => { filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/OI.kt", value.text); });
-	createMainKtAndBuildGradle(false);
-
-	// Dynamic files(need name changes)
-	parseTemplate("ExampleCommand", "frc.robot.commands", templateType.oldCommand).then((value: string) => { filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/commands/ExampleCommand.kt", value); });
-	parseTemplate("ExampleSubsystem", "frc.robot.subsystems", templateType.oldSubsystem).then((value: string) => { filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/subsystems/ExampleSubsystem.kt", value); });
-}
-
-async function convertRomiTimed() {
-	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/Robot.kt", getTemplateObjectFromRobotType(robotType.romiTimed).text);
-
-	getTemplateObjectFromTemplateType(templateType.romiTimedDrivetrain).then((value: ITemplate) => { filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/RomiDrivetrain.kt", value.text); });
-	createMainKtAndBuildGradle(true);
-}
-
-async function convertRomiCommand() {
-	if (!await customfs.exists(kotlinExt.getWorkspaceFolderFsPath() + "/src/main/kotlin/frc/robot/commands")) {
-		await customfs.mkdir(kotlinExt.getWorkspaceFolderFsPath() + "/src/main/kotlin/frc/robot/commands");
-	}
-	if (!await customfs.exists(kotlinExt.getWorkspaceFolderFsPath() + "/src/main/kotlin/frc/robot/subsystems")) {
-		await customfs.mkdir(kotlinExt.getWorkspaceFolderFsPath() + "/src/main/kotlin/frc/robot/subsystems");
-	}
-
-	// Static files(don't need any name changes)
-	filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/Robot.kt", getTemplateObjectFromRobotType(robotType.romiCommand).text);
-
-	getTemplateObjectFromTemplateType(templateType.romiCommandConstants).then((value: ITemplate) => { filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/Constants.kt", value.text); });
-	getTemplateObjectFromTemplateType(templateType.romiCommandRobotContainer).then((value: ITemplate) => { filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/RobotContainer.kt", value.text); });
-	getTemplateObjectFromTemplateType(templateType.romiCommandExampleCommand).then((value: ITemplate) => { filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/commands/ExampleCommand.kt", value.text); });
-	getTemplateObjectFromTemplateType(templateType.romiCommandDrivetrainSubsystem).then((value: ITemplate) => { filegenerator.createFileWithContent("/src/main/kotlin/frc/robot/subsystems/RomiDrivetrain.kt", value.text); });
-	createMainKtAndBuildGradle(true);
-}
-
-export function convertJavaProject(currentRobotType: robotType) {
-	kotlinExt.telemetry.recordConversionEvent(currentRobotType);
-	console.log("Deleting java project");
-	var pathToDelete = kotlinExt.getWorkspaceFolderFsPath() + "/src/main/java";
-	console.log(pathToDelete);
-	rimraf(pathToDelete, function () {
-		console.log("Done deleting");
-		console.log("Recreating structure");
-		vscode.workspace.fs.createDirectory(vscode.Uri.file(kotlinExt.getWorkspaceFolderFsPath() + "/src/main/kotlin/frc/robot")).then(async () => {
-			console.log("Done recreating basic file structure");
-
-			switch(currentRobotType) {
-				case robotType.command:
-					await convertCommand();
-					break;
-				case robotType.oldCommand:
-					await convertOldCommand();
-					break;
-				case robotType.timed:
-					convertTimed();
-					break;
-				case robotType.timedSkeleton:
-					convertTimedSkeleton();
-					break;
-				case robotType.robotBaseSkeleton:
-					convertRobotBaseSkeleton();
-					break;
-				case robotType.romiCommand:
-					convertRomiCommand();
-					break;
-				case robotType.romiTimed:
-					convertRomiTimed();
-					break;
-				default:
-					vscode.window.showErrorMessage("Kotlin For FRC: ERROR 'Invalid Template Type'. Please report in the issues section on github with a detailed description of what steps were taken.");
-					return;
-			}
-
-			vscode.window.showInformationMessage("Kotlin for FRC: Conversion complete!");
-		});
-	});
+function nullTemplateCheck(target: string | null) {
+    if (target === null) {
+        vscode.window.showErrorMessage("Kotlin-FRC: Received a null template. Cancelling...")
+        throw new Error("Got null template")
+    }
 }
