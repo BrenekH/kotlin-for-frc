@@ -30,10 +30,6 @@ export class TelemetryReporter {
 		this.sendEvent(120, { robotType: type.toString() })
 	}
 
-	recordTemplateProviderQuery(inTemplateProviderType: string, templateType: TemplateType) {
-		this.sendEvent(130, { templateProviderType: inTemplateProviderType, templateType: templateType.toString() })
-	}
-
 	private sendEvent(eventId: number, eventData: object) {
 		if (!(vscode.workspace.getConfiguration("kotlinForFRC.telemetry").get<boolean>("enable")) || this.inDebugExtensionHost) {
 			return
