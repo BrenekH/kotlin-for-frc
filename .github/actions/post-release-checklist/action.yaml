@@ -1,0 +1,7 @@
+name: "Post Release Checklist"
+description: "Posts a checkable list of everything that needs to happen before a version gets released."
+inputs:
+outputs:
+runs:
+  using: "node12"
+  main: "./dist/index.js"

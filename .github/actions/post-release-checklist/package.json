@@ -1,0 +1,28 @@
+{
+  "name": "post-release-checklist",
+  "version": "0.0.1",
+  "description": "Post a release checklist on a PR which releases a new version of KfF.",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"hi\"",
+    "build": "tsc -p ./"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BrenekH/kotlin-for-frc.git"
+  },
+  "author": "Brenek Harrison",
+  "license": "SEE LICENSE IN LICENSE",
+  "bugs": {
+    "url": "https://github.com/BrenekH/kotlin-for-frc/issues"
+  },
+  "homepage": "https://github.com/BrenekH/kotlin-for-frc#readme",
+  "private": true,
+  "devDependencies": {
+    "typescript": "^4.4.3"
+  },
+  "dependencies": {
+    "@actions/core": "^1.5.0",
+    "@actions/github": "^5.0.0"
+  }
+}
