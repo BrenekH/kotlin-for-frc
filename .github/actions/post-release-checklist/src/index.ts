@@ -28,8 +28,9 @@ async function run(): Promise<void> {
 			return
 		}
 
-		// Check if current branch is of the form (release-*)
-		if (!/release-.*/.test(pull_request["head"].ref)) {
+		// Check if current branch is of the form (release-(semver))
+		// Uses a regex from semver.org to match the semver portion of the release branch name
+		if (!/^release-(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$/.test(pull_request["head"].ref)) {
 			console.log("Head ref does not match the release regex")
 			return
 		}
