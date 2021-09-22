@@ -1,6 +1,5 @@
 import * as core from "@actions/core"
 import * as github from "@actions/github"
-// import { PullRequest } from "@octokit/webhooks-definitions/schema"
 
 async function run(): Promise<void> {
 	try {
@@ -12,7 +11,7 @@ async function run(): Promise<void> {
 			throw "Not a pull request"
 		}
 
-		if (context.action !== "opened") {
+		if (context.payload.action !== "opened") {
 			throw "Action can only run on Pull Request open events."
 		}
 
@@ -25,11 +24,13 @@ async function run(): Promise<void> {
 
 		// Check if merging branch is master
 		if (pull_request["base"].ref !== "master") {
+			console.log("Base ref is not master")
 			return
 		}
 
 		// Check if current branch is of the form (release-*)
 		if (!/release-.*/.test(pull_request["head"].ref)) {
+			console.log("Head ref does not match the release regex")
 			return
 		}
 
