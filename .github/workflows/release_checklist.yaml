@@ -14,3 +14,5 @@ jobs:
 
       - name: Post Release Checklist
         uses: ./.github/actions/post-release-checklist
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
