@@ -37,40 +37,6 @@ export async function writeCommandTemplate(workspaceDir: vscode.WorkspaceFolder,
     createFileWithContent(vscode.Uri.joinPath(workspaceDir.uri, "src", "main", "kotlin", "frc", "robot", "commands", "ExampleCommand.kt"), parseTemplate(exampleCmd, "ExampleCommand", "frc.robot.commands", targetGradleRioVersion))
 }
 
-export async function writeOldCommandTemplate(workspaceDir: vscode.WorkspaceFolder, templateProvider: ITemplateProvider) {
-    await vscode.workspace.fs.createDirectory(vscode.Uri.joinPath(workspaceDir.uri, "src", "main", "kotlin", "frc", "robot", "commands"))
-    await vscode.workspace.fs.createDirectory(vscode.Uri.joinPath(workspaceDir.uri, "src", "main", "kotlin", "frc", "robot", "subsystems"))
-
-    const buildGradle = await templateProvider.getTemplate(TemplateType.buildGradle, workspaceDir.uri) as string
-    nullTemplateCheck(buildGradle)
-
-    const main = await templateProvider.getTemplate(TemplateType.main, workspaceDir.uri) as string
-    nullTemplateCheck(main)
-
-    const robot = await templateProvider.getTemplate(TemplateType.oldCommandRobot, workspaceDir.uri) as string
-    nullTemplateCheck(robot)
-
-    const oi = await templateProvider.getTemplate(TemplateType.oldOI, workspaceDir.uri) as string
-    nullTemplateCheck(oi)
-
-    const robotMap = await templateProvider.getTemplate(TemplateType.oldRobotMap, workspaceDir.uri) as string
-    nullTemplateCheck(robotMap)
-
-    const oldSubsystem = await templateProvider.getTemplate(TemplateType.oldSubsystem, workspaceDir.uri) as string
-    nullTemplateCheck(oldSubsystem)
-
-    const oldExampleCmd = await templateProvider.getTemplate(TemplateType.oldCommand, workspaceDir.uri) as string
-    nullTemplateCheck(oldExampleCmd)
-
-    createFileWithContent(vscode.Uri.joinPath(workspaceDir.uri, "build.gradle"), parseTemplate(buildGradle, "", "", targetGradleRioVersion))
-    createFileWithContent(vscode.Uri.joinPath(workspaceDir.uri, "src", "main", "kotlin", "frc", "robot", "Main.kt"), parseTemplate(main, "Main", "frc.robot", targetGradleRioVersion))
-    createFileWithContent(vscode.Uri.joinPath(workspaceDir.uri, "src", "main", "kotlin", "frc", "robot", "Robot.kt"), parseTemplate(robot, "Robot", "frc.robot", targetGradleRioVersion))
-    createFileWithContent(vscode.Uri.joinPath(workspaceDir.uri, "src", "main", "kotlin", "frc", "robot", "OI.kt"), parseTemplate(oi, "OI", "frc.robot", targetGradleRioVersion))
-    createFileWithContent(vscode.Uri.joinPath(workspaceDir.uri, "src", "main", "kotlin", "frc", "robot", "RobotMap.kt"), parseTemplate(robotMap, "RobotMap", "frc.robot", targetGradleRioVersion))
-    createFileWithContent(vscode.Uri.joinPath(workspaceDir.uri, "src", "main", "kotlin", "frc", "robot", "subsystems", "ExampleSubsystem.kt"), parseTemplate(oldSubsystem, "ExampleSubsystem", "frc.robot.subsystems", targetGradleRioVersion))
-    createFileWithContent(vscode.Uri.joinPath(workspaceDir.uri, "src", "main", "kotlin", "frc", "robot", "commands", "ExampleCommand.kt"), parseTemplate(oldExampleCmd, "ExampleCommand", "frc.robot.commands", targetGradleRioVersion))
-}
-
 export async function writeRobotBaseSkeleton(workspaceDir: vscode.WorkspaceFolder, templateProvider: ITemplateProvider) {
     await vscode.workspace.fs.createDirectory(vscode.Uri.joinPath(workspaceDir.uri, "src", "main", "kotlin", "frc", "robot"))
 
