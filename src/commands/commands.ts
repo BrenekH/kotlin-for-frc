@@ -71,9 +71,6 @@ export async function registerCommands(context: vscode.ExtensionContext, telemet
 			case RobotType.command:
 				writeCommandTemplate(workspaceDir, templateProvider)
 				break
-			case RobotType.oldCommand:
-				writeOldCommandTemplate(workspaceDir, templateProvider)
-				break
 			case RobotType.robotBaseSkeleton:
 				writeRobotBaseSkeleton(workspaceDir, templateProvider)
 				break
