@@ -5,18 +5,6 @@ export interface ITemplateProvider {
 }
 
 export enum TemplateType {
-    // Old command based templates
-    oldSubsystem = "Old Subsystem",
-    oldCommand = "Old Command",
-    oldCommandGroup = "Old Command Group",
-    oldInstantCommand = "Old Instant Command",
-    oldTimedCommand = "Old Timed Command",
-    oldPIDSubsystem = "Old PID Subsystem",
-    oldTrigger = "Old Trigger",
-    oldCommandRobot = "Old Command Based Robot",
-    oldOI = "Old OI",
-    oldRobotMap = "Old Robot Map",
-
     // Command based templates
     // General
     commandRobot = "Command Based Robot",
@@ -61,28 +49,6 @@ export enum TemplateType {
 
 export function parseStringToTemplateType(input: string): TemplateType {
     switch (input) {
-        // Old Command Based
-        case "oldCommandRobot":
-            return TemplateType.oldCommandRobot
-        case "oldOI":
-            return TemplateType.oldOI
-        case "oldRobotMap":
-            return TemplateType.oldRobotMap
-        case "oldSubsystem":
-            return TemplateType.oldSubsystem
-        case "oldCommand":
-            return TemplateType.oldCommand
-        case "oldCommandGroup":
-            return TemplateType.oldCommandGroup
-        case "oldPIDSubsystem":
-            return TemplateType.oldPIDSubsystem
-        case "oldInstantCommand":
-            return TemplateType.oldInstantCommand
-        case "oldTimedCommand":
-            return TemplateType.oldTimedCommand
-        case "oldTrigger":
-            return TemplateType.oldTrigger
-
         // Command based
         // General
         case "commandRobot":
