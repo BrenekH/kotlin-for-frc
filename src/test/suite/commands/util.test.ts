@@ -15,12 +15,6 @@ suite("Determine Robot Type", function () {
 		assert.strictEqual(result, RobotType.romiCommand)
 	})
 
-	test("Old command based", function () {
-		let result = determineRobotType("edu.wpi.first.wpilibj.command.Command", "")
-
-		assert.strictEqual(result, RobotType.oldCommand)
-	})
-
 	test("Timed skeleton", function () {
 		let result = determineRobotType("edu.wpi.first.wpilibj.TimedRobot", "")
 
