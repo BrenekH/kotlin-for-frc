@@ -12,9 +12,6 @@ export function determineRobotType(robotJava: string, buildGradle: string): Robo
 			currentRobotType = RobotType.command
 		}
 	}
-	else if (robotJava.includes("edu.wpi.first.wpilibj.command.Command")) {
-		currentRobotType = RobotType.oldCommand
-	}
 	else if (robotJava.includes("edu.wpi.first.wpilibj.TimedRobot")) {
 		if (robotJava.includes("new RomiDrivetrain()")) {
 			currentRobotType = RobotType.romiTimed
