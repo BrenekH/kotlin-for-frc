@@ -25,7 +25,7 @@ class RobotContainer {
 
     /**
      * Use this method to define your button->command mappings.  Buttons can be created by
-     * instantiating a [GenericHID] or one of its subclasses ([ ] or [XboxController]), and then passing it to a
+     * instantiating a [edu.wpi.first.wpilibj.GenericHID] or one of its subclasses ([edu.wpi.first.wpilibj.Joystick] or [XboxController]), and then passing it to a
      * [edu.wpi.first.wpilibj2.command.button.JoystickButton].
      */
     private fun configureButtonBindings() {}
