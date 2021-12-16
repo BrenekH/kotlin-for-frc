@@ -251,8 +251,8 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler
  * project.
  */
 class Robot : TimedRobot() {
-    private var autonomousCommand: Command?= null
-    private var robotContainer: RobotContainer?= null
+    private var autonomousCommand: Command? = null
+    private var robotContainer: RobotContainer? = null
 
     /**
      * This function is run when the robot is first started up and should be used for any
