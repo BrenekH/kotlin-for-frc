@@ -1,5 +1,5 @@
 import * as vscode from "vscode"
-import { simulateCodeTaskName, targetGradleRioVersion } from "../constants"
+import { SIMULATE_CODE_TASK_NAME, TARGET_GRADLE_RIO_VER } from "../constants"
 import { executeCommand } from "../tasks/cmdExecution"
 import { ITemplateProvider } from "../template/models"
 import { showChangelog } from "../util/changelog"
@@ -204,7 +204,7 @@ export function simulateFRCKotlinCode(telemetry: ITelemetry, cmdExecutor: IComma
 			workspaceDir = temp
 		}
 
-		cmdExecutor.execute(`${getPlatformGradlew()} simulateJava ${getJavaHomeGradleArg()}`, simulateCodeTaskName, workspaceDir)
+		cmdExecutor.execute(`${getPlatformGradlew()} simulateJava ${getJavaHomeGradleArg()}`, SIMULATE_CODE_TASK_NAME, workspaceDir)
 	}
 }
 
@@ -218,7 +218,7 @@ async function createNewFromTemplate(templateType: TemplateType, templateProvide
 	const className = await vscode.window.showInputBox({ placeHolder: `Name your ${templateType.toString()}` })
 	if (className === undefined) { return }
 
-	createFileWithContent(vscode.Uri.joinPath(dirPath, `${className}.kt`), parseTemplate(templateContents, className, determinePackage(dirPath), targetGradleRioVersion))
+	createFileWithContent(vscode.Uri.joinPath(dirPath, `${className}.kt`), parseTemplate(templateContents, className, determinePackage(dirPath), TARGET_GRADLE_RIO_VER))
 }
 
 export function determinePackage(filePath: vscode.Uri): string {

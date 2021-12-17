@@ -1,7 +1,7 @@
 import * as semver from "semver"
 import * as vscode from "vscode"
 import axios from "axios"
-import { targetGradleRIOYear } from "../constants"
+import { TARGET_GRADLE_RIO_YEAR } from "../constants"
 
 export default async function updateGradleRioVersion(autoUpdateEnabled: boolean, context: vscode.ExtensionContext) {
 	if (!autoUpdateEnabled) { return }
@@ -25,7 +25,7 @@ export default async function updateGradleRioVersion(autoUpdateEnabled: boolean,
 		const currentYear = semver.parse(localVer)?.major as string | undefined
 
 		// Get latest version from plugins.gradle.org
-		const latestVer = await getLatestGradleRioVersion(currentYear === undefined ? targetGradleRIOYear : currentYear, context)
+		const latestVer = await getLatestGradleRioVersion(currentYear === undefined ? TARGET_GRADLE_RIO_YEAR : currentYear, context)
 		if (latestVer === undefined) {
 			return
 		}

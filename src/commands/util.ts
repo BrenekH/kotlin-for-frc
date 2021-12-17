@@ -1,11 +1,12 @@
 import * as vscode from "vscode"
 import { RobotType } from "./models"
+import { ROMI_CMD_VARIANT_SEARCH_TERM, ROMI_TIMED_VARIANT_SEARCH_TERM } from "../constants"
 
 export function determineRobotType(robotJava: string, buildGradle: string): RobotType {
 	let currentRobotType: RobotType = RobotType.timed
 
 	if (robotJava.includes("edu.wpi.first.wpilibj2.command.Command")) {
-		if (buildGradle.includes(`wpi.sim.envVar("HALSIMWS_HOST"`)) {
+		if (buildGradle.includes(ROMI_CMD_VARIANT_SEARCH_TERM)) {
 			currentRobotType = RobotType.romiCommand
 		}
 		else {
@@ -13,7 +14,7 @@ export function determineRobotType(robotJava: string, buildGradle: string): Robo
 		}
 	}
 	else if (robotJava.includes("edu.wpi.first.wpilibj.TimedRobot")) {
-		if (robotJava.includes("new RomiDrivetrain()")) {
+		if (robotJava.includes(ROMI_TIMED_VARIANT_SEARCH_TERM)) {
 			currentRobotType = RobotType.romiTimed
 		}
 		else if (robotJava.includes("edu.wpi.first.wpilibj.smartdashboard.SendableChooser")) {
