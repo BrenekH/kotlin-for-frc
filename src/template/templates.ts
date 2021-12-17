@@ -722,8 +722,8 @@ class Constants {
 	romiCommandDrivetrainSubsystem = `package frc.robot.subsystems
 
 import edu.wpi.first.wpilibj.Encoder
-import edu.wpi.first.wpilibj.Spark
 import edu.wpi.first.wpilibj.drive.DifferentialDrive
+import edu.wpi.first.wpilibj.motorcontrol.Spark
 import edu.wpi.first.wpilibj2.command.SubsystemBase
 import frc.robot.Constants
 
@@ -746,10 +746,8 @@ class RomiDrivetrain : SubsystemBase() {
      * Creates a new RomiDrivetrain.
      */
     init {
-        // DifferentialDrive defaults to having the right side flipped
-        // We don't need to do this because the Romi has accounted for this
-        // in firmware/hardware
-        diffDrive.isRightSideInverted = false
+        leftEncoder.distancePerPulse = (Math.PI * kWheelDiameterInch) / kCountsPerRevolution
+        rightEncoder.distancePerPulse = (Math.PI * kWheelDiameterInch) / kCountsPerRevolution
         resetEncoders()
     }
 
