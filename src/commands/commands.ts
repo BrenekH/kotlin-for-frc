@@ -117,7 +117,7 @@ export async function registerCommands(context: vscode.ExtensionContext, telemet
 								]).then((result: string | undefined) => {
 									if (result === undefined) { return }
 
-									createNewFromTemplate((<any>TemplateType)[result], templateProvider, filePath)
+									createNewFromTemplate(result as TemplateType, templateProvider, filePath)
 								})
 								break
 							case "Subsystem":
@@ -129,7 +129,7 @@ export async function registerCommands(context: vscode.ExtensionContext, telemet
 								]).then((result: string | undefined) => {
 									if (result === undefined) { return }
 
-									createNewFromTemplate((<any>TemplateType)[result], templateProvider, filePath)
+									createNewFromTemplate(result as TemplateType, templateProvider, filePath)
 								})
 								break
 							default:
