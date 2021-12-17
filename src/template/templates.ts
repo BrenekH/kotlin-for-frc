@@ -6,7 +6,7 @@
 export class TemplateStrings {
 	PIDCommand = `package #{PACKAGE}
 
-import edu.wpi.first.wpilibj.controller.PIDController
+import edu.wpi.first.math.controller.PIDController
 import edu.wpi.first.wpilibj2.command.PIDCommand
 import java.util.function.DoubleConsumer
 import java.util.function.DoubleSupplier
@@ -35,7 +35,7 @@ class #{NAME} : PIDCommand(
 `
 	PIDSubsystem = `package #{PACKAGE}
 
-import edu.wpi.first.wpilibj.controller.PIDController
+import edu.wpi.first.math.controller.PIDController
 import edu.wpi.first.wpilibj2.command.PIDSubsystem
 
 class #{NAME} : PIDSubsystem(
@@ -435,8 +435,8 @@ class #{NAME} : ParallelRaceGroup() {
 `
 	profiledPIDCommand = `package #{PACKAGE}
 
-import edu.wpi.first.wpilibj.controller.ProfiledPIDController
-import edu.wpi.first.wpilibj.trajectory.TrapezoidProfile
+import edu.wpi.first.math.controller.ProfiledPIDController
+import edu.wpi.first.math.trajectory.TrapezoidProfile
 import edu.wpi.first.wpilibj2.command.ProfiledPIDCommand
 import java.util.function.BiConsumer
 import java.util.function.DoubleSupplier
@@ -470,8 +470,8 @@ class #{NAME} : ProfiledPIDCommand(
 `
 	profiledPIDSubsystem = `package #{PACKAGE}
 
-import edu.wpi.first.wpilibj.controller.ProfiledPIDController
-import edu.wpi.first.wpilibj.trajectory.TrapezoidProfile
+import edu.wpi.first.math.controller.ProfiledPIDController
+import edu.wpi.first.math.trajectory.TrapezoidProfile
 import edu.wpi.first.wpilibj2.command.ProfiledPIDSubsystem
 
 class #{NAME} : ProfiledPIDSubsystem(
@@ -1191,7 +1191,7 @@ class Robot : TimedRobot() {
 `
 	trapezoidProfileCommand = `package #{PACKAGE}
 
-import edu.wpi.first.wpilibj.trajectory.TrapezoidProfile
+import edu.wpi.first.math.trajectory.TrapezoidProfile
 import edu.wpi.first.wpilibj2.command.TrapezoidProfileCommand
 import java.util.function.Consumer
 
@@ -1214,7 +1214,7 @@ class #{NAME} : TrapezoidProfileCommand(
 `
 	trapezoidProfileSubsystem = `package #{PACKAGE}
 
-import edu.wpi.first.wpilibj.trajectory.TrapezoidProfile
+import edu.wpi.first.math.trajectory.TrapezoidProfile
 import edu.wpi.first.wpilibj2.command.TrapezoidProfileSubsystem
 
 class #{NAME} : TrapezoidProfileSubsystem(
