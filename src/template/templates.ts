@@ -855,8 +855,8 @@ class RobotContainer {
 	romiTimedDrivetrain = `package frc.robot
 
 import edu.wpi.first.wpilibj.Encoder
-import edu.wpi.first.wpilibj.Spark
 import edu.wpi.first.wpilibj.drive.DifferentialDrive
+import edu.wpi.first.wpilibj.motorcontrol.Spark
 
 class RomiDrivetrain {
     // The Romi has the left and right motors set to
@@ -881,10 +881,8 @@ class RomiDrivetrain {
      * Creates a new RomiDrivetrain.
      */
     init {
-        // DifferentialDrive defaults to having the right side flipped
-        // We don't need to do this because the Romi has accounted for this
-        // in firmware/hardware
-        diffDrive.isRightSideInverted = false
+        leftEncoder.distancePerPulse = (Math.PI * WHEEL_DIAMETER_INCH) / COUNTS_PER_REVOLUTION
+        rightEncoder.distancePerPulse = (Math.PI * WHEEL_DIAMETER_INCH) / COUNTS_PER_REVOLUTION
         resetEncoders()
     }
 
