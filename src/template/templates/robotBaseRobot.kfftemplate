@@ -4,6 +4,7 @@ import edu.wpi.first.hal.HAL
 import edu.wpi.first.wpilibj.RobotBase
 import edu.wpi.first.wpilibj.livewindow.LiveWindow
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard
+import edu.wpi.first.wpilibj.DriverStation
 
 /**
  * The VM is configured to automatically run this class. If you change the name
@@ -23,47 +24,49 @@ class Robot : RobotBase() {
 
     @Volatile
     private var exit = false
+
     override fun startCompetition() {
         robotInit()
 
         // Tell the DS that the robot is ready to be enabled
         HAL.observeUserProgramStarting()
+
         while (!Thread.currentThread().isInterrupted && !exit) {
             when (true) {
                 isDisabled -> {
-                    m_ds.InDisabled(true)
+                    DriverStation.inDisabled(true)
                     disabled()
-                    m_ds.InDisabled(false)
+                    DriverStation.inDisabled(false)
                     while (isDisabled) {
-                        m_ds.waitForData()
+                        DriverStation.waitForData()
                     }
                 }
                 isAutonomous -> {
-                    m_ds.InAutonomous(true)
+                    DriverStation.inAutonomous(true)
                     autonomous()
-                    m_ds.InAutonomous(false)
+                    DriverStation.inAutonomous(false)
                     while (isAutonomousEnabled) {
-                        m_ds.waitForData()
+                        DriverStation.waitForData()
                     }
                 }
                 isTest -> {
                     LiveWindow.setEnabled(true)
                     Shuffleboard.enableActuatorWidgets()
-                    m_ds.InTest(true)
+                    DriverStation.inTest(true)
                     test()
-                    m_ds.InTest(false)
+                    DriverStation.inTest(false)
                     while (isTest && isEnabled) {
-                        m_ds.waitForData()
+                        DriverStation.waitForData()
                     }
                     LiveWindow.setEnabled(false)
                     Shuffleboard.disableActuatorWidgets()
                 }
                 else -> {
-                    m_ds.InOperatorControl(true)
+                    DriverStation.inTeleop(true)
                     teleop()
-                    m_ds.InOperatorControl(false)
-                    while (isOperatorControlEnabled) {
-                        m_ds.waitForData()
+                    DriverStation.inTeleop(false)
+                    while (isTeleopEnabled()) {
+                        DriverStation.waitForData()
                     }
                 }
             }

@@ -6,7 +6,7 @@
 export class TemplateStrings {
 	PIDCommand = `package #{PACKAGE}
 
-import edu.wpi.first.wpilibj.controller.PIDController
+import edu.wpi.first.math.controller.PIDController
 import edu.wpi.first.wpilibj2.command.PIDCommand
 import java.util.function.DoubleConsumer
 import java.util.function.DoubleSupplier
@@ -35,7 +35,7 @@ class #{NAME} : PIDCommand(
 `
 	PIDSubsystem = `package #{PACKAGE}
 
-import edu.wpi.first.wpilibj.controller.PIDController
+import edu.wpi.first.math.controller.PIDController
 import edu.wpi.first.wpilibj2.command.PIDSubsystem
 
 class #{NAME} : PIDSubsystem(
@@ -53,10 +53,12 @@ class #{NAME} : PIDSubsystem(
     }
 }
 `
-	buildGradle = `plugins {
+	buildGradle = `import edu.wpi.first.gradlerio.deploy.roborio.RoboRIO
+
+plugins {
     id "java"
     id "edu.wpi.first.GradleRIO" version "#{GRADLE_RIO_VERSION}"
-    id 'org.jetbrains.kotlin.jvm' version '1.4.21'
+    id "org.jetbrains.kotlin.jvm" version "1.6.10"
 }
 
 sourceCompatibility = JavaVersion.VERSION_11
@@ -65,33 +67,38 @@ targetCompatibility = JavaVersion.VERSION_11
 def ROBOT_MAIN_CLASS = "frc.robot.Main"
 
 // Define my targets (RoboRIO) and artifacts (deployable files)
-// This is added by GradleRIO's backing project EmbeddedTools.
+// This is added by GradleRIO's backing project DeployUtils.
 deploy {
     targets {
-        roboRIO("roborio") {
+        roborio(getTargetTypeClass('RoboRIO')) {
             // Team number is loaded either from the .wpilib/wpilib_preferences.json
             // or from command line. If not found an exception will be thrown.
             // You can use getTeamOrDefault(team) instead of getTeamNumber if you
             // want to store a team number in this file.
-            team = frc.getTeamNumber()
-        }
-    }
-    artifacts {
-        frcJavaArtifact('frcJava') {
-            targets << "roborio"
-            // Debug can be overridden by command line, for use with VSCode
-            debug = frc.getDebugOrDefault(false)
-        }
-        // Built in artifact to deploy arbitrary files to the roboRIO.
-        fileTreeArtifact('frcStaticFileDeploy') {
-            // The directory below is the local directory to deploy
-            files = fileTree(dir: 'src/main/deploy')
-            // Deploy to RoboRIO target, into /home/lvuser/deploy
-            targets << "roborio"
-            directory = '/home/lvuser/deploy'
+            team = project.frc.getTeamNumber()
+            debug = project.frc.getDebugOrDefault(false)
+
+            artifacts {
+                // First part is artifact name, 2nd is artifact type
+                // getTargetTypeClass is a shortcut to get the class type using a string
+
+                frcJava(getArtifactTypeClass('FRCJavaArtifact')) {
+                }
+
+                // Static files artifact
+                frcStaticFileDeploy(getArtifactTypeClass('FileTreeArtifact')) {
+                    files = project.fileTree('src/main/deploy')
+                    directory = '/home/lvuser/deploy'
+                }
+            }
         }
     }
 }
+
+def deployArtifact = deploy.targets.roborio.artifacts.frcJava
+
+// Set to true to use debug for JNI.
+wpi.java.debugJni = false
 
 // Set this to true to enable desktop support.
 def includeDesktopSupport = false
@@ -99,27 +106,30 @@ def includeDesktopSupport = false
 // Defining my dependencies. In this case, WPILib (+ friends), and vendor libraries.
 // Also defines JUnit 4.
 dependencies {
-    implementation wpi.deps.wpilib()
-    nativeZip wpi.deps.wpilibJni(wpi.platforms.roborio)
-    nativeDesktopZip wpi.deps.wpilibJni(wpi.platforms.desktop)
+    implementation wpi.java.deps.wpilib()
+    implementation wpi.java.vendor.java()
 
+    roborioDebug wpi.java.deps.wpilibJniDebug(wpi.platforms.roborio)
+    roborioDebug wpi.java.vendor.jniDebug(wpi.platforms.roborio)
 
-    implementation wpi.deps.vendor.java()
-    nativeZip wpi.deps.vendor.jni(wpi.platforms.roborio)
-    nativeDesktopZip wpi.deps.vendor.jni(wpi.platforms.desktop)
+    roborioRelease wpi.java.deps.wpilibJniRelease(wpi.platforms.roborio)
+    roborioRelease wpi.java.vendor.jniRelease(wpi.platforms.roborio)
+
+    nativeDebug wpi.java.deps.wpilibJniDebug(wpi.platforms.desktop)
+    nativeDebug wpi.java.vendor.jniDebug(wpi.platforms.desktop)
+    simulationDebug wpi.sim.enableDebug()
+
+    nativeRelease wpi.java.deps.wpilibJniRelease(wpi.platforms.desktop)
+    nativeRelease wpi.java.vendor.jniRelease(wpi.platforms.desktop)
+    simulationRelease wpi.sim.enableRelease()
 
     testImplementation 'junit:junit:4.12'
-
-    // Enable simulation gui support. Must check the box in vscode to enable support
-    // upon debugging
-    simulation wpi.deps.sim.gui(wpi.platforms.desktop, false)
-    simulation wpi.deps.sim.driverstation(wpi.platforms.desktop, false)
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
-
-    // Websocket extensions require additional configuration.
-    // simulation wpi.deps.sim.ws_server(wpi.platforms.desktop, false)
-    // simulation wpi.deps.sim.ws_client(wpi.platforms.desktop, false)
+    implementation "org.jetbrains.kotlin:kotlin-stdlib"
 }
+
+// Simulation configuration (e.g. environment variables).
+wpi.sim.addGui().defaultEnabled = true
+wpi.sim.addDriverstation()
 
 // Setting up my Jar File. In this case, adding all libraries into the main jar ('fat jar')
 // in order to make them all available at runtime. Also adding the manifest so WPILib
@@ -127,18 +137,27 @@ dependencies {
 jar {
     from { configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
     manifest edu.wpi.first.gradlerio.GradleRIOPlugin.javaManifest(ROBOT_MAIN_CLASS)
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
 }
+
+// Configure jar and deploy tasks
+deployArtifact.jarTask = jar
+wpi.java.configureExecutableTasks(jar)
+wpi.java.configureTestTasks(test)
+
 repositories {
     mavenCentral()
 }
+
 compileKotlin {
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "11"
     }
 }
+
 compileTestKotlin {
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "11"
     }
 }
 `
@@ -232,8 +251,8 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler
  * project.
  */
 class Robot : TimedRobot() {
-    private var autonomousCommand: Command?= null
-    private var robotContainer: RobotContainer?= null
+    private var autonomousCommand: Command? = null
+    private var robotContainer: RobotContainer? = null
 
     /**
      * This function is run when the robot is first started up and should be used for any
@@ -416,8 +435,8 @@ class #{NAME} : ParallelRaceGroup() {
 `
 	profiledPIDCommand = `package #{PACKAGE}
 
-import edu.wpi.first.wpilibj.controller.ProfiledPIDController
-import edu.wpi.first.wpilibj.trajectory.TrapezoidProfile
+import edu.wpi.first.math.controller.ProfiledPIDController
+import edu.wpi.first.math.trajectory.TrapezoidProfile
 import edu.wpi.first.wpilibj2.command.ProfiledPIDCommand
 import java.util.function.BiConsumer
 import java.util.function.DoubleSupplier
@@ -451,8 +470,8 @@ class #{NAME} : ProfiledPIDCommand(
 `
 	profiledPIDSubsystem = `package #{PACKAGE}
 
-import edu.wpi.first.wpilibj.controller.ProfiledPIDController
-import edu.wpi.first.wpilibj.trajectory.TrapezoidProfile
+import edu.wpi.first.math.controller.ProfiledPIDController
+import edu.wpi.first.math.trajectory.TrapezoidProfile
 import edu.wpi.first.wpilibj2.command.ProfiledPIDSubsystem
 
 class #{NAME} : ProfiledPIDSubsystem(
@@ -479,6 +498,7 @@ import edu.wpi.first.hal.HAL
 import edu.wpi.first.wpilibj.RobotBase
 import edu.wpi.first.wpilibj.livewindow.LiveWindow
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard
+import edu.wpi.first.wpilibj.DriverStation
 
 /**
  * The VM is configured to automatically run this class. If you change the name
@@ -498,47 +518,49 @@ class Robot : RobotBase() {
 
     @Volatile
     private var exit = false
+
     override fun startCompetition() {
         robotInit()
 
         // Tell the DS that the robot is ready to be enabled
         HAL.observeUserProgramStarting()
+
         while (!Thread.currentThread().isInterrupted && !exit) {
             when (true) {
                 isDisabled -> {
-                    m_ds.InDisabled(true)
+                    DriverStation.inDisabled(true)
                     disabled()
-                    m_ds.InDisabled(false)
+                    DriverStation.inDisabled(false)
                     while (isDisabled) {
-                        m_ds.waitForData()
+                        DriverStation.waitForData()
                     }
                 }
                 isAutonomous -> {
-                    m_ds.InAutonomous(true)
+                    DriverStation.inAutonomous(true)
                     autonomous()
-                    m_ds.InAutonomous(false)
+                    DriverStation.inAutonomous(false)
                     while (isAutonomousEnabled) {
-                        m_ds.waitForData()
+                        DriverStation.waitForData()
                     }
                 }
                 isTest -> {
                     LiveWindow.setEnabled(true)
                     Shuffleboard.enableActuatorWidgets()
-                    m_ds.InTest(true)
+                    DriverStation.inTest(true)
                     test()
-                    m_ds.InTest(false)
+                    DriverStation.inTest(false)
                     while (isTest && isEnabled) {
-                        m_ds.waitForData()
+                        DriverStation.waitForData()
                     }
                     LiveWindow.setEnabled(false)
                     Shuffleboard.disableActuatorWidgets()
                 }
                 else -> {
-                    m_ds.InOperatorControl(true)
+                    DriverStation.inTeleop(true)
                     teleop()
-                    m_ds.InOperatorControl(false)
-                    while (isOperatorControlEnabled) {
-                        m_ds.waitForData()
+                    DriverStation.inTeleop(false)
+                    while (isTeleopEnabled()) {
+                        DriverStation.waitForData()
                     }
                 }
             }
@@ -597,7 +619,7 @@ class RobotContainer {
 	romiBuildGradle = `plugins {
     id "java"
     id "edu.wpi.first.GradleRIO" version "#{GRADLE_RIO_VERSION}"
-    id 'org.jetbrains.kotlin.jvm' version '1.4.21'
+    id "org.jetbrains.kotlin.jvm" version "1.6.10"
 }
 
 sourceCompatibility = JavaVersion.VERSION_11
@@ -611,30 +633,29 @@ def includeDesktopSupport = true
 // Defining my dependencies. In this case, WPILib (+ friends), and vendor libraries.
 // Also defines JUnit 4.
 dependencies {
-    implementation wpi.deps.wpilib()
-    nativeDesktopZip wpi.deps.wpilibJni(wpi.platforms.desktop)
+    implementation wpi.java.deps.wpilib()
+    implementation wpi.java.vendor.java()
 
+    nativeDebug wpi.java.deps.wpilibJniDebug(wpi.platforms.desktop)
+    nativeDebug wpi.java.vendor.jniDebug(wpi.platforms.desktop)
+    simulationDebug wpi.sim.enableDebug()
 
-    implementation wpi.deps.vendor.java()
-    nativeDesktopZip wpi.deps.vendor.jni(wpi.platforms.desktop)
+    nativeRelease wpi.java.deps.wpilibJniRelease(wpi.platforms.desktop)
+    nativeRelease wpi.java.vendor.jniRelease(wpi.platforms.desktop)
+    simulationRelease wpi.sim.enableRelease()
 
     testImplementation 'junit:junit:4.12'
-
-    // Enable simulation gui support. Must check the box in vscode to enable support
-    // upon debugging
-    simulation wpi.deps.sim.gui(wpi.platforms.desktop, false)
-    simulation wpi.deps.sim.driverstation(wpi.platforms.desktop, false)
-
-    // Websocket extensions require additional configuration.
-    // simulation wpi.deps.sim.ws_server(wpi.platforms.desktop, false)
-    simulation wpi.deps.sim.ws_client(wpi.platforms.desktop, false)
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib"
 }
 
-// Set the websocket remote host (the Romi IP address).
-sim {
-    envVar "HALSIMWS_HOST", "10.0.0.2"
-}
+// Simulation configuration (e.g. environment variables).
+wpi.sim.addGui().defaultEnabled = true
+wpi.sim.addDriverstation()
+
+//Sets the websocket client remote host.
+wpi.sim.envVar("HALSIMWS_HOST", "10.0.0.2")
+wpi.sim.addWebsocketsServer().defaultEnabled = true
+wpi.sim.addWebsocketsClient().defaultEnabled = true
 
 // Setting up my Jar File. In this case, adding all libraries into the main jar ('fat jar')
 // in order to make them all available at runtime. Also adding the manifest so WPILib
@@ -642,18 +663,25 @@ sim {
 jar {
     from { configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) } }
     manifest edu.wpi.first.gradlerio.GradleRIOPlugin.javaManifest(ROBOT_MAIN_CLASS)
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
 }
+
+wpi.java.configureExecutableTasks(jar)
+wpi.java.configureTestTasks(test)
+
 repositories {
     mavenCentral()
 }
+
 compileKotlin {
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "11"
     }
 }
+
 compileTestKotlin {
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "11"
     }
 }
 `
@@ -694,8 +722,8 @@ class Constants {
 	romiCommandDrivetrainSubsystem = `package frc.robot.subsystems
 
 import edu.wpi.first.wpilibj.Encoder
-import edu.wpi.first.wpilibj.Spark
 import edu.wpi.first.wpilibj.drive.DifferentialDrive
+import edu.wpi.first.wpilibj.motorcontrol.Spark
 import edu.wpi.first.wpilibj2.command.SubsystemBase
 import frc.robot.Constants
 
@@ -718,10 +746,8 @@ class RomiDrivetrain : SubsystemBase() {
      * Creates a new RomiDrivetrain.
      */
     init {
-        // DifferentialDrive defaults to having the right side flipped
-        // We don't need to do this because the Romi has accounted for this
-        // in firmware/hardware
-        diffDrive.isRightSideInverted = false
+        leftEncoder.distancePerPulse = (Math.PI * kWheelDiameterInch) / kCountsPerRevolution
+        rightEncoder.distancePerPulse = (Math.PI * kWheelDiameterInch) / kCountsPerRevolution
         resetEncoders()
     }
 
@@ -809,7 +835,7 @@ class RobotContainer {
 
     /**
      * Use this method to define your button->command mappings.  Buttons can be created by
-     * instantiating a [GenericHID] or one of its subclasses ([ ] or [XboxController]), and then passing it to a
+     * instantiating a [edu.wpi.first.wpilibj.GenericHID] or one of its subclasses ([edu.wpi.first.wpilibj.Joystick] or [XboxController]), and then passing it to a
      * [edu.wpi.first.wpilibj2.command.button.JoystickButton].
      */
     private fun configureButtonBindings() {}
@@ -829,8 +855,8 @@ class RobotContainer {
 	romiTimedDrivetrain = `package frc.robot
 
 import edu.wpi.first.wpilibj.Encoder
-import edu.wpi.first.wpilibj.Spark
 import edu.wpi.first.wpilibj.drive.DifferentialDrive
+import edu.wpi.first.wpilibj.motorcontrol.Spark
 
 class RomiDrivetrain {
     // The Romi has the left and right motors set to
@@ -855,10 +881,8 @@ class RomiDrivetrain {
      * Creates a new RomiDrivetrain.
      */
     init {
-        // DifferentialDrive defaults to having the right side flipped
-        // We don't need to do this because the Romi has accounted for this
-        // in firmware/hardware
-        diffDrive.isRightSideInverted = false
+        leftEncoder.distancePerPulse = (Math.PI * WHEEL_DIAMETER_INCH) / COUNTS_PER_REVOLUTION
+        rightEncoder.distancePerPulse = (Math.PI * WHEEL_DIAMETER_INCH) / COUNTS_PER_REVOLUTION
         resetEncoders()
     }
 
@@ -1167,7 +1191,7 @@ class Robot : TimedRobot() {
 `
 	trapezoidProfileCommand = `package #{PACKAGE}
 
-import edu.wpi.first.wpilibj.trajectory.TrapezoidProfile
+import edu.wpi.first.math.trajectory.TrapezoidProfile
 import edu.wpi.first.wpilibj2.command.TrapezoidProfileCommand
 import java.util.function.Consumer
 
@@ -1190,7 +1214,7 @@ class #{NAME} : TrapezoidProfileCommand(
 `
 	trapezoidProfileSubsystem = `package #{PACKAGE}
 
-import edu.wpi.first.wpilibj.trajectory.TrapezoidProfile
+import edu.wpi.first.math.trajectory.TrapezoidProfile
 import edu.wpi.first.wpilibj2.command.TrapezoidProfileSubsystem
 
 class #{NAME} : TrapezoidProfileSubsystem(

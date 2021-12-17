@@ -5,7 +5,7 @@ export function determineRobotType(robotJava: string, buildGradle: string): Robo
 	let currentRobotType: RobotType = RobotType.timed
 
 	if (robotJava.includes("edu.wpi.first.wpilibj2.command.Command")) {
-		if (buildGradle.includes("// Set the websocket remote host (the Romi IP address).")) {
+		if (buildGradle.includes(`wpi.sim.envVar("HALSIMWS_HOST"`)) {
 			currentRobotType = RobotType.romiCommand
 		}
 		else {
