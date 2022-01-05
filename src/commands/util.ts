@@ -1,32 +1,31 @@
 import * as vscode from "vscode"
 import { RobotType } from "./models"
+import {
+	CMD_ROBOT_SEARCH_TERM, TIMED_ROBOT_USED_SEARCH_TERM, TIMED_ROBOT_SEARCH_TERM,
+	ROBOT_BASE_SKELE_SEARCH_TERM, ROMI_CMD_VARIANT_SEARCH_TERM, ROMI_TIMED_VARIANT_SEARCH_TERM
+} from "../constants"
 
 export function determineRobotType(robotJava: string, buildGradle: string): RobotType {
 	let currentRobotType: RobotType = RobotType.timed
 
-	if (robotJava.includes("edu.wpi.first.wpilibj2.command.Command")) {
-		if (buildGradle.includes("// Set the websocket remote host (the Romi IP address).")) {
+	if (robotJava.includes(CMD_ROBOT_SEARCH_TERM)) {
+		if (buildGradle.includes(ROMI_CMD_VARIANT_SEARCH_TERM)) {
 			currentRobotType = RobotType.romiCommand
 		}
 		else {
 			currentRobotType = RobotType.command
 		}
-	}
-	else if (robotJava.includes("edu.wpi.first.wpilibj.command.Command")) {
-		currentRobotType = RobotType.oldCommand
-	}
-	else if (robotJava.includes("edu.wpi.first.wpilibj.TimedRobot")) {
-		if (robotJava.includes("new RomiDrivetrain()")) {
+	} else if (robotJava.includes(TIMED_ROBOT_USED_SEARCH_TERM)) {
+		if (robotJava.includes(ROMI_TIMED_VARIANT_SEARCH_TERM)) {
 			currentRobotType = RobotType.romiTimed
 		}
-		else if (robotJava.includes("edu.wpi.first.wpilibj.smartdashboard.SendableChooser")) {
+		else if (robotJava.includes(TIMED_ROBOT_SEARCH_TERM)) {
 			currentRobotType = RobotType.timed
 		}
 		else {
 			currentRobotType = RobotType.timedSkeleton
 		}
-	}
-	else if (robotJava.includes("edu.wpi.first.hal.HAL")) {
+	} else if (robotJava.includes(ROBOT_BASE_SKELE_SEARCH_TERM)) {
 		currentRobotType = RobotType.robotBaseSkeleton
 	}
 

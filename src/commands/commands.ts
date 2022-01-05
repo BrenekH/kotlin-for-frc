@@ -1,11 +1,11 @@
 import * as vscode from "vscode"
-import { simulateCodeTaskName, targetGradleRioVersion } from "../constants"
+import { SIMULATE_CODE_TASK_NAME, TARGET_GRADLE_RIO_VER } from "../constants"
 import { executeCommand } from "../tasks/cmdExecution"
 import { ITemplateProvider } from "../template/models"
 import { showChangelog } from "../util/changelog"
 import updateGradleRioVersion from "../util/gradleRioUpdate"
 import { getJavaHomeGradleArg, getPlatformGradlew } from "../util/util"
-import { writeCommandTemplate, writeOldCommandTemplate, writeRobotBaseSkeleton, writeRomiCommand, writeRomiTimed, writeTimed, writeTimedSkeleton } from "./conversion"
+import { writeCommandTemplate, writeRobotBaseSkeleton, writeRomiCommand, writeRomiTimed, writeTimed, writeTimedSkeleton } from "./conversion"
 import { RobotType } from "./models"
 import { createFileWithContent, determineRobotType, parseTemplate } from "./util"
 import { TemplateType } from "../template/models"
@@ -71,9 +71,6 @@ export async function registerCommands(context: vscode.ExtensionContext, telemet
 			case RobotType.command:
 				writeCommandTemplate(workspaceDir, templateProvider)
 				break
-			case RobotType.oldCommand:
-				writeOldCommandTemplate(workspaceDir, templateProvider)
-				break
 			case RobotType.robotBaseSkeleton:
 				writeRobotBaseSkeleton(workspaceDir, templateProvider)
 				break
@@ -101,7 +98,7 @@ export async function registerCommands(context: vscode.ExtensionContext, telemet
 	context.subscriptions.push(vscode.commands.registerCommand("kotlinForFRC.createNew", async (filePath: vscode.Uri) => {
 		telemetry.recordCommandRan("createNew")
 
-		vscode.window.showQuickPick(["Command-Based", "Old Command-Based", "Empty Class"]).then((result: string | undefined) => {
+		vscode.window.showQuickPick(["Command-Based", "Empty Class"]).then((result: string | undefined) => {
 			switch (result) {
 				case "Command-Based":
 					vscode.window.showQuickPick(["Command", "Subsystem"]).then((result: string | undefined) => {
@@ -120,7 +117,7 @@ export async function registerCommands(context: vscode.ExtensionContext, telemet
 								]).then((result: string | undefined) => {
 									if (result === undefined) { return }
 
-									createNewFromTemplate((<any>TemplateType)[result], templateProvider, filePath)
+									createNewFromTemplate(result as TemplateType, templateProvider, filePath)
 								})
 								break
 							case "Subsystem":
@@ -132,41 +129,8 @@ export async function registerCommands(context: vscode.ExtensionContext, telemet
 								]).then((result: string | undefined) => {
 									if (result === undefined) { return }
 
-									createNewFromTemplate((<any>TemplateType)[result], templateProvider, filePath)
+									createNewFromTemplate(result as TemplateType, templateProvider, filePath)
 								})
-								break
-							default:
-								return
-						}
-					})
-					break
-				case "Old Command-Based":
-					vscode.window.showQuickPick(["Command", "Subsystem", "Trigger"]).then((result: string | undefined) => {
-						switch (result) {
-							case "Command":
-								vscode.window.showQuickPick([
-									TemplateType.oldCommand,
-									TemplateType.oldInstantCommand,
-									TemplateType.oldCommandGroup,
-									TemplateType.oldTimedCommand,
-								]).then((result: string | undefined) => {
-									if (result === undefined) { return }
-
-									createNewFromTemplate((<any>TemplateType)[result], templateProvider, filePath)
-								})
-								break
-							case "Subsystem":
-								vscode.window.showQuickPick([
-									TemplateType.oldSubsystem,
-									TemplateType.oldPIDSubsystem,
-								]).then((result: string | undefined) => {
-									if (result === undefined) { return }
-
-									createNewFromTemplate((<any>TemplateType)[result], templateProvider, filePath)
-								})
-								break
-							case "Trigger":
-								createNewFromTemplate(TemplateType.oldTrigger, templateProvider, filePath)
 								break
 							default:
 								return
@@ -240,7 +204,7 @@ export function simulateFRCKotlinCode(telemetry: ITelemetry, cmdExecutor: IComma
 			workspaceDir = temp
 		}
 
-		cmdExecutor.execute(`${getPlatformGradlew()} simulateJava ${getJavaHomeGradleArg()}`, simulateCodeTaskName, workspaceDir)
+		cmdExecutor.execute(`${getPlatformGradlew()} simulateJava ${getJavaHomeGradleArg()}`, SIMULATE_CODE_TASK_NAME, workspaceDir)
 	}
 }
 
@@ -254,7 +218,7 @@ async function createNewFromTemplate(templateType: TemplateType, templateProvide
 	const className = await vscode.window.showInputBox({ placeHolder: `Name your ${templateType.toString()}` })
 	if (className === undefined) { return }
 
-	createFileWithContent(vscode.Uri.joinPath(dirPath, `${className}.kt`), parseTemplate(templateContents, className, determinePackage(dirPath), targetGradleRioVersion))
+	createFileWithContent(vscode.Uri.joinPath(dirPath, `${className}.kt`), parseTemplate(templateContents, className, determinePackage(dirPath), TARGET_GRADLE_RIO_VER))
 }
 
 export function determinePackage(filePath: vscode.Uri): string {

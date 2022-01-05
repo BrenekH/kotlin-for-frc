@@ -87,28 +87,6 @@ export class IntegratedTemplateProvider implements ITemplateProvider {
 
 function templateTypeToString(t: TemplateType): string {
     switch (t) {
-        // Old Command Based
-        case TemplateType.oldCommandRobot:
-            return "oldCommandRobot"
-        case TemplateType.oldOI:
-            return "oldOI"
-        case TemplateType.oldRobotMap:
-            return "oldRobotMap"
-        case TemplateType.oldSubsystem:
-            return "oldSubsystem"
-        case TemplateType.oldCommand:
-            return "oldCommand"
-        case TemplateType.oldCommandGroup:
-            return "oldCommandGroup"
-        case TemplateType.oldPIDSubsystem:
-            return "oldPIDSubsystem"
-        case TemplateType.oldInstantCommand:
-            return "oldInstantCommand"
-        case TemplateType.oldTimedCommand:
-            return "oldTimedCommand"
-        case TemplateType.oldTrigger:
-            return "oldTrigger"
-
         // Command based
         // General
         case TemplateType.commandRobot:

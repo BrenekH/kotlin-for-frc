@@ -10,15 +10,9 @@ suite("Determine Robot Type", function () {
 	})
 
 	test("Romi command based", function () {
-		let result = determineRobotType("edu.wpi.first.wpilibj2.command.Command", "// Set the websocket remote host (the Romi IP address).")
+		let result = determineRobotType("edu.wpi.first.wpilibj2.command.Command", `wpi.sim.envVar("HALSIMWS_HOST", "10.0.0.2")`)
 
 		assert.strictEqual(result, RobotType.romiCommand)
-	})
-
-	test("Old command based", function () {
-		let result = determineRobotType("edu.wpi.first.wpilibj.command.Command", "")
-
-		assert.strictEqual(result, RobotType.oldCommand)
 	})
 
 	test("Timed skeleton", function () {

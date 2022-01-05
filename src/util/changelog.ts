@@ -40,22 +40,17 @@ const webviewContent = `<!DOCTYPE html>
     <title>Kotlin For FRC Changelog</title>
 </head>
 <body>
-<h1>Kotlin for FRC Changelog</h1>
-<h2><a href="https://github.com/BrenekH/kotlin-for-frc/releases/2021.8.1">2021.8.1</a> (2021-08-30)</h2>
-<p><strong>Implemented enhancements:</strong></p>
-<ul>
-	<li>
-		<p>Rewrote codebase to be more maintainable</p>
-	</li>
-	<li>
-		<p>Use VS Code tasks for code simulation instead of a terminal.</p>
-	</li>
-	<li>
-		<p>Better support for multiple workspace files</p>
-	</li>
-	<li>
-		<p>Better support for virtual file systems</p>
-	</li>
-</ul>
+    <h1>Kotlin for FRC Changelog</h1>
+    <h2><a href="https://github.com/BrenekH/kotlin-for-frc/releases/2022.1.1">2022.1.1</a></h2>
+    <p><strong>Implemented enhancements:</strong></p>
+    <ul>
+        <li>
+            <p>Removed Old Command-based templates</p>
+        </li>
+        <li>
+            <p>Updated templates to be compatible with 2022 WPILib</p>
+        </li>
+    </ul>
 </body>
-</html>`
+</html>
+`
