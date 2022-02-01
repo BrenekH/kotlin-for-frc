@@ -1,6 +1,20 @@
 # Kotlin for FRC Changelog
 
-## [2022.1.1](https://github.com/BrenekH/kotlin-for-frc/releases/2022.1.1-beta.1)
+## [2022.2.1](https://github.com/BrenekH/kotlin-for-frc/releases/2022.2.1) (2022-02-01)
+
+**Implemented enhancements:**
+
+- Updated upstream dependencies
+
+## [2022.1.2](https://github.com/BrenekH/kotlin-for-frc/releases/2022.1.2) (2022-01-16)
+
+**Implemented enhancements:**
+
+- Updated package versions to fix a security issue.
+
+- Updated linter action to newest major version.
+
+## [2022.1.1](https://github.com/BrenekH/kotlin-for-frc/releases/2022.1.1) (2022-01-04)
 
 **Implemented enhancements:**
 
