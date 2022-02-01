@@ -41,15 +41,10 @@ const webviewContent = `<!DOCTYPE html>
 </head>
 <body>
     <h1>Kotlin for FRC Changelog</h1>
-    <h2><a href="https://github.com/BrenekH/kotlin-for-frc/releases/2022.1.1-beta.1">2022.1.1</a></h2>
+    <h2><a href="https://github.com/BrenekH/kotlin-for-frc/releases/2022.2.1">2022.2.1</a></h2>
     <p><strong>Implemented enhancements:</strong></p>
     <ul>
-        <li>
-            <p>Removed Old Command-based templates</p>
-        </li>
-        <li>
-            <p>Updated templates to be compatible with 2022 WPILib</p>
-        </li>
+        <li>Updated upstream dependencies</li>
     </ul>
 </body>
 </html>
