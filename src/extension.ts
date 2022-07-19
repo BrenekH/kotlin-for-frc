@@ -5,14 +5,11 @@ import { registerCommands } from "./commands/commands";
 import { FileSystemTemplateProvider, IntegratedTemplateProvider, TemplateProviderAggregator } from "./template/providers";
 import { displayChangelog } from "./util/changelog";
 import updateGradleRioVersion from "./util/gradleRioUpdate";
-import { TelemetryReporter } from "./util/telemetry"
 import { addCurrentWorkspaceDirsToAggregator, alertForMissingWPILibExt, setIsKFFProject } from "./util/util";
 
 export async function activate(context: vscode.ExtensionContext) {
 	// Setup
 	setIsKFFProject()
-
-	const telemetry = new TelemetryReporter()
 
 	// Read updateGradleRIOVer and showChangelogOnUpdate from vscode settings, taking care to set them to default values in case of an undefined value.
 	let temp: boolean | undefined = vscode.workspace.getConfiguration("kotlinForFRC.gradleRioVersion").get<boolean>("autoUpdate")
@@ -27,7 +24,7 @@ export async function activate(context: vscode.ExtensionContext) {
 	addCurrentWorkspaceDirsToAggregator(templateProvAgg)
 
 	// Register handlers
-	registerCommands(context, telemetry, templateProvAgg)
+	registerCommands(context, templateProvAgg)
 
 	// Register workspace change handler for adding/removing template providers
 	vscode.workspace.onDidChangeWorkspaceFolders((e: vscode.WorkspaceFoldersChangeEvent) => {
@@ -44,8 +41,6 @@ export async function activate(context: vscode.ExtensionContext) {
 	alertForMissingWPILibExt()
 	updateGradleRioVersion(updateGradleRIOVer, context)
 	displayChangelog(showChangelogOnUpdate, context)
-
-	telemetry.recordActivationEvent(showChangelogOnUpdate, updateGradleRIOVer)
 }
 
 export function deactivate() { }
