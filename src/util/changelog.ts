@@ -41,10 +41,18 @@ const webviewContent = `<!DOCTYPE html>
 </head>
 <body>
     <h1>Kotlin for FRC Changelog</h1>
-    <h2><a href="https://github.com/BrenekH/kotlin-for-frc/releases/2022.2.1">2022.2.1</a></h2>
+    <h2><a href="https://github.com/BrenekH/kotlin-for-frc/releases/2022.7.1">2022.7.1</a></h2>
     <p><strong>Implemented enhancements:</strong></p>
     <ul>
-        <li>Updated upstream dependencies</li>
+        <li>
+            <p>Updated upstream dependencies</p>
+        </li>
+        <li>
+            <p>Updated base GradleRIO version to 2022.4.1</p>
+        </li>
+        <li>
+            <p>Added support for Node 18</p>
+        </li>
     </ul>
 </body>
 </html>
