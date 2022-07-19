@@ -10,19 +10,12 @@ import { RobotType } from "./models"
 import { createFileWithContent, determineRobotType, parseTemplate } from "./util"
 import { TemplateType } from "../template/models"
 
-interface ITelemetry {
-	recordCommandRan(commandId: string): void
-	recordConversionEvent(type: RobotType): void
-}
-
 interface ICommandExecutor {
 	execute(cmd: string, name: string, workspaceFolder: vscode.WorkspaceFolder): void
 }
 
-export async function registerCommands(context: vscode.ExtensionContext, telemetry: ITelemetry, templateProvider: ITemplateProvider) {
+export async function registerCommands(context: vscode.ExtensionContext, templateProvider: ITemplateProvider) {
 	context.subscriptions.push(vscode.commands.registerCommand("kotlinForFRC.convertJavaProject", async () => {
-		telemetry.recordCommandRan("convertJavaProject")
-
 		if (vscode.workspace.workspaceFolders === undefined) {
 			vscode.window.showErrorMessage("Kotlin-FRC: Cannot convert project without an open workspace.")
 			return
@@ -60,7 +53,6 @@ export async function registerCommands(context: vscode.ExtensionContext, telemet
 		}
 
 		const projectRobotType = determineRobotType(robotJava, buildGradle)
-		telemetry.recordConversionEvent(projectRobotType)
 
 		// Delete existing files
 		const toDelete = vscode.Uri.joinPath(workspaceDir.uri, "src", "main", "java")
@@ -96,8 +88,6 @@ export async function registerCommands(context: vscode.ExtensionContext, telemet
 	}))
 
 	context.subscriptions.push(vscode.commands.registerCommand("kotlinForFRC.createNew", async (filePath: vscode.Uri) => {
-		telemetry.recordCommandRan("createNew")
-
 		vscode.window.showQuickPick(["Command-Based", "Empty Class"]).then((result: string | undefined) => {
 			switch (result) {
 				case "Command-Based":
@@ -147,27 +137,23 @@ export async function registerCommands(context: vscode.ExtensionContext, telemet
 	}))
 
 	context.subscriptions.push(vscode.commands.registerCommand("kotlinForFRC.showChangelog", async () => {
-		telemetry.recordCommandRan("showChangelog")
 		showChangelog()
 	}))
 
 	context.subscriptions.push(vscode.commands.registerCommand("kotlinForFRC.resetAutoShowChangelog", async () => {
-		telemetry.recordCommandRan("resetAutoShowChangelog")
 		context.globalState.update("lastInitVersion", "0.0.0")
 	}))
 
 	context.subscriptions.push(vscode.commands.registerCommand("kotlinForFRC.updateGradleRIOVersion", async () => {
-		telemetry.recordCommandRan("updateGradleRIOVersion")
 		updateGradleRioVersion(true, context)
 	}))
 
 	context.subscriptions.push(vscode.commands.registerCommand("kotlinForFRC.resetGradleRIOCache", async () => {
-		telemetry.recordCommandRan("resetGradleRIOCache")
 		context.globalState.update("grvCache", "")
 		context.globalState.update("lastGradleRioVersionUpdateTime", 0)
 	}))
 
-	context.subscriptions.push(vscode.commands.registerCommand("kotlinForFRC.simulateFRCKotlinCode", simulateFRCKotlinCode(telemetry, {
+	context.subscriptions.push(vscode.commands.registerCommand("kotlinForFRC.simulateFRCKotlinCode", simulateFRCKotlinCode({
 		execute: (cmd: string, name: string, workspaceFolder: vscode.WorkspaceFolder) => {
 			executeCommand(cmd, name, workspaceFolder)
 		}
@@ -178,13 +164,10 @@ export async function registerCommands(context: vscode.ExtensionContext, telemet
  * simulateFRCKotlinCode builds and returns a function that can be used as a callback for vscode.commands.registerCommand.
  * This should not be used outside of its original file. It is only exported for testing purposes.
  *
- * @param telemetry Object that satisfies the ITelemetry interface
  * @returns Function that is callable by vscode as a command
  */
-export function simulateFRCKotlinCode(telemetry: ITelemetry, cmdExecutor: ICommandExecutor): (...args: any[]) => any {
+export function simulateFRCKotlinCode(cmdExecutor: ICommandExecutor): (...args: any[]) => any {
 	return async () => {
-		telemetry.recordCommandRan("simulateFRCKotlinCode")
-
 		if (!vscode.workspace.isTrusted) {
 			vscode.window.showErrorMessage("Kotlin-FRC: Cannot simulate code while the workspace is untrusted.")
 			return
