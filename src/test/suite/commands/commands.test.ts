@@ -1,59 +1,15 @@
 import * as assert from "assert"
 import * as vscode from "vscode"
 import { determinePackage, simulateFRCKotlinCode } from "../../../commands/commands"
-import { RobotType } from "../../../commands/models"
 
 suite("Simulate FRC Kotlin Code", function () {
 	test("Returns a function", function () {
-		let mockTelemetry = {
-			recordCommandRan: (_: string) => { },
-			recordConversionEvent: (_: RobotType) => { },
-		}
-
 		let cmdExecutor = {
 			execute: (_: string, __: string, ___: vscode.WorkspaceFolder) => { }
 		}
 
-		const result = simulateFRCKotlinCode(mockTelemetry, cmdExecutor)
+		const result = simulateFRCKotlinCode(cmdExecutor)
 		assert.strictEqual(typeof result, typeof ((..._: any[]) => { }))
-	})
-
-	test("Telemetry is sent", function () {
-		let recordCommandRanCalled = false
-		let mockTelemetry = {
-			recordCommandRan: (_: string) => {
-				recordCommandRanCalled = true
-			},
-			recordConversionEvent: (_: RobotType) => { },
-		}
-
-		let cmdExecutor = {
-			execute: (_: string, __: string, ___: vscode.WorkspaceFolder) => { }
-		}
-
-		simulateFRCKotlinCode(mockTelemetry, cmdExecutor)()
-
-		assert.strictEqual(recordCommandRanCalled, true)
-	})
-
-	test("Correct command ID for telemetry", function () {
-		const targetCmdID = "simulateFRCKotlinCode"
-
-		let usedCommandID = ""
-		let mockTelemetry = {
-			recordCommandRan: (commandId: string) => {
-				usedCommandID = commandId
-			},
-			recordConversionEvent: (_: RobotType) => { },
-		}
-
-		let cmdExecutor = {
-			execute: (_: string, __: string, ___: vscode.WorkspaceFolder) => { }
-		}
-
-		simulateFRCKotlinCode(mockTelemetry, cmdExecutor)()
-
-		assert.strictEqual(usedCommandID, targetCmdID)
 	})
 })
 
