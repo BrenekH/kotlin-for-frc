@@ -19,11 +19,6 @@ Kotlin for FRC is an unofficial companion extension to the WPILib extension. It 
 
 ![Simulate Kotlin Code Demo](https://raw.githubusercontent.com/BrenekH/kotlin-for-frc/master/images/simulateDemo.gif)
 
-## Known Issues
-
-- Any existing code in the project gets deleted when converting to a Kotlin project
-  - This will never be fixed because Kotlin for FRC's conversion tool is meant to be used on a fresh project, not one already worked in.
-
 ## Contributing
 
 Kotlin for FRC uses [GitHub Discussions](https://github.com/BrenekH/kotlin-for-frc/discussions) to talk and ask questions and [GitHub Issues](https://github.com/BrenekH/kotlin-for-frc/issues) to track bugs and features.
