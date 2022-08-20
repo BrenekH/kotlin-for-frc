@@ -1,7 +1,7 @@
 {
     "name": "kotlin-for-frc",
     "displayName": "Kotlin for FRC",
-    "description": "Kotlin for FRC is an unofficial companion extension to the WPILib extension which adds support for Kotlin",
+    "description": "Kotlin support for WPILib, unofficially",
     "version": "2022.7.1",
     "publisher": "Brenek",
     "engines": {
