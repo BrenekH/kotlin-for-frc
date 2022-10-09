@@ -26,6 +26,7 @@ RELEASE_NOTES.md
 
 **/*.vsix
 **/*.gif
+**/*.svg
 
 **/tsconfig.json
 **/.eslintrc.json
