@@ -1,172 +1,172 @@
 {
-    "name": "kotlin-for-frc",
-    "displayName": "Kotlin for FRC",
-    "description": "Kotlin for FRC is an unofficial companion extension to the WPILib extension which adds support for Kotlin",
-    "version": "2022.7.1",
-    "publisher": "Brenek",
-    "engines": {
-        "vscode": "^1.56.0"
+  "name": "kotlin-for-frc",
+  "displayName": "Kotlin for FRC",
+  "description": "Kotlin for FRC is an unofficial companion extension to the WPILib extension which adds support for Kotlin",
+  "version": "2022.7.1",
+  "publisher": "Brenek",
+  "engines": {
+    "vscode": "^1.56.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "icon": "images/wpilib-with-kotlin_K-128x128.png",
+  "activationEvents": [
+    "workspaceContains:.wpilib/wpilib_preferences.json",
+    "onCommand:kotlinForFRC.createNew",
+    "onCommand:kotlinForFRC.convertJavaProject",
+    "onCommand:kotlinForFRC.showChangelog",
+    "onCommand:kotlinForFRC.resetAutoShowChangelog",
+    "onCommand:kotlinForFRC.updateGradleRIOVersion",
+    "onCommand:kotlinForFRC.resetGradleRIOCache",
+    "onCommand:kotlinForFRC.simulateFRCKotlinCode",
+    "onCommand:workbench.action.tasks.runTask"
+  ],
+  "main": "./dist/extension",
+  "capabilities": {
+    "untrustedWorkspaces": {
+      "supported": "limited",
+      "description": "While most of Kotlin for FRC's functionality is essentially text manipulation, it does provide a convenience feature for running the FRC simulation against Kotlin code which requires the workspace to be trusted."
     },
-    "categories": [
-        "Other"
+    "virtualWorkspaces": false
+  },
+  "contributes": {
+    "configuration": {
+      "title": "Kotlin for FRC",
+      "properties": {
+        "kotlinForFRC.gradleRioVersion.autoUpdate": {
+          "type": "boolean",
+          "default": true,
+          "scope": "window",
+          "description": "Whether or not to automatically update the Gradle RIO Version when the Kotlin for FRC extension is loaded."
+        },
+        "kotlinForFRC.changelog.showOnUpdate": {
+          "type": "boolean",
+          "default": true,
+          "scope": "application",
+          "description": "Whether or not to show the changelog when Kotlin for FRC has been updated."
+        },
+        "kotlinForFRC.simulate.javaHome": {
+          "type": "string",
+          "default": null,
+          "scope": "window",
+          "description": "Defines a custom JAVA_HOME for Kotlin for FRC to use when simulating FRC Kotlin code."
+        }
+      }
+    },
+    "commands": [
+      {
+        "command": "kotlinForFRC.convertJavaProject",
+        "title": "Convert Java Project to Kotlin",
+        "category": "Kotlin-FRC"
+      },
+      {
+        "command": "kotlinForFRC.createNew",
+        "title": "Create new Kotlin class/command here",
+        "category": "Kotlin-FRC"
+      },
+      {
+        "command": "kotlinForFRC.showChangelog",
+        "title": "Show Changelog",
+        "category": "Kotlin-FRC"
+      },
+      {
+        "command": "kotlinForFRC.resetAutoShowChangelog",
+        "title": "Reset Auto-Show Changelog Cache",
+        "category": "Kotlin-FRC"
+      },
+      {
+        "command": "kotlinForFRC.updateGradleRIOVersion",
+        "title": "Update GradleRIO Version",
+        "category": "Kotlin-FRC"
+      },
+      {
+        "command": "kotlinForFRC.resetGradleRIOCache",
+        "title": "Reset GradleRIO Version Cache",
+        "category": "Kotlin-FRC"
+      },
+      {
+        "command": "kotlinForFRC.simulateFRCKotlinCode",
+        "title": "Simulate FRC Kotlin Code",
+        "category": "Kotlin-FRC"
+      }
     ],
-    "icon": "images/wpilib-with-kotlin_K-128x128.png",
-    "activationEvents": [
-        "workspaceContains:.wpilib/wpilib_preferences.json",
-        "onCommand:kotlinForFRC.createNew",
-        "onCommand:kotlinForFRC.convertJavaProject",
-        "onCommand:kotlinForFRC.showChangelog",
-        "onCommand:kotlinForFRC.resetAutoShowChangelog",
-        "onCommand:kotlinForFRC.updateGradleRIOVersion",
-        "onCommand:kotlinForFRC.resetGradleRIOCache",
-        "onCommand:kotlinForFRC.simulateFRCKotlinCode",
-        "onCommand:workbench.action.tasks.runTask"
-    ],
-    "main": "./dist/extension",
-    "capabilities": {
-        "untrustedWorkspaces": {
-            "supported": "limited",
-            "description": "While most of Kotlin for FRC's functionality is essentially text manipulation, it does provide a convenience feature for running the FRC simulation against Kotlin code which requires the workspace to be trusted."
+    "menus": {
+      "explorer/context": [
+        {
+          "when": "explorerResourceIsFolder && isKFFProject",
+          "command": "kotlinForFRC.createNew",
+          "group": "frc-kotlin"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "kotlinForFRC.convertJavaProject",
+          "when": "isKFFProject"
         },
-        "virtualWorkspaces": false
-    },
-    "contributes": {
-        "configuration": {
-            "title": "Kotlin for FRC",
-            "properties": {
-                "kotlinForFRC.gradleRioVersion.autoUpdate": {
-                    "type": "boolean",
-                    "default": true,
-                    "scope": "window",
-                    "description": "Whether or not to automatically update the Gradle RIO Version when the Kotlin for FRC extension is loaded."
-                },
-                "kotlinForFRC.changelog.showOnUpdate": {
-                    "type": "boolean",
-                    "default": true,
-                    "scope": "application",
-                    "description": "Whether or not to show the changelog when Kotlin for FRC has been updated."
-                },
-                "kotlinForFRC.simulate.javaHome": {
-                    "type": "string",
-                    "default": null,
-                    "scope": "window",
-                    "description": "Defines a custom JAVA_HOME for Kotlin for FRC to use when simulating FRC Kotlin code."
-                }
-            }
+        {
+          "command": "kotlinForFRC.showChangelog"
         },
-        "commands": [
-            {
-                "command": "kotlinForFRC.convertJavaProject",
-                "title": "Convert Java Project to Kotlin",
-                "category": "Kotlin-FRC"
-            },
-            {
-                "command": "kotlinForFRC.createNew",
-                "title": "Create new Kotlin class/command here",
-                "category": "Kotlin-FRC"
-            },
-            {
-                "command": "kotlinForFRC.showChangelog",
-                "title": "Show Changelog",
-                "category": "Kotlin-FRC"
-            },
-            {
-                "command": "kotlinForFRC.resetAutoShowChangelog",
-                "title": "Reset Auto-Show Changelog Cache",
-                "category": "Kotlin-FRC"
-            },
-            {
-                "command": "kotlinForFRC.updateGradleRIOVersion",
-                "title": "Update GradleRIO Version",
-                "category": "Kotlin-FRC"
-            },
-            {
-                "command": "kotlinForFRC.resetGradleRIOCache",
-                "title": "Reset GradleRIO Version Cache",
-                "category": "Kotlin-FRC"
-            },
-            {
-                "command": "kotlinForFRC.simulateFRCKotlinCode",
-                "title": "Simulate FRC Kotlin Code",
-                "category": "Kotlin-FRC"
-            }
-        ],
-        "menus": {
-            "explorer/context": [
-                {
-                    "when": "explorerResourceIsFolder && isKFFProject",
-                    "command": "kotlinForFRC.createNew",
-                    "group": "frc-kotlin"
-                }
-            ],
-            "commandPalette": [
-                {
-                    "command": "kotlinForFRC.convertJavaProject",
-                    "when": "isKFFProject"
-                },
-                {
-                    "command": "kotlinForFRC.showChangelog"
-                },
-                {
-                    "command": "kotlinForFRC.resetAutoShowChangelog",
-                    "when": "isKFFProject"
-                },
-                {
-                    "command": "kotlinForFRC.updateGradleRIOVersion",
-                    "when": "isKFFProject"
-                },
-                {
-                    "command": "kotlinForFRC.simulateFRCKotlinCode",
-                    "when": "isWorkspaceTrusted && isKFFProject"
-                },
-                {
-                    "command": "kotlinForFRC.resetGradleRIOCache"
-                }
-            ]
+        {
+          "command": "kotlinForFRC.resetAutoShowChangelog",
+          "when": "isKFFProject"
         },
-        "taskDefinitions": [
-            {
-                "type": "kffshell"
-            }
-        ]
+        {
+          "command": "kotlinForFRC.updateGradleRIOVersion",
+          "when": "isKFFProject"
+        },
+        {
+          "command": "kotlinForFRC.simulateFRCKotlinCode",
+          "when": "isWorkspaceTrusted && isKFFProject"
+        },
+        {
+          "command": "kotlinForFRC.resetGradleRIOCache"
+        }
+      ]
     },
-    "scripts": {
-        "vscode:prepublish": "webpack --mode production",
-        "compile": "webpack --mode none",
-        "watch": "webpack --mode none --watch",
-        "test-compile": "tsc -p ./",
-        "lint": "eslint src --ext ts",
-        "pretest": "npm run test-compile && npm run lint",
-        "test": "npm run test-compile && node ./out/test/runTest.js"
-    },
-    "devDependencies": {
-        "@types/cross-spawn": "^6.0.2",
-        "@types/glob": "^7.2.0",
-        "@types/mocha": "^9.1.1",
-        "@types/node": "^16.11.7",
-        "@types/semver": "^7.3.10",
-        "@types/vscode": "1.56.0",
-        "@typescript-eslint/eslint-plugin": "^5.30.7",
-        "@typescript-eslint/parser": "^5.30.7",
-        "acorn": "^7.4.1",
-        "cross-spawn": "^7.0.3",
-        "eslint": "^8.20.0",
-        "glob": "^7.1.7",
-        "mocha": "^9.2.0",
-        "ts-loader": "^8.3.0",
-        "typescript": "^3.9.10",
-        "vscode-test": "^1.6.1",
-        "webpack": "^5.73.0",
-        "webpack-cli": "^4.10.0"
-    },
-    "dependencies": {
-        "axios": "^0.27.2",
-        "semver": "^7.3.7"
-    },
-    "extensionDependencies": [],
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/BrenekH/kotlin-for-frc.git"
-    },
-    "license": "MIT"
+    "taskDefinitions": [
+      {
+        "type": "kffshell"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "webpack --mode production",
+    "compile": "webpack --mode none",
+    "watch": "webpack --mode none --watch",
+    "test-compile": "tsc -p ./",
+    "lint": "eslint src --ext ts",
+    "pretest": "npm run test-compile && npm run lint",
+    "test": "npm run test-compile && node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/cross-spawn": "^6.0.2",
+    "@types/glob": "^7.2.0",
+    "@types/mocha": "^9.1.1",
+    "@types/node": "^16.11.7",
+    "@types/semver": "^7.3.10",
+    "@types/vscode": "1.56.0",
+    "@typescript-eslint/eslint-plugin": "^5.30.7",
+    "@typescript-eslint/parser": "^5.30.7",
+    "acorn": "^7.4.1",
+    "cross-spawn": "^7.0.3",
+    "eslint": "^8.20.0",
+    "glob": "^7.1.7",
+    "mocha": "^9.2.0",
+    "ts-loader": "^8.3.0",
+    "typescript": "^3.9.10",
+    "@vscode/test-electron": "^2.1.5",
+    "webpack": "^5.73.0",
+    "webpack-cli": "^4.10.0"
+  },
+  "dependencies": {
+    "axios": "^0.27.2",
+    "semver": "^7.3.7"
+  },
+  "extensionDependencies": [],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/BrenekH/kotlin-for-frc.git"
+  },
+  "license": "MIT"
 }
