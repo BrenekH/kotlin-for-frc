@@ -1,11 +1,15 @@
 # Kotlin for FRC Changelog
 
-## [2022.7.1](https://github.com/BrenekH/kotlin-for-frc/releases/2022.7.1)
+## [2022.10.1](https://github.com/BrenekH/kotlin-for-frc/releases/2022.10.1)
 
 **Implemented enhancements:**
 
-- Updated upstream dependencies
+- Automatically publish builds to [open-vsx.org](https://open-vsx.org/extension/Brenek/kotlin-for-frc)
 
-- Updated base GradleRIO version to 2022.4.1
+- Put `wpilibsuite.vscode-wpilib` and `Brenek.kotlin-for-frc` in `.vscode/extensions.json` as recommended extensions
 
-- Added support for Node 18
+- Updated logo to match the new Kotlin logo
+
+- Switch to `@vscode/test-electron` testing package (thanks [@anuragh2002](https://github.com/anuragh2002))
+
+- New shorter extension description

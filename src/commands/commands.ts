@@ -9,6 +9,7 @@ import { writeCommandTemplate, writeRobotBaseSkeleton, writeRomiCommand, writeRo
 import { RobotType } from "./models"
 import { createFileWithContent, determineRobotType, parseTemplate } from "./util"
 import { TemplateType } from "../template/models"
+import { ensureExtensionsRecommended } from "../util/recommendations"
 
 interface ICommandExecutor {
 	execute(cmd: string, name: string, workspaceFolder: vscode.WorkspaceFolder): void
@@ -83,6 +84,8 @@ export async function registerCommands(context: vscode.ExtensionContext, templat
 				vscode.window.showErrorMessage("Kotlin-FRC: Unknown RobotType for conversion. Cancelling...")
 				return
 		}
+
+		ensureExtensionsRecommended(workspaceDir, ["Brenek.kotlin-for-frc", "wpilibsuite.vscode-wpilib"])
 
 		vscode.window.showInformationMessage("Kotlin-FRC: Conversion complete!")
 	}))
