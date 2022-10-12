@@ -3,6 +3,10 @@
  * Please do not change manually. Instead, modify the template files and then re-generate this file.
  */
 
+/**
+ * TemplateStrings is an auto-generated class containing the raw values of the master
+ * .kfftemplate files for use by the IntegratedTemplateProvider.
+ */
 export class TemplateStrings {
     PIDCommand = `package #{PACKAGE}
 
