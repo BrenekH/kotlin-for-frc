@@ -13,17 +13,17 @@ def main():
         with p.open("r") as f:
             found_files[p.name.replace(".kfftemplate", "")] = f.read()
 
-    templates_ts_contents = """/*
+    templates_ts_contents = """/**
  * This file was generated using gen_templates.ts.py from the templates directory.
  * Please do not change manually. Instead, modify the template files and then re-generate this file.
-*/
+ */
 
 export class TemplateStrings {
 """
 
     for key in found_files:
         value: str = found_files[key]
-        templates_ts_contents += f"\t{key} = `{value.replace('`', '')}`\n"
+        templates_ts_contents += f"    {key} = `{value.replace('`', '')}`\n"
 
     templates_ts_contents += "}\n"
 
