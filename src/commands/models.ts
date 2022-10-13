@@ -1,3 +1,6 @@
+/**
+ * The RobotType enum maps each type of robot project to a unique string.
+ */
 export enum RobotType {
 	command = "command",
 	robotBaseSkeleton = "robot_base_skeleton",
