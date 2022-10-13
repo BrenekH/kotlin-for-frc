@@ -2,6 +2,12 @@ import * as vscode from "vscode"
 import { TemplateStrings } from "./templates"
 import { ITemplateProvider, TemplateType } from "./models"
 
+/**
+ * TemplateProviderAggregator wraps the various template providers (integrated, user-level, and workspace-level) into
+ * a single template provider that can be used by the templating system.
+ *
+ * This class prioritizes templates in the following order: workspace, user, integrated.
+ */
 export class TemplateProviderAggregator implements ITemplateProvider {
     integratedProvider: ITemplateProvider
     userProvider: ITemplateProvider
@@ -14,14 +20,32 @@ export class TemplateProviderAggregator implements ITemplateProvider {
         this.userProvider = userProvider
     }
 
+    /**
+     * setWorkspaceProvider saves a template provider for a specific workspace URI
+     *
+     * @param uri The URI to save the template provider for
+     * @param provider The provider to save
+     */
     setWorkspaceProvider(uri: vscode.Uri, provider: ITemplateProvider) {
         this.workspaceProviders.set(uri.toString(), provider)
     }
 
+    /**
+     * getWorkspaceProvider looks up the template provider associated with a given workspace URI.
+     *
+     * @param uri The URI to lookup
+     * @returns The template provider for the provided URI
+     */
     getWorkspaceProvider(uri: vscode.Uri): ITemplateProvider | undefined {
         return this.workspaceProviders.get(uri.toString())
     }
 
+    /**
+     * deleteWorkspaceProvider removes the template provider that matches the provided URI from
+     * the aggregator's internal map.
+     *
+     * @param uri The URI to clear the template provider from
+     */
     deleteWorkspaceProvider(uri: vscode.Uri) {
         this.workspaceProviders.delete(uri.toString())
     }
@@ -50,6 +74,10 @@ export class TemplateProviderAggregator implements ITemplateProvider {
     }
 }
 
+/**
+ * FileSystemTemplateProvider is a general template provider that reads .kfftemplate files
+ * directly from the file system.
+ */
 export class FileSystemTemplateProvider implements ITemplateProvider {
     topLevelUri: vscode.Uri
 
@@ -71,6 +99,11 @@ export class FileSystemTemplateProvider implements ITemplateProvider {
     }
 }
 
+/**
+ * IntegratedTemplateProvider is the template provider that provides the default templates for
+ * use in the templating system. The template strings are stored in the TemplateStrings class
+ * which is auto-generated before compiling and bundling the Typescript.
+ */
 export class IntegratedTemplateProvider implements ITemplateProvider {
     templates: TemplateStrings
 
@@ -85,6 +118,13 @@ export class IntegratedTemplateProvider implements ITemplateProvider {
     }
 }
 
+/**
+ * templateTypeToString turns the TemplateType enum into a string which can used to acquire
+ * templates from their storage locations.
+ *
+ * @param t The template type to lookup
+ * @returns A string representing the provided template type
+ */
 function templateTypeToString(t: TemplateType): string {
     switch (t) {
         // Command based
