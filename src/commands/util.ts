@@ -5,6 +5,13 @@ import {
 	ROBOT_BASE_SKELE_SEARCH_TERM, ROMI_CMD_VARIANT_SEARCH_TERM, ROMI_TIMED_VARIANT_SEARCH_TERM
 } from "../constants"
 
+/**
+ * determineRobotType figures out the RobotType of the project by parsing through the contents of Robot.java and build.gradle.
+ *
+ * @param robotJava Contents of Robot.java
+ * @param buildGradle Contents of build.gradle
+ * @returns The determined RobotType of the project
+ */
 export function determineRobotType(robotJava: string, buildGradle: string): RobotType {
 	let currentRobotType: RobotType = RobotType.timed
 
@@ -33,7 +40,7 @@ export function determineRobotType(robotJava: string, buildGradle: string): Robo
 }
 
 /**
- * Replace #{NAME}, #{PACKAGE}, and #{GRADLE_RIO_VERSION} with provided values
+ * parseTemplate replaces #{NAME}, #{PACKAGE}, and #{GRADLE_RIO_VERSION} with the provided values.
  *
  * @param template String to use as source
  * @param name The class name or file name to use
@@ -45,6 +52,12 @@ export function parseTemplate(template: string, name: string, packageName: strin
 	return template.replace(/#{NAME}/gi, name).replace(/#{PACKAGE}/gi, packageName).replace(/#{GRADLE_RIO_VERSION}/gi, gradleRioVersion)
 }
 
+/**
+ * createFileWithContent writes to a file with the provided content.
+ *
+ * @param file File location
+ * @param content Content to save to file
+ */
 export async function createFileWithContent(file: vscode.Uri, content: string): Promise<void> {
 	const data = Buffer.from(content, "utf8")
 	return vscode.workspace.fs.writeFile(file, data)

@@ -38,7 +38,7 @@ export function getPlatformGradlew(): string {
 /**
  * Get the currently set java home with the gradle syntax prepended.
  *
- * @returns
+ * @returns Gradle arguments that specifically denote a JAVA_HOME
  */
 export function getJavaHomeGradleArg(): string {
     let javaHomeConfig = vscode.workspace.getConfiguration("java").get<string | undefined | null>("home");
@@ -59,6 +59,12 @@ export function getJavaHomeGradleArg(): string {
     return `-Dorg.gradle.java.home="${javaHome}"`;
 }
 
+/**
+ * addCurrentWorkspaceDirsToAggregator adds each currently open workspace folder to the provided
+ * template provider aggregator.
+ *
+ * @param templateProvAgg The template provider aggregator to add to
+ */
 export function addCurrentWorkspaceDirsToAggregator(templateProvAgg: TemplateProviderAggregator) {
     vscode.workspace.workspaceFolders?.forEach((workspaceDir: vscode.WorkspaceFolder) => {
         templateProvAgg.setWorkspaceProvider(workspaceDir.uri, new FileSystemTemplateProvider(vscode.Uri.joinPath(workspaceDir.uri, ".kfftemplates")))

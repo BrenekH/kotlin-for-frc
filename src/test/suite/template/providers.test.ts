@@ -64,6 +64,10 @@ suite("TemplateProviderAggregator", function () {
 	})
 })
 
+/**
+ * TestTemplateProvider is a mock template provider whose return value for getTemplate
+ * can be manipulated.
+ */
 class TestTemplateProvider implements ITemplateProvider {
 	getTemplateCalled = false
 	templateTypeArg: TemplateType | undefined = undefined

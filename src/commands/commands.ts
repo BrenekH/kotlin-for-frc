@@ -11,10 +11,28 @@ import { createFileWithContent, determineRobotType, parseTemplate } from "./util
 import { TemplateType } from "../template/models"
 import { ensureExtensionsRecommended } from "../util/recommendations"
 
+/**
+ * ICommandExecutor defines the behavior the simulateFRCKotlinCode function requires
+ * from an object which aims to run the simulation command.
+ */
 interface ICommandExecutor {
+	/**
+	 * execute executes a given command.
+	 *
+	 * @param cmd The command to run
+	 * @param name The name of tab to use
+	 * @param workspaceFolder The workspace folder to execute the command in
+	 */
 	execute(cmd: string, name: string, workspaceFolder: vscode.WorkspaceFolder): void
 }
 
+/**
+ * registerCommands simply registers all of the required command handlers with the VSCode
+ * Extension Host.
+ *
+ * @param context VSCode extension context, used to add command handlers
+ * @param templateProvider The ITemplateProvider to use for any commands which deal with templates
+ */
 export async function registerCommands(context: vscode.ExtensionContext, templateProvider: ITemplateProvider) {
 	context.subscriptions.push(vscode.commands.registerCommand("kotlinForFRC.convertJavaProject", async () => {
 		if (vscode.workspace.workspaceFolders === undefined) {
@@ -194,6 +212,14 @@ export function simulateFRCKotlinCode(cmdExecutor: ICommandExecutor): (...args: 
 	}
 }
 
+/**
+ * createNewFromTemplate creates a new file with the provided information, while also prompting
+ * the user for a name.
+ *
+ * @param templateType The template to parse
+ * @param templateProvider The provider to pull the template from
+ * @param dirPath The directory to put the new file in
+ */
 async function createNewFromTemplate(templateType: TemplateType, templateProvider: ITemplateProvider, dirPath: vscode.Uri): Promise<void> {
 	const workspaceDir = vscode.workspace.getWorkspaceFolder(dirPath)
 	if (workspaceDir === undefined) { return }
@@ -207,6 +233,11 @@ async function createNewFromTemplate(templateType: TemplateType, templateProvide
 	createFileWithContent(vscode.Uri.joinPath(dirPath, `${className}.kt`), parseTemplate(templateContents, className, determinePackage(dirPath), TARGET_GRADLE_RIO_VER))
 }
 
+/**
+ *
+ * @param filePath The path to form into a package directory
+ * @returns
+ */
 export function determinePackage(filePath: vscode.Uri): string {
 	const workspaceDir = vscode.workspace.getWorkspaceFolder(filePath)
 	if (workspaceDir === undefined) { return "frc.robot" }

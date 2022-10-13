@@ -1,9 +1,21 @@
 import * as vscode from "vscode"
 
+/**
+ * ITemplateProvider defines how the template engine expects a template provider to behave.
+ */
 export interface ITemplateProvider {
+    /**
+     * getTemplate returns the raw text of the requested template type.
+     *
+     * @param t The type of template to use
+     * @param workspaceFolder The workspace folder to extract workspace-level templates from
+     */
     getTemplate(t: TemplateType, workspaceFolder: vscode.Uri): Promise<string | null>
 }
 
+/**
+ * The TemplateType enum defines the different types of templates that KfF can generate.
+ */
 export enum TemplateType {
     // Command based templates
     // General
@@ -47,6 +59,14 @@ export enum TemplateType {
     romiBuildGradle = "Romi-specific build.gradle",
 }
 
+/**
+ * parseStringToTemplateType maps a string to a TemplateType.
+ *
+ * If the string can't be mapped, an error is thrown.
+ *
+ * @param input String to parse
+ * @returns The resulting template type
+ */
 export function parseStringToTemplateType(input: string): TemplateType {
     switch (input) {
         // Command based

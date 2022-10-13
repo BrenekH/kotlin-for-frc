@@ -1,13 +1,26 @@
 import * as vscode from "vscode"
 import * as semver from "semver"
 
+/**
+ * displays the changelog using a webview only if the extension was updated and showChangelogOnUpdate is true.
+ *
+ * @param showChangelogOnUpdate Whether or not to show the changelog when the extension is updated
+ * @param context VSCode extension context
+ */
 export function displayChangelog(showChangelogOnUpdate: boolean, context: vscode.ExtensionContext) {
-    if (extensionWasUpdated(showChangelogOnUpdate, context)) {
+    if (showChangelogOnUpdate && extensionWasUpdated(context)) {
         showChangelog()
     }
 }
 
-function extensionWasUpdated(showChangelogOnUpdate: boolean, context: vscode.ExtensionContext): boolean {
+/**
+ * extensionWasUpdated uses VSCode's global states to determine if the last version that was run on this
+ * machine was older than the current running extension.
+ *
+ * @param context VSCode extension context, used to remember the last version run on the current machine
+ * @returns Whether or not the extension was updated
+ */
+function extensionWasUpdated(context: vscode.ExtensionContext): boolean {
     const thisExtension = vscode.extensions.getExtension('brenek.kotlin-for-frc')
     if (thisExtension === undefined) {
         console.error("thisExtension was undefined, the changelog will not be displayed.")
@@ -19,13 +32,12 @@ function extensionWasUpdated(showChangelogOnUpdate: boolean, context: vscode.Ext
 
     context.globalState.update("lastInitVersion", currentVersion)
 
-    if (!showChangelogOnUpdate) {
-        return false
-    }
-
     return semver.satisfies(currentVersion, `>${storedVersion}`)
 }
 
+/**
+ * showChangelog displays the latest release notes (stored in the webviewContent constant) using a VSCode webview panel.
+ */
 export function showChangelog() {
     const panel = vscode.window.createWebviewPanel('kotlin-for-frcChangelog', 'Kotlin For FRC Changelog', vscode.ViewColumn.One, {})
 
