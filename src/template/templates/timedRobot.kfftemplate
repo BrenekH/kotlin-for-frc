@@ -102,4 +102,10 @@ class Robot : TimedRobot() {
      * This function is called periodically during test mode.
      */
     override fun testPeriodic() {}
+
+    /** This function is called once when the robot is first started up. */
+    override fun simulationInit() {}
+
+    /** This function is called periodically whilst in simulation. */
+    override fun simulationPeriodic() {}
 }
