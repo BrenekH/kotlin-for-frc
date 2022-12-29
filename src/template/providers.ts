@@ -156,9 +156,13 @@ function templateTypeToString(t: TemplateType): string {
             return "trapezoidProfileCommand"
         case TemplateType.commandExampleCommand:
             return "commandExampleCommand"
+        case TemplateType.commandAutos:
+            return "commandAutos"
         // Subsystems
         case TemplateType.subsystem:
             return "subsystem"
+        case TemplateType.exampleSubsystem:
+            return "exampleSubsystem"
         case TemplateType.PIDSubsystem:
             return "PIDSubsystem"
         case TemplateType.profiledPIDSubsystem:
