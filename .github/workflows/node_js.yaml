@@ -11,15 +11,15 @@ jobs:
         node-version: [14.x, 16.x, 18.x]
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
 
       - name: Cache Node Modules
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         env:
           cache-name: cache-node-modules
         with:
@@ -39,14 +39,15 @@ jobs:
         node-version: [14.x, 16.x, 18.x]
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
+
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
 
       - name: Cache Node Modules
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         env:
           cache-name: cache-node-modules
         with:
@@ -62,7 +63,7 @@ jobs:
       - run: vsce package
 
       - name: Upload .vsix artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: vsix-file
           path: "*.vsix"
@@ -76,10 +77,10 @@ jobs:
 
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Download .vsix artifact
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: vsix-file
 
@@ -123,10 +124,10 @@ jobs:
     if: success() && startsWith(github.ref, 'refs/tags/')
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Setup Node.js v14.x
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
           node-version: 14.x
 
@@ -134,7 +135,7 @@ jobs:
         run: echo "PACKAGE_TAG=$(node -p "require('./package.json').version")" >> $GITHUB_ENV
 
       - name: Cache Node Modules
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         env:
           cache-name: cache-node-modules
         with:
@@ -161,10 +162,10 @@ jobs:
     if: success() && startsWith(github.ref, 'refs/tags/')
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Setup Node.js v14.x
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
           node-version: 14.x
 
@@ -172,7 +173,7 @@ jobs:
         run: echo "PACKAGE_TAG=$(node -p "require('./package.json').version")" >> $GITHUB_ENV
 
       - name: Cache Node Modules
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         env:
           cache-name: cache-node-modules
         with:
