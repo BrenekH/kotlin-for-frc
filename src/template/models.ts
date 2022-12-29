@@ -33,8 +33,10 @@ export enum TemplateType {
     sequentialCommandGroup = "Sequential Command Group",
     trapezoidProfileCommand = "Trapezoid Profile Command",
     commandExampleCommand = "Example Command",
+    commandAutos = "Autos",
     // Subsystems
     subsystem = "Subsystem",
+    exampleSubsystem = "Example Subsystem",
     PIDSubsystem = "PID Subsystem",
     profiledPIDSubsystem = "Profiled PID Subsystem",
     trapezoidProfileSubsystem = "Trapezoid Profile Subsystem",

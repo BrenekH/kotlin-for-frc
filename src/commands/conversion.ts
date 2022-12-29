@@ -28,19 +28,23 @@ export async function writeCommandTemplate(workspaceDir: vscode.WorkspaceFolder,
     const robotContainer = await templateProvider.getTemplate(TemplateType.robotContainer, workspaceDir.uri) as string
     nullTemplateCheck(robotContainer)
 
-    const subsystem = await templateProvider.getTemplate(TemplateType.subsystem, workspaceDir.uri) as string
-    nullTemplateCheck(subsystem)
+    const exampleSubsystem = await templateProvider.getTemplate(TemplateType.exampleSubsystem, workspaceDir.uri) as string
+    nullTemplateCheck(exampleSubsystem)
 
     const exampleCmd = await templateProvider.getTemplate(TemplateType.commandExampleCommand, workspaceDir.uri) as string
     nullTemplateCheck(exampleCmd)
+
+    const cmdAutos = await templateProvider.getTemplate(TemplateType.commandAutos, workspaceDir.uri) as string
+    nullTemplateCheck(cmdAutos)
 
     createFileWithContent(vscode.Uri.joinPath(workspaceDir.uri, "build.gradle"), parseTemplate(buildGradle, "", "", TARGET_GRADLE_RIO_VER))
     createFileWithContent(vscode.Uri.joinPath(workspaceDir.uri, "src", "main", "kotlin", "frc", "robot", "Main.kt"), parseTemplate(main, "Main", "frc.robot", TARGET_GRADLE_RIO_VER))
     createFileWithContent(vscode.Uri.joinPath(workspaceDir.uri, "src", "main", "kotlin", "frc", "robot", "Robot.kt"), parseTemplate(robot, "Robot", "frc.robot", TARGET_GRADLE_RIO_VER))
     createFileWithContent(vscode.Uri.joinPath(workspaceDir.uri, "src", "main", "kotlin", "frc", "robot", "Constants.kt"), parseTemplate(constants, "Constants", "frc.robot", TARGET_GRADLE_RIO_VER))
     createFileWithContent(vscode.Uri.joinPath(workspaceDir.uri, "src", "main", "kotlin", "frc", "robot", "RobotContainer.kt"), parseTemplate(robotContainer, "RobotContainer", "frc.robot", TARGET_GRADLE_RIO_VER))
-    createFileWithContent(vscode.Uri.joinPath(workspaceDir.uri, "src", "main", "kotlin", "frc", "robot", "subsystems", "ExampleSubsystem.kt"), parseTemplate(subsystem, "ExampleSubsystem", "frc.robot.subsystems", TARGET_GRADLE_RIO_VER))
+    createFileWithContent(vscode.Uri.joinPath(workspaceDir.uri, "src", "main", "kotlin", "frc", "robot", "subsystems", "ExampleSubsystem.kt"), parseTemplate(exampleSubsystem, "ExampleSubsystem", "frc.robot.subsystems", TARGET_GRADLE_RIO_VER))
     createFileWithContent(vscode.Uri.joinPath(workspaceDir.uri, "src", "main", "kotlin", "frc", "robot", "commands", "ExampleCommand.kt"), parseTemplate(exampleCmd, "ExampleCommand", "frc.robot.commands", TARGET_GRADLE_RIO_VER))
+    createFileWithContent(vscode.Uri.joinPath(workspaceDir.uri, "src", "main", "kotlin", "frc", "robot", "commands", "Autos.kt"), parseTemplate(cmdAutos, "Autos", "frc.robot.commands", TARGET_GRADLE_RIO_VER))
 }
 
 /**

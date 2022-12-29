@@ -25,12 +25,12 @@ class Robot : TimedRobot() {
     }
 
     /**
-     * This function is called every robot packet, no matter the mode. Use this for items like
-     * diagnostics that you want ran during disabled, autonomous, teleoperated and test.
+     * This function is called every 20 ms, no matter the mode. Use this for items like diagnostics
+     * that you want ran during disabled, autonomous, teleoperated and test.
      *
      *
-     * This runs after the mode specific periodic functions, but before
-     * LiveWindow and SmartDashboard integrated updating.
+     * This runs after the mode specific periodic functions, but before LiveWindow and
+     * SmartDashboard integrated updating.
      */
     override fun robotPeriodic() {
         // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
@@ -40,19 +40,13 @@ class Robot : TimedRobot() {
         CommandScheduler.getInstance().run()
     }
 
-    /**
-     * This function is called once each time the robot enters Disabled mode.
-     */
-    override fun disabledInit() { }
+    /** This function is called once each time the robot enters Disabled mode.  */
+    override fun disabledInit() {}
 
-    /**
-     * This function is called periodically when disabled.
-     */
-    override fun disabledPeriodic() { }
+    /** This function is called periodically when disabled.  */
+    override fun disabledPeriodic() {}
 
-    /**
-     * This autonomous runs the autonomous command selected by your [RobotContainer] class.
-     */
+    /** This autonomous runs the autonomous command selected by your [RobotContainer] class.  */
     override fun autonomousInit() {
         autonomousCommand = robotContainer?.autonomousCommand
 
@@ -61,14 +55,10 @@ class Robot : TimedRobot() {
         autonomousCommand?.schedule()
     }
 
-    /**
-     * This function is called periodically during autonomous.
-     */
-    override fun autonomousPeriodic() { }
+    /** This function is called periodically during autonomous.  */
+    override fun autonomousPeriodic() {}
 
-    /**
-     * This function is called once when teleop is enabled.
-     */
+    /** This function is called once when teleop is enabled.  */
     override fun teleopInit() {
         // This makes sure that the autonomous stops running when
         // teleop starts running. If you want the autonomous to
@@ -78,21 +68,21 @@ class Robot : TimedRobot() {
         autonomousCommand?.cancel()
     }
 
-    /**
-     * This function is called periodically during operator control.
-     */
-    override fun teleopPeriodic() { }
+    /** This function is called periodically during operator control.  */
+    override fun teleopPeriodic() {}
 
-    /**
-     * This function is called once when test mode is enabled.
-     */
+    /** This function is called once when test mode is enabled.  */
     override fun testInit() {
         // Cancels all running commands at the start of test mode.
         CommandScheduler.getInstance().cancelAll()
     }
 
-    /**
-     * This function is called periodically during test mode.
-     */
-    override fun testPeriodic() { }
+    /** This function is called periodically during test mode.  */
+    override fun testPeriodic() {}
+
+    /** This function is called once when the robot is first started up.  */
+    override fun simulationInit() {}
+
+    /** This function is called periodically whilst in simulation.  */
+    override fun simulationPeriodic() {}
 }
