@@ -1,9 +1,7 @@
-import edu.wpi.first.gradlerio.deploy.roborio.RoboRIO
-
 plugins {
     id "java"
     id "edu.wpi.first.GradleRIO" version "#{GRADLE_RIO_VERSION}"
-    id "org.jetbrains.kotlin.jvm" version "1.6.10"
+    id "org.jetbrains.kotlin.jvm" version '1.8.0'
 }
 
 sourceCompatibility = JavaVersion.VERSION_11
@@ -49,7 +47,7 @@ wpi.java.debugJni = false
 def includeDesktopSupport = false
 
 // Defining my dependencies. In this case, WPILib (+ friends), and vendor libraries.
-// Also defines JUnit 4.
+// Also defines JUnit 5.
 dependencies {
     implementation wpi.java.deps.wpilib()
     implementation wpi.java.vendor.java()
@@ -68,8 +66,15 @@ dependencies {
     nativeRelease wpi.java.vendor.jniRelease(wpi.platforms.desktop)
     simulationRelease wpi.sim.enableRelease()
 
-    testImplementation 'junit:junit:4.12'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.4.2'
+    testImplementation 'org.junit.jupiter:junit-jupiter-params:5.4.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.4.2'
     implementation "org.jetbrains.kotlin:kotlin-stdlib"
+}
+
+test {
+    useJUnitPlatform()
+    systemProperty 'junit.jupiter.extensions.autodetection.enabled', 'true'
 }
 
 // Simulation configuration (e.g. environment variables).
@@ -90,18 +95,22 @@ deployArtifact.jarTask = jar
 wpi.java.configureExecutableTasks(jar)
 wpi.java.configureTestTasks(test)
 
+// Configure string concat to always inline compile
+tasks.withType(JavaCompile) {
+    options.compilerArgs.add '-XDstringConcat=inline'
+}
 repositories {
     mavenCentral()
 }
 
 compileKotlin {
     kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = targetCompatibility
     }
 }
 
 compileTestKotlin {
     kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = targetCompatibility
     }
 }
