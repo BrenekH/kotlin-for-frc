@@ -3,6 +3,12 @@ import { TARGET_GRADLE_RIO_VER } from "../constants";
 import { ITemplateProvider, TemplateType } from "../template/models";
 import { createFileWithContent, parseTemplate } from "./util";
 
+/**
+ * writeCommandTemplate creates the necessary directories and files for a Command-based Kotlin project.
+ *
+ * @param workspaceDir The workspace folder to create the new project in
+ * @param templateProvider The provider to pull templates from
+ */
 export async function writeCommandTemplate(workspaceDir: vscode.WorkspaceFolder, templateProvider: ITemplateProvider) {
     await vscode.workspace.fs.createDirectory(vscode.Uri.joinPath(workspaceDir.uri, "src", "main", "kotlin", "frc", "robot", "commands"))
     await vscode.workspace.fs.createDirectory(vscode.Uri.joinPath(workspaceDir.uri, "src", "main", "kotlin", "frc", "robot", "subsystems"))
@@ -22,21 +28,31 @@ export async function writeCommandTemplate(workspaceDir: vscode.WorkspaceFolder,
     const robotContainer = await templateProvider.getTemplate(TemplateType.robotContainer, workspaceDir.uri) as string
     nullTemplateCheck(robotContainer)
 
-    const subsystem = await templateProvider.getTemplate(TemplateType.subsystem, workspaceDir.uri) as string
-    nullTemplateCheck(subsystem)
+    const exampleSubsystem = await templateProvider.getTemplate(TemplateType.exampleSubsystem, workspaceDir.uri) as string
+    nullTemplateCheck(exampleSubsystem)
 
     const exampleCmd = await templateProvider.getTemplate(TemplateType.commandExampleCommand, workspaceDir.uri) as string
     nullTemplateCheck(exampleCmd)
+
+    const cmdAutos = await templateProvider.getTemplate(TemplateType.commandAutos, workspaceDir.uri) as string
+    nullTemplateCheck(cmdAutos)
 
     createFileWithContent(vscode.Uri.joinPath(workspaceDir.uri, "build.gradle"), parseTemplate(buildGradle, "", "", TARGET_GRADLE_RIO_VER))
     createFileWithContent(vscode.Uri.joinPath(workspaceDir.uri, "src", "main", "kotlin", "frc", "robot", "Main.kt"), parseTemplate(main, "Main", "frc.robot", TARGET_GRADLE_RIO_VER))
     createFileWithContent(vscode.Uri.joinPath(workspaceDir.uri, "src", "main", "kotlin", "frc", "robot", "Robot.kt"), parseTemplate(robot, "Robot", "frc.robot", TARGET_GRADLE_RIO_VER))
     createFileWithContent(vscode.Uri.joinPath(workspaceDir.uri, "src", "main", "kotlin", "frc", "robot", "Constants.kt"), parseTemplate(constants, "Constants", "frc.robot", TARGET_GRADLE_RIO_VER))
     createFileWithContent(vscode.Uri.joinPath(workspaceDir.uri, "src", "main", "kotlin", "frc", "robot", "RobotContainer.kt"), parseTemplate(robotContainer, "RobotContainer", "frc.robot", TARGET_GRADLE_RIO_VER))
-    createFileWithContent(vscode.Uri.joinPath(workspaceDir.uri, "src", "main", "kotlin", "frc", "robot", "subsystems", "ExampleSubsystem.kt"), parseTemplate(subsystem, "ExampleSubsystem", "frc.robot.subsystems", TARGET_GRADLE_RIO_VER))
+    createFileWithContent(vscode.Uri.joinPath(workspaceDir.uri, "src", "main", "kotlin", "frc", "robot", "subsystems", "ExampleSubsystem.kt"), parseTemplate(exampleSubsystem, "ExampleSubsystem", "frc.robot.subsystems", TARGET_GRADLE_RIO_VER))
     createFileWithContent(vscode.Uri.joinPath(workspaceDir.uri, "src", "main", "kotlin", "frc", "robot", "commands", "ExampleCommand.kt"), parseTemplate(exampleCmd, "ExampleCommand", "frc.robot.commands", TARGET_GRADLE_RIO_VER))
+    createFileWithContent(vscode.Uri.joinPath(workspaceDir.uri, "src", "main", "kotlin", "frc", "robot", "commands", "Autos.kt"), parseTemplate(cmdAutos, "Autos", "frc.robot.commands", TARGET_GRADLE_RIO_VER))
 }
 
+/**
+ * writeRobotBaseSkeleton creates the necessary directories and files for a Robot Base Skeleton Kotlin project.
+ *
+ * @param workspaceDir The workspace folder to create the new project in
+ * @param templateProvider The provider to pull templates from
+ */
 export async function writeRobotBaseSkeleton(workspaceDir: vscode.WorkspaceFolder, templateProvider: ITemplateProvider) {
     await vscode.workspace.fs.createDirectory(vscode.Uri.joinPath(workspaceDir.uri, "src", "main", "kotlin", "frc", "robot"))
 
@@ -54,6 +70,12 @@ export async function writeRobotBaseSkeleton(workspaceDir: vscode.WorkspaceFolde
     createFileWithContent(vscode.Uri.joinPath(workspaceDir.uri, "src", "main", "kotlin", "frc", "robot", "Robot.kt"), parseTemplate(robot, "Robot", "frc.robot", TARGET_GRADLE_RIO_VER))
 }
 
+/**
+ * writeRomiCommand creates the necessary directories and files for a Romi Command-based Kotlin project.
+ *
+ * @param workspaceDir The workspace folder to create the new project in
+ * @param templateProvider The provider to pull templates from
+ */
 export async function writeRomiCommand(workspaceDir: vscode.WorkspaceFolder, templateProvider: ITemplateProvider) {
     await vscode.workspace.fs.createDirectory(vscode.Uri.joinPath(workspaceDir.uri, "src", "main", "kotlin", "frc", "robot", "commands"))
     await vscode.workspace.fs.createDirectory(vscode.Uri.joinPath(workspaceDir.uri, "src", "main", "kotlin", "frc", "robot", "subsystems"))
@@ -89,6 +111,12 @@ export async function writeRomiCommand(workspaceDir: vscode.WorkspaceFolder, tem
     createFileWithContent(vscode.Uri.joinPath(workspaceDir.uri, "src", "main", "kotlin", "frc", "robot", "commands", "ExampleCommand.kt"), parseTemplate(exampleCmd, "ExampleCommand", "frc.robot.commands", TARGET_GRADLE_RIO_VER))
 }
 
+/**
+ * writeRomiTimed creates the necessary directories and files for a Romi TimedRobot Kotlin project.
+ *
+ * @param workspaceDir The workspace folder to create the new project in
+ * @param templateProvider The provider to pull templates from
+ */
 export async function writeRomiTimed(workspaceDir: vscode.WorkspaceFolder, templateProvider: ITemplateProvider) {
     await vscode.workspace.fs.createDirectory(vscode.Uri.joinPath(workspaceDir.uri, "src", "main", "kotlin", "frc", "robot"))
 
@@ -110,6 +138,12 @@ export async function writeRomiTimed(workspaceDir: vscode.WorkspaceFolder, templ
     createFileWithContent(vscode.Uri.joinPath(workspaceDir.uri, "src", "main", "kotlin", "frc", "robot", "RomiDrivetrain.kt"), parseTemplate(romiDrivetrain, "RomiDrivetrain", "frc.robot", TARGET_GRADLE_RIO_VER))
 }
 
+/**
+ * writeTimed creates the necessary directories and files for a TimedRobot Kotlin project.
+ *
+ * @param workspaceDir The workspace folder to create the new project in
+ * @param templateProvider The provider to pull templates from
+ */
 export async function writeTimed(workspaceDir: vscode.WorkspaceFolder, templateProvider: ITemplateProvider) {
     await vscode.workspace.fs.createDirectory(vscode.Uri.joinPath(workspaceDir.uri, "src", "main", "kotlin", "frc", "robot"))
 
@@ -127,6 +161,12 @@ export async function writeTimed(workspaceDir: vscode.WorkspaceFolder, templateP
     createFileWithContent(vscode.Uri.joinPath(workspaceDir.uri, "src", "main", "kotlin", "frc", "robot", "Robot.kt"), parseTemplate(robot, "Robot", "frc.robot", TARGET_GRADLE_RIO_VER))
 }
 
+/**
+ * writeTimedSkeleton creates the necessary directories and files for a Skeleton TimedRobot Kotlin project.
+ *
+ * @param workspaceDir The workspace folder to create the new project in
+ * @param templateProvider The provider to pull templates from
+ */
 export async function writeTimedSkeleton(workspaceDir: vscode.WorkspaceFolder, templateProvider: ITemplateProvider) {
     await vscode.workspace.fs.createDirectory(vscode.Uri.joinPath(workspaceDir.uri, "src", "main", "kotlin", "frc", "robot"))
 
@@ -144,6 +184,15 @@ export async function writeTimedSkeleton(workspaceDir: vscode.WorkspaceFolder, t
     createFileWithContent(vscode.Uri.joinPath(workspaceDir.uri, "src", "main", "kotlin", "frc", "robot", "Robot.kt"), parseTemplate(robot, "Robot", "frc.robot", TARGET_GRADLE_RIO_VER))
 }
 
+/**
+ * nullTemplateCheck displays an error message to the user and throws an error
+ * if it is passed a null value.
+ *
+ * This is meant to be used as a to ensure all templates are actual strings before
+ * trying to create files with them.
+ *
+ * @param target Value to check for null
+ */
 function nullTemplateCheck(target: string | null) {
     if (target === null) {
         vscode.window.showErrorMessage("Kotlin-FRC: Received a null template. Cancelling...")

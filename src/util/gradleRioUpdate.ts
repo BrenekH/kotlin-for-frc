@@ -3,6 +3,13 @@ import * as vscode from "vscode"
 import axios from "axios"
 import { TARGET_GRADLE_RIO_YEAR } from "../constants"
 
+/**
+ * updateGradleRioVersion updates the GradleRIO version in any open workspace folder which is suspected to be a converted
+ * Kotlin-FRC project.
+ *
+ * @param autoUpdateEnabled Whether or not the function should update the GradleRIO version
+ * @param context VSCode extension context
+ */
 export default async function updateGradleRioVersion(autoUpdateEnabled: boolean, context: vscode.ExtensionContext) {
 	if (!autoUpdateEnabled) { return }
 
@@ -41,6 +48,12 @@ export default async function updateGradleRioVersion(autoUpdateEnabled: boolean,
 	})
 }
 
+/**
+ * updateWorkspaceGradleRIOVersion writes a new GradleRIO version to a target workspace's build.gradle file.
+ *
+ * @param newVersion GradleRIO version to write to the build.gradle
+ * @param workspaceDir The workspace folder to find the target build.gradle in
+ */
 async function updateWorkspaceGradleRIOVersion(newVersion: string, workspaceDir: vscode.WorkspaceFolder) {
 	const buildGradle = vscode.Uri.joinPath(workspaceDir.uri, "build.gradle")
 
@@ -52,6 +65,13 @@ async function updateWorkspaceGradleRIOVersion(newVersion: string, workspaceDir:
 	await vscode.workspace.fs.writeFile(buildGradle, Buffer.from(newContents, "utf8"))
 }
 
+/**
+ * getGradleRIOVersionFromWorkspace reads the build.gradle in the provided workspace,
+ * looking for the currently defined GradleRIO version.
+ *
+ * @param workspaceDir The workspace folder to read the GradleRIO version from
+ * @returns The current GradleRIO version, or null if it couldn't be found
+ */
 async function getGradleRIOVersionFromWorkspace(workspaceDir: vscode.WorkspaceFolder): Promise<string | null> {
 	let data: Uint8Array
 	try {
@@ -69,6 +89,13 @@ async function getGradleRIOVersionFromWorkspace(workspaceDir: vscode.WorkspaceFo
 	return currentVerArray[1]
 }
 
+/**
+ * getLatestGradleRioVersion retrieves the latest GradleRIO version for the requested year.
+ *
+ * @param currentYear The year to get the latest version of GradleRIO for
+ * @param context VSCode extension context
+ * @returns The latest known version or undefined if the latest version for the requested year could not be found
+ */
 async function getLatestGradleRioVersion(currentYear: string, context: vscode.ExtensionContext): Promise<string | undefined> {
 	await updateGradleRIOVersionCache(context)
 
@@ -81,6 +108,12 @@ async function getLatestGradleRioVersion(currentYear: string, context: vscode.Ex
 	return JSON.parse(grvCacheValue)[currentYear]
 }
 
+/**
+ * updateGradleRIOVersionCache sends a request to plugins.gradle.org to get the latest version of GradleRIO
+ * a maximum of once per hour, using VSCode global states to cache the data for use at a later time.
+ *
+ * @param context VSCode extension context, used to set global state values
+ */
 async function updateGradleRIOVersionCache(context: vscode.ExtensionContext) {
 	const storedLastUpdate = context.globalState.get("lastGradleRioVersionUpdateTime", 0) as number;
 	const currentTime = Date.now();
@@ -93,6 +126,12 @@ async function updateGradleRIOVersionCache(context: vscode.ExtensionContext) {
 	context.globalState.update("grvCache", JSON.stringify(latestVersions));
 }
 
+/**
+ * getLatestOnlineGradleRioVersions retrieves the latest version of GradleRIO for each year
+ * that it has been published.
+ *
+ * @returns The latest version of GradleRIO for each year
+ */
 async function getLatestOnlineGradleRioVersions(): Promise<{ [key: string]: string }> {
 	const responseString = await getGradleRIOVersionXML();
 
@@ -133,6 +172,11 @@ async function getLatestOnlineGradleRioVersions(): Promise<{ [key: string]: stri
 	return allVersionsLatest;
 }
 
+/**
+ * getGradleRIOVersionXML gets the Maven metadata for the GradleRIO plugin on plugins.gradle.org.
+ *
+ * @returns An XML string, retrieved from plugins.gradle.org
+ */
 async function getGradleRIOVersionXML(): Promise<string> {
 	var response: any;
 	try {

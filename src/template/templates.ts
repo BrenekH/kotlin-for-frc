@@ -1,10 +1,14 @@
-/*
+/**
  * This file was generated using gen_templates.ts.py from the templates directory.
  * Please do not change manually. Instead, modify the template files and then re-generate this file.
-*/
+ */
 
+/**
+ * TemplateStrings is an auto-generated class containing the raw values of the master
+ * .kfftemplate files for use by the IntegratedTemplateProvider.
+ */
 export class TemplateStrings {
-	PIDCommand = `package #{PACKAGE}
+    PIDCommand = `package #{PACKAGE}
 
 import edu.wpi.first.math.controller.PIDController
 import edu.wpi.first.wpilibj2.command.PIDCommand
@@ -33,7 +37,7 @@ class #{NAME} : PIDCommand(
     }
 }
 `
-	PIDSubsystem = `package #{PACKAGE}
+    PIDSubsystem = `package #{PACKAGE}
 
 import edu.wpi.first.math.controller.PIDController
 import edu.wpi.first.wpilibj2.command.PIDSubsystem
@@ -53,12 +57,10 @@ class #{NAME} : PIDSubsystem(
     }
 }
 `
-	buildGradle = `import edu.wpi.first.gradlerio.deploy.roborio.RoboRIO
-
-plugins {
+    buildGradle = `plugins {
     id "java"
     id "edu.wpi.first.GradleRIO" version "#{GRADLE_RIO_VERSION}"
-    id "org.jetbrains.kotlin.jvm" version "1.6.10"
+    id "org.jetbrains.kotlin.jvm" version '1.8.0'
 }
 
 sourceCompatibility = JavaVersion.VERSION_11
@@ -104,7 +106,7 @@ wpi.java.debugJni = false
 def includeDesktopSupport = false
 
 // Defining my dependencies. In this case, WPILib (+ friends), and vendor libraries.
-// Also defines JUnit 4.
+// Also defines JUnit 5.
 dependencies {
     implementation wpi.java.deps.wpilib()
     implementation wpi.java.vendor.java()
@@ -123,8 +125,15 @@ dependencies {
     nativeRelease wpi.java.vendor.jniRelease(wpi.platforms.desktop)
     simulationRelease wpi.sim.enableRelease()
 
-    testImplementation 'junit:junit:4.12'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.4.2'
+    testImplementation 'org.junit.jupiter:junit-jupiter-params:5.4.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.4.2'
     implementation "org.jetbrains.kotlin:kotlin-stdlib"
+}
+
+test {
+    useJUnitPlatform()
+    systemProperty 'junit.jupiter.extensions.autodetection.enabled', 'true'
 }
 
 // Simulation configuration (e.g. environment variables).
@@ -145,23 +154,27 @@ deployArtifact.jarTask = jar
 wpi.java.configureExecutableTasks(jar)
 wpi.java.configureTestTasks(test)
 
+// Configure string concat to always inline compile
+tasks.withType(JavaCompile) {
+    options.compilerArgs.add '-XDstringConcat=inline'
+}
 repositories {
     mavenCentral()
 }
 
 compileKotlin {
     kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = targetCompatibility
     }
 }
 
 compileTestKotlin {
     kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = targetCompatibility
     }
 }
 `
-	command = `package #{PACKAGE}
+    command = `package #{PACKAGE}
 
 import edu.wpi.first.wpilibj2.command.CommandBase
 
@@ -188,57 +201,51 @@ class #{NAME} (): CommandBase() {
     }
 }
 `
-	commandConstants = `package frc.robot
+    commandConstants = `package frc.robot
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
- * constants.  This class should not be used for any other purpose.  All constants should be
- * declared globally (i.e. inside the companion object).  Do not put anything functional in this class.
+ * constants. This class should not be used for any other purpose. All constants should be declared
+ * globally (i.e. inside the companion object). Do not put anything functional in this class.
  *
  *
  * It is advised to statically import this class (or one of its inner classes) wherever the
  * constants are needed, to reduce verbosity.
  */
 class Constants {
-    companion object {
-        // Put constant values inside the companion object to make them globally accessible.
-        // ex. val motorPort: Int = 0
+    object OperatorConstants {
+        const val kDriverControllerPort = 0
     }
 }
 `
-	commandExampleCommand = `package frc.robot.commands
+    commandExampleCommand = `package frc.robot.commands
 
 import edu.wpi.first.wpilibj2.command.CommandBase
 import frc.robot.subsystems.ExampleSubsystem
 
-/**
- * @property subsystem
- */
-class ExampleCommand(private val subsystem: ExampleSubsystem) : CommandBase() {
-    /**
-     * Creates a new ExampleCommand.
-     */
+/** An example command that uses an example subsystem.  */
+class ExampleCommand(subsystem: ExampleSubsystem) : CommandBase() {
     init {
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(subsystem)
     }
 
-    // Called when the command is initially scheduled.
+    /** Called when the command is initially scheduled.  */
     override fun initialize() {}
 
-    // Called every time the scheduler runs while the command is scheduled.
+    /** Called every time the scheduler runs while the command is scheduled.  */
     override fun execute() {}
 
-    // Called once the command ends or is interrupted.
+    /** Called once the command ends or is interrupted.  */
     override fun end(interrupted: Boolean) {}
 
-    // Returns true when the command should end.
+    /** Returns true when the command should end.  */
     override fun isFinished(): Boolean {
         return false
     }
 }
 `
-	commandRobot = `package frc.robot
+    commandRobot = `package frc.robot
 
 import edu.wpi.first.wpilibj.TimedRobot
 import edu.wpi.first.wpilibj2.command.Command
@@ -265,12 +272,12 @@ class Robot : TimedRobot() {
     }
 
     /**
-     * This function is called every robot packet, no matter the mode. Use this for items like
-     * diagnostics that you want ran during disabled, autonomous, teleoperated and test.
+     * This function is called every 20 ms, no matter the mode. Use this for items like diagnostics
+     * that you want ran during disabled, autonomous, teleoperated and test.
      *
      *
-     * This runs after the mode specific periodic functions, but before
-     * LiveWindow and SmartDashboard integrated updating.
+     * This runs after the mode specific periodic functions, but before LiveWindow and
+     * SmartDashboard integrated updating.
      */
     override fun robotPeriodic() {
         // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
@@ -280,19 +287,13 @@ class Robot : TimedRobot() {
         CommandScheduler.getInstance().run()
     }
 
-    /**
-     * This function is called once each time the robot enters Disabled mode.
-     */
-    override fun disabledInit() { }
+    /** This function is called once each time the robot enters Disabled mode.  */
+    override fun disabledInit() {}
 
-    /**
-     * This function is called periodically when disabled.
-     */
-    override fun disabledPeriodic() { }
+    /** This function is called periodically when disabled.  */
+    override fun disabledPeriodic() {}
 
-    /**
-     * This autonomous runs the autonomous command selected by your [RobotContainer] class.
-     */
+    /** This autonomous runs the autonomous command selected by your [RobotContainer] class.  */
     override fun autonomousInit() {
         autonomousCommand = robotContainer?.autonomousCommand
 
@@ -301,14 +302,10 @@ class Robot : TimedRobot() {
         autonomousCommand?.schedule()
     }
 
-    /**
-     * This function is called periodically during autonomous.
-     */
-    override fun autonomousPeriodic() { }
+    /** This function is called periodically during autonomous.  */
+    override fun autonomousPeriodic() {}
 
-    /**
-     * This function is called once when teleop is enabled.
-     */
+    /** This function is called once when teleop is enabled.  */
     override fun teleopInit() {
         // This makes sure that the autonomous stops running when
         // teleop starts running. If you want the autonomous to
@@ -318,26 +315,26 @@ class Robot : TimedRobot() {
         autonomousCommand?.cancel()
     }
 
-    /**
-     * This function is called periodically during operator control.
-     */
-    override fun teleopPeriodic() { }
+    /** This function is called periodically during operator control.  */
+    override fun teleopPeriodic() {}
 
-    /**
-     * This function is called once when test mode is enabled.
-     */
+    /** This function is called once when test mode is enabled.  */
     override fun testInit() {
         // Cancels all running commands at the start of test mode.
         CommandScheduler.getInstance().cancelAll()
     }
 
-    /**
-     * This function is called periodically during test mode.
-     */
-    override fun testPeriodic() { }
+    /** This function is called periodically during test mode.  */
+    override fun testPeriodic() {}
+
+    /** This function is called once when the robot is first started up.  */
+    override fun simulationInit() {}
+
+    /** This function is called periodically whilst in simulation.  */
+    override fun simulationPeriodic() {}
 }
 `
-	emptyClass = `package #{PACKAGE}
+    emptyClass = `package #{PACKAGE}
 
 /**
  * Add your docs here.
@@ -345,7 +342,7 @@ class Robot : TimedRobot() {
 class #{NAME} {
 }
 `
-	instantCommand = `package #{PACKAGE}
+    instantCommand = `package #{PACKAGE}
 
 import edu.wpi.first.wpilibj2.command.InstantCommand
 
@@ -358,7 +355,7 @@ class #{NAME} : InstantCommand() {
     }
 }
 `
-	main = `package frc.robot
+    main = `package frc.robot
 
 import edu.wpi.first.wpilibj.RobotBase
 
@@ -380,7 +377,7 @@ object Main {
     }
 }
 `
-	parallelCommandGroup = `package #{PACKAGE}
+    parallelCommandGroup = `package #{PACKAGE}
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup
 
@@ -398,7 +395,7 @@ class #{NAME} : ParallelCommandGroup() {
     }
 }
 `
-	parallelDeadlineGroup = `package #{PACKAGE}
+    parallelDeadlineGroup = `package #{PACKAGE}
 
 import edu.wpi.first.wpilibj2.command.InstantCommand
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup
@@ -415,7 +412,7 @@ class #{NAME} : ParallelDeadlineGroup(InstantCommand()) {
     }
 }
 `
-	parallelRaceGroup = `package #{PACKAGE}
+    parallelRaceGroup = `package #{PACKAGE}
 
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup
 
@@ -433,7 +430,7 @@ class #{NAME} : ParallelRaceGroup() {
     }
 }
 `
-	profiledPIDCommand = `package #{PACKAGE}
+    profiledPIDCommand = `package #{PACKAGE}
 
 import edu.wpi.first.math.controller.ProfiledPIDController
 import edu.wpi.first.math.trajectory.TrapezoidProfile
@@ -468,7 +465,7 @@ class #{NAME} : ProfiledPIDCommand(
     }
 }
 `
-	profiledPIDSubsystem = `package #{PACKAGE}
+    profiledPIDSubsystem = `package #{PACKAGE}
 
 import edu.wpi.first.math.controller.ProfiledPIDController
 import edu.wpi.first.math.trajectory.TrapezoidProfile
@@ -492,18 +489,17 @@ class #{NAME} : ProfiledPIDSubsystem(
     }
 }
 `
-	robotBaseRobot = `package frc.robot
+    robotBaseRobot = `package frc.robot
 
-import edu.wpi.first.hal.HAL
-import edu.wpi.first.wpilibj.RobotBase
-import edu.wpi.first.wpilibj.livewindow.LiveWindow
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard
+import edu.wpi.first.hal.DriverStationJNI
+import edu.wpi.first.util.WPIUtilJNI
 import edu.wpi.first.wpilibj.DriverStation
+import edu.wpi.first.wpilibj.RobotBase
+import edu.wpi.first.wpilibj.internal.DriverStationModeThread
 
 /**
- * The VM is configured to automatically run this class. If you change the name
- * of this class or the package after creating this project, you must also
- * update the build.gradle file in the project.
+ * The VM is configured to automatically run this class. If you change the name of this class or the
+ * package after creating this project, you must also update the build.gradle file in the project.
  */
 class Robot : RobotBase() {
     fun robotInit() {}
@@ -522,49 +518,68 @@ class Robot : RobotBase() {
     override fun startCompetition() {
         robotInit()
 
+        val modeThread = DriverStationModeThread()
+        val event = WPIUtilJNI.createEvent(false, false)
+        DriverStation.provideRefreshedDataEventHandle(event)
+
         // Tell the DS that the robot is ready to be enabled
-        HAL.observeUserProgramStarting()
+        DriverStationJNI.observeUserProgramStarting()
 
         while (!Thread.currentThread().isInterrupted && !exit) {
             when (true) {
                 isDisabled -> {
-                    DriverStation.inDisabled(true)
+                    modeThread.inDisabled(true)
                     disabled()
-                    DriverStation.inDisabled(false)
+                    modeThread.inDisabled(false)
                     while (isDisabled) {
-                        DriverStation.waitForData()
+                        try {
+                            WPIUtilJNI.waitForObject(event)
+                        } catch (e: InterruptedException) {
+                            Thread.currentThread().interrupt()
+                        }
                     }
                 }
                 isAutonomous -> {
-                    DriverStation.inAutonomous(true)
+                    modeThread.inAutonomous(true)
                     autonomous()
-                    DriverStation.inAutonomous(false)
+                    modeThread.inAutonomous(false)
                     while (isAutonomousEnabled) {
-                        DriverStation.waitForData()
+                        try {
+                            WPIUtilJNI.waitForObject(event)
+                        } catch (e: InterruptedException) {
+                            Thread.currentThread().interrupt()
+                        }
                     }
                 }
                 isTest -> {
-                    LiveWindow.setEnabled(true)
-                    Shuffleboard.enableActuatorWidgets()
-                    DriverStation.inTest(true)
+                    modeThread.inTest(true)
                     test()
-                    DriverStation.inTest(false)
+                    modeThread.inTest(false)
                     while (isTest && isEnabled) {
-                        DriverStation.waitForData()
+                        try {
+                            WPIUtilJNI.waitForObject(event)
+                        } catch (e: InterruptedException) {
+                            Thread.currentThread().interrupt()
+                        }
                     }
-                    LiveWindow.setEnabled(false)
-                    Shuffleboard.disableActuatorWidgets()
                 }
                 else -> {
-                    DriverStation.inTeleop(true)
+                    modeThread.inTeleop(true)
                     teleop()
-                    DriverStation.inTeleop(false)
-                    while (isTeleopEnabled()) {
-                        DriverStation.waitForData()
+                    modeThread.inTeleop(false)
+                    while (isTeleopEnabled) {
+                        try {
+                            WPIUtilJNI.waitForObject(event)
+                        } catch (e: InterruptedException) {
+                            Thread.currentThread().interrupt()
+                        }
                     }
                 }
             }
         }
+
+        DriverStation.removeRefreshedDataEventHandle(event)
+        modeThread.close()
     }
 
     override fun endCompetition() {
@@ -572,37 +587,49 @@ class Robot : RobotBase() {
     }
 }
 `
-	robotContainer = `package frc.robot
+    robotContainer = `package frc.robot
 
 import edu.wpi.first.wpilibj2.command.Command
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController
+import edu.wpi.first.wpilibj2.command.button.Trigger
+import frc.robot.commands.Autos
 import frc.robot.commands.ExampleCommand
 import frc.robot.subsystems.ExampleSubsystem
 
 /**
- * This class is where the bulk of the robot should be declared.  Since Command-based is a
+ * This class is where the bulk of the robot should be declared. Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the [Robot]
- * periodic methods (other than the scheduler calls).  Instead, the structure of the robot
- * (including subsystems, commands, and button mappings) should be declared here.
+ * periodic methods (other than the scheduler calls). Instead, the structure of the robot (including
+ * subsystems, commands, and trigger mappings) should be declared here.
  */
 class RobotContainer {
     // The robot's subsystems and commands are defined here...
     private val exampleSubsystem = ExampleSubsystem()
-    private val autoCommand = ExampleCommand(exampleSubsystem)
 
-    /**
-     * The container for the robot.  Contains subsystems, OI devices, and commands.
-     */
+    // Replace with CommandPS4Controller or CommandJoystick if needed
+    private val driverController = CommandXboxController(Constants.OperatorConstants.kDriverControllerPort)
+
+    /** The container for the robot. Contains subsystems, OI devices, and commands.  */
     init {
-        // Configure the button bindings
-        configureButtonBindings()
+        // Configure the trigger bindings
+        configureBindings()
     }
 
     /**
-     * Use this method to define your button->command mappings.  Buttons can be created by
-     * instantiating a [GenericHID] or one of its subclasses ([ ] or [XboxController]), and then passing it to a
-     * [edu.wpi.first.wpilibj2.command.button.JoystickButton].
+     * Use this method to define your trigger->command mappings. Triggers can be created via the
+     * [Trigger#Trigger(java.util.function.BooleanSupplier)] constructor with an arbitrary
+     * predicate, or via the named factories in [edu.wpi.first.wpilibj2.command.button.CommandGenericHID]'s subclasses for
+     * [CommandXboxController]/[edu.wpi.first.wpilibj2.command.button.CommandPS4Controller] controllers
+     * or [edu.wpi.first.wpilibj2.command.button.CommandJoystick].
      */
-    private fun configureButtonBindings() {}
+    private fun configureBindings() {
+        // Schedule ExampleCommand when exampleCondition changes to true
+        Trigger { exampleSubsystem.exampleCondition() }.onTrue(ExampleCommand(exampleSubsystem))
+
+        // Schedule exampleMethodCommand when the Xbox controller's B button is pressed,
+        // cancelling on release.
+        driverController.b().whileTrue(exampleSubsystem.exampleMethodCommand())
+    }
 
     /**
      * Use this to pass the autonomous command to the main [Robot] class.
@@ -611,12 +638,12 @@ class RobotContainer {
      */
     val autonomousCommand: Command
         get() {
-            // An ExampleCommand will run in autonomous
-            return autoCommand
+            // An example command will be run in autonomous
+            return Autos.exampleAuto(exampleSubsystem)
         }
 }
 `
-	romiBuildGradle = `plugins {
+    romiBuildGradle = `plugins {
     id "java"
     id "edu.wpi.first.GradleRIO" version "#{GRADLE_RIO_VERSION}"
     id "org.jetbrains.kotlin.jvm" version "1.6.10"
@@ -685,7 +712,7 @@ compileTestKotlin {
     }
 }
 `
-	romiCommandConstants = `package frc.robot
+    romiCommandConstants = `package frc.robot
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
@@ -719,7 +746,7 @@ class Constants {
     }
 }
 `
-	romiCommandDrivetrainSubsystem = `package frc.robot.subsystems
+    romiCommandDrivetrainSubsystem = `package frc.robot.subsystems
 
 import edu.wpi.first.wpilibj.Encoder
 import edu.wpi.first.wpilibj.drive.DifferentialDrive
@@ -777,7 +804,7 @@ class RomiDrivetrain : SubsystemBase() {
     }
 }
 `
-	romiCommandExampleCommand = `package frc.robot.commands
+    romiCommandExampleCommand = `package frc.robot.commands
 
 import edu.wpi.first.wpilibj2.command.CommandBase
 import frc.robot.subsystems.RomiDrivetrain
@@ -808,7 +835,7 @@ class ExampleCommand(private val subsystem: RomiDrivetrain) : CommandBase() {
     }
 }
 `
-	romiCommandRobotContainer = `package frc.robot
+    romiCommandRobotContainer = `package frc.robot
 
 import edu.wpi.first.wpilibj2.command.Command
 import frc.robot.commands.ExampleCommand
@@ -852,7 +879,7 @@ class RobotContainer {
         }
 }
 `
-	romiTimedDrivetrain = `package frc.robot
+    romiTimedDrivetrain = `package frc.robot
 
 import edu.wpi.first.wpilibj.Encoder
 import edu.wpi.first.wpilibj.drive.DifferentialDrive
@@ -906,7 +933,7 @@ class RomiDrivetrain {
         get() = Math.PI * WHEEL_DIAMETER_INCH * (rightEncoderCount / COUNTS_PER_REVOLUTION)
 }
 `
-	romiTimedRobot = `package frc.robot
+    romiTimedRobot = `package frc.robot
 
 import edu.wpi.first.wpilibj.TimedRobot
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser
@@ -940,9 +967,9 @@ class Robot : TimedRobot() {
     }
 
     /**
-     * This function is called every robot packet, no matter the mode. Use
-     * this for items like diagnostics that you want ran during disabled,
-     * autonomous, teleoperated and test.
+     * This function is called every 20 ms, no matter the mode. Use this for
+     * items like diagnostics that you want ran during disabled, autonomous,
+     * teleoperated and test.
      *
      *
      * This runs after the mode specific periodic functions, but before
@@ -1014,7 +1041,7 @@ class Robot : TimedRobot() {
     override fun testPeriodic() {}
 }
 `
-	sequentialCommandGroup = `package #{PACKAGE}
+    sequentialCommandGroup = `package #{PACKAGE}
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup
 
@@ -1032,7 +1059,7 @@ class #{NAME} : SequentialCommandGroup() {
     }
 }
 `
-	subsystem = `package #{PACKAGE}
+    subsystem = `package #{PACKAGE}
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase
 
@@ -1046,7 +1073,7 @@ class #{NAME} : SubsystemBase() {
     }
 }
 `
-	timedRobot = `package frc.robot
+    timedRobot = `package frc.robot
 
 import edu.wpi.first.wpilibj.TimedRobot
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser
@@ -1079,9 +1106,9 @@ class Robot : TimedRobot() {
     }
 
     /**
-     * This function is called every robot packet, no matter the mode. Use
-     * this for items like diagnostics that you want ran during disabled,
-     * autonomous, teleoperated and test.
+     * This function is called every 20 ms, no matter the mode. Use this for
+     * items like diagnostics that you want ran during disabled, autonomous,
+     * teleoperated and test.
      *
      *
      * This runs after the mode specific periodic functions, but before
@@ -1150,9 +1177,15 @@ class Robot : TimedRobot() {
      * This function is called periodically during test mode.
      */
     override fun testPeriodic() {}
+
+    /** This function is called once when the robot is first started up. */
+    override fun simulationInit() {}
+
+    /** This function is called periodically whilst in simulation. */
+    override fun simulationPeriodic() {}
 }
 `
-	timedSkeletonRobot = `package frc.robot
+    timedSkeletonRobot = `package frc.robot
 
 import edu.wpi.first.wpilibj.TimedRobot
 
@@ -1189,7 +1222,7 @@ class Robot : TimedRobot() {
     override fun testPeriodic() {}
 }
 `
-	trapezoidProfileCommand = `package #{PACKAGE}
+    trapezoidProfileCommand = `package #{PACKAGE}
 
 import edu.wpi.first.math.trajectory.TrapezoidProfile
 import edu.wpi.first.wpilibj2.command.TrapezoidProfileCommand
@@ -1212,7 +1245,7 @@ class #{NAME} : TrapezoidProfileCommand(
         }}
     )
 `
-	trapezoidProfileSubsystem = `package #{PACKAGE}
+    trapezoidProfileSubsystem = `package #{PACKAGE}
 
 import edu.wpi.first.math.trajectory.TrapezoidProfile
 import edu.wpi.first.wpilibj2.command.TrapezoidProfileSubsystem
@@ -1226,6 +1259,62 @@ class #{NAME} : TrapezoidProfileSubsystem(
 
     override fun useState(state: TrapezoidProfile.State) {
         // Use the computed profile state here.
+    }
+}
+`
+    exampleSubsystem = `package frc.robot.subsystems
+
+import edu.wpi.first.wpilibj2.command.CommandBase
+import edu.wpi.first.wpilibj2.command.SubsystemBase
+
+/** Creates a new ExampleSubsystem.  */
+class ExampleSubsystem : SubsystemBase() {
+    /**
+     * Example command factory method.
+     *
+     * @return a command
+     */
+    fun exampleMethodCommand(): CommandBase {
+        // Inline construction of command goes here.
+        // runOnce implicitly requires this subsystem.
+        return runOnce {}
+    }
+
+    /**
+     * An example method querying a boolean state of the subsystem (for example, a digital sensor).
+     *
+     * @return value of some boolean subsystem state, such as a digital sensor.
+     */
+    fun exampleCondition(): Boolean {
+        // Query some boolean state, such as a digital sensor.
+        return false
+    }
+
+    /** This method will be called once per scheduler run  */
+    override fun periodic() {
+    }
+
+    /** This method will be called once per scheduler run during simulation  */
+    override fun simulationPeriodic() {
+    }
+}
+`
+    commandAutos = `package frc.robot.commands
+
+import edu.wpi.first.wpilibj2.command.CommandBase
+import edu.wpi.first.wpilibj2.command.Commands
+import frc.robot.subsystems.ExampleSubsystem
+
+class Autos private constructor() {
+    init {
+        throw UnsupportedOperationException("This is a utility class!")
+    }
+
+    companion object {
+        /** Example static factory for an autonomous command.  */
+        fun exampleAuto(subsystem: ExampleSubsystem): CommandBase {
+            return Commands.sequence(subsystem.exampleMethodCommand(), ExampleCommand(subsystem))
+        }
     }
 }
 `

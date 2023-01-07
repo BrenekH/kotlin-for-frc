@@ -7,6 +7,11 @@ import { displayChangelog } from "./util/changelog";
 import updateGradleRioVersion from "./util/gradleRioUpdate";
 import { addCurrentWorkspaceDirsToAggregator, alertForMissingWPILibExt, setIsKFFProject } from "./util/util";
 
+/**
+ * activate is the first function to be run by theVSCode Extension Host when the extension is loaded.
+ *
+ * @param context The extension context passed to the extension by the Extension Host.
+ */
 export async function activate(context: vscode.ExtensionContext) {
 	// Setup
 	setIsKFFProject()
@@ -43,4 +48,8 @@ export async function activate(context: vscode.ExtensionContext) {
 	displayChangelog(showChangelogOnUpdate, context)
 }
 
+/**
+ * deactivate is run by the VSCode Extension Host at the end of the extension's life cycle.
+ * It is intended to clean up any remaining resources.
+ */
 export function deactivate() { }
