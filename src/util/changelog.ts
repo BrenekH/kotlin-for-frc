@@ -53,6 +53,12 @@ const webviewContent = `<!DOCTYPE html>
 </head>
 <body>
     <h1>Kotlin for FRC Changelog</h1>
+    <h2><a href="https://github.com/BrenekH/kotlin-for-frc/releases/2023.1.2">2023.1.2</a></h2>
+    <p><strong>Implemented enhancements:</strong></p>
+    <ul>
+        <li>Fix deployment issues caused by SVGs in the README</li>
+    </ul>
+
     <h2><a href="https://github.com/BrenekH/kotlin-for-frc/releases/2023.1.1">2023.1.1</a></h2>
     <p><strong>Implemented enhancements:</strong></p>
     <ul>
