@@ -53,23 +53,14 @@ const webviewContent = `<!DOCTYPE html>
 </head>
 <body>
     <h1>Kotlin for FRC Changelog</h1>
-    <h2><a href="https://github.com/BrenekH/kotlin-for-frc/releases/2022.10.1">2022.10.1</a></h2>
+    <h2><a href="https://github.com/BrenekH/kotlin-for-frc/releases/2023.1.1">2023.1.1</a></h2>
     <p><strong>Implemented enhancements:</strong></p>
     <ul>
         <li>
-            <p>Automatically publish builds to <a href="https://open-vsx.org/extension/Brenek/kotlin-for-frc">open-vsx.org</a></p>
+            <p>Update templates for 2023 season</p>
         </li>
         <li>
-            <p>Put <code>wpilibsuite.vscode-wpilib</code> and <code>Brenek.kotlin-for-frc</code> in <code>.vscode/extensions.json</code> as recommended extensions</p>
-        </li>
-        <li>
-            <p>Updated logo to match the new Kotlin logo</p>
-        </li>
-        <li>
-            <p>Switch to <code>@vscode/test-electron</code> testing package (thanks <a href="https://github.com/anuragh2002">@anuragh2002</a>)</p>
-        </li>
-        <li>
-            <p>New shorter extension description</p>
+            <p>Change target GradleRIO version and year to 2023</p>
         </li>
     </ul>
 </body>
