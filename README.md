@@ -1,8 +1,5 @@
 # Kotlin for FIRST Robotics Competition
 
-[![Node.js CI](https://github.com/BrenekH/kotlin-for-frc/workflows/Node.js%20CI/badge.svg?branch=master&event=push)](https://github.com/BrenekH/kotlin-for-frc/actions)
-[![Ratings](https://vsmarketplacebadge.apphb.com/rating/brenek.kotlin-for-frc.svg)](https://marketplace.visualstudio.com/items?itemName=brenek.kotlin-for-frc)
-
 Kotlin for FRC is an unofficial companion extension to the WPILib extension. It adds various support features so that FRC teams can program effectively in Kotlin using Visual Studio Code.
 
 ## Features
