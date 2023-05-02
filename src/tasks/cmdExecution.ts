@@ -9,9 +9,13 @@ import * as vscode from "vscode";
  * @param workspaceFolder Workspace folder to run the command in
  */
 export function executeCommand(cmd: string, name: string, workspaceFolder: vscode.WorkspaceFolder) {
-	const execution = new vscode.ShellExecution(cmd);
+	const execution = new vscode.ShellExecution(cmd, { cwd: workspaceFolder.uri.fsPath });
 
 	if (process.platform === "win32") {
+		if (cmd.startsWith("./")) {
+			cmd = cmd.substring(2);
+		}
+		execution.commandLine = cmd;
 		if (execution.options !== undefined) {
 			execution.options.executable = "cmd.exe";
 			execution.options.shellArgs = ["/d", "/c"];

@@ -24,18 +24,6 @@ export async function alertForMissingWPILibExt() {
 }
 
 /**
- * Return the correct Gradle wrapper for the current platform
- *
- * @returns string file path to the wrapper script
- */
-export function getPlatformGradlew(): string {
-    if (process.platform === "win32") {
-        return ".\\gradlew.bat";
-    }
-    return "./gradlew";
-}
-
-/**
  * Get the currently set java home with the gradle syntax prepended.
  *
  * @returns Gradle arguments that specifically denote a JAVA_HOME

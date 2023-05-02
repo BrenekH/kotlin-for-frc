@@ -208,7 +208,7 @@ export function simulateFRCKotlinCode(cmdExecutor: ICommandExecutor): (...args: 
 			workspaceDir = temp
 		}
 
-		cmdExecutor.execute(`${getPlatformGradlew()} simulateJava ${getJavaHomeGradleArg()}`, SIMULATE_CODE_TASK_NAME, workspaceDir)
+		cmdExecutor.execute(`./gradlew simulateJava ${getJavaHomeGradleArg()}`, SIMULATE_CODE_TASK_NAME, workspaceDir)
 	}
 }
 
