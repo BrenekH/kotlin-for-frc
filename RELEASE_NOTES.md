@@ -1,15 +1,7 @@
 # Kotlin for FRC Changelog
 
-## [2023.1.2](https://github.com/BrenekH/kotlin-for-frc/releases/2023.1.2)
+## [2023.5.1](https://github.com/BrenekH/kotlin-for-frc/releases/2023.5.1)
 
-**Implemented enhancements:**
+**Fixed Bugs:**
 
-- Fix deployment issues caused by SVGs in the README
-
-## [2023.1.1](https://github.com/BrenekH/kotlin-for-frc/releases/2023.1.1)
-
-**Implemented enhancements:**
-
-- Update templates for 2023 season
-
-- Change target GradleRIO version and year to 2023
+- Fix simulate command on Windows ([#145](https://github.com/BrenekH/kotlin-for-frc/issues/145)
