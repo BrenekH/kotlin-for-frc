@@ -4,7 +4,7 @@ import { executeCommand } from "../tasks/cmdExecution"
 import { ITemplateProvider } from "../template/models"
 import { showChangelog } from "../util/changelog"
 import updateGradleRioVersion from "../util/gradleRioUpdate"
-import { getJavaHomeGradleArg, getPlatformGradlew } from "../util/util"
+import { getJavaHomeGradleArg, } from "../util/util"
 import { writeCommandTemplate, writeRobotBaseSkeleton, writeRomiCommand, writeRomiTimed, writeTimed, writeTimedSkeleton } from "./conversion"
 import { RobotType } from "./models"
 import { createFileWithContent, determineRobotType, parseTemplate } from "./util"
@@ -208,7 +208,7 @@ export function simulateFRCKotlinCode(cmdExecutor: ICommandExecutor): (...args: 
 			workspaceDir = temp
 		}
 
-		cmdExecutor.execute(`${getPlatformGradlew()} simulateJava ${getJavaHomeGradleArg()}`, SIMULATE_CODE_TASK_NAME, workspaceDir)
+		cmdExecutor.execute(`./gradlew simulateJava ${getJavaHomeGradleArg()}`, SIMULATE_CODE_TASK_NAME, workspaceDir)
 	}
 }
 
