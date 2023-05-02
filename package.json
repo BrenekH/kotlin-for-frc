@@ -2,7 +2,7 @@
   "name": "kotlin-for-frc",
   "displayName": "Kotlin for FRC",
   "description": "Kotlin support for WPILib, unofficially",
-  "version": "2023.1.2",
+  "version": "2023.5.1",
   "publisher": "Brenek",
   "engines": {
     "vscode": "^1.56.0"
