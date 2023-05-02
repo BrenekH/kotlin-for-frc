@@ -10,6 +10,14 @@ import * as vscode from "vscode";
  */
 export function executeCommand(cmd: string, name: string, workspaceFolder: vscode.WorkspaceFolder) {
 	const execution = new vscode.ShellExecution(cmd);
+
+	if (process.platform === "win32") {
+		if (execution.options !== undefined) {
+			execution.options.executable = "cmd.exe";
+			execution.options.shellArgs = ["/d", "/c"];
+		}
+	}
+
 	const task = new vscode.Task({ type: "kffshell" }, workspaceFolder, name, "Kotlin-FRC", execution);
 	vscode.tasks.executeTask(task);
 }
