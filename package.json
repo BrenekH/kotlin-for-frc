@@ -161,7 +161,7 @@
   },
   "dependencies": {
     "axios": "^0.27.2",
-    "semver": "^7.3.7"
+    "semver": "^7.5.2"
   },
   "extensionDependencies": [],
   "repository": {
