@@ -5,7 +5,7 @@
   "version": "2023.5.1",
   "publisher": "Brenek",
   "engines": {
-    "vscode": "^1.56.0"
+    "vscode": "^1.66.0"
   },
   "categories": [
     "Other"
@@ -144,7 +144,7 @@
     "@types/mocha": "^10.0.4",
     "@types/node": "^16.11.7",
     "@types/semver": "^7.5.5",
-    "@types/vscode": "1.56.0",
+    "@types/vscode": "1.66.0",
     "@typescript-eslint/eslint-plugin": "^6.10.0",
     "@typescript-eslint/parser": "^6.10.0",
     "eslint": "^8.53.0",
