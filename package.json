@@ -160,7 +160,7 @@
     "webpack-cli": "^4.10.0"
   },
   "dependencies": {
-    "axios": "^0.27.2",
+    "axios": "^1.6.0",
     "semver": "^7.5.2"
   },
   "extensionDependencies": [],
