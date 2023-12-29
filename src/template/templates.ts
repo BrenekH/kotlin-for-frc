@@ -201,6 +201,25 @@ class #{NAME} (): CommandBase() {
     }
 }
 `
+    commandAutos = `package frc.robot.commands
+
+import edu.wpi.first.wpilibj2.command.CommandBase
+import edu.wpi.first.wpilibj2.command.Commands
+import frc.robot.subsystems.ExampleSubsystem
+
+class Autos private constructor() {
+    init {
+        throw UnsupportedOperationException("This is a utility class!")
+    }
+
+    companion object {
+        /** Example static factory for an autonomous command.  */
+        fun exampleAuto(subsystem: ExampleSubsystem): CommandBase {
+            return Commands.sequence(subsystem.exampleMethodCommand(), ExampleCommand(subsystem))
+        }
+    }
+}
+`
     commandConstants = `package frc.robot
 
 /**
@@ -342,6 +361,43 @@ class Robot : TimedRobot() {
 class #{NAME} {
 }
 `
+    exampleSubsystem = `package frc.robot.subsystems
+
+import edu.wpi.first.wpilibj2.command.CommandBase
+import edu.wpi.first.wpilibj2.command.SubsystemBase
+
+/** Creates a new ExampleSubsystem.  */
+class ExampleSubsystem : SubsystemBase() {
+    /**
+     * Example command factory method.
+     *
+     * @return a command
+     */
+    fun exampleMethodCommand(): CommandBase {
+        // Inline construction of command goes here.
+        // runOnce implicitly requires this subsystem.
+        return runOnce {}
+    }
+
+    /**
+     * An example method querying a boolean state of the subsystem (for example, a digital sensor).
+     *
+     * @return value of some boolean subsystem state, such as a digital sensor.
+     */
+    fun exampleCondition(): Boolean {
+        // Query some boolean state, such as a digital sensor.
+        return false
+    }
+
+    /** This method will be called once per scheduler run  */
+    override fun periodic() {
+    }
+
+    /** This method will be called once per scheduler run during simulation  */
+    override fun simulationPeriodic() {
+    }
+}
+`
     instantCommand = `package #{PACKAGE}
 
 import edu.wpi.first.wpilibj2.command.InstantCommand
@@ -352,28 +408,6 @@ import edu.wpi.first.wpilibj2.command.InstantCommand
 class #{NAME} : InstantCommand() {
     // Called when the command is initially scheduled.
     override fun initialize() {
-    }
-}
-`
-    main = `package frc.robot
-
-import edu.wpi.first.wpilibj.RobotBase
-
-/**
- * Do NOT add any static variables to this class, or any initialization at all.
- * Unless you know what you are doing, do not modify this file except to
- * change the parameter class to the startRobot call.
- */
-object Main {
-    /**
-     * Main initialization function. Do not perform any initialization here.
-     *
-     *
-     * If you change your main robot class, change the parameter type.
-     */
-    @JvmStatic
-    fun main(args: Array<String>) {
-        RobotBase.startRobot { Robot() }
     }
 }
 `
@@ -1262,58 +1296,29 @@ class #{NAME} : TrapezoidProfileSubsystem(
     }
 }
 `
-    exampleSubsystem = `package frc.robot.subsystems
+    main = `package frc.robot
 
-import edu.wpi.first.wpilibj2.command.CommandBase
-import edu.wpi.first.wpilibj2.command.SubsystemBase
+import edu.wpi.first.hal.FRCNetComm
+import edu.wpi.first.hal.HAL
+import edu.wpi.first.wpilibj.RobotBase
 
-/** Creates a new ExampleSubsystem.  */
-class ExampleSubsystem : SubsystemBase() {
+/**
+ * Do NOT add any static variables to this class, or any initialization at all.
+ * Unless you know what you are doing, do not modify this file except to
+ * change the parameter class to the startRobot call.
+ */
+object Main {
     /**
-     * Example command factory method.
+     * Main initialization function. Do not perform any initialization here.
      *
-     * @return a command
-     */
-    fun exampleMethodCommand(): CommandBase {
-        // Inline construction of command goes here.
-        // runOnce implicitly requires this subsystem.
-        return runOnce {}
-    }
-
-    /**
-     * An example method querying a boolean state of the subsystem (for example, a digital sensor).
      *
-     * @return value of some boolean subsystem state, such as a digital sensor.
+     * If you change your main robot class, change the parameter type.
      */
-    fun exampleCondition(): Boolean {
-        // Query some boolean state, such as a digital sensor.
-        return false
-    }
-
-    /** This method will be called once per scheduler run  */
-    override fun periodic() {
-    }
-
-    /** This method will be called once per scheduler run during simulation  */
-    override fun simulationPeriodic() {
-    }
-}
-`
-    commandAutos = `package frc.robot.commands
-
-import edu.wpi.first.wpilibj2.command.CommandBase
-import edu.wpi.first.wpilibj2.command.Commands
-import frc.robot.subsystems.ExampleSubsystem
-
-class Autos private constructor() {
-    init {
-        throw UnsupportedOperationException("This is a utility class!")
-    }
-
-    companion object {
-        /** Example static factory for an autonomous command.  */
-        fun exampleAuto(subsystem: ExampleSubsystem): CommandBase {
-            return Commands.sequence(subsystem.exampleMethodCommand(), ExampleCommand(subsystem))
+    @JvmStatic
+    fun main(args: Array<String>) {
+        RobotBase.startRobot {
+            HAL.report(FRCNetComm.tResourceType.kResourceType_Language, FRCNetComm.tInstances.kLanguage_Kotlin)
+            Robot()
         }
     }
 }
