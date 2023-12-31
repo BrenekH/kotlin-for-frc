@@ -1,10 +1,10 @@
 package frc.robot.commands
 
-import edu.wpi.first.wpilibj2.command.CommandBase
+import edu.wpi.first.wpilibj2.command.Command
 import frc.robot.subsystems.ExampleSubsystem
 
 /** An example command that uses an example subsystem.  */
-class ExampleCommand(subsystem: ExampleSubsystem) : CommandBase() {
+class ExampleCommand(subsystem: ExampleSubsystem) : Command() {
     init {
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(subsystem)

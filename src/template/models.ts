@@ -40,6 +40,10 @@ export enum TemplateType {
     PIDSubsystem = "PID Subsystem",
     profiledPIDSubsystem = "Profiled PID Subsystem",
     trapezoidProfileSubsystem = "Trapezoid Profile Subsystem",
+    // Skeleton
+    commandSkeletonRobot = "Command Based Skeleton Robot",
+    commandSkeletonRobotContainer = "Command Based Skeleton Robot Container",
+
 
     // Romi
     romiTimedRobot = "Romi Timed Robot",
