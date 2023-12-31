@@ -5,7 +5,7 @@ import { ITemplateProvider } from "../template/models"
 import { showChangelog } from "../util/changelog"
 import updateGradleRioVersion from "../util/gradleRioUpdate"
 import { getJavaHomeGradleArg, } from "../util/util"
-import { writeCommandTemplate, writeRobotBaseSkeleton, writeRomiCommand, writeRomiTimed, writeTimed, writeTimedSkeleton } from "./conversion"
+import { writeCommandBased, writeRomiCommandBased, writeRomiTimed, writeTimed, writeTimedSkeleton } from "./conversion"
 import { RobotType } from "./models"
 import { createFileWithContent, determineRobotType, parseTemplate } from "./util"
 import { TemplateType } from "../template/models"
@@ -80,13 +80,10 @@ export async function registerCommands(context: vscode.ExtensionContext, templat
 		// Add new files with parsed template contents
 		switch (projectRobotType) {
 			case RobotType.command:
-				writeCommandTemplate(workspaceDir, templateProvider)
-				break
-			case RobotType.robotBaseSkeleton:
-				writeRobotBaseSkeleton(workspaceDir, templateProvider)
+				writeCommandBased(workspaceDir, templateProvider)
 				break
 			case RobotType.romiCommand:
-				writeRomiCommand(workspaceDir, templateProvider)
+				writeRomiCommandBased(workspaceDir, templateProvider)
 				break
 			case RobotType.romiTimed:
 				writeRomiTimed(workspaceDir, templateProvider)

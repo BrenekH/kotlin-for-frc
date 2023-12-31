@@ -32,8 +32,6 @@ export function determineRobotType(robotJava: string, buildGradle: string): Robo
 		else {
 			currentRobotType = RobotType.timedSkeleton
 		}
-	} else if (robotJava.includes(ROBOT_BASE_SKELE_SEARCH_TERM)) {
-		currentRobotType = RobotType.robotBaseSkeleton
 	}
 
 	return currentRobotType

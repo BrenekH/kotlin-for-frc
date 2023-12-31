@@ -32,12 +32,6 @@ suite("Determine Robot Type", function () {
 
 		assert.strictEqual(result, RobotType.romiTimed)
 	})
-
-	test("Robot base skeleton", function () {
-		let result = determineRobotType("edu.wpi.first.hal.HAL", "")
-
-		assert.strictEqual(result, RobotType.robotBaseSkeleton)
-	})
 })
 
 suite("Parse Template", function () {
