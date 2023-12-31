@@ -2,7 +2,7 @@ import * as vscode from "vscode"
 import { RobotType } from "./models"
 import {
 	CMD_ROBOT_SEARCH_TERM, TIMED_ROBOT_USED_SEARCH_TERM, TIMED_ROBOT_SEARCH_TERM,
-	ROBOT_BASE_SKELE_SEARCH_TERM, ROMI_CMD_VARIANT_SEARCH_TERM, ROMI_TIMED_VARIANT_SEARCH_TERM
+	ROMI_CMD_VARIANT_SEARCH_TERM, ROMI_TIMED_VARIANT_SEARCH_TERM
 } from "../constants"
 
 /**
@@ -13,6 +13,8 @@ import {
  * @returns The determined RobotType of the project
  */
 export function determineRobotType(robotJava: string, buildGradle: string): RobotType {
+	// TODO: Add support for command based skeleton
+
 	let currentRobotType: RobotType = RobotType.timed
 
 	if (robotJava.includes(CMD_ROBOT_SEARCH_TERM)) {

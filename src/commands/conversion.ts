@@ -48,6 +48,33 @@ export async function writeCommandBased(workspaceDir: vscode.WorkspaceFolder, te
 }
 
 /**
+ * writeCommandBasedSkeleton creates the necessary directories and files for a Command-based skeleton Kotlin project.
+ *
+ * @param workspaceDir The workspace folder to create the new project in
+ * @param templateProvider The provider to pull templates from
+ */
+export async function writeCommandBasedSkeleton(workspaceDir: vscode.WorkspaceFolder, templateProvider: ITemplateProvider) {
+    await vscode.workspace.fs.createDirectory(vscode.Uri.joinPath(workspaceDir.uri, "src", "main", "kotlin", "frc", "robot"))
+
+    const buildGradle = await templateProvider.getTemplate(TemplateType.buildGradle, workspaceDir.uri) as string
+    nullTemplateCheck(buildGradle)
+
+    const main = await templateProvider.getTemplate(TemplateType.main, workspaceDir.uri) as string
+    nullTemplateCheck(main)
+
+    const robot = await templateProvider.getTemplate(TemplateType.commandSkeletonRobot, workspaceDir.uri) as string
+    nullTemplateCheck(robot)
+
+    const robotContainer = await templateProvider.getTemplate(TemplateType.commandSkeletonRobotContainer, workspaceDir.uri) as string
+    nullTemplateCheck(robotContainer)
+
+    createFileWithContent(vscode.Uri.joinPath(workspaceDir.uri, "build.gradle"), parseTemplate(buildGradle, "", "", TARGET_GRADLE_RIO_VER))
+    createFileWithContent(vscode.Uri.joinPath(workspaceDir.uri, "src", "main", "kotlin", "frc", "robot", "Main.kt"), parseTemplate(main, "Main", "frc.robot", TARGET_GRADLE_RIO_VER))
+    createFileWithContent(vscode.Uri.joinPath(workspaceDir.uri, "src", "main", "kotlin", "frc", "robot", "Robot.kt"), parseTemplate(robot, "Robot", "frc.robot", TARGET_GRADLE_RIO_VER))
+    createFileWithContent(vscode.Uri.joinPath(workspaceDir.uri, "src", "main", "kotlin", "frc", "robot", "RobotContainer.kt"), parseTemplate(robotContainer, "RobotContainer", "frc.robot", TARGET_GRADLE_RIO_VER))
+}
+
+/**
  * writeRomiCommand creates the necessary directories and files for a Romi Command-based Kotlin project.
  *
  * @param workspaceDir The workspace folder to create the new project in

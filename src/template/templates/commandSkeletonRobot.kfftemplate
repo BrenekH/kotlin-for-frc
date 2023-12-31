@@ -1,0 +1,48 @@
+package frc.robot
+
+import edu.wpi.first.wpilibj.TimedRobot
+
+class Robot : TimedRobot() {
+    private var autonomousCommand: Command? = null
+    private var robotContainer: RobotContainer? = null
+
+    fun robotInit() {
+        robotContainer = RobotContainer()
+    }
+
+    fun robotPeriodic() {
+        CommandScheduler.getInstance().run()
+    }
+
+    fun disabledInit() {}
+
+    fun disabledPeriodic() {}
+
+    fun disabledExit() {}
+
+    fun autonomousInit() {
+        autonomousCommand = robotContainer?.autonomousCommand
+
+        autonomousCommand?.schedule()
+    }
+
+    fun autonomousPeriodic() {}
+
+    fun autonomousExit() {}
+
+    fun teleopInit() {
+        autonomousCommand?.cancel()
+    }
+
+    fun teleopPeriodic() {}
+
+    fun teleopExit() {}
+
+    fun testInit() {
+        CommandScheduler.getInstance().cancelAll()
+    }
+
+    fun testPeriodic() {}
+
+    fun testExit() {}
+}

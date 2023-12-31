@@ -3,6 +3,7 @@
  */
 export enum RobotType {
 	command = "command",
+	commandSkeleton = "command_skeleton",
 	romiCommand = "romi_command",
 	romiTimed = "romi_timed",
 	timed = "timed",
