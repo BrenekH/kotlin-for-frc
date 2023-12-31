@@ -1,48 +1,50 @@
 package frc.robot
 
+import edu.wpi.first.wpilibj2.command.Command
+import edu.wpi.first.wpilibj2.command.CommandScheduler
 import edu.wpi.first.wpilibj.TimedRobot
 
 class Robot : TimedRobot() {
     private var autonomousCommand: Command? = null
     private var robotContainer: RobotContainer? = null
 
-    fun robotInit() {
+    override fun robotInit() {
         robotContainer = RobotContainer()
     }
 
-    fun robotPeriodic() {
+    override fun robotPeriodic() {
         CommandScheduler.getInstance().run()
     }
 
-    fun disabledInit() {}
+    override fun disabledInit() {}
 
-    fun disabledPeriodic() {}
+    override fun disabledPeriodic() {}
 
-    fun disabledExit() {}
+    override fun disabledExit() {}
 
-    fun autonomousInit() {
+    override fun autonomousInit() {
         autonomousCommand = robotContainer?.autonomousCommand
 
         autonomousCommand?.schedule()
     }
 
-    fun autonomousPeriodic() {}
+    override fun autonomousPeriodic() {}
 
-    fun autonomousExit() {}
+    override fun autonomousExit() {}
 
-    fun teleopInit() {
+    override fun teleopInit() {
         autonomousCommand?.cancel()
     }
 
-    fun teleopPeriodic() {}
+    override fun teleopPeriodic() {}
 
-    fun teleopExit() {}
+    override fun teleopExit() {}
 
-    fun testInit() {
+    override fun testInit() {
         CommandScheduler.getInstance().cancelAll()
     }
 
-    fun testPeriodic() {}
+    override fun testPeriodic() {}
 
-    fun testExit() {}
+    override fun testExit() {}
 }
