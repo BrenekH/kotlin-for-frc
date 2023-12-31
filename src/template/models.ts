@@ -111,6 +111,11 @@ export function parseStringToTemplateType(input: string): TemplateType {
             return TemplateType.profiledPIDSubsystem
         case "trapezoidProfileSubsystem":
             return TemplateType.trapezoidProfileSubsystem
+        // Skeleton
+        case "commandSkeletonRobot":
+            return TemplateType.commandSkeletonRobot
+        case "commandSkeletonRobotContainer":
+            return TemplateType.commandSkeletonRobotContainer
 
         // Misc
         case "buildGradle":
