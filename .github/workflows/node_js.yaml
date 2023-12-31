@@ -8,7 +8,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [16.x, 18.x, 20.x]
+        node-version: [16.x, 18.x, 20.x, 21.x]
 
     steps:
       - uses: actions/checkout@v3
@@ -36,7 +36,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [16.x, 18.x, 20.x]
+        node-version: [16.x, 18.x, 20.x, 21.x]
 
     steps:
       - uses: actions/checkout@v3
@@ -140,7 +140,7 @@ jobs:
           cache-name: cache-node-modules
         with:
           path: ~/.npm
-          key: ${{ runner.os }}-node14.x-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-node20.x-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
         if: "!(contains(env.PACKAGE_TAG, 'alpha') && !contains(env.PACKAGE_TAG, 'beta') && !contains(env.PACKAGE_TAG, 'rc'))"
 
       - name: Globally Install VSCE
@@ -178,7 +178,7 @@ jobs:
           cache-name: cache-node-modules
         with:
           path: ~/.npm
-          key: ${{ runner.os }}-node14.x-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
+          key: ${{ runner.os }}-node20.x-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
         if: "!(contains(env.PACKAGE_TAG, 'alpha') && !contains(env.PACKAGE_TAG, 'beta') && !contains(env.PACKAGE_TAG, 'rc'))"
 
       - name: Globally Install OVSX
