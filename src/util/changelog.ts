@@ -53,10 +53,12 @@ const webviewContent = `<!DOCTYPE html>
 </head>
 <body>
     <h1>Kotlin for FRC Changelog</h1>
-    <h2><a href="https://github.com/BrenekH/kotlin-for-frc/releases/2023.5.1">2023.5.1</a></h2>
-    <p><strong>Fixed Bugs:</strong></p>
+    <h2><a href="https://github.com/BrenekH/kotlin-for-frc/releases/2024.1.1">2024.1.1</a></h2>
+    <p><strong>Enhancements:</strong></p>
     <ul>
-        <li>Fix simulate command on Windows (<a href="https://github.com/BrenekH/kotlin-for-frc/issues/145">#145</a></li>
+        <li>Update templates for 2024</li>
+        <li>Add Command Based Skeleton template and remove Robot Base template</li>
+        <li>Report projects as Kotlin instead of Java (<a href="https://github.com/BrenekH/kotlin-for-frc/issues/151">#151</a>)</li>
     </ul>
 </body>
 </html>

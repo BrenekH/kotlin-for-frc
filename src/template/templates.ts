@@ -218,33 +218,6 @@ class Constants {
     }
 }
 `
-    commandExampleCommand = `package frc.robot.commands
-
-import edu.wpi.first.wpilibj2.command.CommandBase
-import frc.robot.subsystems.ExampleSubsystem
-
-/** An example command that uses an example subsystem.  */
-class ExampleCommand(subsystem: ExampleSubsystem) : CommandBase() {
-    init {
-        // Use addRequirements() here to declare subsystem dependencies.
-        addRequirements(subsystem)
-    }
-
-    /** Called when the command is initially scheduled.  */
-    override fun initialize() {}
-
-    /** Called every time the scheduler runs while the command is scheduled.  */
-    override fun execute() {}
-
-    /** Called once the command ends or is interrupted.  */
-    override fun end(interrupted: Boolean) {}
-
-    /** Returns true when the command should end.  */
-    override fun isFinished(): Boolean {
-        return false
-    }
-}
-`
     commandRobot = `package frc.robot
 
 import edu.wpi.first.wpilibj.TimedRobot
@@ -352,28 +325,6 @@ import edu.wpi.first.wpilibj2.command.InstantCommand
 class #{NAME} : InstantCommand() {
     // Called when the command is initially scheduled.
     override fun initialize() {
-    }
-}
-`
-    main = `package frc.robot
-
-import edu.wpi.first.wpilibj.RobotBase
-
-/**
- * Do NOT add any static variables to this class, or any initialization at all.
- * Unless you know what you are doing, do not modify this file except to
- * change the parameter class to the startRobot call.
- */
-object Main {
-    /**
-     * Main initialization function. Do not perform any initialization here.
-     *
-     *
-     * If you change your main robot class, change the parameter type.
-     */
-    @JvmStatic
-    fun main(args: Array<String>) {
-        RobotBase.startRobot { Robot() }
     }
 }
 `
@@ -804,37 +755,6 @@ class RomiDrivetrain : SubsystemBase() {
     }
 }
 `
-    romiCommandExampleCommand = `package frc.robot.commands
-
-import edu.wpi.first.wpilibj2.command.CommandBase
-import frc.robot.subsystems.RomiDrivetrain
-
-/**
- * An example command that uses an example subsystem.
- *
- * @property subsystem
- */
-class ExampleCommand(private val subsystem: RomiDrivetrain) : CommandBase() {
-    init {
-        // Use addRequirements() here to declare subsystem dependencies.
-        addRequirements(subsystem)
-    }
-
-    // Called when the command is initially scheduled.
-    override fun initialize() {}
-
-    // Called every time the scheduler runs while the command is scheduled.
-    override fun execute() {}
-
-    // Called once the command ends or is interrupted.
-    override fun end(interrupted: Boolean) {}
-
-    // Returns true when the command should end.
-    override fun isFinished(): Boolean {
-        return false
-    }
-}
-`
     romiCommandRobotContainer = `package frc.robot
 
 import edu.wpi.first.wpilibj2.command.Command
@@ -1262,9 +1182,98 @@ class #{NAME} : TrapezoidProfileSubsystem(
     }
 }
 `
+    main = `package frc.robot
+
+import edu.wpi.first.hal.FRCNetComm
+import edu.wpi.first.hal.HAL
+import edu.wpi.first.wpilibj.RobotBase
+
+/**
+ * Do NOT add any static variables to this class, or any initialization at all.
+ * Unless you know what you are doing, do not modify this file except to
+ * change the parameter class to the startRobot call.
+ */
+object Main {
+    /**
+     * Main initialization function. Do not perform any initialization here.
+     *
+     *
+     * If you change your main robot class, change the parameter type.
+     */
+    @JvmStatic
+    fun main(args: Array<String>) {
+        RobotBase.startRobot {
+            HAL.report(FRCNetComm.tResourceType.kResourceType_Language, FRCNetComm.tInstances.kLanguage_Kotlin)
+            Robot()
+        }
+    }
+}
+`
+    commandAutos = `package frc.robot.commands
+
+import edu.wpi.first.wpilibj2.command.Command
+import edu.wpi.first.wpilibj2.command.Commands
+import frc.robot.subsystems.ExampleSubsystem
+
+class Autos private constructor() {
+    init {
+        throw UnsupportedOperationException("This is a utility class!")
+    }
+
+    companion object {
+        /** Example static factory for an autonomous command.  */
+        fun exampleAuto(subsystem: ExampleSubsystem): Command {
+            return Commands.sequence(subsystem.exampleMethodCommand(), ExampleCommand(subsystem))
+        }
+    }
+}
+`
+    commandExampleCommand = `package frc.robot.commands
+
+import edu.wpi.first.wpilibj2.command.Command
+import frc.robot.subsystems.ExampleSubsystem
+
+/** An example command that uses an example subsystem.  */
+class ExampleCommand(subsystem: ExampleSubsystem) : Command() {
+    init {
+        // Use addRequirements() here to declare subsystem dependencies.
+        addRequirements(subsystem)
+    }
+
+    /** Called when the command is initially scheduled.  */
+    override fun initialize() {}
+
+    /** Called every time the scheduler runs while the command is scheduled.  */
+    override fun execute() {}
+
+    /** Called once the command ends or is interrupted.  */
+    override fun end(interrupted: Boolean) {}
+
+    /** Returns true when the command should end.  */
+    override fun isFinished(): Boolean {
+        return false
+    }
+}
+`
+    commandSkeletonRobotContainer = `package frc.robot
+
+import edu.wpi.first.wpilibj2.command.Command
+import edu.wpi.first.wpilibj2.command.Commands
+
+class RobotContainer {
+    init {
+        configureBindings()
+    }
+
+    private fun configureBindings() {}
+
+    val autonomousCommand: Command
+        get() = Commands.print("No autonomous command configured")
+}
+`
     exampleSubsystem = `package frc.robot.subsystems
 
-import edu.wpi.first.wpilibj2.command.CommandBase
+import edu.wpi.first.wpilibj2.command.Command
 import edu.wpi.first.wpilibj2.command.SubsystemBase
 
 /** Creates a new ExampleSubsystem.  */
@@ -1274,7 +1283,7 @@ class ExampleSubsystem : SubsystemBase() {
      *
      * @return a command
      */
-    fun exampleMethodCommand(): CommandBase {
+    fun exampleMethodCommand(): Command {
         // Inline construction of command goes here.
         // runOnce implicitly requires this subsystem.
         return runOnce {}
@@ -1299,23 +1308,86 @@ class ExampleSubsystem : SubsystemBase() {
     }
 }
 `
-    commandAutos = `package frc.robot.commands
+    romiCommandExampleCommand = `package frc.robot.commands
 
-import edu.wpi.first.wpilibj2.command.CommandBase
-import edu.wpi.first.wpilibj2.command.Commands
-import frc.robot.subsystems.ExampleSubsystem
+import edu.wpi.first.wpilibj2.command.Command
+import frc.robot.subsystems.RomiDrivetrain
 
-class Autos private constructor() {
+/**
+ * An example command that uses an example subsystem.
+ *
+ * @property subsystem
+ */
+class ExampleCommand(private val subsystem: RomiDrivetrain) : Command() {
     init {
-        throw UnsupportedOperationException("This is a utility class!")
+        // Use addRequirements() here to declare subsystem dependencies.
+        addRequirements(subsystem)
     }
 
-    companion object {
-        /** Example static factory for an autonomous command.  */
-        fun exampleAuto(subsystem: ExampleSubsystem): CommandBase {
-            return Commands.sequence(subsystem.exampleMethodCommand(), ExampleCommand(subsystem))
-        }
+    // Called when the command is initially scheduled.
+    override fun initialize() {}
+
+    // Called every time the scheduler runs while the command is scheduled.
+    override fun execute() {}
+
+    // Called once the command ends or is interrupted.
+    override fun end(interrupted: Boolean) {}
+
+    // Returns true when the command should end.
+    override fun isFinished(): Boolean {
+        return false
     }
+}
+`
+    commandSkeletonRobot = `package frc.robot
+
+import edu.wpi.first.wpilibj2.command.Command
+import edu.wpi.first.wpilibj2.command.CommandScheduler
+import edu.wpi.first.wpilibj.TimedRobot
+
+class Robot : TimedRobot() {
+    private var autonomousCommand: Command? = null
+    private var robotContainer: RobotContainer? = null
+
+    override fun robotInit() {
+        robotContainer = RobotContainer()
+    }
+
+    override fun robotPeriodic() {
+        CommandScheduler.getInstance().run()
+    }
+
+    override fun disabledInit() {}
+
+    override fun disabledPeriodic() {}
+
+    override fun disabledExit() {}
+
+    override fun autonomousInit() {
+        autonomousCommand = robotContainer?.autonomousCommand
+
+        autonomousCommand?.schedule()
+    }
+
+    override fun autonomousPeriodic() {}
+
+    override fun autonomousExit() {}
+
+    override fun teleopInit() {
+        autonomousCommand?.cancel()
+    }
+
+    override fun teleopPeriodic() {}
+
+    override fun teleopExit() {}
+
+    override fun testInit() {
+        CommandScheduler.getInstance().cancelAll()
+    }
+
+    override fun testPeriodic() {}
+
+    override fun testExit() {}
 }
 `
 }

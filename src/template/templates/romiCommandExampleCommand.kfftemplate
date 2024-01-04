@@ -1,6 +1,6 @@
 package frc.robot.commands
 
-import edu.wpi.first.wpilibj2.command.CommandBase
+import edu.wpi.first.wpilibj2.command.Command
 import frc.robot.subsystems.RomiDrivetrain
 
 /**
@@ -8,7 +8,7 @@ import frc.robot.subsystems.RomiDrivetrain
  *
  * @property subsystem
  */
-class ExampleCommand(private val subsystem: RomiDrivetrain) : CommandBase() {
+class ExampleCommand(private val subsystem: RomiDrivetrain) : Command() {
     init {
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(subsystem)

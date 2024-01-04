@@ -4,7 +4,7 @@ import { determineRobotType, parseTemplate } from "../../../commands/util"
 
 suite("Determine Robot Type", function () {
 	test("Command based", function () {
-		let result = determineRobotType("edu.wpi.first.wpilibj2.command.Command", "")
+		let result = determineRobotType("edu.wpi.first.wpilibj2.command.Command The VM is configured", "")
 
 		assert.strictEqual(result, RobotType.command)
 	})
@@ -33,10 +33,10 @@ suite("Determine Robot Type", function () {
 		assert.strictEqual(result, RobotType.romiTimed)
 	})
 
-	test("Robot base skeleton", function () {
-		let result = determineRobotType("edu.wpi.first.hal.HAL", "")
+	test("Command based skeleton", function () {
+		let result = determineRobotType("edu.wpi.first.wpilibj2.command.Command", "")
 
-		assert.strictEqual(result, RobotType.robotBaseSkeleton)
+		assert.strictEqual(result, RobotType.commandSkeleton)
 	})
 })
 

@@ -169,6 +169,11 @@ function templateTypeToString(t: TemplateType): string {
             return "profiledPIDSubsystem"
         case TemplateType.trapezoidProfileSubsystem:
             return "trapezoidProfileSubsystem"
+        // Skeleton
+        case TemplateType.commandSkeletonRobot:
+            return "commandSkeletonRobot"
+        case TemplateType.commandSkeletonRobotContainer:
+            return "commandSkeletonRobotContainer"
 
         // Romi
         case TemplateType.romiBuildGradle:
