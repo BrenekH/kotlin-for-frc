@@ -140,7 +140,6 @@
     "test": "npm run test-compile && node ./out/test/runTest.js"
   },
   "devDependencies": {
-    "@types/glob": "^8.1.0",
     "@types/mocha": "^10.0.4",
     "@types/node": "^16.11.7",
     "@types/semver": "^7.3.10",
