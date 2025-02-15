@@ -140,26 +140,26 @@
     "test": "npm run test-compile && node ./out/test/runTest.js"
   },
   "devDependencies": {
-    "@types/mocha": "^10.0.4",
-    "@types/node": "^16.11.7",
-    "@types/semver": "^7.3.10",
-    "@types/vscode": "1.56.0",
-    "@typescript-eslint/eslint-plugin": "^6.10.0",
-    "@typescript-eslint/parser": "^6.10.0",
-    "@vscode/test-electron": "^2.3.6",
-    "acorn": "^7.4.1",
-    "cross-spawn": "^7.0.3",
-    "eslint": "^8.53.0",
-    "glob": "^10.3.10",
-    "mocha": "^10.8.2",
-    "ts-loader": "^9.5.0",
-    "typescript": "^5.3.3",
-    "webpack": "^5.94.0",
-    "webpack-cli": "^5.1.4"
+    "@types/mocha": "^10.0.10",
+    "@types/node": "^20.14.8",
+    "@types/semver": "^7.5.8",
+    "@types/vscode": "1.66.0",
+    "@typescript-eslint/eslint-plugin": "^8.24.0",
+    "@typescript-eslint/parser": "^8.24.0",
+    "@vscode/test-electron": "^2.4.1",
+    "acorn": "^8.14.0",
+    "cross-spawn": "^7.0.6",
+    "eslint": "^9.20.1",
+    "glob": "^11.0.1",
+    "mocha": "^11.1.0",
+    "ts-loader": "^9.5.2",
+    "typescript": "^5.7.3",
+    "webpack": "^5.98.0",
+    "webpack-cli": "^6.0.1"
   },
   "dependencies": {
-    "axios": "^1.6.3",
-    "semver": "^7.3.7"
+    "axios": "^1.7.9",
+    "semver": "^7.7.1"
   },
   "extensionDependencies": [],
   "repository": {
